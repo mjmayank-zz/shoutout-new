@@ -1,0 +1,53 @@
+PODS:
+  - Bolts (1.2.1):
+    - Bolts/AppLinks (= 1.2.1)
+    - Bolts/Tasks (= 1.2.1)
+  - Bolts/AppLinks (1.2.1):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.2.1)
+  - Facebook-iOS-SDK (3.23.2):
+    - Bolts (~> 1.0)
+  - FBSDKCoreKit (4.5.1):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.5.1)
+    - FBSDKCoreKit/no-arc (= 4.5.1)
+  - FBSDKCoreKit/arc (4.5.1):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.5.1):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - FBSDKLoginKit (4.5.1):
+    - FBSDKCoreKit
+  - Firebase (2.3.3)
+  - Mapbox-iOS-SDK (2.0.0)
+  - Parse (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+  - ParseFacebookUtils (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+    - Facebook-iOS-SDK (~> 3.23)
+    - Parse (~> 1.8.2)
+  - ParseUI (1.1.5):
+    - Bolts/Tasks (~> 1.2)
+    - Parse (~> 1.8)
+
+DEPENDENCIES:
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - Firebase
+  - Mapbox-iOS-SDK
+  - Parse
+  - ParseFacebookUtils
+  - ParseUI
+
+SPEC CHECKSUMS:
+  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
+  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
+  FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
+  Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
+  Mapbox-iOS-SDK: 07b84769693242f0e20eeed03d38515beca93c5b
+  Parse: 188601c6cd91fae55906badd283b513104a3a8c9
+  ParseFacebookUtils: 28c52272173ec19ceb7839718af8323d5b825792
+  ParseUI: 2c53621ed028ee793f5ab92a551b099689265525
+
+COCOAPODS: 0.38.2

@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWptYXlhbmsiLCJhIjoiN2E0NjM2MDMzZDE1NzFkMWJlYzBlNWI5YTUxOWEzNmEifQ.JCFf-8t0IOyhUie9KgR-eQ</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,6 +28,21 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To display your location to your friends</string>
+	<key>FacebookAppID</key>
+	<string>213646248845245</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mjmayank.shoutout</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb213646248845245</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

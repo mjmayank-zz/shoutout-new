@@ -1,0 +1,9 @@
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Firebase" "$(PODS_ROOT)/Firebase"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Firebase"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Bolts.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/FBSDKCoreKit.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/FBSDKLoginKit.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/FacebookSDK.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Mapbox.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/Parse.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/ParseFacebookUtils.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/ParseUI.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Firebase"
+OTHER_CPLUSPLUSFLAGS = -std=gnu++11 -stdlib=libc++
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"icucore" -framework "Bolts" -framework "CFNetwork" -framework "FBSDKCoreKit" -framework "FBSDKLoginKit" -framework "FacebookSDK" -framework "Firebase" -framework "Mapbox" -framework "Parse" -framework "ParseFacebookUtils" -framework "ParseUI" -framework "Security" -framework "SystemConfiguration"
+PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-shoutout
+PODS_ROOT = ${SRCROOT}/Pods

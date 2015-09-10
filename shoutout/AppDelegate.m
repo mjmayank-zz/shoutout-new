@@ -28,6 +28,19 @@
     
     [LocationManager initLocationManager];
     
+    BOOL hasPermissions =
+    [[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"];
+    
+    //    [[CameraRollWorker alloc] init];
+    
+    NSString *storyboardId = hasPermissions ? @"mapVC" : @"welcomeVC";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = initViewController;
+    [self.window makeKeyAndVisible];
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }
@@ -63,10 +76,10 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+//    BOOL fb = [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                          openURL:url
+//                                                sourceApplication:sourceApplication
+//                                                       annotation:annotation];
     return [PFFacebookUtils handleOpenURL:url];
 }
 

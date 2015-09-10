@@ -8,10 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <Mapbox/Mapbox.h>
+@import MapKit;
 
-@interface SOAnnotation : MGLPointAnnotation
+@interface SOAnnotation : NSObject<MKAnnotation>
 
 @property (strong, nonatomic) NSDictionary *userInfo;
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIImage *profileImage;
+@property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSString *subtitle;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+
+-(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate;
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;
 
 @end

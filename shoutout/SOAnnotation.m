@@ -10,4 +10,20 @@
 
 @implementation SOAnnotation
 
+-(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate{
+    self = [super init];
+    
+    if(self){
+        _title = title;
+        _coordinate = coordinate;
+        _subtitle = subtitle;
+    }
+    
+    return self;
+}
+
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate{
+    _coordinate = newCoordinate;
+}
+
 @end

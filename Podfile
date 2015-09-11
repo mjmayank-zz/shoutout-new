@@ -2,14 +2,13 @@
 platform :ios, '8.0'
 
 target 'shoutout' do
-	pod 'Mapbox-iOS-SDK'
-	use_frameworks!
 	pod 'Parse'
 	pod 'ParseUI'
 	pod 'ParseFacebookUtils'
 	pod 'FBSDKCoreKit'
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'
+	pod 'LocationKit'
 end
 
 target 'shoutoutTests' do

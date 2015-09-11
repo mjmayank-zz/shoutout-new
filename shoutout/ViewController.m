@@ -39,7 +39,7 @@
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
+
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance (CLLocationCoordinate2DMake(40.1105, -88.2284), 500, 500);
     [self.mapView setRegion:region animated:NO];
     // set the map's center coordinate
@@ -52,9 +52,9 @@
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-        [self.locationManager requestAlwaysAuthorization];
-    }
+//    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
+//        [self.locationManager requestAlwaysAuthorization];
+//    }
     [self.locationManager startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:
@@ -85,7 +85,7 @@
     self.profilePic.layer.cornerRadius = 35.0;
     self.profilePic.layer.masksToBounds = YES;
     
-//    self.statusTextView.delegate = self;
+    self.statusTextView.text = [PFUser currentUser][@"status"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -95,7 +95,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self promptLogin];
+//    [self promptLogin];
     CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
     [self updateMapWithLocation:userLocation];
     // set the map's center coordinate
@@ -104,6 +104,8 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    self.mapView.delegate = nil;
+    [self.mapView removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,39 +113,9 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)promptLogin{
-    if (![PFUser currentUser]) { // No user logged in
-        // Create the log in view controller
-        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        [logInViewController setDelegate:self]; // Set ourselves as the delegate
-        
-        // Create the sign up view controller
-        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
-        
-        // Assign our sign up controller to be displayed from the login controller
-        [logInViewController setSignUpController:signUpViewController];
-        
-        logInViewController.facebookPermissions = @[@"email"];
-        logInViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsDismissButton; //Facebook login, and a Dismiss button.
-        
-        // Present the log in view controller
-        [self presentViewController:logInViewController animated:YES completion:NULL];
-    }
-    else{
-        self.statusTextView.text = [PFUser currentUser][@"status"];
-    }
-}
-
-- (void) animateUser:(NSString *)userID toNewPosition:(NSDictionary *)newMetadata {
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([newMetadata[@"lat"] doubleValue], [newMetadata[@"long"] doubleValue] );
-    SOAnnotation * marker = ((SOAnnotation *)self.markerDictionary[userID]);
-    marker.coordinate = coordinate;
-}
-
 - (void) updateMapWithLocation:(CLLocationCoordinate2D)userLocation{
     // Construct query
-    [self.mapView setCenterCoordinate:userLocation animated:YES];
+    [self centerMapToUserLocation];
     PFGeoPoint * geoLoc = [PFGeoPoint geoPointWithLatitude:userLocation.latitude
                                                  longitude:userLocation.longitude];
     PFQuery *query = [PFUser query];
@@ -186,11 +158,11 @@
                 
                 if(obj[@"visible"]){
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                        UIImage *fullImage = [self imageWithImage:[UIImage imageWithData:
-//                                                                   [NSData dataWithContentsOfURL:
-//                                                                    [NSURL URLWithString: dict[@"picURL"]]]] borderImage:[UIImage imageNamed:@"background"] covertToSize:CGSizeMake(48, 56)];
+                        UIImage *fullImage = [self imageWithImage:[UIImage imageWithData:
+                                                                   [NSData dataWithContentsOfURL:
+                                                                    [NSURL URLWithString: dict[@"picURL"]]]] borderImage:[UIImage imageNamed:@"background"] covertToSize:CGSizeMake(48, 56)];
                         dispatch_async(dispatch_get_main_queue(), ^(){
-//                            annotation.image = fullImage;
+                            annotation.image = fullImage;
                             annotation.profileImage = [UIImage imageWithData:
                                                        [NSData dataWithContentsOfURL:
                                                         [NSURL URLWithString: dict[@"picURL"]]]];
@@ -212,6 +184,8 @@
         }
     }];
 }
+
+#pragma mark -MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
 //    NSLog(@"%f, %f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude);
@@ -280,7 +254,6 @@
         annotationImage.canShowCallout = NO;
         annotationImage.enabled = YES;
         annotationImage.centerOffset = CGPointMake(0, -40);
-//        annotationImage = [MKAnnotationView annotationImageWithImage:image reuseIdentifier:userInfo[@"id"]];
     }
     
     return annotationImage;
@@ -294,6 +267,14 @@
     UIGraphicsEndImageContext();
     NSLog(@"image created");
     return destImage;
+}
+
+#pragma mark -FirebaseEvents
+
+- (void) animateUser:(NSString *)userID toNewPosition:(NSDictionary *)newMetadata {
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([newMetadata[@"lat"] doubleValue], [newMetadata[@"long"] doubleValue] );
+    SOAnnotation * marker = ((SOAnnotation *)self.markerDictionary[userID]);
+    marker.coordinate = coordinate;
 }
 
 - (void) changeUserStatus:(NSString *)userID toNewStatus:(NSDictionary *)newMetadata {
@@ -323,6 +304,29 @@
 }
 
 #pragma mark -LoginDelegate
+-(void)promptLogin{
+    if (![PFUser currentUser]) { // No user logged in
+        // Create the log in view controller
+        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+        [logInViewController setDelegate:self]; // Set ourselves as the delegate
+        
+        // Create the sign up view controller
+        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+        
+        // Assign our sign up controller to be displayed from the login controller
+        [logInViewController setSignUpController:signUpViewController];
+        
+        logInViewController.facebookPermissions = @[@"email"];
+        logInViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsDismissButton; //Facebook login, and a Dismiss button.
+        
+        // Present the log in view controller
+        [self presentViewController:logInViewController animated:YES completion:NULL];
+    }
+    else{
+        self.statusTextView.text = [PFUser currentUser][@"status"];
+    }
+}
 
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
@@ -481,13 +485,13 @@
     }
 }
 
-- (void)centerOnMap{
+- (void)centerMapToUserLocation{
     if(self.locationManager.location){
         self.mapView.centerCoordinate = self.locationManager.location.coordinate;
     }
 }
 - (IBAction)centerButtonPressed:(id)sender {
-    [self centerOnMap];
+    [self centerMapToUserLocation];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -517,6 +521,8 @@
     self.slidingView.frame = CGRectOffset(self.slidingView.frame, 0, movement);
     [UIView commitAnimations];
 }
+
+#pragma mark -CLLocationManagerDelegate
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     CLLocation *loc = locations[0];

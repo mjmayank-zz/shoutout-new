@@ -10,13 +10,12 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "Mapbox.h"
 #import <Firebase/Firebase.h>
 #import "SOAnnotation.h"
 #import "ShoutRMMarker.h"
 @import MapKit;
 
-@interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, MGLMapViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
+@interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;

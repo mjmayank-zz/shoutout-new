@@ -1,6 +1,0 @@
-framework module Pods_shoutout {
-  umbrella header "Pods-shoutout-umbrella.h"
-
-  export *
-  module * { export * }
-}

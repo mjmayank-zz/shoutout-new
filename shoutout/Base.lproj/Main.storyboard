@@ -158,6 +158,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="659" y="327"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="cKx-Ni-DFj">
@@ -171,14 +172,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Shoutout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSB-dW-znY">
-                                <rect key="frame" x="217" y="52" width="166" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSB-dW-znY">
+                                <rect key="frame" x="254.5" y="52" width="91" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZ5-T8-evy">
-                                <rect key="frame" x="284" y="541" width="32" height="30"/>
+                                <rect key="frame" x="0.0" y="541" width="600" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -186,13 +188,38 @@
                                     <segue destination="CJ7-oC-mzV" kind="show" id="G4U-dL-ldL"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shoutout allows you broadcast your thoughts to your friends." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgG-xy-AXW">
+                                <rect key="frame" x="26" y="158" width="548" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See what's happening in the places around. Know what's happening and who's there. All in realtime" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjb-G8-QII">
+                                <rect key="frame" x="23" y="286" width="554" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutout_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="waJ-Dp-Qeq">
+                                <rect key="frame" x="222" y="75" width="156" height="50"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725489999999" green="0.75686274509999996" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="WZ5-T8-evy" secondAttribute="trailing" constant="-16" id="3cT-V8-cof"/>
+                            <constraint firstItem="CgG-xy-AXW" firstAttribute="leading" secondItem="iwB-cp-yfs" secondAttribute="leadingMargin" constant="10" id="4su-k1-mbw"/>
                             <constraint firstItem="COg-lv-luj" firstAttribute="top" secondItem="WZ5-T8-evy" secondAttribute="bottom" constant="29" id="5Th-jB-qSo"/>
+                            <constraint firstItem="CgG-xy-AXW" firstAttribute="top" secondItem="MSB-dW-znY" secondAttribute="bottom" constant="85.5" id="5c1-pE-s9R"/>
+                            <constraint firstItem="waJ-Dp-Qeq" firstAttribute="top" secondItem="MSB-dW-znY" secondAttribute="bottom" constant="2.5" id="7O4-Vv-woq"/>
                             <constraint firstAttribute="centerX" secondItem="MSB-dW-znY" secondAttribute="centerX" id="8bC-S5-gFq"/>
+                            <constraint firstItem="fjb-G8-QII" firstAttribute="leading" secondItem="iwB-cp-yfs" secondAttribute="leadingMargin" constant="7" id="Dxg-PM-jfm"/>
+                            <constraint firstItem="fjb-G8-QII" firstAttribute="top" secondItem="CgG-xy-AXW" secondAttribute="bottom" constant="108" id="Imw-wK-hUb"/>
+                            <constraint firstAttribute="centerX" secondItem="waJ-Dp-Qeq" secondAttribute="centerX" id="YTJ-tf-zCU"/>
+                            <constraint firstItem="WZ5-T8-evy" firstAttribute="leading" secondItem="iwB-cp-yfs" secondAttribute="leadingMargin" constant="-16" id="b3O-fb-c1C"/>
                             <constraint firstItem="MSB-dW-znY" firstAttribute="top" secondItem="tW1-F2-ybG" secondAttribute="bottom" constant="32" id="eTO-Ot-fqD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CgG-xy-AXW" secondAttribute="trailing" constant="10" id="ggp-bY-SYd"/>
                             <constraint firstAttribute="centerX" secondItem="WZ5-T8-evy" secondAttribute="centerX" id="iyc-xZ-ELE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fjb-G8-QII" secondAttribute="trailing" constant="7" id="oZ2-9e-NcX"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -200,10 +227,10 @@
             </objects>
             <point key="canvasLocation" x="336" y="1056"/>
         </scene>
-        <!--View Controller-->
+        <!--Tutorial Permissions View Controller-->
         <scene sceneID="Y5U-sW-Swi">
             <objects>
-                <viewController id="CJ7-oC-mzV" sceneMemberID="viewController">
+                <viewController id="CJ7-oC-mzV" customClass="TutorialPermissionsViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4pa-B0-mF1"/>
                         <viewControllerLayoutGuide type="bottom" id="a3q-q3-MVB"/>
@@ -219,39 +246,82 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ns-Pg-p5s">
-                                <rect key="frame" x="382" y="162" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="386" y="162" width="38" height="30"/>
+                                <state key="normal" title="Allow">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="locationPermissionButtonPressed:" destination="CJ7-oC-mzV" eventType="touchUpInside" id="Ihv-bU-B3O"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12Y-9T-E9i">
-                                <rect key="frame" x="143.5" y="165.5" width="113" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12Y-9T-E9i">
+                                <rect key="frame" x="148" y="165" width="137" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFq-j7-IGn">
-                                <rect key="frame" x="277" y="513" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFq-j7-IGn">
+                                <rect key="frame" x="0.0" y="540" width="600" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Next">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="8RH-0u-rW6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcz-qK-gtJ">
+                                <rect key="frame" x="386" y="237" width="38" height="30"/>
+                                <state key="normal" title="Allow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="facebookLoginPressed:" destination="CJ7-oC-mzV" eventType="touchUpInside" id="2tR-jQ-XoD"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login with Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYy-Av-pS8">
+                                <rect key="frame" x="148" y="241" width="160" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You must allow both permissions to continue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="itY-9m-W4Z">
+                                <rect key="frame" x="166" y="503" width="269.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725489999999" green="0.75686274509999996" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Wb7-kj-Kxi" firstAttribute="top" secondItem="4pa-B0-mF1" secondAttribute="bottom" constant="25" id="021-O2-BJP"/>
+                            <constraint firstItem="yYy-Av-pS8" firstAttribute="top" secondItem="12Y-9T-E9i" secondAttribute="bottom" constant="55.5" id="2kc-f0-NBj"/>
                             <constraint firstAttribute="centerX" secondItem="Wb7-kj-Kxi" secondAttribute="centerX" id="AxF-Ln-6lg"/>
                             <constraint firstAttribute="centerX" secondItem="3Ns-Pg-p5s" secondAttribute="centerX" constant="-105" id="FO8-vX-5xr"/>
-                            <constraint firstAttribute="centerX" secondItem="gFq-j7-IGn" secondAttribute="centerX" id="SK4-8O-vaN"/>
-                            <constraint firstAttribute="centerX" secondItem="12Y-9T-E9i" secondAttribute="centerX" constant="100" id="gc7-Qi-Tck"/>
-                            <constraint firstItem="a3q-q3-MVB" firstAttribute="top" secondItem="gFq-j7-IGn" secondAttribute="bottom" constant="57" id="h1e-bG-qWx"/>
+                            <constraint firstItem="gFq-j7-IGn" firstAttribute="top" secondItem="itY-9m-W4Z" secondAttribute="bottom" constant="21" id="Rfk-aS-8EX"/>
+                            <constraint firstAttribute="centerX" secondItem="gFq-j7-IGn" secondAttribute="centerX" constant="-16" id="SK4-8O-vaN"/>
+                            <constraint firstItem="Gcz-qK-gtJ" firstAttribute="top" secondItem="3Ns-Pg-p5s" secondAttribute="bottom" constant="45" id="T9l-vv-0wX"/>
+                            <constraint firstAttribute="centerX" secondItem="Gcz-qK-gtJ" secondAttribute="centerX" constant="-105" id="UIa-xZ-o29"/>
+                            <constraint firstItem="gFq-j7-IGn" firstAttribute="leading" secondItem="dso-76-dVj" secondAttribute="leadingMargin" constant="-16" id="Z2b-28-i1f"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gFq-j7-IGn" secondAttribute="trailing" constant="-16" id="ahA-aA-Jy8"/>
+                            <constraint firstAttribute="centerX" secondItem="itY-9m-W4Z" secondAttribute="centerX" id="d8z-Ha-1XI"/>
+                            <constraint firstAttribute="centerX" secondItem="12Y-9T-E9i" secondAttribute="centerX" constant="83.5" id="gc7-Qi-Tck"/>
+                            <constraint firstItem="a3q-q3-MVB" firstAttribute="top" secondItem="gFq-j7-IGn" secondAttribute="bottom" constant="30" id="h1e-bG-qWx"/>
                             <constraint firstItem="12Y-9T-E9i" firstAttribute="top" secondItem="Wb7-kj-Kxi" secondAttribute="bottom" constant="100" id="xc9-6p-ekK"/>
+                            <constraint firstAttribute="centerX" secondItem="yYy-Av-pS8" secondAttribute="centerX" constant="72" id="yoY-nw-lzW"/>
                             <constraint firstItem="3Ns-Pg-p5s" firstAttribute="top" secondItem="4pa-B0-mF1" secondAttribute="bottom" constant="142" id="zI8-HF-bMJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="SK4-8O-vaN"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="facebookButton" destination="Gcz-qK-gtJ" id="8IN-Xg-aE4"/>
+                        <outlet property="locationServicesButton" destination="3Ns-Pg-p5s" id="DWL-Rd-f40"/>
+                        <outlet property="nextButton" destination="gFq-j7-IGn" id="XRR-XQ-nz5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCH-2c-MJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

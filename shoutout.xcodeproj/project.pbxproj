@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0BBC6D1BA1E56C00F9851B /* TutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */; };
 		8F28BEE01BA1104A00FD0999 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBD1BA1104A00FD0999 /* add.png */; };
 		8F28BEE11BA1104A00FD0999 /* addPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBE1BA1104A00FD0999 /* addPin.png */; };
 		8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBF1BA1104A00FD0999 /* addPinWindow.png */; };
@@ -59,7 +60,7 @@
 		8FB47F331BA128A000D90D7F /* ic_my_location_48pt.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB47F301BA128A000D90D7F /* ic_my_location_48pt.png */; };
 		8FB47F361BA12AB500D90D7F /* ic_my_location_48pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB47F341BA12AB500D90D7F /* ic_my_location_48pt@2x.png */; };
 		8FB47F371BA12AB500D90D7F /* ic_my_location_48pt@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB47F351BA12AB500D90D7F /* ic_my_location_48pt@3x.png */; };
-		9B29D88E791B766AF0A144E3 /* Pods_shoutout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A3F7CD4AEFB251859671E6 /* Pods_shoutout.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
+		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
+		8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPermissionsViewController.swift; sourceTree = "<group>"; };
 		8F28BEBD1BA1104A00FD0999 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = images/add.png; sourceTree = "<group>"; };
 		8F28BEBE1BA1104A00FD0999 /* addPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addPin.png; path = images/addPin.png; sourceTree = "<group>"; };
 		8F28BEBF1BA1104A00FD0999 /* addPinWindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addPinWindow.png; path = images/addPinWindow.png; sourceTree = "<group>"; };
@@ -138,7 +141,7 @@
 		8FFF0BFE1B9F74760009E619 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
 		8FFF0BFF1B9F7A210009E619 /* UVA.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UVA.gpx; sourceTree = "<group>"; };
 		97991FF71B916BD671C9AD8E /* Pods-shoutout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.release.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.release.xcconfig"; sourceTree = "<group>"; };
-		F6A3F7CD4AEFB251859671E6 /* Pods_shoutout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shoutout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoutout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B29D88E791B766AF0A144E3 /* Pods_shoutout.framework in Frameworks */,
+				999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +175,7 @@
 		50B1DBD54D1685A0BC6A9607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F6A3F7CD4AEFB251859671E6 /* Pods_shoutout.framework */,
+				BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
+				8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
@@ -217,6 +221,7 @@
 				8F8D477D1B976DB900D902B9 /* Images.xcassets */,
 				8F8D477F1B976DB900D902B9 /* LaunchScreen.xib */,
 				8F8D47701B976DB900D902B9 /* Supporting Files */,
+				8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */,
 			);
 			path = shoutout;
 			sourceTree = "<group>";
@@ -307,7 +312,6 @@
 				8F8D47691B976DB900D902B9 /* Sources */,
 				8F8D476A1B976DB900D902B9 /* Frameworks */,
 				8F8D476B1B976DB900D902B9 /* Resources */,
-				C12B49CC23D41442D7FAFB82 /* Embed Pods Frameworks */,
 				99A2EE1E7264F983E150A1B6 /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -473,21 +477,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-shoutout/Pods-shoutout-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C12B49CC23D41442D7FAFB82 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-shoutout/Pods-shoutout-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -500,6 +489,7 @@
 				8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */,
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
+				8F0BBC6D1BA1E56C00F9851B /* TutorialPermissionsViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,11 +619,14 @@
 			baseConfigurationReference = 08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "shoutout/shoutout-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -642,11 +635,13 @@
 			baseConfigurationReference = 97991FF71B916BD671C9AD8E /* Pods-shoutout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "shoutout/shoutout-Bridging-Header.h";
 			};
 			name = Release;
 		};

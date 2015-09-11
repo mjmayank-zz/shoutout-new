@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Mapbox/Mapbox.h>
 @import MapKit;
 
 @interface SOAnnotation : NSObject<MKAnnotation>

@@ -19,7 +19,6 @@ PODS:
   - FBSDKLoginKit (4.5.1):
     - FBSDKCoreKit
   - Firebase (2.3.3)
-  - Mapbox-iOS-SDK (2.0.0)
   - Parse (1.8.2):
     - Bolts/Tasks (>= 1.2.1)
   - ParseFacebookUtils (1.8.2):
@@ -34,7 +33,6 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - Firebase
-  - Mapbox-iOS-SDK
   - Parse
   - ParseFacebookUtils
   - ParseUI
@@ -45,7 +43,6 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
-  Mapbox-iOS-SDK: 07b84769693242f0e20eeed03d38515beca93c5b
   Parse: 188601c6cd91fae55906badd283b513104a3a8c9
   ParseFacebookUtils: 28c52272173ec19ceb7839718af8323d5b825792
   ParseUI: 2c53621ed028ee793f5ab92a551b099689265525

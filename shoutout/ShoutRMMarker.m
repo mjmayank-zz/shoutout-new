@@ -161,6 +161,10 @@
     }
 }
 
+- (void)changeStatus:(NSString *)status{
+    self.textLayer.string = status;
+}
+
 - (void)toggleShout
 {
     if (self.farEllipsesLayer.hidden)
@@ -175,6 +179,8 @@
     [self replaceUIImage:image rect:CGRectMake(0.0f, 0.0f, 164.0f, 67.0f)];
     self.farEllipsesLayer.hidden = NO;
     self.farVerticalEllipses.hidden = YES;
+    SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
+    [self changeStatus:annotation.subtitle];
     self.textLayer.hidden = NO;
     self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
 }

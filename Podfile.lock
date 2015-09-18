@@ -1,31 +1,33 @@
 PODS:
-  - Bolts (1.2.1):
-    - Bolts/AppLinks (= 1.2.1)
-    - Bolts/Tasks (= 1.2.1)
-  - Bolts/AppLinks (1.2.1):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.1)
-  - Facebook-iOS-SDK (3.23.2):
-    - Bolts (~> 1.0)
-  - FBSDKCoreKit (4.5.1):
+  - Bolts/Tasks (1.2.2)
+  - Facebook-iOS-SDK (3.24.0):
+    - Bolts (~> 1.2)
+  - FBSDKCoreKit (4.6.0):
     - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.5.1)
-    - FBSDKCoreKit/no-arc (= 4.5.1)
-  - FBSDKCoreKit/arc (4.5.1):
+    - FBSDKCoreKit/arc (= 4.6.0)
+    - FBSDKCoreKit/no-arc (= 4.6.0)
+  - FBSDKCoreKit/arc (4.6.0):
     - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.5.1):
+  - FBSDKCoreKit/no-arc (4.6.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.5.1):
+  - FBSDKLoginKit (4.6.0):
     - FBSDKCoreKit
   - Firebase (2.3.3)
-  - Parse (1.8.2):
-    - Bolts/Tasks (>= 1.2.1)
-  - ParseFacebookUtils (1.8.2):
-    - Bolts/Tasks (>= 1.2.1)
-    - Facebook-iOS-SDK (~> 3.23)
-    - Parse (~> 1.8.2)
-  - ParseUI (1.1.5):
+  - kingpin (0.3.0)
+  - LocationKit (2.2.5)
+  - Parse (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+  - ParseFacebookUtils (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+    - Facebook-iOS-SDK (~> 3.24)
+    - Parse (~> 1.8.4)
+  - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
 
@@ -33,18 +35,22 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - Firebase
+  - kingpin
+  - LocationKit
   - Parse
   - ParseFacebookUtils
   - ParseUI
 
 SPEC CHECKSUMS:
-  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
-  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
-  FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
+  FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
+  FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
-  Parse: 188601c6cd91fae55906badd283b513104a3a8c9
-  ParseFacebookUtils: 28c52272173ec19ceb7839718af8323d5b825792
-  ParseUI: 2c53621ed028ee793f5ab92a551b099689265525
+  kingpin: 2976d472da6bfa1452ebeda768dd089226523aa8
+  LocationKit: eb55b4e0c60408dc175f3c61e5aa6c454203ca4b
+  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
+  ParseFacebookUtils: ec77682d2bde85d9a34149005c062b97f244e3dc
+  ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
 
 COCOAPODS: 0.38.2

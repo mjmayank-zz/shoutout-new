@@ -18,7 +18,7 @@
 #import "PFMulticastDelegate.h"
 #import "PFObjectControlling.h"
 
-@class BFTask;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFCurrentUserController;
 @class PFFieldOperation;
 @class PFJSONCacheItem;
@@ -86,8 +86,8 @@
 #if PARSE_OSX_ONLY
 // Not available publicly, but available for testing
 
-- (void)refresh;
-- (void)refresh:(NSError **)error;
+- (instancetype)refresh;
+- (instancetype)refresh:(NSError **)error;
 - (void)refreshInBackgroundWithBlock:(PFObjectResultBlock)block;
 - (void)refreshInBackgroundWithTarget:(id)target selector:(SEL)selector;
 

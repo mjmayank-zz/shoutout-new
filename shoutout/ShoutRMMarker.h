@@ -8,6 +8,7 @@
 
 //#import "ButtonRMMarker.h"
 #import "SOAnnotation.h"
+#import <Kingpin/Kingpin.h>
 @import MapKit;
 
 @class ShoutRMMarker;
@@ -20,6 +21,7 @@
 @interface ShoutRMMarker : MKAnnotationView
 
 @property (nonatomic, strong) NSString *shout;
+@property (nonatomic, strong) UIImage *profileImage;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier

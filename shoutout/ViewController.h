@@ -13,9 +13,13 @@
 #import <Firebase/Firebase.h>
 #import "SOAnnotation.h"
 #import "ShoutRMMarker.h"
+#import "ShoutClusterMarker.h"
+#import <Kingpin/Kingpin.h>
+#import "MKMapView+ZoomLevel.h"
+#import <LocationKit/LocationKit.h>
 @import MapKit;
 
-@interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
+@interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;
@@ -35,6 +39,8 @@
 @property (strong, nonatomic) Firebase* shoutoutRootStatus;
 @property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
+
+@property (strong, nonatomic) KPClusteringController* clusteringController;
 
 @end
 

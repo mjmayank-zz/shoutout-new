@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LocationKit/LocationKit.h>
+#import <Firebase/Firebase.h>
+@import CoreMotion;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, LocationKitDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+-(void)startLocationKit;
 
 @end
 

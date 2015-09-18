@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import CoreMotion
 
 class TutorialPermissionsViewController: UIViewController, CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
     
@@ -30,21 +31,44 @@ class TutorialPermissionsViewController: UIViewController, CLLocationManagerDele
         }
     }
     @IBAction func locationPermissionButtonPressed(sender: AnyObject) {
-        locationManager.requestWhenInUseAuthorization();
+        locationManager.requestAlwaysAuthorization();
     }
     
-    func locationManager(manager: CLLocationManager!,
+    func locationManager(manager: CLLocationManager,
         didChangeAuthorizationStatus status: CLAuthorizationStatus){
             if(status == .AuthorizedWhenInUse){
-                println("got it");
-                locationManager.startUpdatingLocation();
+                print("got it");
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+                appDelegate.startLocationKit();
+//                locationManager.startUpdatingLocation();
                 locationServicesButton.hidden = true;
                 facebookButton.enabled = true;
+            }
+            if(status == .AuthorizedAlways){
+                locationServicesButton.hidden = true;
+                facebookButton.enabled = true;
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+                appDelegate.startLocationKit();
             }
     }
     @IBAction func facebookLoginPressed(sender: AnyObject) {
         self.promptLogin();
     }
+    
+    @IBAction func motionPermissionButtonPressed(sender: AnyObject) {
+        self.requestMotionAccessData();
+    }
+    
+    func requestMotionAccessData(){
+        let cmManager = CMMotionActivityManager();
+        let motionActivityQueue = NSOperationQueue();
+        cmManager.startActivityUpdatesToQueue(motionActivityQueue) { (activity:CMMotionActivity?) -> Void in
+            cmManager.stopActivityUpdates();
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+            appDelegate.startLocationKit();
+        }
+    }
+    
     
     func promptLogin(){
         if (PFUser.currentUser() == nil) { // No user logged in
@@ -60,7 +84,8 @@ class TutorialPermissionsViewController: UIViewController, CLLocationManagerDele
             logInViewController.signUpController = signUpViewController;
             
             logInViewController.facebookPermissions = ["email"];
-            logInViewController.fields = PFLogInFields.Facebook | PFLogInFields.DismissButton; //Facebook login, and a Dismiss button.
+            logInViewController.fields = [PFLogInFields.Facebook, PFLogInFields.DismissButton]; //Facebook login, and a Dismiss button.
+            logInViewController.logInView?.logo = UIImageView(image: UIImage(named: "shoutout_green"));
             
             // Present the log in view controller
             self.presentViewController(logInViewController, animated: true, completion: nil);
@@ -72,7 +97,7 @@ class TutorialPermissionsViewController: UIViewController, CLLocationManagerDele
 
     // Sent to the delegate to determine whether the log in request should be submitted to the server.
     func logInViewController(logInController: PFLogInViewController, shouldBeginLogInWithUsername username: String, password: String) -> Bool {
-        if ((count(username) != 0) && (count(password) != 0)){
+        if ((username.characters.count != 0) && (password.characters.count != 0)){
             return true;
         }
     
@@ -84,12 +109,13 @@ class TutorialPermissionsViewController: UIViewController, CLLocationManagerDele
     
     // Sent to the delegate when a PFUser is logged in.
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
-        print(locationManager);
+        print(locationManager, terminator: "");
         
         if let loc = locationManager.location{
             if let user = PFUser.currentUser(){
                 user.setObject(PFGeoPoint(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude), forKey: "geo");
                 user.saveInBackground();
+                locationManager.stopUpdatingLocation();
             }
         }
         nextButton.enabled = true;
@@ -98,8 +124,8 @@ class TutorialPermissionsViewController: UIViewController, CLLocationManagerDele
     }
     
     func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
-        println("Failed to log in...");
-        println(error);
+        print("Failed to log in...");
+        print(error);
     }
     
     // Sent to the delegate when the log in screen is dismissed.

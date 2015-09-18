@@ -9,6 +9,7 @@ target 'shoutout' do
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'
 	pod 'LocationKit'
+	pod 'kingpin'
 end
 
 target 'shoutoutTests' do

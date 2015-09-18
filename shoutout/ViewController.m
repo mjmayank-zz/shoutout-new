@@ -12,6 +12,7 @@
 #define kParseObjectUserKey     "user"
 #define kParseObjectCaption     "caption"
 #define kParseObjectVisibleKey  "visible"
+#define Notification_LocationUpdate @"LocationUpdate"
 
 #import "ViewController.h"
 #import "LocationManager.h"
@@ -22,6 +23,7 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation * previousLocation;
+@property (assign, nonatomic) int *count;
 
 @end
 
@@ -31,6 +33,8 @@
     [super viewDidLoad];
     
     [self getFacebookInfo];
+    
+    self.count = 0;
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPermissions"];
     
@@ -50,17 +54,27 @@
     self.mapView.delegate = self;
     [self.mapView removeAnnotations:self.mapView.annotations];
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-//    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-//        [self.locationManager requestAlwaysAuthorization];
-//    }
-    [self.locationManager startUpdatingLocation];
+    self.clusteringController = [[KPClusteringController alloc] initWithMapView:self.mapView];
+    self.clusteringController.delegate = self;
     
+    
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    self.locationManager.delegate = self;
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+//    self.locationManager.distanceFilter = 10.0;
+//    [self.locationManager startUpdatingLocation];
+    
+    CLLocation * locationInfo;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:
      UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:
      UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:
+     Notification_LocationUpdate object:locationInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterBackground:) name:
+     UIApplicationWillResignActiveNotification object:locationInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:
+     UIApplicationWillEnterForegroundNotification object:locationInfo];
     
     self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
@@ -73,7 +87,7 @@
     [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
     }];
-    
+     
     [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
     }];
@@ -104,8 +118,35 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_LocationUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     self.mapView.delegate = nil;
     [self.mapView removeFromSuperview];
+    [self.shoutoutRoot removeAllObservers];
+    [self.shoutoutRootStatus removeAllObservers];
+    [self.shoutoutRootPrivacy removeAllObservers];
+}
+
+- (void)applicationWillEnterBackground:(NSNotification*)notification{
+    [self.shoutoutRoot removeAllObservers];
+    [self.shoutoutRootStatus removeAllObservers];
+    [self.shoutoutRootPrivacy removeAllObservers];
+}
+
+- (void)applicationWillEnterForeground:(NSNotification*)notification{
+    [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self animateUser:snapshot.key toNewPosition:snapshot.value];
+    }];
+    
+    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
+    }];
+    
+    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
+    }];
+    [self updateMapWithLocation:self.previousLocation.coordinate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,12 +198,12 @@
                 }
                 
                 if(obj[@"visible"]){
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        UIImage *fullImage = [self imageWithImage:[UIImage imageWithData:
-                                                                   [NSData dataWithContentsOfURL:
-                                                                    [NSURL URLWithString: dict[@"picURL"]]]] borderImage:[UIImage imageNamed:@"background"] covertToSize:CGSizeMake(48, 56)];
-                        dispatch_async(dispatch_get_main_queue(), ^(){
-                            annotation.image = fullImage;
+//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                        UIImage *fullImage = [self imageWithImage:[UIImage imageWithData:
+//                                                                   [NSData dataWithContentsOfURL:
+//                                                                    [NSURL URLWithString: dict[@"picURL"]]]] borderImage:[UIImage imageNamed:@"background"] covertToSize:CGSizeMake(48, 56)];
+//                        dispatch_async(dispatch_get_main_queue(), ^(){
+//                            annotation.image = fullImage;
                             annotation.profileImage = [UIImage imageWithData:
                                                        [NSData dataWithContentsOfURL:
                                                         [NSURL URLWithString: dict[@"picURL"]]]];
@@ -171,16 +212,17 @@
                             }
                             [self.markerDictionary setObject:annotation forKey:[obj objectId]];
                             NSLog(@"%@", [obj objectId]);
-                            [self.mapView addAnnotation:annotation];
-                        });
-                    });
+//                            [self.mapView addAnnotation:annotation];
+//                        });
+//                    });
                 }
                 
             }
+            [self.clusteringController setAnnotations:[self.markerDictionary allValues]];
             
         } else {
             // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
+            NSLog(@"Parse error: %@ %@", error, [error userInfo]);
         }
     }];
 }
@@ -192,20 +234,23 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    NSArray * keys = [self.markerDictionary allKeys];
-    if([keys count] > 0){
+    NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
+    NSLog(@"Number of annotations in rect: %lu", (unsigned long)annotationSet.count);
+    NSArray *annotationArray = [annotationSet allObjects];
+    
+    if([annotationArray count] > 0){
         CLLocationDegrees centerLatitude = mapView.centerCoordinate.latitude;
         CLLocationDegrees centerLongitude = mapView.centerCoordinate.longitude;
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
         
-        SOAnnotation * toShow = self.markerDictionary[keys[0]];
+        SOAnnotation * toShow = annotationArray[0];
         
         CLLocationDistance minDistance = [screenCenter distanceFromLocation:[[CLLocation alloc] initWithLatitude:toShow.coordinate.latitude longitude:toShow.coordinate.longitude]];
         
         
-        for(int i = 0; i<[keys count]; i++){
-            SOAnnotation * annotation = self.markerDictionary[keys[i]];
+        for(int i = 0; i<[annotationArray count]; i++){
+            SOAnnotation * annotation = annotationArray[i];
             
             CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
             
@@ -213,12 +258,13 @@
             
             if(distance <= minDistance){
                 minDistance = distance;
-                toShow = self.markerDictionary[keys[i]];
+                toShow = annotation;
             }
             
         }
         [mapView selectAnnotation:toShow animated:YES];
     }
+    [self.clusteringController refresh:YES];
 }
 
 - (void)mapViewRegionIsChanging:(MKMapView *)mapView{
@@ -231,32 +277,63 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
-    ShoutRMMarker *marker = (ShoutRMMarker *)view;
-    [marker didPressButtonWithName:@"profile"];
+    if([view isKindOfClass:[ShoutRMMarker class]]){
+        ShoutRMMarker *marker = (ShoutRMMarker *)view;
+        [marker didPressButtonWithName:@"profile"];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
-    ShoutRMMarker *marker = (ShoutRMMarker *)view;
-    [marker didPressButtonWithName:@"profile"];
+    if([view isKindOfClass:[ShoutRMMarker class]]){
+        ShoutRMMarker *marker = (ShoutRMMarker *)view;
+        [marker didPressButtonWithName:@"profile"];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    UIImage *image = ((SOAnnotation *)annotation).profileImage;
-    NSDictionary *userInfo = ((SOAnnotation *)annotation).userInfo;
-    ShoutRMMarker *annotationImage = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:userInfo[@"id"]];
+    if ([annotation isKindOfClass:[KPAnnotation class]]) {
+        MKAnnotationView *annotationView = nil;
+        KPAnnotation *kingpinAnnotation = (KPAnnotation *)annotation;
+        
+        if ([kingpinAnnotation isCluster]) {
+            annotationView = (MKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
+            
+            if (annotationView == nil) {
+                annotationView = [[ShoutClusterMarker alloc] initWithAnnotation:kingpinAnnotation reuseIdentifier:@"cluster"];
+                annotationView.centerOffset = CGPointMake(-28.0f, -67.0f);
+            }
+            ((ShoutClusterMarker *)annotationView).title = kingpinAnnotation.title;
+//            annotationView.pinColor = MKPinAnnotationColorPurple;
+            annotationView.canShowCallout = NO;
+            return annotationView;
+        } else {
+            SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
+//            SOAnnotation *shoutoutAnnotation = (SOAnnotation *)annotation;
+            UIImage *image = shoutoutAnnotation.profileImage;
+            ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"id"];
+            if (annotationView){
+                NSLog(@"already have a pin");
+            }
+            if ( ! annotationView)
+            {
+                annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
+                annotationView.shout = shoutoutAnnotation.subtitle;
+                annotationView.canShowCallout = NO;
+                annotationView.enabled = YES;
+                annotationView.centerOffset = CGPointMake(0.0f, -67.0f);
+                self.count++;
+            }
+            
+            annotationView.profileImage = image;
+            return annotationView;
+        }
     
-    if ( ! annotationImage)
-    {
-        annotationImage = [[ShoutRMMarker alloc] initWithAnnotation:annotation reuseIdentifier:userInfo[@"id"] image:image];
-//        annotationImage.image = image;
-        annotationImage.shout = ((SOAnnotation *)annotation).subtitle;
-        annotationImage.canShowCallout = NO;
-        annotationImage.enabled = YES;
-        annotationImage.centerOffset = CGPointMake(0, -40);
     }
-    
-    return annotationImage;
+        
+
+        
+        return nil;
 }
 
 -(UIImage *)imageWithImage:(UIImage *)image borderImage:(UIImage *)borderImage covertToSize:(CGSize)size {
@@ -267,6 +344,17 @@
     UIGraphicsEndImageContext();
     NSLog(@"image created");
     return destImage;
+}
+
+#pragma mark -ClusterDelegate
+
+- (void)clusteringController:(KPClusteringController *)clusteringController configureAnnotationForDisplay:(KPAnnotation *)annotation {
+    annotation.title = [NSString stringWithFormat:@"%lu", (unsigned long)annotation.annotations.count];
+    annotation.subtitle = [NSString stringWithFormat:@"%.0f meters", annotation.radius];
+}
+
+- (BOOL)clusteringControllerShouldClusterAnnotations:(KPClusteringController *)clusteringController {
+    return self.mapView.zoomLevel < 14; // Find zoom level that suits your dataset
 }
 
 #pragma mark -FirebaseEvents
@@ -389,11 +477,13 @@
                 [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"visible"];
                 [PFUser currentUser][@"status"] = @"Just a man and his thoughts";
                 
-                CLLocation *currentLocation = [[LocationManager sharedLocationManager] lastLocation];
+                CLLocation *currentLocation = self.previousLocation;
                 
-                PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+                if(currentLocation.coordinate.latitude != 0.0 && currentLocation.coordinate.longitude != 0.0){
+                    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
                                                                   longitude:currentLocation.coordinate.longitude];
-                [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
+                    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
+                }
                 
                 [[PFUser currentUser] saveInBackground];
             }
@@ -462,7 +552,7 @@
     [PFUser currentUser][@"status"] = self.statusTextView.text;
     [PFUser currentUser][@"visible"] = [NSNumber numberWithBool:self.privacyToggle.on];
     
-    CLLocation *currentLocation = [[LocationManager sharedLocationManager] lastLocation];
+    CLLocation *currentLocation = self.previousLocation;
     
     PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
                                                       longitude:currentLocation.coordinate.longitude];
@@ -486,8 +576,8 @@
 }
 
 - (void)centerMapToUserLocation{
-    if(self.locationManager.location){
-        self.mapView.centerCoordinate = self.locationManager.location.coordinate;
+    if(self.previousLocation){
+        [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
     }
 }
 - (IBAction)centerButtonPressed:(id)sender {
@@ -529,18 +619,46 @@
     if(self.previousLocation == nil){
         [self updateMapWithLocation:loc.coordinate];
     }
-    if(self.previousLocation == nil || [self.previousLocation distanceFromLocation:loc] > 10){
-        self.previousLocation = loc;
-        NSLog(@"%@", loc);
+    if(self.previousLocation != nil && [self.previousLocation distanceFromLocation:loc] > 5000){
+        [self updateMapWithLocation:loc.coordinate];
+    }
+    self.previousLocation = loc;
+    NSLog(@"%@", loc);
+    
+    NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
+    NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
+    
+    if([PFUser currentUser]){
+        [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
         
-        NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
-        NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
-        
-        if([PFUser currentUser]){
-            [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
+        [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
+        [[PFUser currentUser] saveInBackground];
+    }
+}
+
+-(void)locationUpdated:(NSNotification *)notification{
+    CLLocation * loc = notification.object;
+    NSLog(@"%@", loc);
+    if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
+        if(self.previousLocation == nil){
+            [self updateMapWithLocation:loc.coordinate];
+        }
+        if(self.previousLocation != nil && [self.previousLocation distanceFromLocation:loc] > 5000){
+            [self updateMapWithLocation:loc.coordinate];
+        }
+        if(self.previousLocation == nil || [self.previousLocation distanceFromLocation:loc] > 10){
+            self.previousLocation = loc;
             
-            [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
-            [[PFUser currentUser] saveInBackground];
+            NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
+            NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
+            
+            if([PFUser currentUser]){
+                [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
+                
+                [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
+                [[PFUser currentUser] saveInBackground];
+                NSLog(@"network request made");
+            }
         }
     }
 }

@@ -28,10 +28,10 @@
     
     [LocationManager initLocationManager];
     
-    BOOL hasPermissions =
-    [[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"];
+    [self startLocationKit];
     
-    //    [[CameraRollWorker alloc] init];
+    BOOL hasPermissions =
+    ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
     
     NSString *storyboardId = hasPermissions ? @"mapVC" : @"welcomeVC";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -53,15 +53,25 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
+    [[LocationKit sharedInstance] applyOperationMode:setting];
+    
+    Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
+    [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"NO"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeAuto];
+    [[LocationKit sharedInstance] applyOperationMode:setting];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSDKAppEvents activateApp];
+    
+    Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
+    [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"YES"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -70,6 +80,27 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     return [FBSession.activeSession handleOpenURL:url];
+}
+
+-(void)startLocationKit{
+    if([CLLocationManager locationServicesEnabled]){
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+            CMMotionManager *manager = [[CMMotionManager alloc] init];
+            if(manager.deviceMotionAvailable){
+                NSDictionary *options = @{LKOptionUseiOSMotionActivity: @YES};
+                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
+            }
+            else{
+                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self];
+            }
+//            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeHigh];
+//            [[LocationKit sharedInstance] applyOperationMode:setting];
+        }
+        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
+            NSDictionary *options = @{LKOptionWhenInUseOnly: @YES};
+            [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
+        }
+    }
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -81,6 +112,10 @@
 //                                                sourceApplication:sourceApplication
 //                                                       annotation:annotation];
     return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location{
+        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:location];
 }
 
 @end

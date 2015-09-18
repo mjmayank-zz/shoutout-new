@@ -22,6 +22,7 @@
 @property (nonatomic, strong) CALayer *farLocationLayer;
 @property (nonatomic, strong) CALayer *farFriendLayer;
 @property (nonatomic, strong) CALayer *farVerticalEllipses;
+@property (nonatomic, strong) UIImageView *profileImageView;
 @end
 
 #define ANCHOR_POINT_X 0.0f
@@ -31,9 +32,9 @@
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier image:(UIImage *)image{
-    NSString *imageToUse = @"shoutBubble";
+    NSString *imageToUse = @"shoutBubbleMore";
     if (annotation.title) {
-        imageToUse = @"shoutBubbleMore";
+        imageToUse = @"shoutBubble";
     }
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -42,83 +43,81 @@
         
         self.backgroundLayer = [CALayer layer];
         self.backgroundLayer.name = @"profile";
-        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, 75.0f, 67.0f);
+        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, 56.0f, 67.0f);
         self.backgroundLayer.contents = (id)[UIImage imageNamed:imageToUse].CGImage;
         self.backgroundLayer.masksToBounds = YES;
         [self.layer addSublayer:self.backgroundLayer];
         
-        self.imageLayer = [CALayer layer];
-        self.imageLayer.name = @"profile";
-        self.imageLayer.frame = CGRectMake(2.5f, 3.0f, 50.0f, 50.0f);
-        self.imageLayer.cornerRadius = 25.0f;
-        self.imageLayer.contents = (id)image.CGImage;
-        self.imageLayer.masksToBounds = YES;
-        [self.layer addSublayer:self.imageLayer];
+        self.profileImageView = [[UIImageView alloc] initWithImage:image];
+        self.profileImageView.frame = CGRectMake(2.5f, 3.0f, 50.0f, 50.0f);
+        self.profileImageView.layer.cornerRadius = 25.0f;
+        self.profileImageView.layer.masksToBounds = YES;
+        [self addSubview:self.profileImageView];
         
         self.textLayer = [[CATextLayer alloc] init];
         self.textLayer.frame = CGRectMake(58.0f, 3.0f, 72.0f, 50.0f);
-        self.textLayer.string = self.shout;
         self.textLayer.fontSize = 12.6f;
         self.textLayer.wrapped = YES;
         self.textLayer.contentsScale = [[UIScreen mainScreen] scale];
         self.textLayer.foregroundColor = [UIColor blackColor].CGColor;
         self.textLayer.hidden = YES;
         [self.layer addSublayer:self.textLayer];
+        [self changeStatus:self.shout];
         
-        self.emailLayer = [CALayer layer];
-        self.emailLayer.name = @"email";
-        self.emailLayer.frame = CGRectMake(50.5f, 0.0f, 25.0f, 25.0f);
-        self.emailLayer.hidden = YES;
-        [self.layer addSublayer:self.emailLayer];
-        
-        self.locationLayer = [CALayer layer];
-        self.locationLayer.name = @"location";
-        self.locationLayer.frame = CGRectMake(60.0f, 27.0f, 25.0f, 25.0f);
-        self.locationLayer.hidden = YES;
-        [self.layer addSublayer:self.locationLayer];
-        
-        self.friendLayer = [CALayer layer];
-        self.friendLayer.name = @"friend";
-        self.friendLayer.frame = CGRectMake(50.5f, 55.0f, 25.0f, 25.0f);
-        self.friendLayer.hidden = YES;
-        [self.layer addSublayer:self.friendLayer];
-        
+//        self.emailLayer = [CALayer layer];
+//        self.emailLayer.name = @"email";
+//        self.emailLayer.frame = CGRectMake(50.5f, 0.0f, 25.0f, 25.0f);
+//        self.emailLayer.hidden = YES;
+//        [self.layer addSublayer:self.emailLayer];
+//        
+//        self.locationLayer = [CALayer layer];
+//        self.locationLayer.name = @"location";
+//        self.locationLayer.frame = CGRectMake(60.0f, 27.0f, 25.0f, 25.0f);
+//        self.locationLayer.hidden = YES;
+//        [self.layer addSublayer:self.locationLayer];
+//        
+//        self.friendLayer = [CALayer layer];
+//        self.friendLayer.name = @"friend";
+//        self.friendLayer.frame = CGRectMake(50.5f, 55.0f, 25.0f, 25.0f);
+//        self.friendLayer.hidden = YES;
+//        [self.layer addSublayer:self.friendLayer];
+//        
         self.ellipsesLayer = [CALayer layer];
         self.ellipsesLayer.name = @"ellipses";
         self.ellipsesLayer.frame = CGRectMake(50.0f, 1.5f, 25.0f, 25.0f);
         self.ellipsesLayer.hidden = YES;
         [self.layer addSublayer:self.ellipsesLayer];
-         
+
         self.farEllipsesLayer = [CALayer layer];
         self.farEllipsesLayer.name = @"farEllipses";
         self.farEllipsesLayer.frame = CGRectMake(138.0f, 1.5f, 25.0f, 25.0f);
         self.farEllipsesLayer.hidden = YES;
         [self.layer addSublayer:self.farEllipsesLayer];
-        
-        self.farEmailLayer = [CALayer layer];
-        self.farEmailLayer.name = @"email";
-        self.farEmailLayer.frame = CGRectMake(125.0f, 0.0f, 25.0f, 25.0f);
-        self.farEmailLayer.hidden = YES;
-        [self.layer addSublayer:self.farEmailLayer];
-        
-        self.farShareLayer = [CALayer layer];
-        self.farShareLayer.name = @"share";
-        self.farShareLayer.frame = CGRectMake(155.0f, 0.0f, 25.0f, 25.0f);
-        self.farShareLayer.hidden = YES;
-        [self.layer addSublayer:self.farShareLayer];
-        
-        self.farLocationLayer = [CALayer layer];
-        self.farLocationLayer.name = @"location";
-        self.farLocationLayer.frame = CGRectMake(168.0f, 30.0f, 25.0f, 25.0f);
-        self.farLocationLayer.hidden = YES;
-        [self.layer addSublayer:self.farLocationLayer];
-        
-        self.farFriendLayer = [CALayer layer];
-        self.farFriendLayer.name = @"friend";
-        self.farFriendLayer.frame = CGRectMake(152.0f, 57.0f, 25.0f, 25.0f);
-        self.farFriendLayer.hidden = YES;
-        [self.layer addSublayer:self.farFriendLayer];
-        
+//
+//        self.farEmailLayer = [CALayer layer];
+//        self.farEmailLayer.name = @"email";
+//        self.farEmailLayer.frame = CGRectMake(125.0f, 0.0f, 25.0f, 25.0f);
+//        self.farEmailLayer.hidden = YES;
+//        [self.layer addSublayer:self.farEmailLayer];
+//        
+//        self.farShareLayer = [CALayer layer];
+//        self.farShareLayer.name = @"share";
+//        self.farShareLayer.frame = CGRectMake(155.0f, 0.0f, 25.0f, 25.0f);
+//        self.farShareLayer.hidden = YES;
+//        [self.layer addSublayer:self.farShareLayer];
+//        
+//        self.farLocationLayer = [CALayer layer];
+//        self.farLocationLayer.name = @"location";
+//        self.farLocationLayer.frame = CGRectMake(168.0f, 30.0f, 25.0f, 25.0f);
+//        self.farLocationLayer.hidden = YES;
+//        [self.layer addSublayer:self.farLocationLayer];
+//        
+//        self.farFriendLayer = [CALayer layer];
+//        self.farFriendLayer.name = @"friend";
+//        self.farFriendLayer.frame = CGRectMake(152.0f, 57.0f, 25.0f, 25.0f);
+//        self.farFriendLayer.hidden = YES;
+//        [self.layer addSublayer:self.farFriendLayer];
+//        
         self.farVerticalEllipses = [CALayer layer];
         self.farVerticalEllipses.name = @"verticalEllipses";
         self.farVerticalEllipses.frame = CGRectMake(137.0f, 29.0f, 25.0f, 25.0f);
@@ -162,6 +161,7 @@
 }
 
 - (void)changeStatus:(NSString *)status{
+    NSLog(@"%@", status);
     self.textLayer.string = status;
 }
 
@@ -173,6 +173,11 @@
         [self hideShout];
 }
 
+- (void)setProfileImage:(UIImage *)profileImage{
+    _profileImage = profileImage;
+    _profileImageView.image = profileImage;
+}
+
 - (void)showShout
 {
     UIImage *image = [UIImage imageNamed:@"shoutBubbleText"];
@@ -180,6 +185,9 @@
     self.farEllipsesLayer.hidden = NO;
     self.farVerticalEllipses.hidden = YES;
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
+    if([self.annotation isKindOfClass:[KPAnnotation class]]){
+        annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
+    }
     [self changeStatus:annotation.subtitle];
     self.textLayer.hidden = NO;
     self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);

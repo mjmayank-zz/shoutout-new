@@ -50,13 +50,10 @@
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(40.1105, -88.2284)
                              animated:NO];
     [self.view insertSubview:self.mapView belowSubview:self.slidingView];
+    self.mapViewDelegate = [[SOMapViewDelegate alloc] initWithMapView:self.mapView];
     
-    self.mapView.delegate = self;
+    self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
-    
-    self.clusteringController = [[KPClusteringController alloc] initWithMapView:self.mapView];
-    self.clusteringController.delegate = self;
-    
     
 //    self.locationManager = [[CLLocationManager alloc] init];
 //    self.locationManager.delegate = self;
@@ -88,7 +85,7 @@
         [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
     }];
      
-    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
     }];
     
@@ -218,122 +215,13 @@
                 }
                 
             }
-            [self.clusteringController setAnnotations:[self.markerDictionary allValues]];
+            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
             
         } else {
             // Log details of the failure
             NSLog(@"Parse error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-
-#pragma mark -MKMapViewDelegate
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
-//    NSLog(@"%f, %f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude);
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
-    NSLog(@"Number of annotations in rect: %lu", (unsigned long)annotationSet.count);
-    NSArray *annotationArray = [annotationSet allObjects];
-    
-    if([annotationArray count] > 0){
-        CLLocationDegrees centerLatitude = mapView.centerCoordinate.latitude;
-        CLLocationDegrees centerLongitude = mapView.centerCoordinate.longitude;
-        
-        CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
-        
-        SOAnnotation * toShow = annotationArray[0];
-        
-        CLLocationDistance minDistance = [screenCenter distanceFromLocation:[[CLLocation alloc] initWithLatitude:toShow.coordinate.latitude longitude:toShow.coordinate.longitude]];
-        
-        
-        for(int i = 0; i<[annotationArray count]; i++){
-            SOAnnotation * annotation = annotationArray[i];
-            
-            CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
-            
-            CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
-            
-            if(distance <= minDistance){
-                minDistance = distance;
-                toShow = annotation;
-            }
-            
-        }
-        [mapView selectAnnotation:toShow animated:YES];
-    }
-    [self.clusteringController refresh:YES];
-}
-
-- (void)mapViewRegionIsChanging:(MKMapView *)mapView{
-//    NSLog(@"%f, %f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude);
-}
-
-// Always show a callout when an annotation is tapped.
-- (BOOL)mapView:(MKMapView *)mapView annotationCanShowCallout:(id <MKAnnotation>)annotation {
-    return NO;
-}
-
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
-    if([view isKindOfClass:[ShoutRMMarker class]]){
-        ShoutRMMarker *marker = (ShoutRMMarker *)view;
-        [marker didPressButtonWithName:@"profile"];
-    }
-}
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
-    if([view isKindOfClass:[ShoutRMMarker class]]){
-        ShoutRMMarker *marker = (ShoutRMMarker *)view;
-        [marker didPressButtonWithName:@"profile"];
-    }
-}
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[KPAnnotation class]]) {
-        MKAnnotationView *annotationView = nil;
-        KPAnnotation *kingpinAnnotation = (KPAnnotation *)annotation;
-        
-        if ([kingpinAnnotation isCluster]) {
-            annotationView = (MKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
-            
-            if (annotationView == nil) {
-                annotationView = [[ShoutClusterMarker alloc] initWithAnnotation:kingpinAnnotation reuseIdentifier:@"cluster"];
-                annotationView.centerOffset = CGPointMake(-28.0f, -67.0f);
-            }
-            ((ShoutClusterMarker *)annotationView).title = kingpinAnnotation.title;
-//            annotationView.pinColor = MKPinAnnotationColorPurple;
-            annotationView.canShowCallout = NO;
-            return annotationView;
-        } else {
-            SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
-//            SOAnnotation *shoutoutAnnotation = (SOAnnotation *)annotation;
-            UIImage *image = shoutoutAnnotation.profileImage;
-            ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"id"];
-            if (annotationView){
-                NSLog(@"already have a pin");
-            }
-            if ( ! annotationView)
-            {
-                annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
-                annotationView.shout = shoutoutAnnotation.subtitle;
-                annotationView.canShowCallout = NO;
-                annotationView.enabled = YES;
-                annotationView.centerOffset = CGPointMake(0.0f, -67.0f);
-                self.count++;
-            }
-            
-            annotationView.profileImage = image;
-            return annotationView;
-        }
-    
-    }
-        
-
-        
-        return nil;
 }
 
 -(UIImage *)imageWithImage:(UIImage *)image borderImage:(UIImage *)borderImage covertToSize:(CGSize)size {
@@ -344,17 +232,6 @@
     UIGraphicsEndImageContext();
     NSLog(@"image created");
     return destImage;
-}
-
-#pragma mark -ClusterDelegate
-
-- (void)clusteringController:(KPClusteringController *)clusteringController configureAnnotationForDisplay:(KPAnnotation *)annotation {
-    annotation.title = [NSString stringWithFormat:@"%lu", (unsigned long)annotation.annotations.count];
-    annotation.subtitle = [NSString stringWithFormat:@"%.0f meters", annotation.radius];
-}
-
-- (BOOL)clusteringControllerShouldClusterAnnotations:(KPClusteringController *)clusteringController {
-    return self.mapView.zoomLevel < 14; // Find zoom level that suits your dataset
 }
 
 #pragma mark -FirebaseEvents
@@ -369,26 +246,26 @@
     SOAnnotation *annotation = self.markerDictionary[userID];
     if(annotation){
         annotation.subtitle = newMetadata[@"status"];
-        [self.mapView deselectAnnotation:self.markerDictionary[userID] animated:NO];
-        self.mapView.selectedAnnotations = @[self.markerDictionary[userID]];
+//        [self.mapView deselectAnnotation:self.markerDictionary[userID] animated:NO];
+//        self.mapView.selectedAnnotations = @[self.markerDictionary[userID]];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
 
 - (void) changeUserPrivacy:(NSString *)userID toNewPrivacy:(NSDictionary *)newMetadata {
-    if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
-        if(self.markerDictionary[userID] != nil){
-            [self.mapView removeAnnotation:self.markerDictionary[userID]];
-        }
-    }
-    else{
-        if(self.markerDictionary[userID] != nil){
-            [self.mapView addAnnotation:self.markerDictionary[userID]];
-        }
-        else{
-            
-        }
-    }
+//    if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
+//        if(self.markerDictionary[userID] != nil){
+//            [self.mapView removeAnnotation:self.markerDictionary[userID]];
+//        }
+//    }
+//    else{
+//        if(self.markerDictionary[userID] != nil){
+//            [self.mapView addAnnotation:self.markerDictionary[userID]];
+//        }
+//        else{
+//            
+//        }
+//    }
 }
 
 #pragma mark -LoginDelegate
@@ -511,6 +388,66 @@
 #pragma mark -Button Presses
 
 - (IBAction)shoutOutButtonPressed:(id)sender {
+    [self animateSlidingView];
+}
+
+- (IBAction)doneButtonPressed:(id)sender {
+    [self shoutOutButtonPressed:nil];
+    [self updateStatus];
+}
+
+- (IBAction)saveButtonPressed:(id)sender {
+    [self updateStatus];
+}
+
+- (void)updateStatus{
+    if([[PFUser currentUser][@"visible"] boolValue] != self.privacyToggle.on){
+        if(self.privacyToggle.on){
+            [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"YES"];
+        }
+        else{
+            [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"NO"];
+        }
+        [PFUser currentUser][@"visible"] = [NSNumber numberWithBool:self.privacyToggle.on];
+    }
+    if([PFUser currentUser][@"status"] != self.statusTextView.text){
+        [PFUser currentUser][@"status"] = self.statusTextView.text;
+        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
+        [self checkForMessage:self.statusTextView.text];
+    }
+    CLLocation *currentLocation = self.previousLocation;
+    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+                                                      longitude:currentLocation.coordinate.longitude];
+    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
+    [[PFUser currentUser] saveInBackground];
+    
+    [self animateSlidingView];
+    [self.statusTextView resignFirstResponder];
+}
+
+- (void)checkForMessage:(NSString *)message{
+    NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
+    [set formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
+    NSArray *array = [message componentsSeparatedByCharactersInSet:[set invertedSet]];
+    for (NSString *word in array){
+        if ([word hasPrefix:@"@"]) {
+            PFQuery *query = [PFUser query];
+            NSString *username = [word substringFromIndex:1];
+            [query whereKey:@"username" equalTo:username];
+            [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                for (PFObject *obj in objects ) {
+                    PFObject *messageObj = [[PFObject alloc] initWithClassName:@"Messages"];
+                    messageObj[@"from"] = [PFUser currentUser];
+                    messageObj[@"to"] = obj;
+                    messageObj[@"message"] = message;
+                    [messageObj saveInBackground];
+                }
+            }];
+        }
+    }
+}
+
+- (void)animateSlidingView{
     [self.view layoutIfNeeded];
     if(!self.shelf){
         self.slidingViewConstraint.constant = -20;
@@ -518,8 +455,7 @@
                               delay:0.0f
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
-//                             [self.slidingView setFrame:CGRectMake(self.slidingView.frame.origin.x, self.slidingView.frame.origin.y +180, self.slidingView.frame.size.width, self.slidingView.frame.size.height)];
-                            [self.view layoutIfNeeded];
+                             [self.view layoutIfNeeded];
                              self.slidingView.alpha = 1.0;
                          }
                          completion:nil];
@@ -532,46 +468,12 @@
                               delay:0.0f
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
-//                             [self.slidingView setFrame:CGRectMake(self.slidingView.frame.origin.x, self.slidingView.frame.origin.y -180, self.slidingView.frame.size.width, self.slidingView.frame.size.height)];
-                            [self.view layoutIfNeeded];
+                             [self.view layoutIfNeeded];
                              self.slidingView.alpha = .7;
                          }
                          completion:nil];
         self.shelf = false;
         [self.statusTextView resignFirstResponder];
-    }
-}
-
-- (IBAction)doneButtonPressed:(id)sender {
-    [self shoutOutButtonPressed:nil];
-//    [self saveButtonPressed:nil];
-    //    [self.statusTextField resignFirstResponder];
-}
-
-- (IBAction)saveButtonPressed:(id)sender {
-    [PFUser currentUser][@"status"] = self.statusTextView.text;
-    [PFUser currentUser][@"visible"] = [NSNumber numberWithBool:self.privacyToggle.on];
-    
-    CLLocation *currentLocation = self.previousLocation;
-    
-    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-                                                      longitude:currentLocation.coordinate.longitude];
-    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-    
-    [[PFUser currentUser] saveInBackground];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    [self shoutOutButtonPressed:nil];
-    [self.statusTextView resignFirstResponder];
-    
-    [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
-    
-    if(self.privacyToggle.on){
-        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"YES"];
-    }
-    else{
-        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"NO"];
     }
 }
 

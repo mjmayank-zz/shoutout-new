@@ -27,5 +27,7 @@
                    reuseIdentifier:(NSString *)reuseIdentifier
                     image:(UIImage *)image;
 - (void)didPressButtonWithName:(NSString*)name;
+- (void)scaleByPercentage:(double)scale;
+
 
 @end

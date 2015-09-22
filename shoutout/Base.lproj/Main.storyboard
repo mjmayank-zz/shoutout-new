@@ -143,6 +143,9 @@
                                     <constraint firstAttribute="height" constant="44" id="xIL-9A-wG7"/>
                                 </constraints>
                                 <state key="normal" image="messages.png"/>
+                                <connections>
+                                    <segue destination="Hsa-KH-6hq" kind="presentation" id="WT8-6Y-DdF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dW5-ci-VVn">
                                 <rect key="frame" x="400" y="534" width="48" height="48"/>
@@ -396,6 +399,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCH-2c-MJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1000" y="1056"/>
+        </scene>
+        <!--Inbox View Controller-->
+        <scene sceneID="jtp-rI-z19">
+            <objects>
+                <viewController id="Hsa-KH-6hq" customClass="SOInboxViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="abo-hx-11Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="D7l-8Q-hk2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GuY-Xh-iYC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MtW-hN-PSm">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FrH-ew-nYB">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FrH-ew-nYB" id="3Oc-2I-paf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YdX-NG-kGj">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Messages" id="Hkx-zq-zX3">
+                                        <barButtonItem key="backBarButtonItem" title="Cancel" id="zGl-Kg-mpR"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="YdX-NG-kGj" secondAttribute="trailing" constant="-20" id="5O0-HN-dSe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MtW-hN-PSm" secondAttribute="trailing" constant="-20" id="BzM-rZ-PuD"/>
+                            <constraint firstItem="MtW-hN-PSm" firstAttribute="leading" secondItem="GuY-Xh-iYC" secondAttribute="leadingMargin" constant="-20" id="PR0-jX-Lt9"/>
+                            <constraint firstItem="YdX-NG-kGj" firstAttribute="leading" secondItem="GuY-Xh-iYC" secondAttribute="leadingMargin" constant="-20" id="Q1a-gl-P2A"/>
+                            <constraint firstItem="YdX-NG-kGj" firstAttribute="top" secondItem="abo-hx-11Q" secondAttribute="bottom" id="ZUi-vD-bDA"/>
+                            <constraint firstItem="MtW-hN-PSm" firstAttribute="top" secondItem="abo-hx-11Q" secondAttribute="bottom" id="eFk-Dz-iNk"/>
+                            <constraint firstItem="D7l-8Q-hk2" firstAttribute="top" secondItem="MtW-hN-PSm" secondAttribute="bottom" id="sLL-Sy-2Ic"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAF-Cu-OWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1291" y="325"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0fv-ly-XfT">

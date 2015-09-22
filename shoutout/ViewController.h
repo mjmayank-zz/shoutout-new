@@ -17,6 +17,7 @@
 #import <Kingpin/Kingpin.h>
 #import "MKMapView+ZoomLevel.h"
 #import <LocationKit/LocationKit.h>
+#import "SOMapViewDelegate.h"
 @import MapKit;
 
 @interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate>
@@ -40,7 +41,7 @@
 @property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
 
-@property (strong, nonatomic) KPClusteringController* clusteringController;
+@property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 
 @end
 

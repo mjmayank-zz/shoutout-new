@@ -43,8 +43,9 @@
         
         self.backgroundLayer = [CALayer layer];
         self.backgroundLayer.name = @"profile";
-        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, 56.0f, 67.0f);
-        self.backgroundLayer.contents = (id)[UIImage imageNamed:imageToUse].CGImage;
+        UIImage *backgroundImage = [UIImage imageNamed:imageToUse];
+        self.backgroundLayer.contents = (id)backgroundImage.CGImage;
+        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, backgroundImage.size.width/2.0, backgroundImage.size.height/2.0);
         self.backgroundLayer.masksToBounds = YES;
         [self.layer addSublayer:self.backgroundLayer];
         
@@ -125,6 +126,8 @@
         [self.layer addSublayer:self.farVerticalEllipses];
         
         NSLog(@"created pin");
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
+         @"mapDidScale" object:nil];
     }
     return self;
 }
@@ -161,7 +164,6 @@
 }
 
 - (void)changeStatus:(NSString *)status{
-    NSLog(@"%@", status);
     self.textLayer.string = status;
 }
 
@@ -171,6 +173,14 @@
         [self showShout];
     else
         [self hideShout];
+}
+
+-(void)mapDidScale:(NSNotification *)notification{
+    [self scaleByPercentage:0.9];
+}
+
+- (void)scaleByPercentage:(double)scale{
+    self.transform = CGAffineTransformMakeScale(scale, scale);
 }
 
 - (void)setProfileImage:(UIImage *)profileImage{

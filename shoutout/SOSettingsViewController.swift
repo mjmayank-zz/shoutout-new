@@ -18,4 +18,13 @@ class SOSettingsViewController : UIViewController{
     @IBAction func didPressDoneButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
     }
+    
+    @IBAction func privacyChanged(sender: AnyObject) {
+        let privacySwitch = sender as! UISwitch;
+        let privacyStatus = privacySwitch.on ? "YES" : "NO";
+        let shoutoutRootPrivacy = Firebase(url: "https://shoutout.firebaseio.com/privacy");
+        shoutoutRootPrivacy.childByAppendingPath(PFUser.currentUser()?.objectId).childByAppendingPath("privacy").setValue(privacyStatus);
+        PFUser.currentUser()?["visible"] = NSNumber(bool: privacySwitch.on);
+        PFUser.currentUser()?.saveInBackground();
+    }
 }

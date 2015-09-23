@@ -49,6 +49,7 @@
 		8F28BF001BA1104A00FD0999 /* shoutBubbleMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEDD1BA1104A00FD0999 /* shoutBubbleMore.png */; };
 		8F28BF011BA1104A00FD0999 /* shoutBubbleText.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEDE1BA1104A00FD0999 /* shoutBubbleText.png */; };
 		8F28BF021BA1104A00FD0999 /* shoutOptions.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEDF1BA1104A00FD0999 /* shoutOptions.png */; };
+		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F8D47731B976DB900D902B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47721B976DB900D902B9 /* main.m */; };
@@ -64,6 +65,9 @@
 		8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */; };
 		8F9A48CF1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */; };
 		8F9A48D21BA66F0D002C68EE /* ShoutClusterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9A48D11BA66F0D002C68EE /* ShoutClusterMarker.m */; };
+		8FA6760B1BB1C1CF00CAA8EA /* anon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */; settings = {ASSET_TAGS = (); }; };
+		8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */; settings = {ASSET_TAGS = (); }; };
+		8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */; settings = {ASSET_TAGS = (); }; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */; };
 /* End PBXBuildFile section */
@@ -124,6 +128,7 @@
 		8F28BEDD1BA1104A00FD0999 /* shoutBubbleMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutBubbleMore.png; path = images/shoutBubbleMore.png; sourceTree = "<group>"; };
 		8F28BEDE1BA1104A00FD0999 /* shoutBubbleText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutBubbleText.png; path = images/shoutBubbleText.png; sourceTree = "<group>"; };
 		8F28BEDF1BA1104A00FD0999 /* shoutOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutOptions.png; path = images/shoutOptions.png; sourceTree = "<group>"; };
+		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -152,6 +157,9 @@
 		8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		8F9A48D01BA66F0D002C68EE /* ShoutClusterMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutClusterMarker.h; sourceTree = "<group>"; };
 		8F9A48D11BA66F0D002C68EE /* ShoutClusterMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutClusterMarker.m; sourceTree = "<group>"; };
+		8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = anon.jpg; path = images/anon.jpg; sourceTree = "<group>"; };
+		8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutSpeechBubble.png; path = images/shoutSpeechBubble.png; sourceTree = "<group>"; };
+		8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shoutSpeechBubble@2x.png"; path = "images/shoutSpeechBubble@2x.png"; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
 		8FFF0BFE1B9F74760009E619 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
@@ -232,6 +240,7 @@
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */,
+				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
@@ -283,6 +292,9 @@
 		8F8D47A31B97ECAD00D902B9 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */,
+				8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */,
+				8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */,
 				8F1F1DA61BAB22C400506239 /* shoutout_green.png */,
 				8F1F1DA01BAB1F1600506239 /* cluster.png */,
 				8F1F1DA11BAB1F1600506239 /* more.png */,
@@ -443,6 +455,7 @@
 				8F28BEEB1BA1104A00FD0999 /* filterNone.png in Resources */,
 				8F28BEE91BA1104A00FD0999 /* filterBoth.png in Resources */,
 				8F28BEF11BA1104A00FD0999 /* messagesPopup.png in Resources */,
+				8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */,
 				8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */,
 				8F28BEE01BA1104A00FD0999 /* add.png in Resources */,
 				8F28BEEE1BA1104A00FD0999 /* leftArrow.png in Resources */,
@@ -455,6 +468,7 @@
 				8F1F1DA51BAB1F1600506239 /* myLocation.png in Resources */,
 				8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */,
 				8F28BEE11BA1104A00FD0999 /* addPin.png in Resources */,
+				8FA6760B1BB1C1CF00CAA8EA /* anon.jpg in Resources */,
 				8F28BEEC1BA1104A00FD0999 /* filterRight.png in Resources */,
 				8F28BF011BA1104A00FD0999 /* shoutBubbleText.png in Resources */,
 				8F28BEED1BA1104A00FD0999 /* friendSelectedFilter.png in Resources */,
@@ -464,6 +478,7 @@
 				8F28BEFF1BA1104A00FD0999 /* shoutBubbleIcons.png in Resources */,
 				8F28BEF31BA1104A00FD0999 /* pinBubbleAll.png in Resources */,
 				8F8D47811B976DB900D902B9 /* LaunchScreen.xib in Resources */,
+				8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */,
 				8F28BEE41BA1104A00FD0999 /* addShoutWindow.png in Resources */,
 				8F8D47A21B97ECA700D902B9 /* shoutout_white.png in Resources */,
 				8F8D477E1B976DB900D902B9 /* Images.xcassets in Resources */,
@@ -524,6 +539,7 @@
 				8F8D47791B976DB900D902B9 /* ViewController.m in Sources */,
 				8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */,
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
+				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* TutorialPermissionsViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,

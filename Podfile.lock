@@ -20,13 +20,13 @@ PODS:
     - FBSDKCoreKit
   - Firebase (2.3.3)
   - kingpin (0.3.0)
-  - LocationKit (2.2.5)
-  - Parse (1.8.4):
+  - LocationKit (2.2.6)
+  - Parse (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
-  - ParseFacebookUtils (1.8.4):
+  - ParseFacebookUtils (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
     - Facebook-iOS-SDK (~> 3.24)
-    - Parse (~> 1.8.4)
+    - Parse (~> 1.8.5)
   - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
@@ -48,9 +48,9 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 3d07febbfa884b9878cacba54f705bb41f07d4b6
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
   kingpin: 2976d472da6bfa1452ebeda768dd089226523aa8
-  LocationKit: eb55b4e0c60408dc175f3c61e5aa6c454203ca4b
-  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
-  ParseFacebookUtils: ec77682d2bde85d9a34149005c062b97f244e3dc
+  LocationKit: 9b482b08d78aec6721fbd1dd99661a721a6cf1ad
+  Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
+  ParseFacebookUtils: 839b5f4a11aa1064a8e2c4be9babeaf052d54138
   ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
 
 COCOAPODS: 0.38.2

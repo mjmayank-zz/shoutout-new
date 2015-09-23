@@ -119,8 +119,6 @@
                 annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
                 annotationView.shout = shoutoutAnnotation.subtitle;
                 annotationView.canShowCallout = NO;
-                annotationView.enabled = YES;
-                annotationView.centerOffset = CGPointMake(0.0f, -67.0f);
             }
             
             annotationView.profileImage = image;

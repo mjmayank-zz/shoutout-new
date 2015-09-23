@@ -18,7 +18,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad();
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
-        
+    
         getMessages();
     }
     
@@ -45,12 +45,15 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             if let messages = messages{
                 let message = messages[indexPath.row].objectForKey("message") as? String;
                 cell.bodyLabel.text = message;
+//                let image = UIImage(named: "shoutSpeechBubble");
+//                let resizableImage = image?.resizableImageWithCapInsets(UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0));
+//                cell.profileImage.image = resizableImage;
             }
             return cell;
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {
-        self .dismissViewControllerAnimated(true, completion: nil);
+        self.dismissViewControllerAnimated(true, completion: nil);
     }
     
 }
@@ -58,5 +61,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
 class messagesCell : UITableViewCell{
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
+    @IBOutlet var profileImage: UIImageView!
+    
     var object : PFObject!
 }

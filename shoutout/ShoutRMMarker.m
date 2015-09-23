@@ -50,7 +50,7 @@
         [self.layer addSublayer:self.backgroundLayer];
         
         self.profileImageView = [[UIImageView alloc] initWithImage:image];
-        self.profileImageView.frame = CGRectMake(2.5f, 3.0f, 50.0f, 50.0f);
+        self.profileImageView.frame = CGRectMake(3.0f, 3.0f, 50.5f, 50.5f);
         self.profileImageView.layer.cornerRadius = 25.0f;
         self.profileImageView.layer.masksToBounds = YES;
         [self addSubview:self.profileImageView];
@@ -128,6 +128,9 @@
         NSLog(@"created pin");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
+        
+        self.frame = CGRectMake(0.0f, 0.0f, backgroundImage.size.width/2.0, backgroundImage.size.height/2.0);
+        self.centerOffset = CGPointMake(backgroundImage.size.width/4.0, -backgroundImage.size.height/4.0);
     }
     return self;
 }
@@ -205,8 +208,8 @@
 
 - (void)hideShout
 {
-    UIImage *image = [UIImage imageNamed:@"shoutBubbleMore"];
-    [self replaceUIImage:image rect:CGRectMake(0.0f, 0.0f, 75.0f, 67.0f)];
+    UIImage *image = [UIImage imageNamed:@"shoutBubble"];
+    [self replaceUIImage:image rect:CGRectMake(0.0f, 0.0f, image.size.width/2.0, image.size.height/2.0)];
     self.farEllipsesLayer.hidden = YES;
     self.farVerticalEllipses.hidden = YES;
     self.textLayer.hidden = YES;

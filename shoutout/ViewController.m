@@ -54,6 +54,7 @@
     
     self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
+//    self.mapView.showsPointsOfInterest = false;
     
 //    self.locationManager = [[CLLocationManager alloc] init];
 //    self.locationManager.delegate = self;
@@ -97,19 +98,21 @@
     self.profilePic.layer.masksToBounds = YES;
     
     self.statusTextView.text = [PFUser currentUser][@"status"];
+    
+    [self.saveButton.layer setCornerRadius:4.0f];
+    
+    CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
+    [self updateMapWithLocation:userLocation];
+    // set the map's center coordinate
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.saveButton.layer setCornerRadius:4.0f];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //    [self promptLogin];
-    CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
-    [self updateMapWithLocation:userLocation];
-    // set the map's center coordinate
 }
 
 - (void)dealloc {

@@ -404,15 +404,6 @@
 }
 
 - (void)updateStatus{
-    if([[PFUser currentUser][@"visible"] boolValue] != self.privacyToggle.on){
-        if(self.privacyToggle.on){
-            [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"YES"];
-        }
-        else{
-            [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"privacy" ] setValue:@"NO"];
-        }
-        [PFUser currentUser][@"visible"] = [NSNumber numberWithBool:self.privacyToggle.on];
-    }
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
         [PFUser currentUser][@"status"] = self.statusTextView.text;
         [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];

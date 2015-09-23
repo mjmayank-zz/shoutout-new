@@ -28,7 +28,6 @@
 @property (strong, nonatomic) IBOutlet UIView *slidingView;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) IBOutlet UITextView *statusTextView;
-@property (strong, nonatomic) IBOutlet UISwitch *privacyToggle;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 

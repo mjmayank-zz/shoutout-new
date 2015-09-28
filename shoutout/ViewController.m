@@ -150,6 +150,7 @@
         [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
     }];
     [self updateMapWithLocation:self.previousLocation.coordinate];
+    [self checkForNewMessages];
 }
 
 - (void)checkForNewMessages{

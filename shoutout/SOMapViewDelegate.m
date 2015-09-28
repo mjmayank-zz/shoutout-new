@@ -117,11 +117,7 @@
             if ( ! annotationView)
             {
                 annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
-                NSMutableString *message = [NSMutableString stringWithString:shoutoutAnnotation.title];
-                [message appendString:@": "];
-                [message appendString:shoutoutAnnotation.subtitle];
-                shoutoutAnnotation.subtitle = message;
-                annotationView.shout = message;
+                annotationView.shout = shoutoutAnnotation.subtitle;
                 annotationView.canShowCallout = NO;
             }
             

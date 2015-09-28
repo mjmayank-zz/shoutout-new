@@ -176,7 +176,11 @@
 }
 
 - (void)changeStatus:(NSString *)status{
-    NSString *newStatus = [NSString stringWithFormat:@"%@; %@", self.annotation.title, status];
+    SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
+    if([self.annotation isKindOfClass:[KPAnnotation class]]){
+        annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
+    }
+    NSString *newStatus = [NSString stringWithFormat:@"%@: %@", annotation.title, status];
     self.textLayer.string = newStatus;
 }
 

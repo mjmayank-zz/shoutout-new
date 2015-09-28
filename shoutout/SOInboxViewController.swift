@@ -29,11 +29,10 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             self.messages = results;
             for message in results!{
-                if let read = message.objectForKey("read") as? Bool{
-                    if read == false{
-                        message.setObject(NSNumber(bool: true), forKey: "read");
-                        message.saveInBackground();
-                    }
+                let read = message.objectForKey("read") as? Bool
+                if read != true{
+                    message.setObject(NSNumber(bool: true), forKey: "read");
+                    message.saveInBackground();
                 }
             }
             self.tableView.reloadData();

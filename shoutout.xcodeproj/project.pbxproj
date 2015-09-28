@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
-		8F0BBC6D1BA1E56C00F9851B /* TutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */; };
+		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; settings = {ASSET_TAGS = (); }; };
 		8F1F1DA31BAB1F1600506239 /* cluster.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1F1DA01BAB1F1600506239 /* cluster.png */; settings = {ASSET_TAGS = (); }; };
 		8F1F1DA41BAB1F1600506239 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1F1DA11BAB1F1600506239 /* more.png */; settings = {ASSET_TAGS = (); }; };
@@ -86,7 +86,7 @@
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
-		8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPermissionsViewController.swift; sourceTree = "<group>"; };
+		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
 		8F168CE61BADDF94000D18D0 /* SOPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinView.xib; sourceTree = "<group>"; };
 		8F1F1DA01BAB1F1600506239 /* cluster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cluster.png; path = images/cluster.png; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
-				8F0BBC6C1BA1E56C00F9851B /* TutorialPermissionsViewController.swift */,
+				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
@@ -541,7 +541,7 @@
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
-				8F0BBC6D1BA1E56C00F9851B /* TutorialPermissionsViewController.swift in Sources */,
+				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 			);

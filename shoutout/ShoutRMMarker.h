@@ -20,6 +20,7 @@
 
 @interface ShoutRMMarker : MKAnnotationView
 
+@property (nonatomic, strong) SOAnnotation *annotation;
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
 

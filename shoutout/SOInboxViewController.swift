@@ -25,8 +25,17 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     func getMessages(){
         let query = PFQuery(className: "Messages");
         query.whereKey("to", equalTo: PFUser.currentUser()!);
+        query.includeKey("from");
         query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             self.messages = results;
+            for message in results!{
+                if let read = message.objectForKey("read") as? Bool{
+                    if read == false{
+                        message.setObject(NSNumber(bool: true), forKey: "read");
+                        message.saveInBackground();
+                    }
+                }
+            }
             self.tableView.reloadData();
         }
     }
@@ -44,7 +53,11 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             let cell = tableView.dequeueReusableCellWithIdentifier("messageCell", forIndexPath: indexPath) as! messagesCell;
             if let messages = messages{
                 let message = messages[indexPath.row].objectForKey("message") as? String;
+                let from = messages[indexPath.row].objectForKey("from") as! PFObject;
+                let fromImage = from.objectForKey("picURL") as? String;
                 cell.bodyLabel.text = message;
+                cell.profileImage.layer.cornerRadius = 25.0;
+                cell.profileImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: fromImage!)!)!);
 //                let image = UIImage(named: "shoutSpeechBubble");
 //                let resizableImage = image?.resizableImageWithCapInsets(UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0));
 //                cell.profileImage.image = resizableImage;

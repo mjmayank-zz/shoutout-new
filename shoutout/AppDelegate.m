@@ -56,8 +56,10 @@
     LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
     [[LocationKit sharedInstance] applyOperationMode:setting];
     
-    Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
-    [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"NO"];
+    if([PFUser currentUser]){
+        Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
+        [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"NO"];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -70,8 +72,10 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSDKAppEvents activateApp];
     
-    Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
-    [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"YES"];
+    if([PFUser currentUser]){
+        Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
+        [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"YES"];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -116,6 +120,10 @@
 
 - (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location{
         [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:location];
+}
+
+- (void)locationKit:(LocationKit *)locationKit didStartVisit:(LKVisit *)visit{
+    
 }
 
 @end

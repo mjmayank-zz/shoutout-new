@@ -11,7 +11,7 @@ import UIKit
 import CoreLocation
 import CoreMotion
 
-class TutorialPermissionsViewController: UIViewController, CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
+class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
     
     @IBOutlet var locationServicesButton: UIButton!
     @IBOutlet var nextButton: UIButton!

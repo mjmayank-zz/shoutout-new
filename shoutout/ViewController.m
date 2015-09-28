@@ -100,6 +100,8 @@
     self.statusTextView.text = [PFUser currentUser][@"status"];
     
     [self.saveButton.layer setCornerRadius:4.0f];
+    [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
+    self.unreadIndicator.layer.masksToBounds = YES;
     
     CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
     [self updateMapWithLocation:userLocation];
@@ -113,6 +115,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //    [self promptLogin];
+    [self checkForNewMessages];
 }
 
 - (void)dealloc {
@@ -147,6 +150,21 @@
         [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
     }];
     [self updateMapWithLocation:self.previousLocation.coordinate];
+}
+
+- (void)checkForNewMessages{
+    PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
+    [query whereKey:@"to" equalTo:[PFUser currentUser]];
+    [query whereKey:@"read" notEqualTo:[NSNumber numberWithBool:YES]];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError * _Nullable error) {
+        if(number != 0){
+            self.unreadIndicator.hidden = NO;
+            self.unreadIndicator.text = [NSString stringWithFormat:@"%d", number];
+        }
+        else{
+            self.unreadIndicator.hidden = YES;
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -444,7 +462,7 @@
 - (void)animateSlidingView{
     [self.view layoutIfNeeded];
     if(!self.shelf){
-        self.slidingViewConstraint.constant = -20;
+        self.slidingViewConstraint.constant = 0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveLinear
@@ -457,7 +475,7 @@
         self.shelf = true;
     }
     else{
-        self.slidingViewConstraint.constant = -210;
+        self.slidingViewConstraint.constant = -190;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveLinear

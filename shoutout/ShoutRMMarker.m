@@ -22,6 +22,7 @@
 @property (nonatomic, strong) CALayer *farLocationLayer;
 @property (nonatomic, strong) CALayer *farFriendLayer;
 @property (nonatomic, strong) CALayer *farVerticalEllipses;
+@property (nonatomic, strong) CALayer *onlineIndicator;
 @property (nonatomic, strong) UIImageView *profileImageView;
 @end
 
@@ -124,6 +125,14 @@
         self.farVerticalEllipses.frame = CGRectMake(137.0f, 29.0f, 25.0f, 25.0f);
         self.farVerticalEllipses.hidden = YES;
         [self.layer addSublayer:self.farVerticalEllipses];
+
+        self.onlineIndicator = [CALayer layer];
+        self.onlineIndicator.name = @"onlineIndicator";
+        self.onlineIndicator.frame = CGRectMake(50.0f, 0.0f, 10.0f, 10.0f);
+        self.onlineIndicator.cornerRadius = 5.0f;
+        self.onlineIndicator.backgroundColor = [UIColor greenColor].CGColor;
+        self.onlineIndicator.hidden = YES;
+        [self.layer addSublayer:self.onlineIndicator];
         
         NSLog(@"created pin");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
@@ -167,7 +176,8 @@
 }
 
 - (void)changeStatus:(NSString *)status{
-    self.textLayer.string = status;
+    NSString *newStatus = [NSString stringWithFormat:@"%@; %@", self.annotation.title, status];
+    self.textLayer.string = newStatus;
 }
 
 - (void)toggleShout

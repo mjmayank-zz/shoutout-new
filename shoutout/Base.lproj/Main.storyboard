@@ -98,6 +98,13 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient.png" translatesAutoresizingMaskIntoConstraints="NO" id="BcO-9V-jxY">
+                                <rect key="frame" x="0.0" y="529" width="600" height="71"/>
+                                <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="Cpe-PB-TN5"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwY-Tl-fsF">
                                 <rect key="frame" x="527" y="538" width="44" height="44"/>
                                 <constraints>
@@ -232,6 +239,7 @@
                             <constraint firstItem="dPr-nf-eoM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="9" id="nAf-w9-KCX"/>
                             <constraint firstItem="dW5-ci-VVn" firstAttribute="leading" secondItem="4HE-na-VOh" secondAttribute="trailing" id="nLK-tb-Qv4"/>
                             <constraint firstItem="1KP-dS-pyF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="sZk-UW-sbb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BcO-9V-jxY" secondAttribute="bottom" id="tBE-nW-yAp"/>
                             <constraint firstItem="xW4-3P-Kf3" firstAttribute="leading" secondItem="uKI-Y9-bTG" secondAttribute="trailing" constant="-10" id="tNU-SW-1Oc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DZn-cf-o0J" secondAttribute="bottom" id="tkZ-Dc-KH9"/>
                             <constraint firstItem="1G6-ul-qtz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="txP-XH-UWC"/>
@@ -239,8 +247,10 @@
                             <constraint firstItem="dW5-ci-VVn" firstAttribute="leading" secondItem="4HE-na-VOh" secondAttribute="trailing" id="v6I-Po-Lyv"/>
                             <constraint firstItem="dPr-nf-eoM" firstAttribute="leading" secondItem="DZn-cf-o0J" secondAttribute="trailing" id="vDX-Cy-nnP"/>
                             <constraint firstAttribute="centerY" secondItem="nib-xd-APd" secondAttribute="centerY" id="vbY-iE-WBv"/>
+                            <constraint firstItem="BcO-9V-jxY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vic-SN-Giw"/>
                             <constraint firstItem="1G6-ul-qtz" firstAttribute="leading" secondItem="xW4-3P-Kf3" secondAttribute="trailing" id="yhc-iT-W91"/>
                             <constraint firstItem="dW5-ci-VVn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1G6-ul-qtz" secondAttribute="trailing" constant="9" id="yjY-sH-YSV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BcO-9V-jxY" secondAttribute="trailing" constant="-20" id="znP-x3-KKJ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -308,7 +318,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutout_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="waJ-Dp-Qeq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shoutout_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="waJ-Dp-Qeq">
                                 <rect key="frame" x="222" y="75" width="156" height="50"/>
                             </imageView>
                         </subviews>
@@ -737,6 +747,7 @@
         <image name="add.png" width="146" height="146"/>
         <image name="addShout.png" width="513" height="513"/>
         <image name="anon.jpg" width="200" height="200"/>
+        <image name="gradient.png" width="8" height="71"/>
         <image name="messages.png" width="513" height="513"/>
         <image name="more.png" width="513" height="513"/>
         <image name="myLocation.png" width="513" height="513"/>

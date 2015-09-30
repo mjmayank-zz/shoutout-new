@@ -9,21 +9,7 @@
 #import "ShoutRMMarker.h"
 
 @interface ShoutRMMarker ()
-@property (nonatomic, strong) CALayer *backgroundLayer;
-@property (nonatomic, strong) CALayer *imageLayer;
-@property (nonatomic, strong) CATextLayer *textLayer;
-@property (nonatomic, strong) CALayer *emailLayer;
-@property (nonatomic, strong) CALayer *locationLayer;
-@property (nonatomic, strong) CALayer *friendLayer;
-@property (nonatomic, strong) CALayer *ellipsesLayer;
-@property (nonatomic, strong) CALayer *farEllipsesLayer;
-@property (nonatomic, strong) CALayer *farEmailLayer;
-@property (nonatomic, strong) CALayer *farShareLayer;
-@property (nonatomic, strong) CALayer *farLocationLayer;
-@property (nonatomic, strong) CALayer *farFriendLayer;
-@property (nonatomic, strong) CALayer *farVerticalEllipses;
-@property (nonatomic, strong) CALayer *onlineIndicator;
-@property (nonatomic, strong) UIImageView *profileImageView;
+
 @end
 
 #define ANCHOR_POINT_X 0.0f
@@ -31,115 +17,33 @@
 
 @implementation ShoutRMMarker
 
+-(instancetype)init{
+    if (self = [super init]) {
+        NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil];
+        self = [subviewArray objectAtIndex:0];
+    }
+    return self;
+}
+
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier image:(UIImage *)image{
-    NSString *imageToUse = @"shoutBubbleMore";
-    if (annotation.title) {
-        imageToUse = @"shoutBubble";
-    }
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
+        NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil];
+        self = [subviewArray objectAtIndex:0];
+        self.profileImageView.layer.cornerRadius = 30.0f;
+        self.profileImageView.layer.masksToBounds = YES;
         if (annotation.title)
             self.shout = [[NSString alloc] initWithString:((SOAnnotation*)annotation).subtitle];
-        
-        self.backgroundLayer = [CALayer layer];
-        self.backgroundLayer.name = @"profile";
-        UIImage *backgroundImage = [UIImage imageNamed:imageToUse];
-        self.backgroundLayer.contents = (id)backgroundImage.CGImage;
-        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, backgroundImage.size.width/2.0, backgroundImage.size.height/2.0);
-        self.backgroundLayer.masksToBounds = YES;
-        [self.layer addSublayer:self.backgroundLayer];
-        
-        self.profileImageView = [[UIImageView alloc] initWithImage:image];
-        self.profileImageView.frame = CGRectMake(3.0f, 3.0f, 50.5f, 50.5f);
-        self.profileImageView.layer.cornerRadius = 25.0f;
-        self.profileImageView.layer.masksToBounds = YES;
-        [self addSubview:self.profileImageView];
-        
-        self.textLayer = [[CATextLayer alloc] init];
-        self.textLayer.frame = CGRectMake(58.0f, 3.0f, 72.0f, 50.0f);
-        self.textLayer.fontSize = 12.6f;
-        self.textLayer.wrapped = YES;
-        self.textLayer.contentsScale = [[UIScreen mainScreen] scale];
-        self.textLayer.foregroundColor = [UIColor blackColor].CGColor;
-        self.textLayer.hidden = YES;
-        [self.layer addSublayer:self.textLayer];
-        [self changeStatus:self.shout];
-        
-//        self.emailLayer = [CALayer layer];
-//        self.emailLayer.name = @"email";
-//        self.emailLayer.frame = CGRectMake(50.5f, 0.0f, 25.0f, 25.0f);
-//        self.emailLayer.hidden = YES;
-//        [self.layer addSublayer:self.emailLayer];
-//        
-//        self.locationLayer = [CALayer layer];
-//        self.locationLayer.name = @"location";
-//        self.locationLayer.frame = CGRectMake(60.0f, 27.0f, 25.0f, 25.0f);
-//        self.locationLayer.hidden = YES;
-//        [self.layer addSublayer:self.locationLayer];
-//        
-//        self.friendLayer = [CALayer layer];
-//        self.friendLayer.name = @"friend";
-//        self.friendLayer.frame = CGRectMake(50.5f, 55.0f, 25.0f, 25.0f);
-//        self.friendLayer.hidden = YES;
-//        [self.layer addSublayer:self.friendLayer];
-//        
-        self.ellipsesLayer = [CALayer layer];
-        self.ellipsesLayer.name = @"ellipses";
-        self.ellipsesLayer.frame = CGRectMake(50.0f, 1.5f, 25.0f, 25.0f);
-        self.ellipsesLayer.hidden = YES;
-        [self.layer addSublayer:self.ellipsesLayer];
 
-        self.farEllipsesLayer = [CALayer layer];
-        self.farEllipsesLayer.name = @"farEllipses";
-        self.farEllipsesLayer.frame = CGRectMake(138.0f, 1.5f, 25.0f, 25.0f);
-        self.farEllipsesLayer.hidden = YES;
-        [self.layer addSublayer:self.farEllipsesLayer];
-//
-//        self.farEmailLayer = [CALayer layer];
-//        self.farEmailLayer.name = @"email";
-//        self.farEmailLayer.frame = CGRectMake(125.0f, 0.0f, 25.0f, 25.0f);
-//        self.farEmailLayer.hidden = YES;
-//        [self.layer addSublayer:self.farEmailLayer];
-//        
-//        self.farShareLayer = [CALayer layer];
-//        self.farShareLayer.name = @"share";
-//        self.farShareLayer.frame = CGRectMake(155.0f, 0.0f, 25.0f, 25.0f);
-//        self.farShareLayer.hidden = YES;
-//        [self.layer addSublayer:self.farShareLayer];
-//        
-//        self.farLocationLayer = [CALayer layer];
-//        self.farLocationLayer.name = @"location";
-//        self.farLocationLayer.frame = CGRectMake(168.0f, 30.0f, 25.0f, 25.0f);
-//        self.farLocationLayer.hidden = YES;
-//        [self.layer addSublayer:self.farLocationLayer];
-//        
-//        self.farFriendLayer = [CALayer layer];
-//        self.farFriendLayer.name = @"friend";
-//        self.farFriendLayer.frame = CGRectMake(152.0f, 57.0f, 25.0f, 25.0f);
-//        self.farFriendLayer.hidden = YES;
-//        [self.layer addSublayer:self.farFriendLayer];
-//        
-        self.farVerticalEllipses = [CALayer layer];
-        self.farVerticalEllipses.name = @"verticalEllipses";
-        self.farVerticalEllipses.frame = CGRectMake(137.0f, 29.0f, 25.0f, 25.0f);
-        self.farVerticalEllipses.hidden = YES;
-        [self.layer addSublayer:self.farVerticalEllipses];
-
-        self.onlineIndicator = [CALayer layer];
-        self.onlineIndicator.name = @"onlineIndicator";
-        self.onlineIndicator.frame = CGRectMake(50.0f, 0.0f, 10.0f, 10.0f);
-        self.onlineIndicator.cornerRadius = 5.0f;
-        self.onlineIndicator.backgroundColor = [UIColor greenColor].CGColor;
-        self.onlineIndicator.hidden = YES;
-        [self.layer addSublayer:self.onlineIndicator];
+        self.usernameLabel.text = annotation.title;
         
         NSLog(@"created pin");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
-        self.frame = CGRectMake(0.0f, 0.0f, backgroundImage.size.width/2.0, backgroundImage.size.height/2.0);
-        self.centerOffset = CGPointMake(backgroundImage.size.width/4.0, -backgroundImage.size.height/4.0);
+        [self scaleByPercentage:0.5];
+        self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }
     return self;
 }
@@ -180,20 +84,20 @@
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
-    NSString *newStatus = [NSString stringWithFormat:@"%@: %@", annotation.title, status];
-    self.textLayer.string = newStatus;
+    self.shoutLabel.text = status;
 }
 
 - (void)toggleShout
 {
-    if (self.farEllipsesLayer.hidden)
+    if (self.bubbleContainerView.hidden)
         [self showShout];
     else
         [self hideShout];
 }
 
 -(void)mapDidScale:(NSNotification *)notification{
-    [self scaleByPercentage:0.9];
+//    [self scaleByPercentage:0.5];
+//    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)scaleByPercentage:(double)scale{
@@ -207,65 +111,45 @@
 
 - (void)showShout
 {
-    UIImage *image = [UIImage imageNamed:@"shoutBubbleText"];
-    [self replaceUIImage:image rect:CGRectMake(0.0f, 0.0f, 164.0f, 67.0f)];
-    self.farEllipsesLayer.hidden = NO;
-    self.farVerticalEllipses.hidden = YES;
+    [self.bubbleContainerView setHidden:NO];
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
     [self changeStatus:annotation.subtitle];
-    self.textLayer.hidden = NO;
-    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
 }
 
 - (void)hideShout
 {
-    UIImage *image = [UIImage imageNamed:@"shoutBubble"];
-    [self replaceUIImage:image rect:CGRectMake(0.0f, 0.0f, image.size.width/2.0, image.size.height/2.0)];
-    self.farEllipsesLayer.hidden = YES;
-    self.farVerticalEllipses.hidden = YES;
-    self.textLayer.hidden = YES;
-    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
+    [self.bubbleContainerView setHidden:YES];
 }
 
 - (void)toggleIcons
 {
-    if (self.shout && self.imageLayer.frame.origin.y == 30.0f)
-        [self hideIconsWithShout];
-    else if (self.shout)
-        [self showIconsWithShout];
-    else if (!self.shout && self.imageLayer.frame.origin.y == 15.0f)
-        [self hideIconsWithoutShout];
-    else if (!self.shout)
-        [self showIconsWithoutShout];
-}
-
-- (void)replaceUIImage:(UIImage *)image rect:(CGRect)rect{
-    [self.backgroundLayer removeFromSuperlayer];
-    self.backgroundLayer = [CALayer layer];
-    self.backgroundLayer.name = @"profile";
-    self.backgroundLayer.frame = rect;
-    self.backgroundLayer.contents = (id)image.CGImage;
-    self.backgroundLayer.masksToBounds = YES;
-    [self.layer insertSublayer:self.backgroundLayer atIndex:0];
+//    if (self.shout && self.imageLayer.frame.origin.y == 30.0f)
+//        [self hideIconsWithShout];
+//    else if (self.shout)
+//        [self showIconsWithShout];
+//    else if (!self.shout && self.imageLayer.frame.origin.y == 15.0f)
+//        [self hideIconsWithoutShout];
+//    else if (!self.shout)
+//        [self showIconsWithoutShout];
 }
 
 - (void)showIconsWithShout
 {
-    [self replaceUIImage:[UIImage imageNamed:@"shoutBubbleAll"] rect:CGRectMake(0.0f, 0.0f, 194.5f, 94.0f)];
-    self.imageLayer.frame = CGRectMake(self.imageLayer.frame.origin.x, 30.0f, self.imageLayer.frame.size.width, self.imageLayer.frame.size.height);
-    self.farVerticalEllipses.hidden = NO;
-    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 30.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
+//    [self replaceUIImage:[UIImage imageNamed:@"shoutBubbleAll"] rect:CGRectMake(0.0f, 0.0f, 194.5f, 94.0f)];
+//    self.imageLayer.frame = CGRectMake(self.imageLayer.frame.origin.x, 30.0f, self.imageLayer.frame.size.width, self.imageLayer.frame.size.height);
+//    self.farVerticalEllipses.hidden = NO;
+//    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 30.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
 }
 
 - (void)hideIconsWithShout
 {
-    [self replaceUIImage:[UIImage imageNamed:@"shoutBubbleText"] rect:CGRectMake(0.0f, 0.0f, 164.0f, 67.0f)];
-    self.imageLayer.frame = CGRectMake(self.imageLayer.frame.origin.x, 3.0f, self.imageLayer.frame.size.width, self.imageLayer.frame.size.height);
-    self.farVerticalEllipses.hidden = YES;
-    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
+//    [self replaceUIImage:[UIImage imageNamed:@"shoutBubbleText"] rect:CGRectMake(0.0f, 0.0f, 164.0f, 67.0f)];
+//    self.imageLayer.frame = CGRectMake(self.imageLayer.frame.origin.x, 3.0f, self.imageLayer.frame.size.width, self.imageLayer.frame.size.height);
+//    self.farVerticalEllipses.hidden = YES;
+//    self.textLayer.frame = CGRectMake(self.textLayer.frame.origin.x, 3.0f, self.textLayer.frame.size.width, self.textLayer.frame.size.height);
 }
 
 - (void)showIconsWithoutShout

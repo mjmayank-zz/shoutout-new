@@ -11,35 +11,50 @@
             <rect key="frame" x="0.0" y="0.0" width="302" height="78"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbN-jG-fi9">
-                    <rect key="frame" x="64" y="0.0" width="238" height="65"/>
-                    <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-nt-4Xr">
+                    <rect key="frame" x="44" y="-20" width="278" height="105"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbN-jG-fi9">
+                            <rect key="frame" x="20" y="20" width="238" height="65"/>
+                            <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is a label with two lines of text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMC-qY-Gdy">
+                            <rect key="frame" x="44" y="26" width="206" height="37"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
+                            <rect key="frame" x="44" y="64" width="71" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9/30/15 1:15pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
+                            <rect key="frame" x="123" y="64" width="82" height="19"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shoutBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hk5-qL-H5q">
+                    <rect key="frame" x="0.0" y="0.0" width="66" height="78"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="shoutBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hk5-qL-H5q">
-                    <rect key="frame" x="0.0" y="0.0" width="70" height="78"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPO-dF-onS" userLabel="Profile Image">
+                    <rect key="frame" x="2" y="3" width="60" height="60"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="This is a label with two lines of text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMC-qY-Gdy">
-                    <rect key="frame" x="88" y="6" width="206" height="50"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="Hk5-qL-H5q" secondAttribute="bottom" id="2rf-eH-JtY"/>
-                <constraint firstItem="kbN-jG-fi9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5nG-2E-oMc"/>
-                <constraint firstItem="kbN-jG-fi9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="64" id="EDS-z2-j3w"/>
-                <constraint firstAttribute="trailing" secondItem="jMC-qY-Gdy" secondAttribute="trailing" constant="15" id="GbG-Y5-ad1"/>
-                <constraint firstItem="jMC-qY-Gdy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="gPW-ld-EBR"/>
-                <constraint firstItem="jMC-qY-Gdy" firstAttribute="leading" secondItem="Hk5-qL-H5q" secondAttribute="trailing" constant="15" id="m9E-US-ApK"/>
-                <constraint firstItem="Hk5-qL-H5q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sQI-hB-gcH"/>
-                <constraint firstAttribute="bottom" secondItem="jMC-qY-Gdy" secondAttribute="bottom" constant="15" id="wQb-2A-N0g"/>
-                <constraint firstItem="Hk5-qL-H5q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yOM-4E-4rc"/>
-            </constraints>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bubbleContainerView" destination="ibl-nt-4Xr" id="Q8p-84-ok3"/>
+                <outlet property="profileImageView" destination="DPO-dF-onS" id="PqP-r5-mrZ"/>
+                <outlet property="shoutLabel" destination="jMC-qY-Gdy" id="KVL-QF-vbp"/>
+                <outlet property="timeLabel" destination="9EP-zf-Qgh" id="EIT-WE-3qg"/>
+                <outlet property="usernameLabel" destination="9Uk-jX-qOm" id="XcC-Yg-bSS"/>
+            </connections>
             <point key="canvasLocation" x="198" y="86"/>
         </view>
     </objects>

@@ -42,11 +42,18 @@
         self.backgroundLayer.masksToBounds = YES;
         [self.layer addSublayer:self.backgroundLayer];
         
+        CALayer *circleLayer = [CALayer layer];
+        circleLayer.frame = CGRectMake(2.5f, 2.5f, 51.0f, 51.0f);
+        circleLayer.cornerRadius = 25.0f;
+        circleLayer.backgroundColor = [UIColor whiteColor].CGColor;
+        [self.layer addSublayer:circleLayer];
+        
         self.textLayer = [[CATextLayer alloc] init];
-        self.textLayer.frame = CGRectMake(20.0f, 10.0f, 30.0f, 50.0f);
+        self.textLayer.frame = CGRectMake(3.0f, 10.0f, 50.5f, 50.5f);
         self.textLayer.string = annotation.title;
         self.textLayer.fontSize = 24.0f;
         self.textLayer.wrapped = YES;
+        [self.textLayer setAlignmentMode:@"center"];
         self.textLayer.contentsScale = [[UIScreen mainScreen] scale];
         self.textLayer.foregroundColor = [UIColor blackColor].CGColor;
         [self.layer addSublayer:self.textLayer];

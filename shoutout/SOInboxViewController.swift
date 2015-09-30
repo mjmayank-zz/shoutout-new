@@ -26,6 +26,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         let query = PFQuery(className: "Messages");
         query.whereKey("to", equalTo: PFUser.currentUser()!);
         query.includeKey("from");
+        query.orderByDescending("createdAt");
         query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             self.messages = results;
             for message in results!{

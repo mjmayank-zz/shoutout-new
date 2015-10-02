@@ -27,10 +27,11 @@
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier image:(UIImage *)image{
+    
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
-        NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil];
-        self = [subviewArray objectAtIndex:0];
+        self = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
+//        [self addSubview:subview];
         self.profileImageView.layer.cornerRadius = 30.0f;
         self.profileImageView.layer.masksToBounds = YES;
         if (annotation.title)
@@ -38,11 +39,10 @@
 
         self.usernameLabel.text = annotation.title;
         
-        NSLog(@"created pin");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
-        [self scaleByPercentage:0.5];
+//        [self scaleByPercentage:0.5];
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }
     return self;
@@ -96,11 +96,13 @@
 }
 
 -(void)mapDidScale:(NSNotification *)notification{
-//    [self scaleByPercentage:0.5];
+    int zoomLevel = [notification.userInfo[@"zoomLevel"] intValue];
+    [self scaleByPercentage:((zoomLevel-5) * 10) / 100.0];
 //    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)scaleByPercentage:(double)scale{
+    NSLog(@"%f", scale);
     self.transform = CGAffineTransformMakeScale(scale, scale);
 }
 

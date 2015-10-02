@@ -14,6 +14,7 @@
     if (self = [super init])
     {
         self.mapView = mapView;
+        
         self.latitudeDelta = mapView.region.span.latitudeDelta;
         self.clusteringController = [[KPClusteringController alloc] initWithMapView:mapView];
         self.clusteringController.delegate = self;
@@ -26,12 +27,10 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    double scale = self.latitudeDelta/mapView.region.span.latitudeDelta;
-    self.latitudeDelta = mapView.region.span.latitudeDelta;
-    if(scale < .99 || scale > 1.01){
-        NSLog(@"%f", scale);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"mapDidScale" object:nil];
-    }
+    NSDictionary *userInfo = @{
+                               @"zoomLevel" : @(mapView.zoomLevel)
+                               };
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"mapDidScale" object:self userInfo:userInfo];
     
     NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
     NSLog(@"Number of annotations in rect: %lu", (unsigned long)annotationSet.count);
@@ -110,12 +109,13 @@
             SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
             //            SOAnnotation *shoutoutAnnotation = (SOAnnotation *)annotation;
             UIImage *image = shoutoutAnnotation.profileImage;
-            ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"id"];
+            ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
             if (annotationView){
                 NSLog(@"already have a pin");
             }
             if ( ! annotationView)
             {
+                NSLog(@"created new pin");
                 annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
                 annotationView.shout = shoutoutAnnotation.subtitle;
                 annotationView.canShowCallout = NO;

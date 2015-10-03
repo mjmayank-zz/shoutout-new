@@ -297,6 +297,7 @@ header{
 .hero{
   background-image: url("../images/login_background.jpg");
   background-size: cover;
+  height:100vh;
 }
 
 @media screen and (max-width: 500px) {
@@ -310,7 +311,7 @@ header{
 }
 
 .hero-text{
-  padding: 175px 0px;
+  padding: 200px 0px;
   color: white!important;
 }
 

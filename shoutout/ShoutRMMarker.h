@@ -9,6 +9,7 @@
 //#import "ButtonRMMarker.h"
 #import "SOAnnotation.h"
 #import <Kingpin/Kingpin.h>
+#import "SOMarkerSubView.h"
 @import MapKit;
 
 @class ShoutRMMarker;
@@ -20,19 +21,15 @@
 
 @interface ShoutRMMarker : MKAnnotationView
 
+@property (nonatomic, strong) SOMarkerSubView *subview;
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
-@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
-@property (strong, nonatomic) IBOutlet UILabel *shoutLabel;
-@property (strong, nonatomic) IBOutlet UIView *bubbleContainerView;
-@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier
                     image:(UIImage *)image;
 - (void)didPressButtonWithName:(NSString*)name;
-- (void)scaleByPercentage:(double)scale;
+- (void)scaleForZoomLevel:(double)zoomLevel;
 
 
 @end

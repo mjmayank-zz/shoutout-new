@@ -20,5 +20,6 @@
 @property (assign, nonatomic) double latitudeDelta;
 
 -(instancetype)initWithMapView:(MKMapView *)mapView;
+- (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated;
 
 @end

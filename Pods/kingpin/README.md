@@ -4,16 +4,16 @@ A drop-in MKAnnotation clustering library for iOS.
 
 [![Build Status](https://travis-ci.org/itsbonczek/kingpin.svg?branch=master)](https://travis-ci.org/itsbonczek/kingpin)
 
-__Update July 2, 2015__
+__Update October 1th, 2015__
 
-Kingpin is now 0.3.0-beta, the following features are under test:
+Kingpin is now [0.3.1](https://github.com/itsbonczek/kingpin/releases/tag/0.3.0). 
+
+The following features are under test:
 
 - Carthage support
 - OSX support (no animations support yet)
 - Dynamic frameworks: iOS and OSX
 - 4 example apps: iOS, OSX, iOS-Swift, OSX-Swift.
-
-The latest stable release: [0.2.5](https://github.com/itsbonczek/kingpin/releases/tag/0.2.5)
 
 ## Features
 
@@ -43,6 +43,10 @@ In Cartfile add:
 ```
 github "itsbonczek/kingpin"
 ```
+
+### Dynamic framework
+
+Currently latest frameworks are included to the project's tree, they are located in the `kingpin-frameworks` folder. If you want to use kingpin as framework be sure to read short documentation about using [Kingpin as dynamic framework](https://github.com/itsbonczek/kingpin/blob/master/Documentation/Framework.md).
 
 ## Documentation
 

@@ -30,19 +30,20 @@
     
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
-//        [self addSubview:subview];
-        self.profileImageView.layer.cornerRadius = 30.0f;
-        self.profileImageView.layer.masksToBounds = YES;
+        self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
+        [self addSubview:self.subview];
+        self.subview.profileImageView.layer.cornerRadius = 30.0f;
+        self.subview.profileImageView.layer.masksToBounds = YES;
         if (annotation.title)
             self.shout = [[NSString alloc] initWithString:((SOAnnotation*)annotation).subtitle];
 
-        self.usernameLabel.text = annotation.title;
+        self.subview.usernameLabel.text = annotation.title;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
 //        [self scaleByPercentage:0.5];
+        self.frame = self.subview.frame;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }
     return self;
@@ -84,36 +85,37 @@
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
-    self.shoutLabel.text = status;
+    self.subview.shoutLabel.text = status;
 }
 
 - (void)toggleShout
 {
-    if (self.bubbleContainerView.hidden)
+    if (self.subview.bubbleContainerView.hidden)
         [self showShout];
     else
         [self hideShout];
 }
 
 -(void)mapDidScale:(NSNotification *)notification{
-    int zoomLevel = [notification.userInfo[@"zoomLevel"] intValue];
-    [self scaleByPercentage:((zoomLevel-5) * 10) / 100.0];
+    double zoomLevel = [notification.userInfo[@"zoomLevel"] doubleValue];
+    [self scaleForZoomLevel:zoomLevel];
 //    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
-- (void)scaleByPercentage:(double)scale{
-    NSLog(@"%f", scale);
+- (void)scaleForZoomLevel:(double)zoomLevel{
+    double scale = ((zoomLevel-5) * 10) / 100.0;
     self.transform = CGAffineTransformMakeScale(scale, scale);
+    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)setProfileImage:(UIImage *)profileImage{
     _profileImage = profileImage;
-    _profileImageView.image = profileImage;
+    self.subview.profileImageView.image = profileImage;
 }
 
 - (void)showShout
 {
-    [self.bubbleContainerView setHidden:NO];
+    [self.subview.bubbleContainerView setHidden:NO];
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
@@ -123,7 +125,7 @@
 
 - (void)hideShout
 {
-    [self.bubbleContainerView setHidden:YES];
+    [self.subview.bubbleContainerView setHidden:YES];
 }
 
 - (void)toggleIcons

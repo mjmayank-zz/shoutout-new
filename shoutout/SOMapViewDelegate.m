@@ -27,6 +27,10 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    [self.clusteringController refresh:YES];
+}
+
+- (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated{
     NSDictionary *userInfo = @{
                                @"zoomLevel" : @(mapView.zoomLevel)
                                };
@@ -62,7 +66,6 @@
         }
         [mapView selectAnnotation:toShow animated:YES];
     }
-    [self.clusteringController refresh:YES];
 }
 
 - (void)mapViewRegionIsChanging:(MKMapView *)mapView{

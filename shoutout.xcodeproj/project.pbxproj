@@ -68,6 +68,7 @@
 		8F9A48D21BA66F0D002C68EE /* ShoutClusterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9A48D11BA66F0D002C68EE /* ShoutClusterMarker.m */; };
 		8FA6760B1BB1C1CF00CAA8EA /* anon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */; settings = {ASSET_TAGS = (); }; };
 		8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */; settings = {ASSET_TAGS = (); }; };
+		8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */; settings = {ASSET_TAGS = (); }; };
 		8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */; settings = {ASSET_TAGS = (); }; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
@@ -163,6 +164,7 @@
 		8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = anon.jpg; path = images/anon.jpg; sourceTree = "<group>"; };
 		8FA956BE1BC050E1003C7357 /* SOMarkerSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMarkerSubView.h; sourceTree = "<group>"; };
 		8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMarkerSubView.m; sourceTree = "<group>"; };
+		8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOCreateProfileViewController.swift; sourceTree = "<group>"; };
 		8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutSpeechBubble.png; path = images/shoutSpeechBubble.png; sourceTree = "<group>"; };
 		8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shoutSpeechBubble@2x.png"; path = "images/shoutSpeechBubble@2x.png"; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
+				8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
@@ -555,6 +558,7 @@
 				8F9A48CF1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m in Sources */,
 				8F8D47791B976DB900D902B9 /* ViewController.m in Sources */,
 				8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */,
+				8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */,
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,

@@ -54,6 +54,14 @@
     
     self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
+
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(mapPanned)];
+    pinchGesture.delegate = self;
+    [self.mapView addGestureRecognizer:pinchGesture];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(mapPanned)];
+    panGesture.delegate = self;
+    [self.mapView addGestureRecognizer:panGesture];
 //    self.mapView.showsPointsOfInterest = false;
     
 //    self.locationManager = [[CLLocationManager alloc] init];
@@ -549,6 +557,15 @@
         [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
         [[PFUser currentUser] saveInBackground];
     }
+}
+
+-(void)mapPanned{
+    NSLog(@"map panned");
+    [self.mapViewDelegate mapView:self.mapView regionIsChanging:YES];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 -(void)locationUpdated:(NSNotification *)notification{

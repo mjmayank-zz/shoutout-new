@@ -1,0 +1,415 @@
+body{
+  /*margin-top: 60px;*/
+}
+
+a{
+  color: #3F32A2;
+}
+
+a:hover{
+  color: #5D4AEF;
+}
+
+body, h1, h2, h3, h6{
+  font-family: 'Lato', 'san-serif';
+}
+
+h1{
+  font-weight: 600;
+}
+
+video{
+  max-width: 100%;
+  background-color: gray;
+}
+
+canvas{
+  border: solid gray 1px;
+  background-image: url('../images/prof_pic.jpg');
+  background-size: cover;
+}
+
+button{
+  font-family: 'Lato';
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+button:hover{
+  background-color: #3F32A2;
+}
+
+@media only screen and (min-width: 40.063em) { 
+  .card-pic{
+    height: 185px;
+    overflow: hidden;
+  }
+  .card-pic img{
+    max-height: 100%;
+    max-width: none;
+  }
+}
+
+button.disabled, button.disabled:hover{
+  background-color: #978DE7;
+}
+
+.button{
+  font-family: 'Lato';
+  font-weight: 900;
+  text-transform: uppercase;
+  background-color: #5846e2;
+}
+
+.button:hover{
+  background-color: #3F32A2;
+}
+
+.search{
+  display: inline-block!important;
+  height: 36px;
+  margin-top: 5px;
+  margin-bottom: 16px;
+  background-color: #5846e2;
+}
+
+button.search{
+    margin-left: -5px;
+    height: 38px;
+    line-height: 36px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.search.field{
+  width: 50%!important;
+}
+
+video,
+.supported audio { 
+  /* I'm using CSS3 to translate the video on the X axis to give it a mirror effect */
+  -webkit-transform: rotateY(180deg) rotate3d(1, 0, 0, 0deg); 
+  -o-transform: rotateY(180deg) rotate3d(1, 0, 0, 0deg); 
+  -moz-transform: rotateY(180deg) rotate3d(1, 0, 0, 0deg); 
+  -ms-transform: rotateY(180deg) rotate3d(1, 0, 0, 0deg); 
+  transform: rotateY(180deg) rotate3d(1, 0, 0, 0deg); 
+}
+
+.rush-card{
+  padding: 10px 0px!important;
+}
+
+.rush-card:nth-child(odd){
+  background-color: #e1e1e1;
+}
+
+.rush-card img{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+header{
+  font-size: 40px;
+  font-family: "Josefin Slab", "serif";
+  font-weight: 900;
+}
+
+.nav img{
+  max-height: 50px;
+  padding: 10px;
+}
+
+.camera{
+  margin: auto;
+  margin-top: -6px;
+  width: 100%;
+  max-width: 640px;
+}
+
+#submit{
+  margin-top: 15px;
+}
+
+#header a{
+  color: white;
+}
+
+@media only screen and (min-width: 40.063em) { 
+  .drop{
+    margin-top: 41px;
+  }
+}
+
+.contain-to-grid{
+  background-color: #5846e2;
+}
+
+#header{
+  height: 60px;
+  line-height: 60px;
+  background-color: #5846e2;
+/*  position: fixed;
+  top: 0;
+  left: 100px;*/
+  z-index: 100;
+  color: white;
+}
+
+.contact-method{
+  margin-right: 5px;
+}
+
+.contact-method:not(:first-child){
+  margin-left: 15px;
+}
+
+.name-attribute{
+  font-weight: 900;
+  font-size: 1.75em;
+}
+
+.attribute{
+  font-weight: 700;
+}
+
+.profile{
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.question{
+  font-size: .75em;
+  font-weight: 900;
+  margin-top: 15px;
+}
+
+.comments-section{
+  border-left: 2px purple solid;
+  padding-left: 10px;
+  margin-top: 50px;
+}
+
+.comment-author{
+  text-transform: uppercase;
+}
+
+.comment:not(:first-child){
+  margin-top: 15px;
+}
+
+.comment-timestamp{
+  font-size: .5em;
+  font-weight: 300;
+}
+
+#comment-textbox{
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+#login-wrapper{
+  padding: 15% 0;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/login_background.jpg');
+  background-size: cover;
+}
+
+#login-wrapper h2{
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.nav ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  font-size: 1.2em;
+  line-height: 60px;
+  height: 60px;
+  border-bottom: 1px solid #888;
+  -webkit-transition:background-color .3s;
+  transition:background-color .3s;
+}
+ 
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  -webkit-transition: .3s color;
+  transition: .3s color;
+}
+ 
+.nav li:hover {
+  background-color: white;
+}
+
+.nav li:hover a{
+  color: #5846e2!important;
+}
+ 
+.nav a.active {
+  background-color: #fff;
+  color: #444;
+  cursor: default;
+}
+.nav-mobile-container{
+  background-color: #5846e2;
+}
+
+.nav-mobile-container img{
+  max-width: 80%;
+  height: 50px;
+}
+
+.nav-toggle{
+  width: 50px;
+  height: 50px;
+  float: right;
+  text-indent: -9999px;
+  overflow: hidden;
+  /*display: block;*/
+  background: #5846e2 url("../images/menu.png") no-repeat 50% 33%;
+  background-size: cover;
+}
+
+.inline-block{
+  display: inline-block;
+}
+
+.vote{
+  font-size: 2em;
+  color: #bbbbbb;
+}
+
+.votes{
+  line-height: 2;
+}
+
+.hero{
+  background-image: url("../images/login_background.jpg");
+  background-size: cover;
+}
+
+@media screen and (max-width: 500px) {
+  .hero, #login-wrapper{
+    background-image: url("../images/login_background_mobile.jpg");
+  }
+}
+
+.button.disabled, .button.disabled:hover{
+  background-color: #5846e2;
+}
+
+.hero-text{
+  padding: 175px 0px;
+  color: white!important;
+}
+
+.hero-text h1, .hero-text h2{
+  color: white;
+}
+
+.hero .nav li:hover{
+  background-color: transparent;
+}
+
+.icon-circle{
+  width: 80px;
+  height: 80px;
+  background-color: #fed136;
+  margin: auto;
+  border-radius: 60px;
+  font-size: 3em;
+  padding: 5px 0;
+  color: white;
+}
+
+.bg-light-gray{
+  background-color: #f8f8f8;
+}
+
+section{
+  padding: 100px 0;
+}
+
+.section-subheading{
+  margin-bottom: 50px;
+}
+
+.nav .links{
+  text-transform: uppercase;
+  color: white;
+  font-weight: 100;
+}
+
+.nav .links li:hover a{
+  color: #fed136!important;
+}
+
+.section-heading{
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 3em;
+}
+
+
+.service-heading{
+  margin-top: 10px;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 1em;
+}
+
+.text-muted{
+  font-family: "Raleway";
+  font-weight: 300;
+}
+
+.client-image{
+  margin-top: 50px;
+}
+
+footer ul{
+  list-style: none;
+}
+
+@media screen and (min-width: 600px) {
+  .nav li {
+    padding: 0 15px;
+    border-bottom: none;
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.4em;
+  }
+ 
+  /* Option 1 - Display Inline */
+  .nav li {
+    display: inline-block;
+    margin-right: -4px;
+  }
+ 
+  /* Options 2 - Float
+  .nav li {
+    float: left;
+  }
+  .nav ul {
+    overflow: auto;
+    width: 600px;
+    margin: 0 auto;
+  }
+  .nav {
+    background-color: #444;
+  }
+  */
+}

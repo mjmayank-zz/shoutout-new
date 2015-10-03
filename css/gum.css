@@ -115,7 +115,7 @@ header{
 }
 
 .nav img{
-  max-height: 50px;
+  max-height: 80px;
   padding: 10px;
 }
 
@@ -278,7 +278,7 @@ header{
   overflow: hidden;
   /*display: block;*/
   background: #5846e2 url("../images/menu.png") no-repeat 50% 33%;
-  background-size: cover;
+  backgrounavnd-size: cover;
 }
 
 .inline-block{
@@ -311,7 +311,7 @@ header{
 }
 
 .hero-text{
-  padding: 200px 0px;
+  padding: 250px 0px;
   color: white!important;
 }
 

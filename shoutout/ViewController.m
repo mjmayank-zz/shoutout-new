@@ -225,25 +225,20 @@
                 }
                 
                 if(obj[@"visible"]){
-//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                        UIImage *fullImage = [self imageWithImage:[UIImage imageWithData:
-//                                                                   [NSData dataWithContentsOfURL:
-//                                                                    [NSURL URLWithString: dict[@"picURL"]]]] borderImage:[UIImage imageNamed:@"background"] covertToSize:CGSizeMake(48, 56)];
-//                        dispatch_async(dispatch_get_main_queue(), ^(){
-//                            annotation.image = fullImage;
-                            annotation.profileImage = [UIImage imageWithData:
-                                                       [NSData dataWithContentsOfURL:
-                                                        [NSURL URLWithString: dict[@"picURL"]]]];
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        annotation.profileImage = [UIImage imageWithData:
+                                                   [NSData dataWithContentsOfURL:
+                                                    [NSURL URLWithString: dict[@"picURL"]]]];
+                        dispatch_async(dispatch_get_main_queue(), ^(){
                             if([self.markerDictionary objectForKey:[obj objectId]]){
                                 [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                             }
                             [self.markerDictionary setObject:annotation forKey:[obj objectId]];
                             NSLog(@"%@", [obj objectId]);
-//                            [self.mapView addAnnotation:annotation];
-//                        });
-//                    });
+                            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                        });
+                    });
                 }
-                
             }
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
             

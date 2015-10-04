@@ -18,6 +18,7 @@
 #import "LocationManager.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <AudioToolbox/AudioServices.h>
+#import "Shoutout-Swift.h"
 
 @interface ViewController ()
 
@@ -425,6 +426,23 @@
     [self updateStatus];
 }
 
+- (void)closeUpdateStatusView{
+    if(self.shelf){
+        [self animateSlidingView];
+    }
+}
+
+- (void)openUpdateStatusView{
+    if(!self.shelf){
+        [self animateSlidingView];
+    }
+}
+
+- (void)openUpdateStatusViewWithStatus:(NSString *)status{
+    self.statusTextView.text = status;
+    [self openUpdateStatusView];
+}
+
 - (void)updateStatus{
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
         [PFUser currentUser][@"status"] = self.statusTextView.text;
@@ -561,6 +579,13 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier  isEqual: @"openInboxSegue"]) {
+        SOInboxViewController *destVC = (SOInboxViewController *)segue.destinationViewController;
+        destVC.delegate = self;
+    }
 }
 
 -(void)locationUpdated:(NSNotification *)notification{

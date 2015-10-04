@@ -70,6 +70,7 @@
 		8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */; settings = {ASSET_TAGS = (); }; };
 		8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */; settings = {ASSET_TAGS = (); }; };
+		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */; settings = {ASSET_TAGS = (); }; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */; };
@@ -166,6 +167,7 @@
 		8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMarkerSubView.m; sourceTree = "<group>"; };
 		8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOCreateProfileViewController.swift; sourceTree = "<group>"; };
 		8FD047C31BB1C11000A28B70 /* shoutSpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutSpeechBubble.png; path = images/shoutSpeechBubble.png; sourceTree = "<group>"; };
+		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
 		8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shoutSpeechBubble@2x.png"; path = "images/shoutSpeechBubble@2x.png"; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
+				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
@@ -565,6 +568,7 @@
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
+				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,6 +703,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -716,6 +721,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

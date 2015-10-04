@@ -43,5 +43,7 @@
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 
+- (void)openUpdateStatusViewWithStatus:(NSString *)status;
+
 @end
 

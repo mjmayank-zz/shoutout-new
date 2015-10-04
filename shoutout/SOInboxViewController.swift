@@ -13,6 +13,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var tableView: UITableView!
     var messages: [PFObject]?
+    var delegate: ViewController?
     
     override func viewDidLoad(){
         super.viewDidLoad();
@@ -58,11 +59,20 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 cell.bodyLabel.text = message;
                 cell.profileImage.layer.cornerRadius = 25.0;
                 cell.profileImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: fromImage!)!)!);
-//                let image = UIImage(named: "shoutSpeechBubble");
-//                let resizableImage = image?.resizableImageWithCapInsets(UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0));
-//                cell.profileImage.image = resizableImage;
             }
             return cell;
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let messages = messages{
+            let from = messages[indexPath.row].objectForKey("from") as! PFObject;
+            let fromUsername = from.objectForKey("username") as? String;
+            
+            self.delegate?.openUpdateStatusViewWithStatus("@" + fromUsername!);
+            
+            self.dismissViewControllerAnimated(true, completion: nil);
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {

@@ -14,12 +14,15 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var tableView: UITableView!
     var messages: [PFObject]?
     var delegate: ViewController?
+    var profileImageCache : NSCache!
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
     
+        self.profileImageCache = NSCache();
+        
         getMessages();
     }
     
@@ -58,7 +61,12 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 let fromImage = from.objectForKey("picURL") as? String;
                 cell.bodyLabel.text = message;
                 cell.profileImage.layer.cornerRadius = 25.0;
-                cell.profileImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: fromImage!)!)!);
+                var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
+                if(image == nil){
+                    image = UIImage(data: NSData(contentsOfURL: NSURL(string: fromImage!)!)!);
+                    self.profileImageCache.setObject(image!, forKey: from.objectId!)
+                }
+                cell.profileImage.image = image;
             }
             return cell;
     }
@@ -68,7 +76,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             let from = messages[indexPath.row].objectForKey("from") as! PFObject;
             let fromUsername = from.objectForKey("username") as? String;
             
-            self.delegate?.openUpdateStatusViewWithStatus("@" + fromUsername!);
+            self.delegate?.openUpdateStatusViewWithStatus("@" + fromUsername! + " ");
             
             self.dismissViewControllerAnimated(true, completion: nil);
         }

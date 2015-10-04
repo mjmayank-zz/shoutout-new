@@ -49,6 +49,10 @@
     return self;
 }
 
+-(void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"mapDidScale" object:nil];
+}
+
 - (void)didPressButtonWithName:(NSString *)name
 {
     if ([name isEqualToString:@"profile"]) {
@@ -80,14 +84,6 @@
     }
 }
 
-- (void)changeStatus:(NSString *)status{
-    SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
-    if([self.annotation isKindOfClass:[KPAnnotation class]]){
-        annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
-    }
-    self.subview.shoutLabel.text = status;
-}
-
 - (void)toggleShout
 {
     if (self.subview.bubbleContainerView.hidden)
@@ -103,7 +99,10 @@
 }
 
 - (void)scaleForZoomLevel:(double)zoomLevel{
-    double scale = ((zoomLevel-5) * 10) / 100.0;
+    double scale = ((zoomLevel-12) * 20) / 100.0;
+    if(scale < 0.1){
+        scale = 0.1;
+    }
     self.transform = CGAffineTransformMakeScale(scale, scale);
     self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
@@ -113,14 +112,14 @@
     self.subview.profileImageView.image = profileImage;
 }
 
-- (void)showShout
-{
+- (void)showShout{
     [self.subview.bubbleContainerView setHidden:NO];
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
-    [self changeStatus:annotation.subtitle];
+    self.subview.shoutLabel.text = annotation.subtitle;
+    self.subview.usernameLabel.text = annotation.title;
 }
 
 - (void)hideShout

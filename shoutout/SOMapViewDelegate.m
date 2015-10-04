@@ -68,10 +68,6 @@
     }
 }
 
-- (void)mapViewRegionIsChanging:(MKMapView *)mapView{
-    //    NSLog(@"%f, %f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude);
-}
-
 // Always show a callout when an annotation is tapped.
 - (BOOL)mapView:(MKMapView *)mapView annotationCanShowCallout:(id <MKAnnotation>)annotation {
     return NO;
@@ -123,7 +119,7 @@
                 annotationView.shout = shoutoutAnnotation.subtitle;
                 annotationView.canShowCallout = NO;
             }
-            
+            [annotationView scaleForZoomLevel:mapView.zoomLevel];
             annotationView.profileImage = image;
             return annotationView;
         }

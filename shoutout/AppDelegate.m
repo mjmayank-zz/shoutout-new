@@ -24,6 +24,14 @@
     [Parse setApplicationId:@"S5HVjNqmiwUgiGjMDiJLYh361p5P7Ob3fCOabrJ9"
                   clientKey:@"3GWNcqZ7LJhBtGbbmQfs0ROHKFM5sX6GDT9IWhCk"];
     
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
     [PFFacebookUtils initializeFacebook];
     
     [LocationManager initLocationManager];
@@ -128,6 +136,18 @@
 
 - (void)locationKit:(LocationKit *)locationKit didStartVisit:(LKVisit *)visit{
     
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[ @"global" ];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 
 @end

@@ -255,11 +255,11 @@
 			children = (
 				8F8D47A31B97ECAD00D902B9 /* images */,
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
+				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
-				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
@@ -425,6 +425,9 @@
 								enabled = 1;
 							};
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -707,12 +710,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mjmayank.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "shoutout/shoutout-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -725,12 +730,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = shoutout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mjmayank.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "shoutout/shoutout-Bridging-Header.h";
 			};
 			name = Release;

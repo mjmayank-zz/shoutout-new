@@ -747,7 +747,13 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8p-Pn-LhE">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <navigationItem title="Feedback" id="gfU-YC-VL8"/>
+                                    <navigationItem title="Feedback" id="gfU-YC-VL8">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="0Qh-ND-zVd">
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="ft3-xd-htY" id="xZ6-Ap-lGo"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Ideas for additional features? Noticed any bugs? Let us know!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eIc-uC-pd0">
@@ -758,9 +764,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAW-uh-L5P">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAW-uh-L5P">
                                 <rect key="frame" x="276" y="194" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButtonPressed:" destination="ft3-xd-htY" eventType="touchUpInside" id="nUQ-Cd-mkU"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -768,11 +777,16 @@
                             <constraint firstItem="eIc-uC-pd0" firstAttribute="top" secondItem="t8p-Pn-LhE" secondAttribute="bottom" constant="22" id="1wj-Uu-Uvx"/>
                             <constraint firstItem="eIc-uC-pd0" firstAttribute="trailing" secondItem="4FV-ol-PyB" secondAttribute="trailingMargin" id="D87-5o-dbD"/>
                             <constraint firstItem="t8p-Pn-LhE" firstAttribute="leading" secondItem="4FV-ol-PyB" secondAttribute="leadingMargin" constant="-20" id="GXN-dI-Sdl"/>
+                            <constraint firstItem="nAW-uh-L5P" firstAttribute="top" secondItem="eIc-uC-pd0" secondAttribute="bottom" constant="8" id="Jx9-qr-tBM"/>
                             <constraint firstItem="eIc-uC-pd0" firstAttribute="leading" secondItem="4FV-ol-PyB" secondAttribute="leadingMargin" id="bPs-3h-GSB"/>
                             <constraint firstItem="t8p-Pn-LhE" firstAttribute="top" secondItem="3gU-SS-pSM" secondAttribute="bottom" id="oYs-iW-RVW"/>
+                            <constraint firstItem="nAW-uh-L5P" firstAttribute="centerX" secondItem="4FV-ol-PyB" secondAttribute="centerX" id="oyE-hN-dWt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="t8p-Pn-LhE" secondAttribute="trailing" constant="-20" id="xTw-RN-RcZ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="feedbackTextView" destination="eIc-uC-pd0" id="0bO-AF-uzq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTb-0v-DXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

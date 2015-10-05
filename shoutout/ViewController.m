@@ -25,6 +25,8 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation * previousLocation;
 @property (assign, nonatomic) int *count;
+@property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
+@property (strong, nonatomic) IBOutlet UIButton *saveStatusButton;
 
 @end
 
@@ -86,6 +88,7 @@
     self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
     self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
+    self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
     
     [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self animateUser:snapshot.key toNewPosition:snapshot.value];
@@ -98,17 +101,25 @@
     [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
     }];
+ 
+    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserOnline:snapshot.key toNewOnline:snapshot.value];
+    }];
     
     UIImage * image = [UIImage imageWithData:
              [NSData dataWithContentsOfURL:
               [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
-    self.profilePic.image = image;
-    self.profilePic.layer.cornerRadius = 35.0;
+    if(image){
+        self.profilePic.image = image;
+    }
+    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
     self.profilePic.layer.masksToBounds = YES;
     
     self.statusTextView.text = [PFUser currentUser][@"status"];
     
     [self.saveButton.layer setCornerRadius:4.0f];
+    [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
+    [self.saveStatusButton.layer setCornerRadius:self.saveStatusButton.frame.size.height/2];
     [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
     self.unreadIndicator.layer.masksToBounds = YES;
     
@@ -220,6 +231,7 @@
                 if(obj.objectId)
                     dict[@"id"] = obj.objectId;
                 annotation.userInfo = dict;
+                annotation.online = [obj[@"online"] boolValue];
   
                 if([self.markerDictionary objectForKey:[obj objectId]]){
                     [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
@@ -292,6 +304,10 @@
 //            
 //        }
 //    }
+}
+
+- (void) changeUserOnline:(NSString *)userID toNewOnline:(NSDictionary *)newMetadata {
+    
 }
 
 #pragma mark -LoginDelegate
@@ -417,9 +433,8 @@
     [self animateSlidingView];
 }
 
-- (IBAction)doneButtonPressed:(id)sender {
-    [self shoutOutButtonPressed:nil];
-    [self updateStatus];
+- (IBAction)cancelButtonPressed:(id)sender {
+    [self closeUpdateStatusView];
 }
 
 - (IBAction)saveButtonPressed:(id)sender {

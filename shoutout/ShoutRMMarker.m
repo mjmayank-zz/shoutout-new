@@ -32,7 +32,8 @@
     if (self) {
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
         [self addSubview:self.subview];
-        self.subview.profileImageView.layer.cornerRadius = 30.0f;
+        self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
+        self.subview.onlineIndicator.layer.cornerRadius = self.subview.onlineIndicator.frame.size.height/2.0;
         self.subview.profileImageView.layer.masksToBounds = YES;
         if (annotation.title)
             self.shout = [[NSString alloc] initWithString:((SOAnnotation*)annotation).subtitle];
@@ -125,6 +126,10 @@
 - (void)hideShout
 {
     [self.subview.bubbleContainerView setHidden:YES];
+}
+
+-(void)setOnline:(BOOL)online{
+    self.subview.onlineIndicator.hidden = !online;
 }
 
 - (void)toggleIcons

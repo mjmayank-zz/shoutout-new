@@ -59,6 +59,8 @@
     if([PFUser currentUser]){
         Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
         [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"NO"];
+        [[PFUser currentUser] setObject:[NSNumber numberWithBool:NO] forKey:@"online"];
+        [[PFUser currentUser] saveInBackground];
     }
 }
 
@@ -75,6 +77,8 @@
     if([PFUser currentUser]){
         Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
         [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"YES"];
+        [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"online"];
+        [[PFUser currentUser] saveInBackground];
     }
 }
 

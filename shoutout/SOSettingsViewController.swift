@@ -26,5 +26,17 @@ class SOSettingsViewController : UIViewController{
         shoutoutRootPrivacy.childByAppendingPath(PFUser.currentUser()?.objectId).childByAppendingPath("privacy").setValue(privacyStatus);
         PFUser.currentUser()?["visible"] = NSNumber(bool: privacySwitch.on);
         PFUser.currentUser()?.saveInBackground();
+        
+        if(privacySwitch.on){
+            LocationKit.sharedInstance().resume();
+        }
+        else{
+            LocationKit.sharedInstance().pause();
+        }
+    }
+    
+    @IBAction func logoutButtonPressed(sender: AnyObject) {
+        PFUser.logOut();
+        self.performSegueWithIdentifier("logoutToStart", sender: self);
     }
 }

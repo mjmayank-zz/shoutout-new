@@ -49,6 +49,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
                 facebookButton.enabled = true;
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
                 appDelegate.startLocationKit();
+                nextButton.enabled = true;
             }
     }
     @IBAction func facebookLoginPressed(sender: AnyObject) {

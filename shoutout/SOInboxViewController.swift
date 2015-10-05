@@ -60,6 +60,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 let from = messages[indexPath.row].objectForKey("from") as! PFObject;
                 let fromImage = from.objectForKey("picURL") as? String;
                 cell.bodyLabel.text = message;
+                cell.usernameLabel.text = from.objectForKey("username") as? String;
                 cell.profileImage.layer.cornerRadius = 25.0;
                 var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
                 if(image == nil){
@@ -93,6 +94,7 @@ class messagesCell : UITableViewCell{
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var usernameLabel: UILabel!
     
     var object : PFObject!
 }

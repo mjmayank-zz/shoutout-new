@@ -39,6 +39,7 @@
 @property (strong, nonatomic) Firebase* shoutoutRoot;
 @property (strong, nonatomic) Firebase* shoutoutRootStatus;
 @property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
+@property (strong, nonatomic) Firebase* shoutoutRootOnline;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;

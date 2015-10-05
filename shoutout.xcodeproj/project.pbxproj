@@ -15,6 +15,7 @@
 		8F1F1DA41BAB1F1600506239 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1F1DA11BAB1F1600506239 /* more.png */; settings = {ASSET_TAGS = (); }; };
 		8F1F1DA51BAB1F1600506239 /* myLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1F1DA21BAB1F1600506239 /* myLocation.png */; settings = {ASSET_TAGS = (); }; };
 		8F1F1DA71BAB22C400506239 /* shoutout_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1F1DA61BAB22C400506239 /* shoutout_green.png */; settings = {ASSET_TAGS = (); }; };
+		8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F28BEE01BA1104A00FD0999 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBD1BA1104A00FD0999 /* add.png */; };
 		8F28BEE11BA1104A00FD0999 /* addPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBE1BA1104A00FD0999 /* addPin.png */; };
 		8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEBF1BA1104A00FD0999 /* addPinWindow.png */; };
@@ -98,6 +99,7 @@
 		8F1F1DA11BAB1F1600506239 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = more.png; path = images/more.png; sourceTree = "<group>"; };
 		8F1F1DA21BAB1F1600506239 /* myLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = myLocation.png; path = images/myLocation.png; sourceTree = "<group>"; };
 		8F1F1DA61BAB22C400506239 /* shoutout_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutout_green.png; path = images/shoutout_green.png; sourceTree = "<group>"; };
+		8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFeedbackViewController.swift; sourceTree = "<group>"; };
 		8F28BEBD1BA1104A00FD0999 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = images/add.png; sourceTree = "<group>"; };
 		8F28BEBE1BA1104A00FD0999 /* addPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addPin.png; path = images/addPin.png; sourceTree = "<group>"; };
 		8F28BEBF1BA1104A00FD0999 /* addPinWindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addPinWindow.png; path = images/addPinWindow.png; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
+				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
@@ -570,6 +573,7 @@
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
+				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

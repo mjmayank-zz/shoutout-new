@@ -121,6 +121,7 @@
             }
             [annotationView scaleForZoomLevel:mapView.zoomLevel];
             annotationView.profileImage = image;
+            [annotationView setOnline:shoutoutAnnotation.online];
             return annotationView;
         }
         

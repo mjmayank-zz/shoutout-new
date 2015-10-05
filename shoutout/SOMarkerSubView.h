@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UIView *bubbleContainerView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) IBOutlet UIView *onlineIndicator;
 
 @end

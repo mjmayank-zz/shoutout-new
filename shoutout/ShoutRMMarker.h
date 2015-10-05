@@ -30,6 +30,8 @@
                     image:(UIImage *)image;
 - (void)didPressButtonWithName:(NSString*)name;
 - (void)scaleForZoomLevel:(double)zoomLevel;
-
+- (void)showShout;
+- (void)hideShout;
+-(void)setOnline:(BOOL)online;
 
 @end

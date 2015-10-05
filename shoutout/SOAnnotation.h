@@ -17,6 +17,7 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (assign, nonatomic) BOOL online;
 
 -(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate;
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;

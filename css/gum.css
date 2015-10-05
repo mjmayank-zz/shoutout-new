@@ -117,6 +117,7 @@ header{
 .nav img{
   max-height: 80px;
   padding: 10px;
+  padding-left: 0px;
 }
 
 .camera{

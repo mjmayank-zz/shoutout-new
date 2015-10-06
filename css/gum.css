@@ -59,6 +59,8 @@ button.disabled, button.disabled:hover{
   font-weight: 700;
   text-transform: uppercase;
   background-color: #5846e2;
+  padding-top: .5em;
+  padding-bottom: .5em;
 }
 
 .button:hover{
@@ -378,12 +380,13 @@ section{
   font-family: "Titillium Web", sans-serif;
   text-transform: uppercase;
   font-weight: 900;
-  font-size: 1em;
+  font-size: 1.5em;
 }
 
 .text-muted{
   font-family: "Titillium Web";
   font-weight: 300;
+  font-size: 1.1rem;
 }
 
 .client-image{

@@ -307,7 +307,7 @@ header{
   min-height:100vh;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 640px) {
   .hero, #login-wrapper{
     background-image: url("../images/login_background_mobile.png");
   }

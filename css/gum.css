@@ -318,6 +318,7 @@ header{
 
 .hero-background{
   background-image: url("../images/hero_background.png");
+  background-size: contain;
 }
 
 .hero-text{

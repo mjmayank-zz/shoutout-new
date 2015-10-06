@@ -115,7 +115,7 @@ header{
 }
 
 .nav img{
-  max-height: 80px;
+  max-height: 200px;
   padding: 10px;
   padding-left: 0px;
 }
@@ -321,7 +321,6 @@ header{
 }
 
 .hero-text{
-  margin-top: 100px;
   color: white!important;
 }
 

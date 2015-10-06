@@ -11,7 +11,7 @@ a:hover{
 }
 
 body, h1, h2, h3, h6{
-  font-family: 'Lato', 'san-serif';
+  font-family: 'Titillium Web', 'san-serif';
 }
 
 h1{
@@ -30,8 +30,8 @@ canvas{
 }
 
 button{
-  font-family: 'Lato';
-  font-weight: 900;
+  font-family: 'Titillium Web';
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -55,8 +55,8 @@ button.disabled, button.disabled:hover{
 }
 
 .button{
-  font-family: 'Lato';
-  font-weight: 900;
+  font-family: 'Titillium Web';
+  font-weight: 700;
   text-transform: uppercase;
   background-color: #5846e2;
 }
@@ -110,7 +110,7 @@ video,
 
 header{
   font-size: 40px;
-  font-family: "Josefin Slab", "serif";
+  font-family: "Titillium Web", "serif";
   font-weight: 900;
 }
 
@@ -366,7 +366,7 @@ section{
 }
 
 .section-heading{
-  font-family: "Lato", sans-serif;
+  font-family: "Titillium Web", sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   font-size: 3em;
@@ -375,14 +375,14 @@ section{
 
 .service-heading{
   margin-top: 10px;
-  font-family: "Lato", sans-serif;
+  font-family: "Titillium Web", sans-serif;
   text-transform: uppercase;
   font-weight: 900;
   font-size: 1em;
 }
 
 .text-muted{
-  font-family: "Raleway";
+  font-family: "Titillium Web";
   font-weight: 300;
 }
 

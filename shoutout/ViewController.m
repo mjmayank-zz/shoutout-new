@@ -106,11 +106,26 @@
         [self changeUserOnline:snapshot.key toNewOnline:snapshot.value];
     }];
     
-    UIImage * image = [UIImage imageWithData:
-             [NSData dataWithContentsOfURL:
-              [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
-    if(image){
-        self.profilePic.image = image;
+    PFObject *profileImageObj = [PFUser currentUser][@"profileImage"];
+    if(profileImageObj){
+        [profileImageObj fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            PFFile *file = profileImageObj[@"image"];
+            [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                self.profilePic.image = [UIImage imageWithData:data];
+            }];
+        }];
+    }
+    else{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage * image = [UIImage imageWithData:
+                               [NSData dataWithContentsOfURL:
+                                [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                if(image){
+                    self.profilePic.image = image;
+                }
+            });
+        });
     }
     self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
     self.profilePic.layer.masksToBounds = YES;
@@ -201,7 +216,8 @@
     PFQuery *query = [PFUser query];
     [query whereKey:@kParseObjectGeoKey nearGeoPoint:geoLoc withinKilometers:50];
     [query whereKey:@kParseObjectVisibleKey equalTo:[NSNumber numberWithBool:YES]];
-    
+    [query includeKey:@"profileImage"];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -238,19 +254,35 @@
                 }
                 
                 if(obj[@"visible"]){
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        annotation.profileImage = [UIImage imageWithData:
-                                                   [NSData dataWithContentsOfURL:
-                                                    [NSURL URLWithString: dict[@"picURL"]]]];
-                        dispatch_async(dispatch_get_main_queue(), ^(){
-                            if([self.markerDictionary objectForKey:[obj objectId]]){
-                                [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                            }
-                            [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                            NSLog(@"%@", [obj objectId]);
-                            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                    if(obj[@"profileImage"]){
+                        PFFile *file = obj[@"profileImage"][@"image"];
+                        [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                            annotation.profileImage = [UIImage imageWithData:data];
+                        }];
+                        
+                        if([self.markerDictionary objectForKey:[obj objectId]]){
+                            [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                        }
+                        [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                        NSLog(@"%@", [obj objectId]);
+                        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                    }
+                    else{
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            annotation.profileImage = [UIImage imageWithData:
+                                                       [NSData dataWithContentsOfURL:
+                                                        [NSURL URLWithString: dict[@"picURL"]]]];
+                            dispatch_async(dispatch_get_main_queue(), ^(){
+                                if([self.markerDictionary objectForKey:[obj objectId]]){
+                                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                                }
+                                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                                NSLog(@"%@", [obj objectId]);
+                                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                            });
                         });
-                    });
+                    }
+                    
                 }
             }
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
@@ -260,16 +292,6 @@
             NSLog(@"Parse error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-
--(UIImage *)imageWithImage:(UIImage *)image borderImage:(UIImage *)borderImage covertToSize:(CGSize)size {
-    UIGraphicsBeginImageContext(size);
-    [borderImage drawInRect:CGRectMake( 0, 0, size.width, size.height )];
-    [image drawInRect:CGRectMake( 4, 4, 40, 40)];
-    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSLog(@"image created");
-    return destImage;
 }
 
 #pragma mark -FirebaseEvents
@@ -489,6 +511,7 @@
                     messageObj[@"from"] = [PFUser currentUser];
                     messageObj[@"to"] = obj;
                     messageObj[@"message"] = message;
+                    messageObj[@"read"] = [NSNumber numberWithBool:NO];
                     [messageObj saveInBackground];
                 }
             }];

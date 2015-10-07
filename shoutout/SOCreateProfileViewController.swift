@@ -9,15 +9,39 @@
 import Foundation
 import UIKit
 
-class SOCreateProfileViewController : UIViewController, UITextFieldDelegate{
+class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var profileImageView: UIImageView!
+    var chosenImage : PFObject?
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.passwordTextField.delegate = self;
+        self.usernameTextField.delegate = self;
+        self.emailTextField.delegate = self;
+        PFQuery(className: "DefaultImage").getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
+            if let object = object{
+                let array = object.objectForKey("images") as! [AnyObject];
+                let random = Int(arc4random_uniform(UInt32(array.count)));
+                array[random].fetchIfNeededInBackgroundWithBlock({ (pic:PFObject?, error:NSError?) -> Void in
+                    if let pic = pic{
+                        self.chosenImage = pic;
+                        let userImageFile = pic["image"] as! PFFile;
+                        userImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error:NSError?) -> Void in
+                            if !(error != nil) {
+                                if let imageData = imageData{
+                                    let image = UIImage(data:imageData)
+                                    self.profileImageView.image = image;
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        };
     }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
@@ -25,6 +49,9 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate{
         user.username = usernameTextField.text;
         user.email = emailTextField.text;
         user.password = passwordTextField.text;
+        user["profileImage"] = self.chosenImage;
+        user["status"] = "";
+        user["visible"] = NSNumber(bool: true);
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
             if let error = error {
@@ -39,7 +66,24 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func addPictureButtonPressed(sender: AnyObject) {
-        
+        let imagePicker = UIImagePickerController();
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = false
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    //MARK: Delegates
+    func imagePickerController(
+        picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [String : AnyObject])
+    {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
+        self.profileImageView.contentMode = .ScaleAspectFill;
+        self.profileImageView.image = chosenImage;
+        dismissViewControllerAnimated(true, completion: nil);
+    }
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil);
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

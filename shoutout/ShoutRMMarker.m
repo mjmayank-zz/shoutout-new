@@ -35,10 +35,12 @@
         self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
         self.subview.onlineIndicator.layer.cornerRadius = self.subview.onlineIndicator.frame.size.height/2.0;
         self.subview.profileImageView.layer.masksToBounds = YES;
-        if (annotation.title)
+        if (annotation.subtitle)
             self.shout = [[NSString alloc] initWithString:((SOAnnotation*)annotation).subtitle];
-
-        self.subview.usernameLabel.text = annotation.title;
+        if (annotation.title)
+            self.subview.usernameLabel.text = annotation.title;
+        else
+            self.subview.usernameLabel.text = @"";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];

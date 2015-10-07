@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 
-class SOSignInViewController: UIViewController{
+class SOSignInViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
     override func viewDidLoad(){
         super.viewDidLoad();
+        self.usernameTextField.delegate = self;
+        self.passwordTextField.delegate = self;
     }
     
     @IBAction func signInButtonPressed(sender: AnyObject) {
@@ -27,4 +29,10 @@ class SOSignInViewController: UIViewController{
     @IBAction func backButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder();
+        return true;
+    }
+    
 }

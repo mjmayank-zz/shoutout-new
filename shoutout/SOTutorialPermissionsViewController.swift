@@ -15,7 +15,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBOutlet var locationServicesButton: UIButton!
     @IBOutlet var nextButton: UIButton!
-    @IBOutlet var facebookButton: UIButton!
     let locationManager = CLLocationManager();
     
     override func viewDidLoad(){
@@ -42,11 +41,9 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
                 appDelegate.startLocationKit();
 //                locationManager.startUpdatingLocation();
                 locationServicesButton.hidden = true;
-                facebookButton.enabled = true;
             }
             if(status == .AuthorizedAlways){
                 locationServicesButton.hidden = true;
-                facebookButton.enabled = true;
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
                 appDelegate.startLocationKit();
                 nextButton.enabled = true;
@@ -58,7 +55,20 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBAction func motionPermissionButtonPressed(sender: AnyObject) {
         self.requestMotionAccessData();
+        let button = sender as! UIButton;
+        button.hidden = true;
     }
+    
+    @IBAction func pushNotificationsButtonPressed(sender: AnyObject) {
+        let application = UIApplication.sharedApplication();
+        
+        let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        let button = sender as! UIButton;
+        button.hidden = true;
+    }
+    
     
     func requestMotionAccessData(){
         let cmManager = CMMotionActivityManager();
@@ -120,7 +130,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             }
         }
         nextButton.enabled = true;
-        facebookButton.hidden = true;
         self.dismissViewControllerAnimated(true, completion: nil);
     }
     

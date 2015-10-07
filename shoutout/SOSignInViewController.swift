@@ -22,7 +22,9 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     @IBAction func signInButtonPressed(sender: AnyObject) {
         
         PFUser.logInWithUsernameInBackground(usernameTextField.text!, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
-            self.performSegueWithIdentifier("signInToMap", sender: self);
+            if ((user) != nil){
+                self.performSegueWithIdentifier("signInToMap", sender: self);
+            }
         }
     }
     

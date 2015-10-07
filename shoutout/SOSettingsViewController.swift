@@ -11,8 +11,13 @@ import UIKit
 
 class SOSettingsViewController : UIViewController{
 
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var usernameTextField: UITextField!
+    
     override func viewDidLoad(){
         super.viewDidLoad();
+        self.usernameTextField.text = PFUser.currentUser()?.username
+        
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {
@@ -38,5 +43,9 @@ class SOSettingsViewController : UIViewController{
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         PFUser.logOut();
         self.performSegueWithIdentifier("logoutToStart", sender: self);
+    }
+    @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
+        PFUser.currentUser()?.username = self.usernameTextField.text;
+        PFUser.currentUser()?.saveInBackground();
     }
 }

@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "LocationManager.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "Shoutout-Swift.h"
 
 @interface AppDelegate ()
 
@@ -60,7 +61,9 @@
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = initViewController;
+    
+    SONUXViewController* vc = [[SONUXViewController alloc] init];
+    self.window.rootViewController = vc;
     [self.window makeKeyAndVisible];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; settings = {ASSET_TAGS = (); }; };
@@ -89,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
+		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		35872A8A1BC5D462004E99C6 /* NUX */ = {
+			isa = PBXGroup;
+			children = (
+				35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */,
+			);
+			name = NUX;
+			sourceTree = "<group>";
+		};
 		50B1DBD54D1685A0BC6A9607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +284,7 @@
 				8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */,
 				8F5AEDBD1BBCC99B00DF1BB1 /* Pins */,
 				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
+				35872A8A1BC5D462004E99C6 /* NUX */,
 				8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */,
 				8FFF0BFF1B9F7A210009E619 /* UVA.gpx */,
 				8F168CE51BAC9D70000D18D0 /* UIUC.gpx */,
@@ -419,7 +430,7 @@
 				TargetAttributes = {
 					8F8D476C1B976DB900D902B9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 9C8EQ3DGNG;
+						DevelopmentTeam = D57Y7VZPM5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -574,6 +585,7 @@
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
+				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,

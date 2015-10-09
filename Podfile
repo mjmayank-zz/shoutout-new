@@ -8,8 +8,8 @@ target 'shoutout' do
 	pod 'FBSDKCoreKit'
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'
-	pod 'LocationKit'
-	pod 'kingpin'
+	pod 'LocationKit', '2.3.3'
+	pod 'kingpin', :git => 'https://github.com/mjmayank/kingpin.git'
 end
 
 target 'shoutoutTests' do

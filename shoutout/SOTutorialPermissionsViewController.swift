@@ -28,6 +28,10 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         if(PFUser.currentUser() != nil){
             self.nextButton.enabled = true;
         }
+        
+        if(CLLocationManager.locationServicesEnabled()){
+            self.nextButton.enabled = true;
+        }
     }
     @IBAction func locationPermissionButtonPressed(sender: AnyObject) {
         locationManager.requestAlwaysAuthorization();

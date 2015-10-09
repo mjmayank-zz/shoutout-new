@@ -702,6 +702,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvl-j4-nOQ">
+                                <rect key="frame" x="334" y="156" width="53" height="30"/>
+                                <state key="normal" title="Change"/>
+                                <connections>
+                                    <action selector="addPictureButtonPressed:" destination="Syc-BN-oMi" eventType="touchUpInside" id="Ngx-YU-r7Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -716,11 +723,13 @@
                             <constraint firstItem="e2O-mh-jhX" firstAttribute="top" secondItem="dJ8-sg-OQ1" secondAttribute="bottom" constant="8" id="Nw9-u3-Uzv"/>
                             <constraint firstItem="3gF-o4-psp" firstAttribute="top" secondItem="WNZ-uk-fqk" secondAttribute="bottom" constant="26" id="RAq-SB-ivB"/>
                             <constraint firstItem="Yie-Jf-C6A" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="SlC-27-NTD"/>
+                            <constraint firstItem="gvl-j4-nOQ" firstAttribute="top" secondItem="K39-WO-Gck" secondAttribute="bottom" constant="40" id="UYo-XD-r2z"/>
                             <constraint firstItem="e2O-mh-jhX" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="bno-hs-ceY"/>
                             <constraint firstItem="K39-WO-Gck" firstAttribute="top" secondItem="WNZ-uk-fqk" secondAttribute="bottom" constant="21" id="cyf-VW-E93"/>
                             <constraint firstItem="Yie-Jf-C6A" firstAttribute="top" secondItem="dwh-0R-sl3" secondAttribute="bottom" id="dcI-Bs-Vrj"/>
                             <constraint firstItem="3gF-o4-psp" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" constant="-56" id="hgc-pu-ebk"/>
                             <constraint firstItem="2Q2-o9-Sx6" firstAttribute="leading" secondItem="e2O-mh-jhX" secondAttribute="trailing" constant="5" id="kMV-tB-glZ"/>
+                            <constraint firstItem="gvl-j4-nOQ" firstAttribute="leading" secondItem="dJ8-sg-OQ1" secondAttribute="trailing" constant="4" id="kll-Yx-IP4"/>
                             <constraint firstItem="dwh-0R-sl3" firstAttribute="top" secondItem="3gF-o4-psp" secondAttribute="bottom" constant="40" id="osm-Bp-DNL"/>
                             <constraint firstItem="WNZ-uk-fqk" firstAttribute="leading" secondItem="b6m-au-SFf" secondAttribute="leadingMargin" constant="-20" id="qaz-tW-IKQ"/>
                             <constraint firstItem="2Q2-o9-Sx6" firstAttribute="top" secondItem="K39-WO-Gck" secondAttribute="bottom" constant="78" id="tVr-rQ-qNP"/>
@@ -732,6 +741,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="privacyToggle" destination="K39-WO-Gck" id="u85-zh-Tz2"/>
                         <outlet property="profileImageView" destination="dJ8-sg-OQ1" id="CtS-RN-vpM"/>
                         <outlet property="usernameTextField" destination="e2O-mh-jhX" id="nBI-OU-5lg"/>
                     </connections>

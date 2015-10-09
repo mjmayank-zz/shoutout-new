@@ -9,15 +9,20 @@
 import Foundation
 import UIKit
 
-class SOSettingsViewController : UIViewController{
+class SOSettingsViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var usernameTextField: UITextField!
+    @IBOutlet var privacyToggle: UISwitch!
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.usernameTextField.text = PFUser.currentUser()?.username
-        
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height/2.0;
+        self.profileImageView.layer.masksToBounds = true;
+        if let on = PFUser.currentUser()?["visible"]{
+            self.privacyToggle.on = on.boolValue;
+        }
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {
@@ -47,5 +52,45 @@ class SOSettingsViewController : UIViewController{
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
         PFUser.currentUser()?.username = self.usernameTextField.text;
         PFUser.currentUser()?.saveInBackground();
+    }
+    
+    @IBAction func addPictureButtonPressed(sender: AnyObject) {
+        let imagePicker = UIImagePickerController();
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = false
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    //MARK: Delegates
+    func imagePickerController(
+        picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [String : AnyObject])
+    {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
+        self.profileImageView.contentMode = .ScaleToFill;
+        self.profileImageView.image = chosenImage;
+        
+        let parseImageData = UIImageJPEGRepresentation(chosenImage, 0.05);
+        let imageFile = PFFile(data: parseImageData!);
+        
+        imageFile?.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
+            if(error == nil){
+                let photo = PFObject(className: "Image");
+                photo.setObject(imageFile!, forKey: "file");
+                
+                photo.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
+                    if(error == nil){
+                        PFUser.currentUser()?.setObject(photo, forKey: "profileImage");
+                    }
+                })
+            }
+        });
+        
+        dismissViewControllerAnimated(true, completion: nil);
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil);
+
     }
 }

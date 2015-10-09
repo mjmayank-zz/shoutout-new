@@ -298,17 +298,34 @@
 
 - (void) animateUser:(NSString *)userID toNewPosition:(NSDictionary *)newMetadata {
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([newMetadata[@"lat"] doubleValue], [newMetadata[@"long"] doubleValue] );
-    SOAnnotation * marker = ((SOAnnotation *)self.markerDictionary[userID]);
-    marker.coordinate = coordinate;
+    SOAnnotation * annotation = ((SOAnnotation *)self.markerDictionary[userID]);
+    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
+    if(annotation){
+        annotation.coordinate = coordinate;
+    }
+    if(clusterAnnotation){
+        if(![clusterAnnotation isCluster]){
+            clusterAnnotation.coordinate = coordinate;
+        }
+    }
+    
+    [self.mapViewDelegate.clusteringController refresh:YES];
 }
 
 - (void) changeUserStatus:(NSString *)userID toNewStatus:(NSDictionary *)newMetadata {
     SOAnnotation *annotation = self.markerDictionary[userID];
+    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
+    
     if(annotation){
         annotation.subtitle = newMetadata[@"status"];
-//        [self.mapView deselectAnnotation:self.markerDictionary[userID] animated:NO];
-//        self.mapView.selectedAnnotations = @[self.markerDictionary[userID]];
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+    
+    if(clusterAnnotation){
+        if(![clusterAnnotation isCluster]){
+            [self.mapView deselectAnnotation:clusterAnnotation animated:NO];
+            self.mapView.selectedAnnotations = @[clusterAnnotation];
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
     }
 }
 

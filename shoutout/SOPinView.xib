@@ -27,8 +27,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
+<<<<<<< HEAD
                             <rect key="frame" x="44" y="64" width="71" height="21"/>
                             <animations/>
+=======
+                            <rect key="frame" x="44" y="64" width="81" height="21"/>
+>>>>>>> added setting change profile pi
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -38,6 +42,12 @@
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsv-Pd-Qw3">
+                            <rect key="frame" x="33" y="20" width="225" height="63"/>
+                            <connections>
+                                <action selector="pressedMarkerButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="AIa-Ll-VhS"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

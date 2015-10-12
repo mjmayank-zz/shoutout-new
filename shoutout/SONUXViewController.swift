@@ -12,6 +12,7 @@ class SONUXViewController: UIViewController, UIPageViewControllerDataSource, UIP
     
     var controllers = [UIViewController]()
     @IBOutlet weak var backgroundView: UIImageView!
+    @IBOutlet weak var pageControl: UIPageControl!
     var pageViewController: UIPageViewController!
     
     override func prepareForSegue(segue:(UIStoryboardSegue!), sender:AnyObject!)
@@ -32,6 +33,7 @@ class SONUXViewController: UIViewController, UIPageViewControllerDataSource, UIP
             controllers.append(pageFour!)
             
             self.pageViewController?.setViewControllers([controllers[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+            self.pageControl.numberOfPages = controllers.count
             
             self.pageViewController?.view.frame = CGRectInset(self.view.frame, 50.0, 50.0)
         }
@@ -66,15 +68,23 @@ class SONUXViewController: UIViewController, UIPageViewControllerDataSource, UIP
         return nil
     }
     
+    // MARK: UIPageViewControllerDelegate
+
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let idx = controllers.indexOf(pageViewController.viewControllers![0]) {
+            self.pageControl.currentPage = idx
+        }
+    }
+    
     // MARK: Page indicator
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return controllers.count
-    }
-    
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
-    }
+//    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return controllers.count
+//    }
+//    
+//    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return 0
+//    }
     
     // MARK: Status bar
     

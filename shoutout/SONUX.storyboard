@@ -24,7 +24,7 @@
                                 <animations/>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyd-HY-ju1">
-                                <rect key="frame" x="0.0" y="130" width="375" height="462"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="425"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="460" id="28G-P3-dKz"/>
@@ -42,6 +42,9 @@
                                 <rect key="frame" x="-4" y="592" width="192.5" height="75"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.76078431369999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="300" constant="75" id="SIw-YE-mgX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,16 +59,24 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="OGQ-Z1-jc2">
+                                <rect key="frame" x="-4" y="555" width="383" height="37"/>
+                                <animations/>
+                            </pageControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="OGQ-Z1-jc2" secondAttribute="trailing" constant="-20" id="5Tc-5D-dUc"/>
                             <constraint firstItem="40Z-8X-m9X" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" multiplier="0.5" constant="5" id="BQP-8g-QPF"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="top" secondItem="OGQ-Z1-jc2" secondAttribute="bottom" constant="16" id="BaY-fB-qzY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="40Z-8X-m9X" secondAttribute="trailing" constant="-20" id="G2N-C6-GKr"/>
+                            <constraint firstItem="OGQ-Z1-jc2" firstAttribute="width" secondItem="UmQ-ho-6pZ" secondAttribute="width" id="Hol-x1-r7i"/>
                             <constraint firstItem="yCh-ik-8g4" firstAttribute="leading" secondItem="KfP-0d-nrV" secondAttribute="leadingMargin" constant="-20" id="Ijf-tL-SDv"/>
                             <constraint firstItem="yCh-ik-8g4" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" id="NGD-h8-pLi"/>
                             <constraint firstItem="eTc-yP-b58" firstAttribute="top" secondItem="40Z-8X-m9X" secondAttribute="bottom" id="PWH-Oi-f8f"/>
                             <constraint firstItem="yCh-ik-8g4" firstAttribute="bottom" secondItem="UmQ-ho-6pZ" secondAttribute="bottom" id="VhZ-d4-jad"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="top" secondItem="OGQ-Z1-jc2" secondAttribute="bottom" id="WvQ-4b-LV9"/>
                             <constraint firstItem="yCh-ik-8g4" firstAttribute="width" secondItem="wyd-HY-ju1" secondAttribute="width" id="XTb-wf-S1W"/>
                             <constraint firstItem="UmQ-ho-6pZ" firstAttribute="centerY" secondItem="KfP-0d-nrV" secondAttribute="centerY" id="XTg-Ea-xVT"/>
                             <constraint firstItem="UmQ-ho-6pZ" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" id="b2U-Wt-nZV"/>
@@ -73,21 +84,32 @@
                             <constraint firstItem="wyd-HY-ju1" firstAttribute="top" secondItem="jfx-It-hK8" secondAttribute="bottom" constant="110" id="dkj-7K-lnW"/>
                             <constraint firstItem="40Z-8X-m9X" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" id="eEh-sQ-Rgc"/>
                             <constraint firstItem="UmQ-ho-6pZ" firstAttribute="height" secondItem="KfP-0d-nrV" secondAttribute="height" id="hPk-ju-SoM"/>
+                            <constraint firstItem="OGQ-Z1-jc2" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" id="jDW-XD-TXh"/>
                             <constraint firstItem="yCh-ik-8g4" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" multiplier="0.5" constant="5" id="jEq-sf-Bm3"/>
+                            <constraint firstItem="OGQ-Z1-jc2" firstAttribute="leading" secondItem="KfP-0d-nrV" secondAttribute="leadingMargin" constant="-20" id="kmS-Gl-d56"/>
                             <constraint firstItem="wyd-HY-ju1" firstAttribute="centerY" secondItem="KfP-0d-nrV" secondAttribute="centerY" constant="30" id="lxI-Ly-vY6"/>
                             <constraint firstItem="wyd-HY-ju1" firstAttribute="centerX" secondItem="UmQ-ho-6pZ" secondAttribute="centerX" id="nm6-M4-KB9"/>
+                            <constraint firstItem="40Z-8X-m9X" firstAttribute="top" secondItem="OGQ-Z1-jc2" secondAttribute="bottom" id="rOi-Wg-24M"/>
                             <constraint firstItem="UmQ-ho-6pZ" firstAttribute="centerX" secondItem="KfP-0d-nrV" secondAttribute="centerX" id="srU-FW-sHc"/>
                             <constraint firstItem="eTc-yP-b58" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" constant="75" id="zvY-xK-s1A"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="lxI-Ly-vY6"/>
+                                <exclude reference="Hol-x1-r7i"/>
+                                <exclude reference="BaY-fB-qzY"/>
+                                <exclude reference="NGD-h8-pLi"/>
                                 <exclude reference="XTb-wf-S1W"/>
+                                <exclude reference="eEh-sQ-Rgc"/>
+                                <exclude reference="zvY-xK-s1A"/>
                             </mask>
                         </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="pageControl" destination="OGQ-Z1-jc2" id="HdZ-3k-w2J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8N1-oy-BEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

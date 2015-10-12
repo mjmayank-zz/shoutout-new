@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="IZu-B7-o8h">
+            <objects>
+                <viewController storyboardIdentifier="SONUXVC" id="YXh-Y5-SZK" customClass="SONUXViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jfx-It-hK8"/>
+                        <viewControllerLayoutGuide type="bottom" id="eTc-yP-b58"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KfP-0d-nrV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="onboardingBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="UmQ-ho-6pZ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <animations/>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyd-HY-ju1">
+                                <rect key="frame" x="0.0" y="133" width="375" height="460"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="28G-P3-dKz"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Hf1-aS-pVm" kind="embed" identifier="NUXPageViewControllerSegue" id="FMh-og-7f6"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCh-ik-8g4">
+                                <rect key="frame" x="-4" y="593" width="192.5" height="74"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.16862745100000001" green="0.76078431369999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40Z-8X-m9X">
+                                <rect key="frame" x="186.5" y="593" width="192.5" height="74"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.88235294119999996" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="40Z-8X-m9X" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" multiplier="0.5" constant="5" id="BQP-8g-QPF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="40Z-8X-m9X" secondAttribute="trailing" constant="-20" id="G2N-C6-GKr"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="leading" secondItem="KfP-0d-nrV" secondAttribute="leadingMargin" constant="-20" id="Ijf-tL-SDv"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" id="NGD-h8-pLi"/>
+                            <constraint firstItem="eTc-yP-b58" firstAttribute="top" secondItem="40Z-8X-m9X" secondAttribute="bottom" id="PWH-Oi-f8f"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="bottom" secondItem="UmQ-ho-6pZ" secondAttribute="bottom" id="VhZ-d4-jad"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="width" secondItem="wyd-HY-ju1" secondAttribute="width" id="XTb-wf-S1W"/>
+                            <constraint firstItem="UmQ-ho-6pZ" firstAttribute="centerY" secondItem="KfP-0d-nrV" secondAttribute="centerY" id="XTg-Ea-xVT"/>
+                            <constraint firstItem="UmQ-ho-6pZ" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" id="b2U-Wt-nZV"/>
+                            <constraint firstItem="wyd-HY-ju1" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" id="c3s-XD-VsQ"/>
+                            <constraint firstItem="40Z-8X-m9X" firstAttribute="top" secondItem="wyd-HY-ju1" secondAttribute="bottom" id="eEh-sQ-Rgc"/>
+                            <constraint firstItem="UmQ-ho-6pZ" firstAttribute="height" secondItem="KfP-0d-nrV" secondAttribute="height" id="hPk-ju-SoM"/>
+                            <constraint firstItem="yCh-ik-8g4" firstAttribute="width" secondItem="KfP-0d-nrV" secondAttribute="width" multiplier="0.5" constant="5" id="jEq-sf-Bm3"/>
+                            <constraint firstItem="wyd-HY-ju1" firstAttribute="centerY" secondItem="KfP-0d-nrV" secondAttribute="centerY" constant="30" id="lxI-Ly-vY6"/>
+                            <constraint firstItem="wyd-HY-ju1" firstAttribute="centerX" secondItem="UmQ-ho-6pZ" secondAttribute="centerX" id="nm6-M4-KB9"/>
+                            <constraint firstItem="UmQ-ho-6pZ" firstAttribute="centerX" secondItem="KfP-0d-nrV" secondAttribute="centerX" id="srU-FW-sHc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XTb-wf-S1W"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8N1-oy-BEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="51.5" y="106.5"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="eak-gV-eDj">
+            <objects>
+                <pageViewController storyboardIdentifier="NUXPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Hf1-aS-pVm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUV-RG-36O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="721.5"/>
+        </scene>
+        <!--Onboarding Page 1-->
+        <scene sceneID="iFJ-wF-eMq">
+            <objects>
+                <viewController storyboardIdentifier="onboardingPage1" title="Onboarding Page 1" id="wIY-Co-A7h" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboardingPage1.png" id="9Sx-fj-S0m">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                    </imageView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pZL-vG-l3D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="594" y="801"/>
+        </scene>
+        <!--Onboarding Page 2-->
+        <scene sceneID="fRr-FQ-y5V">
+            <objects>
+                <viewController storyboardIdentifier="onboardingPage2" title="Onboarding Page 2" id="zeX-AO-qcS" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboardingPage2.png" id="2zq-ZL-xdT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                    </imageView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="grt-Oh-Vmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1226" y="801"/>
+        </scene>
+        <!--Onboarding Page 3-->
+        <scene sceneID="exQ-69-d8g">
+            <objects>
+                <viewController storyboardIdentifier="onboardingPage3" title="Onboarding Page 3" id="sKA-PL-ttD" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboardingPage3.png" id="l1B-2k-oyy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                    </imageView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Wm-Yx-If4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1850" y="801"/>
+        </scene>
+        <!--Onboarding Page 4-->
+        <scene sceneID="LVN-JL-3ee">
+            <objects>
+                <viewController storyboardIdentifier="onboardingPage4" title="Onboarding Page 4" id="bTI-L0-gLI" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboardingPage4.png" id="2jF-MJ-r2e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <animations/>
+                    </imageView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BB4-3d-u9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2474" y="793"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="onboardingBackground.png" width="748" height="1337"/>
+        <image name="onboardingPage1.png" width="300" height="441"/>
+        <image name="onboardingPage2.png" width="300" height="441"/>
+        <image name="onboardingPage3.png" width="300" height="441"/>
+        <image name="onboardingPage4.png" width="300" height="441"/>
+    </resources>
+</document>

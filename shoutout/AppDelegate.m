@@ -56,14 +56,13 @@
     BOOL hasPermissions =
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
     
-    NSString *storyboardId = hasPermissions ? @"mapVC" : @"welcomeVC";
+    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUX";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    SONUXViewController* vc = [[SONUXViewController alloc] init];
-    self.window.rootViewController = vc;
+    self.window.rootViewController = initViewController;
     [self.window makeKeyAndVisible];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

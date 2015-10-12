@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3522FBB31BCB16B400089426 /* onboardingBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD97A1BCB3EE900F947B2 /* SONUX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357AD9791BCB3EE900F947B2 /* SONUX.storyboard */; settings = {ASSET_TAGS = (); }; };
+		357AD97F1BCB41A000F947B2 /* onboardingPage1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9801BCB41A000F947B2 /* onboardingPage2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9811BCB41A000F947B2 /* onboardingPage3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9821BCB41A000F947B2 /* onboardingPage4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */; settings = {ASSET_TAGS = (); }; };
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
@@ -90,6 +96,12 @@
 
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
+		3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackground@2x.png"; sourceTree = "<group>"; };
+		357AD9791BCB3EE900F947B2 /* SONUX.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SONUX.storyboard; sourceTree = "<group>"; };
+		357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage1@2x.png"; sourceTree = "<group>"; };
+		357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage2@2x.png"; sourceTree = "<group>"; };
+		357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage3@2x.png"; sourceTree = "<group>"; };
+		357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage4@2x.png"; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -214,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */,
+				357AD9791BCB3EE900F947B2 /* SONUX.storyboard */,
 			);
 			name = NUX;
 			sourceTree = "<group>";
@@ -327,6 +340,11 @@
 		8F8D47A31B97ECAD00D902B9 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */,
+				357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */,
+				357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */,
+				357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */,
+				357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */,
 				8F1EBED61BB9935C009DA90F /* gradient.png */,
 				8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */,
 				8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */,
@@ -477,6 +495,8 @@
 				8F28BEEF1BA1104A00FD0999 /* meSelectedFilter.png in Resources */,
 				8F28BEE51BA1104A00FD0999 /* allSelectedFilter.png in Resources */,
 				8F28BEFE1BA1104A00FD0999 /* shoutBubbleAll.png in Resources */,
+				357AD9811BCB41A000F947B2 /* onboardingPage3@2x.png in Resources */,
+				357AD97F1BCB41A000F947B2 /* onboardingPage1@2x.png in Resources */,
 				8F28BEFA1BA1104A00FD0999 /* rsz_bigicon.png in Resources */,
 				8F28BEE71BA1104A00FD0999 /* background.png in Resources */,
 				8F28BEEA1BA1104A00FD0999 /* filterLeft.png in Resources */,
@@ -484,6 +504,7 @@
 				8F1F1DA71BAB22C400506239 /* shoutout_green.png in Resources */,
 				8F28BEF61BA1104A00FD0999 /* pinBubbleText.png in Resources */,
 				8F1F1DA41BAB1F1600506239 /* more.png in Resources */,
+				357AD97A1BCB3EE900F947B2 /* SONUX.storyboard in Resources */,
 				8F28BEF41BA1104A00FD0999 /* pinBubbleIcons.png in Resources */,
 				8F28BEE31BA1104A00FD0999 /* addShout.png in Resources */,
 				8F8D47981B97717C00D902B9 /* Settings.bundle in Resources */,
@@ -496,6 +517,8 @@
 				8F28BEF11BA1104A00FD0999 /* messagesPopup.png in Resources */,
 				8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */,
 				8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */,
+				3522FBB31BCB16B400089426 /* onboardingBackground@2x.png in Resources */,
+				357AD9821BCB41A000F947B2 /* onboardingPage4@2x.png in Resources */,
 				8F28BEE01BA1104A00FD0999 /* add.png in Resources */,
 				8F1EBED71BB9935C009DA90F /* gradient.png in Resources */,
 				8F28BEEE1BA1104A00FD0999 /* leftArrow.png in Resources */,
@@ -518,6 +541,7 @@
 				8F28BEFF1BA1104A00FD0999 /* shoutBubbleIcons.png in Resources */,
 				8F28BEF31BA1104A00FD0999 /* pinBubbleAll.png in Resources */,
 				8F8D47811B976DB900D902B9 /* LaunchScreen.xib in Resources */,
+				357AD9801BCB41A000F947B2 /* onboardingPage2@2x.png in Resources */,
 				8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */,
 				8F28BEE41BA1104A00FD0999 /* addShoutWindow.png in Resources */,
 				8F8D47A21B97ECA700D902B9 /* shoutout_white.png in Resources */,

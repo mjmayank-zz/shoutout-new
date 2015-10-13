@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "LocationManager.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "Shoutout-Swift.h"
 
 @interface AppDelegate ()
 
@@ -55,11 +56,12 @@
     BOOL hasPermissions =
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
     
-    NSString *storyboardId = hasPermissions ? @"mapVC" : @"welcomeVC";
+    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUXVC";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     self.window.rootViewController = initViewController;
     [self.window makeKeyAndVisible];
     

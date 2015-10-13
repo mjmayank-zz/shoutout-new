@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3522FBB31BCB16B400089426 /* onboardingBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD97F1BCB41A000F947B2 /* onboardingPage1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9801BCB41A000F947B2 /* onboardingPage2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9811BCB41A000F947B2 /* onboardingPage3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */; settings = {ASSET_TAGS = (); }; };
+		357AD9821BCB41A000F947B2 /* onboardingPage4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */; settings = {ASSET_TAGS = (); }; };
+		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; settings = {ASSET_TAGS = (); }; };
@@ -89,6 +95,12 @@
 
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
+		3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackground@2x.png"; sourceTree = "<group>"; };
+		357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage1@2x.png"; sourceTree = "<group>"; };
+		357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage2@2x.png"; sourceTree = "<group>"; };
+		357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage3@2x.png"; sourceTree = "<group>"; };
+		357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingPage4@2x.png"; sourceTree = "<group>"; };
+		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +220,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		35872A8A1BC5D462004E99C6 /* NUX */ = {
+			isa = PBXGroup;
+			children = (
+				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
+				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
+				8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */,
+				35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */,
+			);
+			name = NUX;
+			sourceTree = "<group>";
+		};
 		50B1DBD54D1685A0BC6A9607 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +243,7 @@
 		8F5AEDBD1BBCC99B00DF1BB1 /* Pins */ = {
 			isa = PBXGroup;
 			children = (
+				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */,
 				8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */,
 				8FA956BE1BC050E1003C7357 /* SOMarkerSubView.h */,
@@ -255,25 +279,22 @@
 			children = (
 				8F8D47A31B97ECAD00D902B9 /* images */,
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
-				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
-				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
-				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
-				8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
 				8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */,
 				8F5AEDBD1BBCC99B00DF1BB1 /* Pins */,
 				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
+				35872A8A1BC5D462004E99C6 /* NUX */,
 				8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */,
 				8FFF0BFF1B9F7A210009E619 /* UVA.gpx */,
 				8F168CE51BAC9D70000D18D0 /* UIUC.gpx */,
@@ -316,6 +337,11 @@
 		8F8D47A31B97ECAD00D902B9 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3522FBB21BCB16B400089426 /* onboardingBackground@2x.png */,
+				357AD97B1BCB41A000F947B2 /* onboardingPage1@2x.png */,
+				357AD97C1BCB41A000F947B2 /* onboardingPage2@2x.png */,
+				357AD97D1BCB41A000F947B2 /* onboardingPage3@2x.png */,
+				357AD97E1BCB41A000F947B2 /* onboardingPage4@2x.png */,
 				8F1EBED61BB9935C009DA90F /* gradient.png */,
 				8FDD68E01BB20CC90070B123 /* shoutSpeechBubble@2x.png */,
 				8FA6760A1BB1C1CF00CAA8EA /* anon.jpg */,
@@ -419,7 +445,7 @@
 				TargetAttributes = {
 					8F8D476C1B976DB900D902B9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 9C8EQ3DGNG;
+						DevelopmentTeam = D57Y7VZPM5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -466,6 +492,8 @@
 				8F28BEEF1BA1104A00FD0999 /* meSelectedFilter.png in Resources */,
 				8F28BEE51BA1104A00FD0999 /* allSelectedFilter.png in Resources */,
 				8F28BEFE1BA1104A00FD0999 /* shoutBubbleAll.png in Resources */,
+				357AD9811BCB41A000F947B2 /* onboardingPage3@2x.png in Resources */,
+				357AD97F1BCB41A000F947B2 /* onboardingPage1@2x.png in Resources */,
 				8F28BEFA1BA1104A00FD0999 /* rsz_bigicon.png in Resources */,
 				8F28BEE71BA1104A00FD0999 /* background.png in Resources */,
 				8F28BEEA1BA1104A00FD0999 /* filterLeft.png in Resources */,
@@ -485,6 +513,8 @@
 				8F28BEF11BA1104A00FD0999 /* messagesPopup.png in Resources */,
 				8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */,
 				8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */,
+				3522FBB31BCB16B400089426 /* onboardingBackground@2x.png in Resources */,
+				357AD9821BCB41A000F947B2 /* onboardingPage4@2x.png in Resources */,
 				8F28BEE01BA1104A00FD0999 /* add.png in Resources */,
 				8F1EBED71BB9935C009DA90F /* gradient.png in Resources */,
 				8F28BEEE1BA1104A00FD0999 /* leftArrow.png in Resources */,
@@ -507,6 +537,7 @@
 				8F28BEFF1BA1104A00FD0999 /* shoutBubbleIcons.png in Resources */,
 				8F28BEF31BA1104A00FD0999 /* pinBubbleAll.png in Resources */,
 				8F8D47811B976DB900D902B9 /* LaunchScreen.xib in Resources */,
+				357AD9801BCB41A000F947B2 /* onboardingPage2@2x.png in Resources */,
 				8FDD68E11BB20CC90070B123 /* shoutSpeechBubble@2x.png in Resources */,
 				8F28BEE41BA1104A00FD0999 /* addShoutWindow.png in Resources */,
 				8F8D47A21B97ECA700D902B9 /* shoutout_white.png in Resources */,
@@ -574,6 +605,7 @@
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
+				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,

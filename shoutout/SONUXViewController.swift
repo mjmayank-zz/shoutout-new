@@ -76,16 +76,6 @@ class SONUXViewController: UIViewController, UIPageViewControllerDataSource, UIP
         }
     }
     
-    // MARK: Page indicator
-    
-//    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-//        return controllers.count
-//    }
-//    
-//    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-//        return 0
-//    }
-    
     // MARK: Status bar
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

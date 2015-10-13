@@ -56,7 +56,7 @@
     BOOL hasPermissions =
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
     
-    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUX";
+    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUXVC";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     

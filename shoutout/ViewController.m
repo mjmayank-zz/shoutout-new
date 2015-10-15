@@ -141,6 +141,11 @@
     CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
     [self updateMapWithLocation:userLocation];
     // set the map's center coordinate
+    
+    // Associate the device with a user
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    installation[@"user"] = [PFUser currentUser];
+    [installation saveInBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -238,12 +243,6 @@
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
                 if(obj[@"picURL"])
                     dict[@"picURL"] = obj[@"picURL"];
-                if(obj[@"firstName"])
-                    dict[@"firstName"] = obj[@"firstName"];
-                if(obj[@"lastName"])
-                    dict[@"lastName"] = obj[@"lastName"];
-                if(obj[@"displayName"])
-                    dict[@"displayName"] = obj[@"displayName"];
                 if(obj.objectId)
                     dict[@"id"] = obj.objectId;
                 annotation.userInfo = dict;
@@ -530,6 +529,16 @@
                     messageObj[@"message"] = message;
                     messageObj[@"read"] = [NSNumber numberWithBool:NO];
                     [messageObj saveInBackground];
+                    
+                    // Create our Installation query
+                    PFQuery *pushQuery = [PFInstallation query];
+                    [pushQuery whereKey:@"user" equalTo:obj];
+                    
+                    // Send push notification to query
+                    PFPush *push = [[PFPush alloc] init];
+                    [push setQuery:pushQuery]; // Set our Installation query
+                    [push setMessage:message];
+                    [push sendPushInBackground];
                 }
             }];
         }

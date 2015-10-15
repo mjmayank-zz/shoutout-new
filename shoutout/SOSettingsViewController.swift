@@ -23,6 +23,27 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         if let on = PFUser.currentUser()?["visible"]{
             self.privacyToggle.on = on.boolValue;
         }
+        
+        let profileImageObj = PFUser.currentUser()?["profileImage"];
+        if let profileImageObj = profileImageObj{
+            profileImageObj.fetchIfNeededInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
+                let file = profileImageObj["image"] as! PFFile;
+                file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+                    self.profileImageView.image = UIImage(data: data!);
+                })
+            })
+        }
+        else{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (PFUser.currentUser()?["picURL"])! as! String)!)!);
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let image = image{
+                        self.profileImageView.image = image;
+                    }
+                })
+            });
+        }
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {

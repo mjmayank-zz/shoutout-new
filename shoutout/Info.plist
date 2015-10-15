@@ -31,6 +31,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>7</string>
 	<key>FacebookAppID</key>
 	<string>213646248845245</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "LocationManager.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+//#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "Shoutout-Swift.h"
 
 @interface AppDelegate ()
@@ -25,6 +25,19 @@
     [Parse setApplicationId:@"S5HVjNqmiwUgiGjMDiJLYh361p5P7Ob3fCOabrJ9"
                   clientKey:@"3GWNcqZ7LJhBtGbbmQfs0ROHKFM5sX6GDT9IWhCk"];
     
+//    [PFFacebookUtils initializeFacebook];
+    
+    [LocationManager initLocationManager];
+    
+    [self startLocationKit];
+    
+    BOOL hasPermissions =
+    ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
+    
+    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUXVC";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
+    
     BOOL enabled;
     // Try to use the newer isRegisteredForRemoteNotifications otherwise use the enabledRemoteNotificationTypes.
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
@@ -37,28 +50,15 @@
         enabled = types & UIRemoteNotificationTypeAlert;
     }
     
-    if(enabled){
+    if(enabled || hasPermissions){
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
+                                                        UIUserNotificationTypeBadge |
+                                                        UIUserNotificationTypeSound);
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
+                                                                                 categories:nil];
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
     }
-    
-    [PFFacebookUtils initializeFacebook];
-    
-    [LocationManager initLocationManager];
-    
-    [self startLocationKit];
-    
-    BOOL hasPermissions =
-    ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
-    
-    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUXVC";
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -111,7 +111,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [FBSession.activeSession handleOpenURL:url];
+//    return [FBSession.activeSession handleOpenURL:url];
+    return YES;
 }
 
 -(void)startLocationKit{
@@ -125,8 +126,6 @@
             else{
                 [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self];
             }
-//            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeHigh];
-//            [[LocationKit sharedInstance] applyOperationMode:setting];
         }
         else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
             NSDictionary *options = @{LKOptionWhenInUseOnly: @YES};
@@ -143,7 +142,8 @@
 //                                                          openURL:url
 //                                                sourceApplication:sourceApplication
 //                                                       annotation:annotation];
-    return [PFFacebookUtils handleOpenURL:url];
+//    return [PFFacebookUtils handleOpenURL:url];
+    return YES;
 }
 
 - (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location{

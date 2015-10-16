@@ -5,8 +5,6 @@ PODS:
   - Bolts/AppLinks (1.3.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.3.0)
-  - Facebook-iOS-SDK (3.24.1):
-    - Bolts (~> 1.2)
   - FBSDKCoreKit (4.7.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.7.0)
@@ -23,9 +21,10 @@ PODS:
   - LocationKit (2.3.6)
   - Parse (1.9.0):
     - Bolts/Tasks (>= 1.3.0)
-  - ParseFacebookUtils (1.9.0):
+  - ParseFacebookUtilsV4 (1.9.0):
     - Bolts/Tasks (>= 1.3.0)
-    - Facebook-iOS-SDK (~> 3.24)
+    - FBSDKCoreKit (~> 4.7)
+    - FBSDKLoginKit (~> 4.7)
     - Parse (~> 1.9)
   - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
@@ -38,7 +37,7 @@ DEPENDENCIES:
   - kingpin (from `https://github.com/mjmayank/kingpin.git`)
   - LocationKit
   - Parse
-  - ParseFacebookUtils
+  - ParseFacebookUtilsV4
   - ParseUI
 
 EXTERNAL SOURCES:
@@ -47,19 +46,18 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   kingpin:
-    :commit: 897d0f9dd469b3dd18591162dc69634b49858e31
+    :commit: aa4ab21f0b38c3bbea20b0fff344ca6e95d69a74
     :git: https://github.com/mjmayank/kingpin.git
 
 SPEC CHECKSUMS:
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
-  Facebook-iOS-SDK: 08689c2690dc4e087b9c8e171e48667608b72a2a
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
   FBSDKLoginKit: 01bce8dd3f3a26a023b0ba4ffdde7ef5062889fe
   Firebase: 5e898ed5012c81d28ca5fae1113c6b61a172bc6d
   kingpin: 52bb578006bdeb881db225e6ff1a4228375cbfbf
   LocationKit: 09ecb3ab8475e3866afa8589a5dfe469b85abe6e
   Parse: 712efbc476d4f47b0f96b70db7e53101575753aa
-  ParseFacebookUtils: 5e8cecf2b352f50a6780ba41c9268359032d686f
+  ParseFacebookUtilsV4: aadebfaaaf4a45bf0a0992863bf48c8fc49189e3
   ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

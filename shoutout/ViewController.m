@@ -16,7 +16,7 @@
 
 #import "ViewController.h"
 #import "LocationManager.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+//#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <AudioToolbox/AudioServices.h>
 #import "Shoutout-Swift.h"
 
@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getFacebookInfo];
+//    [self getFacebookInfo];
     
     self.count = 0;
     
@@ -90,21 +90,7 @@
     self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
     self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
     
-    [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self animateUser:snapshot.key toNewPosition:snapshot.value];
-    }];
-    
-    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
-    }];
-     
-    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
-    }];
- 
-    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserOnline:snapshot.key toNewOnline:snapshot.value];
-    }];
+    [self registerFirebaseListeners];
     
     PFObject *profileImageObj = [PFUser currentUser][@"profileImage"];
     if(profileImageObj){
@@ -166,29 +152,15 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     self.mapView.delegate = nil;
     [self.mapView removeFromSuperview];
-    [self.shoutoutRoot removeAllObservers];
-    [self.shoutoutRootStatus removeAllObservers];
-    [self.shoutoutRootPrivacy removeAllObservers];
+    [self deregisterFirebaseListeners];
 }
 
 - (void)applicationWillEnterBackground:(NSNotification*)notification{
-    [self.shoutoutRoot removeAllObservers];
-    [self.shoutoutRootStatus removeAllObservers];
-    [self.shoutoutRootPrivacy removeAllObservers];
+    [self deregisterFirebaseListeners];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification*)notification{
-    [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self animateUser:snapshot.key toNewPosition:snapshot.value];
-    }];
-    
-    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
-    }];
-    
-    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
-    }];
+    [self registerFirebaseListeners];
     [self updateMapWithLocation:self.previousLocation.coordinate];
     [self checkForNewMessages];
 }
@@ -235,9 +207,6 @@
                 if(obj[@"username"]){
                     title = obj[@"username"];
                 }
-                if(obj[@"displayName"]){
-                    title = obj[@"displayName"];
-                }
                 NSString *subtitle = obj[@"status"];
                 SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
@@ -263,7 +232,6 @@
                             [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                         }
                         [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                        NSLog(@"%@", [obj objectId]);
                         [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
                     }
                     else{
@@ -276,7 +244,6 @@
                                     [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                                 }
                                 [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                                NSLog(@"%@", [obj objectId]);
                                 [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
                             });
                         });
@@ -329,23 +296,63 @@
 }
 
 - (void) changeUserPrivacy:(NSString *)userID toNewPrivacy:(NSDictionary *)newMetadata {
-//    if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
-//        if(self.markerDictionary[userID] != nil){
-//            [self.mapView removeAnnotation:self.markerDictionary[userID]];
-//        }
-//    }
-//    else{
-//        if(self.markerDictionary[userID] != nil){
-//            [self.mapView addAnnotation:self.markerDictionary[userID]];
-//        }
-//        else{
-//            
-//        }
-//    }
+    SOAnnotation *annotation = self.markerDictionary[userID];
+    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
+
+    if(self.markerDictionary[userID] != nil){
+    if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
+
+            [self.mapView removeAnnotation:self.markerDictionary[userID]];
+        }
+    }
+    else{
+        if(self.markerDictionary[userID] != nil){
+            [self.mapView addAnnotation:self.markerDictionary[userID]];
+        }
+        else{
+            
+        }
+    }
 }
 
-- (void) changeUserOnline:(NSString *)userID toNewOnline:(NSDictionary *)newMetadata {
+- (void) changeUserOnline:(NSString *)userID toNewOnline:(NSString *)newMetadata {
+    SOAnnotation *annotation = self.markerDictionary[userID];
+    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
     
+    if(annotation){
+        if([newMetadata isEqualToString:@"YES"]){
+            annotation.online = YES;
+        }
+        else{
+            annotation.online = NO;
+        }
+    }
+}
+
+
+-(void)registerFirebaseListeners{
+    [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self animateUser:snapshot.key toNewPosition:snapshot.value];
+    }];
+    
+    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
+    }];
+    
+    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
+    }];
+    
+    [self.shoutoutRootOnline observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+        [self changeUserOnline:snapshot.key toNewOnline:snapshot.value];
+    }];
+}
+
+- (void)deregisterFirebaseListeners{
+    [self.shoutoutRoot removeAllObservers];
+    [self.shoutoutRootStatus removeAllObservers];
+    [self.shoutoutRootPrivacy removeAllObservers];
+    [self.shoutoutRootOnline removeAllObservers];
 }
 
 #pragma mark -LoginDelegate
@@ -390,7 +397,7 @@
 
 // Sent to the delegate when a PFUser is logged in.
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    [self getFacebookInfo];
+//    [self getFacebookInfo];
     
     UIImage * image;
     
@@ -402,57 +409,57 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)getFacebookInfo{
-    FBRequest *request = [FBRequest requestForGraphPath:@"/me?fields=id, email, picture, first_name, last_name"];
-    
-    //    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-    //                                  initWithGraphPath:@"/me?fields=id, email, picture, first_name, last_name"
-    //                                  parameters:nil
-    //                                  HTTPMethod:@"GET"];
-    
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        
-        //    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        // handle response
-        if (!error) {
-            // Parse the data received
-            if(![PFUser currentUser][@"status"]){
-                
-                NSDictionary *userData = (NSDictionary *)result;
-                
-                NSString *facebookID = userData[@"id"];
-                NSString *firstName = userData[@"first_name"];
-                NSString *lastName = userData[@"last_name"];
-                
-                NSString *pictureURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=200&height=200", facebookID];
-                
-                [[PFUser currentUser] setObject:pictureURL forKey:@"picURL"];
-                [[PFUser currentUser] setObject:facebookID forKey:@"username"];
-                [[PFUser currentUser] setObject:firstName forKey:@"firstName"];
-                [[PFUser currentUser] setObject:lastName forKey:@"lastName"];
-                [[PFUser currentUser] setObject:firstName forKey:@"displayName"];
-                [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"visible"];
-                [PFUser currentUser][@"status"] = @"Just a man and his thoughts";
-                
-                CLLocation *currentLocation = self.previousLocation;
-                
-                if(currentLocation.coordinate.latitude != 0.0 && currentLocation.coordinate.longitude != 0.0){
-                    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-                                                                  longitude:currentLocation.coordinate.longitude];
-                    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-                }
-                
-                [[PFUser currentUser] saveInBackground];
-            }
-            
-        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
-                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-            NSLog(@"The facebook session was invalidated");
-        } else {
-            NSLog(@"Some other error: %@", error);
-        }
-    }];
-}
+//- (void)getFacebookInfo{
+//    FBRequest *request = [FBRequest requestForGraphPath:@"/me?fields=id, email, picture, first_name, last_name"];
+//    
+//    //    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
+//    //                                  initWithGraphPath:@"/me?fields=id, email, picture, first_name, last_name"
+//    //                                  parameters:nil
+//    //                                  HTTPMethod:@"GET"];
+//    
+//    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//        
+//        //    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//        // handle response
+//        if (!error) {
+//            // Parse the data received
+//            if(![PFUser currentUser][@"status"]){
+//                
+//                NSDictionary *userData = (NSDictionary *)result;
+//                
+//                NSString *facebookID = userData[@"id"];
+//                NSString *firstName = userData[@"first_name"];
+//                NSString *lastName = userData[@"last_name"];
+//                
+//                NSString *pictureURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=200&height=200", facebookID];
+//                
+//                [[PFUser currentUser] setObject:pictureURL forKey:@"picURL"];
+//                [[PFUser currentUser] setObject:facebookID forKey:@"username"];
+//                [[PFUser currentUser] setObject:firstName forKey:@"firstName"];
+//                [[PFUser currentUser] setObject:lastName forKey:@"lastName"];
+//                [[PFUser currentUser] setObject:firstName forKey:@"displayName"];
+//                [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"visible"];
+//                [PFUser currentUser][@"status"] = @"Just a man and his thoughts";
+//                
+//                CLLocation *currentLocation = self.previousLocation;
+//                
+//                if(currentLocation.coordinate.latitude != 0.0 && currentLocation.coordinate.longitude != 0.0){
+//                    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+//                                                                  longitude:currentLocation.coordinate.longitude];
+//                    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
+//                }
+//                
+//                [[PFUser currentUser] saveInBackground];
+//            }
+//            
+//        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+//                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+//            NSLog(@"The facebook session was invalidated");
+//        } else {
+//            NSLog(@"Some other error: %@", error);
+//        }
+//    }];
+//}
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
@@ -534,10 +541,12 @@
                     PFQuery *pushQuery = [PFInstallation query];
                     [pushQuery whereKey:@"user" equalTo:obj];
                     
+                    NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], message];
+                    
                     // Send push notification to query
                     PFPush *push = [[PFPush alloc] init];
                     [push setQuery:pushQuery]; // Set our Installation query
-                    [push setMessage:message];
+                    [push setMessage:fullMessage];
                     [push sendPushInBackground];
                 }
             }];
@@ -637,7 +646,6 @@
 }
 
 -(void)mapPanned{
-    NSLog(@"map panned");
     [self.mapViewDelegate mapView:self.mapView regionIsChanging:YES];
 }
 

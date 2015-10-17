@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -328,11 +328,11 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="tNU-SW-1Oc"/>
-                                <exclude reference="OEI-Tc-KJs"/>
                                 <exclude reference="TuB-9p-Iia"/>
                                 <exclude reference="nAf-w9-KCX"/>
-                                <exclude reference="icx-tT-LPC"/>
                                 <exclude reference="yjY-sH-YSV"/>
+                                <exclude reference="OEI-Tc-KJs"/>
+                                <exclude reference="icx-tT-LPC"/>
                             </mask>
                         </variation>
                     </view>
@@ -1215,6 +1215,6 @@
         <image name="shoutout_white.png" width="156" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iJR-IT-XVW"/>
+        <segue reference="Yi7-ct-KMV"/>
     </inferredMetricsTieBreakers>
 </document>

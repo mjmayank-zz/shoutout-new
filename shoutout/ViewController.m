@@ -217,6 +217,8 @@
                     dict[@"picURL"] = obj[@"picURL"];
                 if(obj.objectId)
                     dict[@"id"] = obj.objectId;
+                if(obj.updatedAt)
+                    dict[@"updatedAt"] = obj.updatedAt;
                 annotation.userInfo = dict;
                 annotation.online = [obj[@"online"] boolValue];
   

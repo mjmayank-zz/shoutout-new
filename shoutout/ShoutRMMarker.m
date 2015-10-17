@@ -30,6 +30,7 @@
     
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
+        SOAnnotation * shoutAnnotation = (SOAnnotation *)annotation;
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
         [self addSubview:self.subview];
         self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
@@ -41,6 +42,12 @@
             self.subview.usernameLabel.text = annotation.title;
         else
             self.subview.usernameLabel.text = @"";
+        if(shoutAnnotation.userInfo[@"updatedAt"]){
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+            NSString *dateString = [dateFormatter stringFromDate:shoutAnnotation.userInfo[@"updatedAt"]];
+            self.subview.timeLabel.text = dateString;
+        }
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];

@@ -404,7 +404,6 @@
 				8F8D476A1B976DB900D902B9 /* Frameworks */,
 				8F8D476B1B976DB900D902B9 /* Resources */,
 				99A2EE1E7264F983E150A1B6 /* Copy Pods Resources */,
-				264C40679E0AAC4F4B3CD335 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -556,21 +555,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		264C40679E0AAC4F4B3CD335 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-shoutout/Pods-shoutout-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4FE5A653DD2634CD26DF45F5 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

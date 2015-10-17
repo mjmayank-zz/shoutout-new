@@ -31,6 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *unreadIndicator;
+@property (strong, nonatomic) IBOutlet UILabel *statusCharacterCount;
 
 @property (strong, nonatomic) NSMutableDictionary * markerDictionary;
 

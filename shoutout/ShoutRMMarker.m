@@ -106,7 +106,12 @@
     if(scale < 0.1){
         scale = 0.1;
     }
-    self.transform = CGAffineTransformMakeScale(scale, scale);
+    self.scale = scale;
+    double factor = 1;
+    if (!self.subview.bubbleContainerView.hidden) {
+        factor = 1.2;
+    }
+    self.transform = CGAffineTransformMakeScale(scale * factor, scale * factor);
     self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
@@ -123,11 +128,15 @@
     }
     self.subview.shoutLabel.text = annotation.subtitle;
     self.subview.usernameLabel.text = annotation.title;
+    self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
+    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)hideShout
 {
     [self.subview.bubbleContainerView setHidden:YES];
+    self.transform = CGAffineTransformMakeScale(self.scale, self.scale);
+    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 -(void)setOnline:(BOOL)online{

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
+		8F0AA2661BD2F8960068AE38 /* shoutoutGrayLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */; settings = {ASSET_TAGS = (); }; };
+		8F0AA2671BD2F8960068AE38 /* shoutoutWhiteLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */; settings = {ASSET_TAGS = (); }; };
+		8F0AA2691BD2FAA40068AE38 /* statusCancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */; settings = {ASSET_TAGS = (); }; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; settings = {ASSET_TAGS = (); }; };
 		8F1EBED71BB9935C009DA90F /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1EBED61BB9935C009DA90F /* gradient.png */; settings = {ASSET_TAGS = (); }; };
@@ -97,6 +100,9 @@
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutGrayLogo.png; path = images/shoutoutGrayLogo.png; sourceTree = "<group>"; };
+		8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutWhiteLogo.png; path = images/shoutoutWhiteLogo.png; sourceTree = "<group>"; };
+		8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusCancelButton.png; path = images/statusCancelButton.png; sourceTree = "<group>"; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
@@ -293,8 +299,8 @@
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
 				8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */,
 				8F5AEDBD1BBCC99B00DF1BB1 /* Pins */,
-				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
 				35872A8A1BC5D462004E99C6 /* NUX */,
+				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
 				8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */,
 				8FFF0BFF1B9F7A210009E619 /* UVA.gpx */,
 				8F168CE51BAC9D70000D18D0 /* UIUC.gpx */,
@@ -337,6 +343,9 @@
 		8F8D47A31B97ECAD00D902B9 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */,
+				8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */,
+				8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */,
 				8FBAA3851BCF3AB100EC3B3F /* onboardingBackground@2x.png */,
 				8FBAA3861BCF3AB100EC3B3F /* onboardingPage1@2x.png */,
 				8FBAA3871BCF3AB100EC3B3F /* onboardingPage2@2x.png */,
@@ -404,6 +413,7 @@
 				8F8D476A1B976DB900D902B9 /* Frameworks */,
 				8F8D476B1B976DB900D902B9 /* Resources */,
 				99A2EE1E7264F983E150A1B6 /* Copy Pods Resources */,
+				FF5622DC517A1B1DCAD5474F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -489,10 +499,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F28BEF81BA1104A00FD0999 /* pressedAdd.png in Resources */,
+				8F0AA2661BD2F8960068AE38 /* shoutoutGrayLogo.png in Resources */,
 				8F28BEEF1BA1104A00FD0999 /* meSelectedFilter.png in Resources */,
 				8F28BEE51BA1104A00FD0999 /* allSelectedFilter.png in Resources */,
 				8F28BEFE1BA1104A00FD0999 /* shoutBubbleAll.png in Resources */,
 				8F28BEFA1BA1104A00FD0999 /* rsz_bigicon.png in Resources */,
+				8F0AA2691BD2FAA40068AE38 /* statusCancelButton.png in Resources */,
 				8FBAA38C1BCF3AB100EC3B3F /* onboardingPage2@2x.png in Resources */,
 				8F28BEE71BA1104A00FD0999 /* background.png in Resources */,
 				8F28BEEA1BA1104A00FD0999 /* filterLeft.png in Resources */,
@@ -524,6 +536,7 @@
 				8F28BEF71BA1104A00FD0999 /* pinWindowOptions.png in Resources */,
 				8F28BEFC1BA1104A00FD0999 /* settings.png in Resources */,
 				8F28BEF21BA1104A00FD0999 /* pinBubble.png in Resources */,
+				8F0AA2671BD2F8960068AE38 /* shoutoutWhiteLogo.png in Resources */,
 				8F1F1DA51BAB1F1600506239 /* myLocation.png in Resources */,
 				8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */,
 				8F28BEE11BA1104A00FD0999 /* addPin.png in Resources */,
@@ -583,6 +596,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-shoutout/Pods-shoutout-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF5622DC517A1B1DCAD5474F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-shoutout/Pods-shoutout-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

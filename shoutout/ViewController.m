@@ -27,6 +27,7 @@
 @property (assign, nonatomic) int *count;
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
 @property (strong, nonatomic) IBOutlet UIButton *saveStatusButton;
+@property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 
 @end
 
@@ -115,6 +116,7 @@
     }
     self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
     self.profilePic.layer.masksToBounds = YES;
+    self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
     
     self.statusTextView.text = [PFUser currentUser][@"status"];
     
@@ -140,7 +142,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [self promptLogin];
     [self checkForNewMessages];
 }
 
@@ -181,6 +182,8 @@
 }
 
 - (void)didReceiveMemoryWarning {
+    self.markerDictionary = nil;
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -299,19 +302,13 @@
     SOAnnotation *annotation = self.markerDictionary[userID];
     KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
 
-    if(self.markerDictionary[userID] != nil){
-    if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
-
-            [self.mapView removeAnnotation:self.markerDictionary[userID]];
+    if(annotation && ![clusterAnnotation isCluster]){
+        if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
+            [self.mapView removeAnnotation:clusterAnnotation];
         }
     }
     else{
-        if(self.markerDictionary[userID] != nil){
-            [self.mapView addAnnotation:self.markerDictionary[userID]];
-        }
-        else{
-            
-        }
+
     }
 }
 
@@ -353,123 +350,6 @@
     [self.shoutoutRootStatus removeAllObservers];
     [self.shoutoutRootPrivacy removeAllObservers];
     [self.shoutoutRootOnline removeAllObservers];
-}
-
-#pragma mark -LoginDelegate
--(void)promptLogin{
-    if (![PFUser currentUser]) { // No user logged in
-        // Create the log in view controller
-        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        [logInViewController setDelegate:self]; // Set ourselves as the delegate
-        
-        // Create the sign up view controller
-        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
-        
-        // Assign our sign up controller to be displayed from the login controller
-        [logInViewController setSignUpController:signUpViewController];
-        
-        logInViewController.facebookPermissions = @[@"email"];
-        logInViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsDismissButton; //Facebook login, and a Dismiss button.
-        
-        // Present the log in view controller
-        [self presentViewController:logInViewController animated:YES completion:NULL];
-    }
-    else{
-        self.statusTextView.text = [PFUser currentUser][@"status"];
-    }
-}
-
-// Sent to the delegate to determine whether the log in request should be submitted to the server.
-- (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
-    // Check if both fields are completed
-    if (username && password && username.length != 0 && password.length != 0) {
-        return YES; // Begin login process
-    }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Missing Information"
-                                message:@"Make sure you fill out all of the information!"
-                               delegate:nil
-                      cancelButtonTitle:@"ok"
-                      otherButtonTitles:nil] show];
-    return NO; // Interrupt login process
-}
-
-// Sent to the delegate when a PFUser is logged in.
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-//    [self getFacebookInfo];
-    
-    UIImage * image;
-    
-    image = [UIImage imageWithData:
-             [NSData dataWithContentsOfURL:
-              [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
-    self.profilePic.image = image;
-    
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-//- (void)getFacebookInfo{
-//    FBRequest *request = [FBRequest requestForGraphPath:@"/me?fields=id, email, picture, first_name, last_name"];
-//    
-//    //    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-//    //                                  initWithGraphPath:@"/me?fields=id, email, picture, first_name, last_name"
-//    //                                  parameters:nil
-//    //                                  HTTPMethod:@"GET"];
-//    
-//    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//        
-//        //    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-//        // handle response
-//        if (!error) {
-//            // Parse the data received
-//            if(![PFUser currentUser][@"status"]){
-//                
-//                NSDictionary *userData = (NSDictionary *)result;
-//                
-//                NSString *facebookID = userData[@"id"];
-//                NSString *firstName = userData[@"first_name"];
-//                NSString *lastName = userData[@"last_name"];
-//                
-//                NSString *pictureURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=200&height=200", facebookID];
-//                
-//                [[PFUser currentUser] setObject:pictureURL forKey:@"picURL"];
-//                [[PFUser currentUser] setObject:facebookID forKey:@"username"];
-//                [[PFUser currentUser] setObject:firstName forKey:@"firstName"];
-//                [[PFUser currentUser] setObject:lastName forKey:@"lastName"];
-//                [[PFUser currentUser] setObject:firstName forKey:@"displayName"];
-//                [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"visible"];
-//                [PFUser currentUser][@"status"] = @"Just a man and his thoughts";
-//                
-//                CLLocation *currentLocation = self.previousLocation;
-//                
-//                if(currentLocation.coordinate.latitude != 0.0 && currentLocation.coordinate.longitude != 0.0){
-//                    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-//                                                                  longitude:currentLocation.coordinate.longitude];
-//                    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-//                }
-//                
-//                [[PFUser currentUser] saveInBackground];
-//            }
-//            
-//        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
-//                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-//            NSLog(@"The facebook session was invalidated");
-//        } else {
-//            NSLog(@"Some other error: %@", error);
-//        }
-//    }];
-//}
-
-// Sent to the delegate when the log in attempt fails.
-- (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
-    NSLog(@"Failed to log in...");
-    NSLog(@"%@", error);
-}
-
-// Sent to the delegate when the log in screen is dismissed.
-- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -Button Presses
@@ -515,7 +395,7 @@
     [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
     [[PFUser currentUser] saveInBackground];
     
-    [self animateSlidingView];
+    [self closeUpdateStatusView];
     [self.statusTextView resignFirstResponder];
 }
 
@@ -560,23 +440,21 @@
         self.slidingViewConstraint.constant = 0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
-                            options:UIViewAnimationOptionCurveLinear
+                            options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
                              [self.view layoutIfNeeded];
-                             self.slidingView.alpha = 1.0;
                          }
                          completion:nil];
         [self.statusTextView becomeFirstResponder];
         self.shelf = true;
     }
     else{
-        self.slidingViewConstraint.constant = -190;
+        self.slidingViewConstraint.constant = -400;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
-                            options:UIViewAnimationOptionCurveLinear
+                            options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
                              [self.view layoutIfNeeded];
-                             self.slidingView.alpha = .7;
                          }
                          completion:nil];
         self.shelf = false;

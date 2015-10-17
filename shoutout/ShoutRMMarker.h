@@ -24,6 +24,7 @@
 @property (nonatomic, strong) SOMarkerSubView *subview;
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic, assign) double scale;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier

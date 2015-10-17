@@ -45,9 +45,9 @@
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
         
-        KPAnnotation * toShow = annotationArray[0];
+        KPAnnotation * toShow;
         
-        CLLocationDistance minDistance = [screenCenter distanceFromLocation:[[CLLocation alloc] initWithLatitude:toShow.coordinate.latitude longitude:toShow.coordinate.longitude]];
+        CLLocationDistance minDistance = DBL_MAX;
         
         for(int i = 0; i<[annotationArray count]; i++){
             KPAnnotation * annotation = annotationArray[i];
@@ -62,7 +62,9 @@
                 }
             }
         }
-        [mapView selectAnnotation:toShow animated:YES];
+        if (toShow) {
+            [mapView selectAnnotation:toShow animated:YES];
+        }
     }
 }
 
@@ -80,7 +82,7 @@
         ShoutClusterMarker *marker = (ShoutClusterMarker *)view;
         KPAnnotation *annotation = marker.annotation;
         CLLocationCoordinate2D startCoord = CLLocationCoordinate2DMake(annotation.coordinate.latitude, annotation.coordinate.longitude);
-        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoord, annotation.radius+10, annotation.radius+10)];
+        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoord, annotation.radius+100, annotation.radius+100)];
         [mapView setRegion:adjustedRegion animated:YES];
     }
 }

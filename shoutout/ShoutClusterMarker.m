@@ -35,21 +35,21 @@
     if (self) {
         self.backgroundLayer = [CALayer layer];
         self.backgroundLayer.name = @"profile";
-        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, 56.0f, 67.0f);
+        self.backgroundLayer.frame = CGRectMake(0.0f, 0.0f, 28.0f, 33.5f);
         self.backgroundLayer.contents = (id)[UIImage imageNamed:imageToUse].CGImage;
         self.backgroundLayer.masksToBounds = YES;
         [self.layer addSublayer:self.backgroundLayer];
         
         CALayer *circleLayer = [CALayer layer];
-        circleLayer.frame = CGRectMake(2.5f, 2.5f, 51.0f, 51.0f);
-        circleLayer.cornerRadius = 25.0f;
+        circleLayer.frame = CGRectMake(1.25f, 1.25f, 25.5f, 25.5f);
+        circleLayer.cornerRadius = circleLayer.frame.size.height/2.0;
         circleLayer.backgroundColor = [UIColor whiteColor].CGColor;
         [self.layer addSublayer:circleLayer];
         
         self.textLayer = [[CATextLayer alloc] init];
-        self.textLayer.frame = CGRectMake(3.0f, 10.0f, 50.5f, 50.5f);
+        self.textLayer.frame = CGRectMake(1.5f, 5.0f, 25.25f, 25.25f);
         self.textLayer.string = annotation.title;
-        self.textLayer.fontSize = 24.0f;
+        self.textLayer.fontSize = 12.0f;
         self.textLayer.wrapped = YES;
         [self.textLayer setAlignmentMode:@"center"];
         self.textLayer.contentsScale = [[UIScreen mainScreen] scale];
@@ -57,6 +57,7 @@
         [self.layer addSublayer:self.textLayer];
         
         NSLog(@"created pin");
+//        self.transform = CGAffineTransformMakeScale(0.8, 0.8);
         self.frame = self.backgroundLayer.bounds;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }

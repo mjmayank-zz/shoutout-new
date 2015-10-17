@@ -57,6 +57,8 @@
         [self.layer addSublayer:self.textLayer];
         
         NSLog(@"created pin");
+        self.frame = self.backgroundLayer.bounds;
+        self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }
     return self;
 }

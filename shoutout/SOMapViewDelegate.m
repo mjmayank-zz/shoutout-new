@@ -37,7 +37,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mapDidScale" object:self userInfo:userInfo];
     
     NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
-//    NSLog(@"Number of annotations in rect: %lu", (unsigned long)annotationSet.count);
     NSArray *annotationArray = [annotationSet allObjects];
     
     if([annotationArray count] > 0){
@@ -46,23 +45,22 @@
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
         
-        SOAnnotation * toShow = annotationArray[0];
+        KPAnnotation * toShow = annotationArray[0];
         
         CLLocationDistance minDistance = [screenCenter distanceFromLocation:[[CLLocation alloc] initWithLatitude:toShow.coordinate.latitude longitude:toShow.coordinate.longitude]];
         
-        
         for(int i = 0; i<[annotationArray count]; i++){
-            SOAnnotation * annotation = annotationArray[i];
-            
-            CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
-            
-            CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
-            
-            if(distance <= minDistance){
-                minDistance = distance;
-                toShow = annotation;
+            KPAnnotation * annotation = annotationArray[i];
+            if(![annotation isCluster]){
+                CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
+                
+                CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
+                
+                if(distance <= minDistance){
+                    minDistance = distance;
+                    toShow = annotation;
+                }
             }
-            
         }
         [mapView selectAnnotation:toShow animated:YES];
     }
@@ -77,6 +75,13 @@
     if([view isKindOfClass:[ShoutRMMarker class]]){
         ShoutRMMarker *marker = (ShoutRMMarker *)view;
         [marker didPressButtonWithName:@"profile"];
+    }
+    if([view isKindOfClass:[ShoutClusterMarker class]]){
+        ShoutClusterMarker *marker = (ShoutClusterMarker *)view;
+        KPAnnotation *annotation = marker.annotation;
+        CLLocationCoordinate2D startCoord = CLLocationCoordinate2DMake(annotation.coordinate.latitude, annotation.coordinate.longitude);
+        MKCoordinateRegion adjustedRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(startCoord, annotation.radius+10, annotation.radius+10)];
+        [mapView setRegion:adjustedRegion animated:YES];
     }
 }
 
@@ -98,7 +103,6 @@
             
             if (annotationView == nil) {
                 annotationView = [[ShoutClusterMarker alloc] initWithAnnotation:kingpinAnnotation reuseIdentifier:@"cluster"];
-                annotationView.centerOffset = CGPointMake(-28.0f, -67.0f);
             }
             ((ShoutClusterMarker *)annotationView).title = kingpinAnnotation.title;
             //            annotationView.pinColor = MKPinAnnotationColorPurple;

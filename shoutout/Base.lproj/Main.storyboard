@@ -428,7 +428,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Allow Push Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqa-yz-hAq">
-                                <rect key="frame" x="36" y="310" width="184.5" height="20.5"/>
+                                <rect key="frame" x="37" y="310" width="184.5" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -443,7 +443,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="To receive messages from other users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z85-zw-eAv">
-                                <rect key="frame" x="148" y="331" width="200" height="13.5"/>
+                                <rect key="frame" x="36" y="331" width="200" height="13.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -748,6 +748,7 @@
                         <outlet property="privacyToggle" destination="K39-WO-Gck" id="u85-zh-Tz2"/>
                         <outlet property="profileImageView" destination="dJ8-sg-OQ1" id="CtS-RN-vpM"/>
                         <outlet property="usernameTextField" destination="e2O-mh-jhX" id="nBI-OU-5lg"/>
+                        <segue destination="LJ2-az-6Ov" kind="show" identifier="logoutToStart" id="AeV-OP-JLD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATh-pO-pT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1214,6 +1215,6 @@
         <image name="shoutout_white.png" width="156" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Yi7-ct-KMV"/>
+        <segue reference="iJR-IT-XVW"/>
     </inferredMetricsTieBreakers>
 </document>

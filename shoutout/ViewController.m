@@ -23,10 +23,8 @@
 @interface ViewController ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation * previousLocation;
 @property (assign, nonatomic) int *count;
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
-@property (strong, nonatomic) IBOutlet UIButton *saveStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 
 @end
@@ -66,7 +64,6 @@
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(mapPanned)];
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
-//    self.mapView.showsPointsOfInterest = false;
     
 //    self.locationManager = [[CLLocationManager alloc] init];
 //    self.locationManager.delegate = self;
@@ -90,7 +87,6 @@
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
     self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
     self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
-    
     [self registerFirebaseListeners];
     
     PFObject *profileImageObj = [PFUser currentUser][@"profileImage"];
@@ -114,6 +110,8 @@
             });
         });
     }
+    
+    //setup sliding view elements
     self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
     self.profilePic.layer.masksToBounds = YES;
     self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
@@ -122,7 +120,13 @@
     
     [self.saveButton.layer setCornerRadius:4.0f];
     [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
-    [self.saveStatusButton.layer setCornerRadius:self.saveStatusButton.frame.size.height/2];
+    
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(closeUpdateStatusView)];
+    [self.slidingView addGestureRecognizer:singleFingerTap];
+    
+    //set up mailbox
     [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
     self.unreadIndicator.layer.masksToBounds = YES;
     
@@ -328,7 +332,6 @@
     }
 }
 
-
 -(void)registerFirebaseListeners{
     [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self animateUser:snapshot.key toNewPosition:snapshot.value];
@@ -389,7 +392,7 @@
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
         [PFUser currentUser][@"status"] = self.statusTextView.text;
         [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
-        [self checkForMessage:self.statusTextView.text];
+        [self checkForRecipients:self.statusTextView.text];
     }
     CLLocation *currentLocation = self.previousLocation;
     PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
@@ -401,7 +404,7 @@
     [self.statusTextView resignFirstResponder];
 }
 
-- (void)checkForMessage:(NSString *)message{
+- (void)checkForRecipients:(NSString *)message{
     NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
     [set formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
     NSArray *array = [message componentsSeparatedByCharactersInSet:[set invertedSet]];
@@ -451,7 +454,7 @@
         self.shelf = true;
     }
     else{
-        self.slidingViewConstraint.constant = -400;
+        self.slidingViewConstraint.constant = -450;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut

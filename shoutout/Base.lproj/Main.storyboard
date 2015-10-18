@@ -26,11 +26,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Sh-VS-CKH" userLabel="Sliding View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="400"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="450"/>
                                 <subviews>
-                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-qt-yI4">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="400"/>
-                                        <animations/>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-qt-yI4">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="450"/>
                                         <color key="backgroundColor" red="0.34901960780000002" green="0.73333333329999995" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutWhiteLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7tt-dY-haA">
@@ -55,7 +54,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VrQ-U8-OWG"/>
+                                            <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BEK-E7-dv0"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="817-ie-GqV">
@@ -67,7 +66,7 @@
                                             <constraint firstAttribute="height" constant="76" id="6zL-pI-aYX"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="MZj-BR-y7H">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="MZj-BR-y7H">
                                         <rect key="frame" x="21" y="139" width="70" height="70"/>
                                         <animations/>
                                         <constraints>
@@ -113,7 +112,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ggg-Hf-EUE"/>
+                                            <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sg3-07-ov8"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmU-9D-b7R">
@@ -146,7 +145,7 @@
                                     <constraint firstAttribute="trailing" secondItem="cI6-R1-bLk" secondAttribute="trailing" constant="30" id="IY3-gA-u3o"/>
                                     <constraint firstAttribute="trailing" secondItem="ZkI-ij-4nr" secondAttribute="trailing" constant="20" id="Lzy-ek-Xrx"/>
                                     <constraint firstItem="MZj-BR-y7H" firstAttribute="leading" secondItem="8Sh-VS-CKH" secondAttribute="leading" constant="21" id="Ot7-9K-QKa"/>
-                                    <constraint firstAttribute="height" constant="400" id="PmG-Xf-Jwf"/>
+                                    <constraint firstAttribute="height" constant="450" id="PmG-Xf-Jwf"/>
                                     <constraint firstItem="817-ie-GqV" firstAttribute="leading" secondItem="8Sh-VS-CKH" secondAttribute="leading" constant="18" id="TsD-UR-fvp"/>
                                     <constraint firstItem="7tt-dY-haA" firstAttribute="top" secondItem="8Sh-VS-CKH" secondAttribute="top" constant="27" id="VjW-IL-rEl"/>
                                     <constraint firstAttribute="trailing" secondItem="Sxa-nG-Jty" secondAttribute="trailing" constant="13" id="X1N-Ki-mbh"/>
@@ -322,7 +321,7 @@
                             <constraint firstItem="xW4-3P-Kf3" firstAttribute="leading" secondItem="uKI-Y9-bTG" secondAttribute="trailing" constant="-10" id="tNU-SW-1Oc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DZn-cf-o0J" secondAttribute="bottom" id="tkZ-Dc-KH9"/>
                             <constraint firstItem="1G6-ul-qtz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="txP-XH-UWC"/>
-                            <constraint firstItem="8Sh-VS-CKH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-400" id="uEh-Tk-jUd"/>
+                            <constraint firstItem="8Sh-VS-CKH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-450" id="uEh-Tk-jUd"/>
                             <constraint firstItem="dW5-ci-VVn" firstAttribute="leading" secondItem="4HE-na-VOh" secondAttribute="trailing" id="v6I-Po-Lyv"/>
                             <constraint firstItem="dPr-nf-eoM" firstAttribute="leading" secondItem="DZn-cf-o0J" secondAttribute="trailing" id="vDX-Cy-nnP"/>
                             <constraint firstAttribute="centerY" secondItem="nib-xd-APd" secondAttribute="centerY" id="vbY-iE-WBv"/>
@@ -343,15 +342,15 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="cancelStatusButton" destination="Sxa-nG-Jty" id="HVf-lI-BgO"/>
+                        <outlet property="cancelStatusButton" destination="Sxa-nG-Jty" id="CtY-lm-kBS"/>
                         <outlet property="map" destination="1KP-dS-pyF" id="Rfy-86-xcj"/>
-                        <outlet property="profilePic" destination="MZj-BR-y7H" id="lUn-Ow-CP6"/>
-                        <outlet property="profilePictureBorder" destination="817-ie-GqV" id="svZ-Ky-awE"/>
-                        <outlet property="saveButton" destination="ZkI-ij-4nr" id="Y9E-n7-d3d"/>
-                        <outlet property="slidingView" destination="8Sh-VS-CKH" id="cq7-0Q-del"/>
+                        <outlet property="profilePic" destination="MZj-BR-y7H" id="J22-8a-snQ"/>
+                        <outlet property="profilePictureBorder" destination="817-ie-GqV" id="u04-KZ-wDh"/>
+                        <outlet property="saveButton" destination="ZkI-ij-4nr" id="34a-UM-PCs"/>
+                        <outlet property="slidingView" destination="8Sh-VS-CKH" id="FYR-MS-TOK"/>
                         <outlet property="slidingViewConstraint" destination="uEh-Tk-jUd" id="mHc-BU-syG"/>
-                        <outlet property="statusCharacterCount" destination="DvD-G3-rW1" id="TNc-rA-kXd"/>
-                        <outlet property="statusTextView" destination="cI6-R1-bLk" id="z8a-lf-43A"/>
+                        <outlet property="statusCharacterCount" destination="DvD-G3-rW1" id="5gQ-2z-sb2"/>
+                        <outlet property="statusTextView" destination="cI6-R1-bLk" id="Rg1-Av-E3G"/>
                         <outlet property="unreadIndicator" destination="uKI-Y9-bTG" id="YN2-u4-tYn"/>
                     </connections>
                 </viewController>
@@ -556,10 +555,20 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0K-Tt-LhN">
+                                                    <rect key="frame" x="417" y="37" width="139" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="139" id="YZp-s5-KnG"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="Dxn-zi-XNn" firstAttribute="leading" secondItem="hPk-E2-KNE" secondAttribute="trailing" constant="-5" id="ASC-5N-j2X"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="h0K-Tt-LhN" secondAttribute="trailing" constant="36" id="JXq-jh-5VB"/>
                                                 <constraint firstItem="iay-5L-3PL" firstAttribute="bottom" secondItem="3Oc-2I-paf" secondAttribute="bottomMargin" constant="-16.5" id="Pi5-Ca-4V3"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="iay-5L-3PL" secondAttribute="trailing" constant="12" id="b3a-8y-Da9"/>
                                                 <constraint firstItem="iay-5L-3PL" firstAttribute="centerY" secondItem="3Oc-2I-paf" secondAttribute="centerY" id="bCK-ET-CDd"/>
@@ -570,6 +579,7 @@
                                                 <constraint firstItem="80i-ai-Ffv" firstAttribute="top" secondItem="3Oc-2I-paf" secondAttribute="topMargin" constant="29" id="nJf-wC-pXz"/>
                                                 <constraint firstItem="80i-ai-Ffv" firstAttribute="leading" secondItem="iay-5L-3PL" secondAttribute="leading" id="ngH-R6-XSX"/>
                                                 <constraint firstItem="hPk-E2-KNE" firstAttribute="centerY" secondItem="3Oc-2I-paf" secondAttribute="centerY" id="rA3-Ql-4bG"/>
+                                                <constraint firstItem="h0K-Tt-LhN" firstAttribute="bottom" secondItem="3Oc-2I-paf" secondAttribute="bottomMargin" constant="-5" id="tMt-R9-yeo"/>
                                                 <constraint firstItem="Dxn-zi-XNn" firstAttribute="trailing" secondItem="3Oc-2I-paf" secondAttribute="trailingMargin" id="wnI-La-eg1"/>
                                             </constraints>
                                             <variation key="default">
@@ -582,6 +592,7 @@
                                         <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="bodyLabel" destination="iay-5L-3PL" id="9Qw-KM-PUp"/>
+                                            <outlet property="dateLabel" destination="h0K-Tt-LhN" id="50j-qy-iST"/>
                                             <outlet property="profileImage" destination="hPk-E2-KNE" id="hkb-MR-2eg"/>
                                             <outlet property="usernameLabel" destination="80i-ai-Ffv" id="BMk-iE-K8I"/>
                                         </connections>

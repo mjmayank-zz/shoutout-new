@@ -62,6 +62,13 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 cell.bodyLabel.text = message;
                 cell.usernameLabel.text = from.objectForKey("username") as? String;
                 cell.profileImage.layer.cornerRadius = 25.0;
+                
+                let dateFormatter = NSDateFormatter();
+                dateFormatter.dateFormat = "MM/dd/yy HH:mm";
+                let date = from.updatedAt;
+                let dateString = dateFormatter.stringFromDate(date!);
+                cell.dateLabel.text = dateString;
+            
                 var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
                 if(image == nil){
                     if let fromImage = fromImage{
@@ -113,6 +120,7 @@ class messagesCell : UITableViewCell{
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
     
     var object : PFObject!
 }

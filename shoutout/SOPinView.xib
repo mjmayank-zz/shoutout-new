@@ -70,6 +70,7 @@
             <connections>
                 <outlet property="bubbleContainerView" destination="ibl-nt-4Xr" id="Q8p-84-ok3"/>
                 <outlet property="onlineIndicator" destination="Mos-ta-ADP" id="B5S-W6-OSD"/>
+                <outlet property="pinView" destination="Hk5-qL-H5q" id="gKg-4g-GHc"/>
                 <outlet property="profileImageView" destination="DPO-dF-onS" id="PqP-r5-mrZ"/>
                 <outlet property="shoutLabel" destination="jMC-qY-Gdy" id="KVL-QF-vbp"/>
                 <outlet property="timeLabel" destination="9EP-zf-Qgh" id="EIT-WE-3qg"/>

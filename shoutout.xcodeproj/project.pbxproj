@@ -18,6 +18,7 @@
 		8F0AA2661BD2F8960068AE38 /* shoutoutGrayLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */; settings = {ASSET_TAGS = (); }; };
 		8F0AA2671BD2F8960068AE38 /* shoutoutWhiteLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */; settings = {ASSET_TAGS = (); }; };
 		8F0AA2691BD2FAA40068AE38 /* statusCancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */; settings = {ASSET_TAGS = (); }; };
+		8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; settings = {ASSET_TAGS = (); }; };
 		8F1EBED71BB9935C009DA90F /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1EBED61BB9935C009DA90F /* gradient.png */; settings = {ASSET_TAGS = (); }; };
@@ -62,6 +63,7 @@
 		8F28BF011BA1104A00FD0999 /* shoutBubbleText.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEDE1BA1104A00FD0999 /* shoutBubbleText.png */; };
 		8F28BF021BA1104A00FD0999 /* shoutOptions.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F28BEDF1BA1104A00FD0999 /* shoutOptions.png */; };
 		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		8F4D24DB1BD3EBB300A3B6A1 /* SOComposeStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */; settings = {ASSET_TAGS = (); }; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F8D47731B976DB900D902B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47721B976DB900D902B9 /* main.m */; };
@@ -115,6 +117,8 @@
 		8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutGrayLogo.png; path = images/shoutoutGrayLogo.png; sourceTree = "<group>"; };
 		8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutWhiteLogo.png; path = images/shoutoutWhiteLogo.png; sourceTree = "<group>"; };
 		8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusCancelButton.png; path = images/statusCancelButton.png; sourceTree = "<group>"; };
+		8F0AA26D1BD3E2FA0068AE38 /* SOFirebaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOFirebaseDelegate.h; sourceTree = "<group>"; };
+		8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOFirebaseDelegate.m; sourceTree = "<group>"; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 		8F28BEDE1BA1104A00FD0999 /* shoutBubbleText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutBubbleText.png; path = images/shoutBubbleText.png; sourceTree = "<group>"; };
 		8F28BEDF1BA1104A00FD0999 /* shoutOptions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutOptions.png; path = images/shoutOptions.png; sourceTree = "<group>"; };
 		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
+		8F4D24D91BD3EBB300A3B6A1 /* SOComposeStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOComposeStatusView.h; sourceTree = "<group>"; };
+		8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOComposeStatusView.m; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -297,10 +303,14 @@
 			children = (
 				8F8D47A31B97ECAD00D902B9 /* images */,
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
+				8F4D24D91BD3EBB300A3B6A1 /* SOComposeStatusView.h */,
+				8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
+				8F0AA26D1BD3E2FA0068AE38 /* SOFirebaseDelegate.h */,
+				8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
@@ -637,11 +647,13 @@
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
+				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,
+				8F4D24DB1BD3EBB300A3B6A1 /* SOComposeStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

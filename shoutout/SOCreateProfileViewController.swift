@@ -19,6 +19,8 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     
     override func viewDidLoad(){
         super.viewDidLoad();
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
+        self.profileImageView.clipsToBounds = true
         self.passwordTextField.delegate = self;
         self.usernameTextField.delegate = self;
         self.emailTextField.delegate = self;
@@ -42,6 +44,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 })
             }
         };
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
@@ -90,4 +93,11 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         textField.resignFirstResponder();
         return true;
     }
+    
+    // MARK: Status bar
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
 }

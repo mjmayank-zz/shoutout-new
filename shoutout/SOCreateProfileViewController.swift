@@ -69,8 +69,16 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
             if let error = error {
-                let errorString = error.userInfo["error"] as? NSString
+                let errorString = error.userInfo["error"] as? String
                 print(errorString);
+                let alert = UIAlertController(title: errorString!, message: "Please try again", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                    // Do nothing
+                })
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: { () -> Void in
+                    self.usernameTextField.becomeFirstResponder()
+                })
                 // Show the errorString somewhere and let the user try again.
             } else {
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")

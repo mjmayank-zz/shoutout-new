@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		358B36C71BD4954A00979DCF /* onboardingBackgroundTutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 358B36C61BD4954A00979DCF /* onboardingBackgroundTutorial@2x.png */; settings = {ASSET_TAGS = (); }; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0AA2661BD2F8960068AE38 /* shoutoutGrayLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */; settings = {ASSET_TAGS = (); }; };
 		8F0AA2671BD2F8960068AE38 /* shoutoutWhiteLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */; settings = {ASSET_TAGS = (); }; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
+		358B36C61BD4954A00979DCF /* onboardingBackgroundTutorial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackgroundTutorial@2x.png"; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutGrayLogo.png; path = images/shoutoutGrayLogo.png; sourceTree = "<group>"; };
 		8F0AA2651BD2F8960068AE38 /* shoutoutWhiteLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shoutoutWhiteLogo.png; path = images/shoutoutWhiteLogo.png; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 			children = (
 				8FB6A19A1BD46A2900938AD0 /* newBubble@2x.png */,
 				8FB6A19B1BD46A2900938AD0 /* newPin@2x.png */,
+				358B36C61BD4954A00979DCF /* onboardingBackgroundTutorial@2x.png */,
 				8FB6A19C1BD46A2900938AD0 /* onboardingBackgroundSignup@2x.png */,
 				8F0AA2681BD2FAA40068AE38 /* statusCancelButton.png */,
 				8F0AA2641BD2F8960068AE38 /* shoutoutGrayLogo.png */,
@@ -542,6 +545,7 @@
 				8F28BEEB1BA1104A00FD0999 /* filterNone.png in Resources */,
 				8F28BEE91BA1104A00FD0999 /* filterBoth.png in Resources */,
 				8F28BEF11BA1104A00FD0999 /* messagesPopup.png in Resources */,
+				358B36C71BD4954A00979DCF /* onboardingBackgroundTutorial@2x.png in Resources */,
 				8FD047C41BB1C11000A28B70 /* shoutSpeechBubble.png in Resources */,
 				8F28BEE21BA1104A00FD0999 /* addPinWindow.png in Resources */,
 				8F28BEE01BA1104A00FD0999 /* add.png in Resources */,

@@ -47,6 +47,10 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     @IBAction func nextButtonPressed(sender: AnyObject) {
         let user = PFUser();
         user.username = usernameTextField.text;

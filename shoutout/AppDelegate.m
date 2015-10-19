@@ -62,7 +62,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.rootViewController = initViewController;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:initViewController];
+    navigationController.navigationBarHidden = YES;
+    [navigationController.interactivePopGestureRecognizer setDelegate:nil];
+    
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

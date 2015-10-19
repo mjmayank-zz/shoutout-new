@@ -19,6 +19,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 
-@property (strong, nonatomic) ViewController* delegate;
+@property (weak, nonatomic) ViewController* delegate;
 
 @end

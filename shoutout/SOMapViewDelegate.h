@@ -16,7 +16,7 @@
 @interface SOMapViewDelegate : NSObject<MKMapViewDelegate, KPClusteringControllerDelegate>
 
 @property (strong, nonatomic) KPClusteringController* clusteringController;
-@property (strong, nonatomic) MKMapView *mapView;
+@property (weak, nonatomic) MKMapView *mapView;
 @property (assign, nonatomic) double latitudeDelta;
 
 -(instancetype)initWithMapView:(MKMapView *)mapView;

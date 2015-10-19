@@ -42,6 +42,8 @@
     
     self.markerDictionary = [[NSMutableDictionary alloc] init];
     
+    [[PFUser currentUser] fetchIfNeededInBackground];
+    
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

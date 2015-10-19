@@ -34,8 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self getFacebookInfo];
-    
     self.count = 0;
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPermissions"];

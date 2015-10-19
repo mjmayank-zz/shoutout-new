@@ -75,12 +75,12 @@
                                             <constraint firstAttribute="width" constant="70" id="czC-J1-6ce"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-6E-t55">
-                                        <rect key="frame" x="86" y="138" width="494" height="71"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speechBubbleWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-6E-t55">
+                                        <rect key="frame" x="73" y="138" width="507" height="84"/>
                                         <animations/>
                                         <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="71" id="R7V-ju-TYG"/>
+                                            <constraint firstAttribute="height" constant="84" id="R7V-ju-TYG"/>
                                         </constraints>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-R1-bLk">
@@ -135,8 +135,8 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="QU9-6E-t55" firstAttribute="leading" secondItem="MZj-BR-y7H" secondAttribute="trailing" constant="-5" id="0WF-vl-03R"/>
-                                    <constraint firstItem="ZkI-ij-4nr" firstAttribute="top" secondItem="QU9-6E-t55" secondAttribute="bottom" constant="27" id="24U-3k-Bf9"/>
+                                    <constraint firstItem="QU9-6E-t55" firstAttribute="leading" secondItem="MZj-BR-y7H" secondAttribute="trailing" constant="-18" id="0WF-vl-03R"/>
+                                    <constraint firstItem="ZkI-ij-4nr" firstAttribute="top" secondItem="QU9-6E-t55" secondAttribute="bottom" constant="14" id="24U-3k-Bf9"/>
                                     <constraint firstAttribute="bottom" secondItem="wa3-qt-yI4" secondAttribute="bottom" id="3Fk-dK-kV7"/>
                                     <constraint firstItem="Sxa-nG-Jty" firstAttribute="top" secondItem="8Sh-VS-CKH" secondAttribute="top" constant="33" id="62s-GO-m3c"/>
                                     <constraint firstItem="cI6-R1-bLk" firstAttribute="leading" secondItem="MZj-BR-y7H" secondAttribute="trailing" constant="18" id="8Vn-Fh-aXd"/>
@@ -921,7 +921,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjs-GE-lrp">
                                 <rect key="frame" x="108" y="170" width="224" height="98"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="newBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="kqf-hh-AhP">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="speechBubbleWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="kqf-hh-AhP">
                                         <rect key="frame" x="0.0" y="0.0" width="220" height="98"/>
                                         <animations/>
                                         <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
@@ -994,7 +994,7 @@ or</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QD4-4C-M7r">
                                 <rect key="frame" x="43" y="170" width="82" height="98"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newPin.png" translatesAutoresizingMaskIntoConstraints="NO" id="T5o-R8-WI4">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="T5o-R8-WI4">
                                         <rect key="frame" x="0.0" y="0.0" width="82" height="98"/>
                                         <animations/>
                                     </imageView>
@@ -1393,8 +1393,6 @@ or</string>
         <image name="messages.png" width="513" height="513"/>
         <image name="more.png" width="513" height="513"/>
         <image name="myLocation.png" width="513" height="513"/>
-        <image name="newBubble.png" width="111" height="97"/>
-        <image name="newPin.png" width="82" height="97"/>
         <image name="onboardingBackground.png" width="748" height="1337"/>
         <image name="onboardingBackgroundLogin.png" width="374" height="668"/>
         <image name="onboardingBackgroundTutorial.png" width="374" height="668"/>
@@ -1402,9 +1400,11 @@ or</string>
         <image name="onboardingPage2.png" width="300" height="441"/>
         <image name="onboardingPage3.png" width="300" height="441"/>
         <image name="onboardingPage4.png" width="300" height="441"/>
+        <image name="pinWithShadow.png" width="82" height="97"/>
         <image name="settings.png" width="513" height="513"/>
         <image name="shoutSpeechBubble.png" width="71" height="51"/>
         <image name="shoutoutWhiteLogo.png" width="345" height="513"/>
+        <image name="speechBubbleWithShadow.png" width="111" height="97"/>
         <image name="statusCancelButton.png" width="181" height="181"/>
     </resources>
 </document>

@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>FacebookAppID</key>
 	<string>213646248845245</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -50,6 +50,25 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Titillium-Black.otf</string>
+		<string>Titillium-Bold.otf</string>
+		<string>Titillium-BoldItalic.otf</string>
+		<string>Titillium-BoldUpright.otf</string>
+		<string>Titillium-Light.otf</string>
+		<string>Titillium-LightItalic.otf</string>
+		<string>Titillium-LightUpright.otf</string>
+		<string>Titillium-Regular.otf</string>
+		<string>Titillium-RegularItalic.otf</string>
+		<string>Titillium-RegularUpright.otf</string>
+		<string>Titillium-Semibold.otf</string>
+		<string>Titillium-SemiboldItalic.otf</string>
+		<string>Titillium-SemiboldUpright.otf</string>
+		<string>Titillium-Thin.otf</string>
+		<string>Titillium-ThinItalic.otf</string>
+		<string>Titillium-ThinUpright.otf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

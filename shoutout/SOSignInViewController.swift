@@ -29,7 +29,7 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil);
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

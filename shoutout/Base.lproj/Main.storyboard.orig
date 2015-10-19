@@ -26,11 +26,15 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Sh-VS-CKH" userLabel="Sliding View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="450"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                 <subviews>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-qt-yI4">
+<<<<<<< HEAD
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
+=======
                                         <rect key="frame" x="0.0" y="0.0" width="383" height="450"/>
                                         <animations/>
+>>>>>>> Use a navigation controller
                                         <color key="backgroundColor" red="0.34901960780000002" green="0.73333333329999995" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutWhiteLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7tt-dY-haA">
@@ -42,7 +46,11 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkI-ij-4nr">
+<<<<<<< HEAD
+                                        <rect key="frame" x="500" y="236" width="80" height="30"/>
+=======
                                         <rect key="frame" x="283" y="236" width="80" height="30"/>
+>>>>>>> Use a navigation controller
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -76,7 +84,11 @@
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-6E-t55">
+<<<<<<< HEAD
+                                        <rect key="frame" x="86" y="138" width="494" height="71"/>
+=======
                                         <rect key="frame" x="86" y="138" width="277" height="71"/>
+>>>>>>> Use a navigation controller
                                         <animations/>
                                         <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                         <constraints>
@@ -84,7 +96,11 @@
                                         </constraints>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-R1-bLk">
+<<<<<<< HEAD
+                                        <rect key="frame" x="109" y="145" width="461" height="60"/>
+=======
                                         <rect key="frame" x="109" y="145" width="244" height="60"/>
+>>>>>>> Use a navigation controller
                                         <animations/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -102,7 +118,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sxa-nG-Jty">
+<<<<<<< HEAD
+                                        <rect key="frame" x="543" y="33" width="44" height="44"/>
+=======
                                         <rect key="frame" x="326" y="33" width="44" height="44"/>
+>>>>>>> Use a navigation controller
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Uno-h7-z8g"/>
@@ -189,7 +209,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G6-ul-qtz">
-                                <rect key="frame" x="164" y="609" width="48" height="48"/>
+                                <rect key="frame" x="276" y="542" width="48" height="48"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="4dc-G3-q5i"/>
@@ -212,7 +232,7 @@
                                 <state key="normal" image="more.png"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-nf-eoM">
-                                <rect key="frame" x="93" y="613" width="44" height="44"/>
+                                <rect key="frame" x="93" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="90a-92-lDh"/>
@@ -224,7 +244,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dW5-ci-VVn">
-                                <rect key="frame" x="236" y="613" width="44" height="44"/>
+                                <rect key="frame" x="236" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="04t-Xx-n4M"/>
@@ -236,7 +256,11 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZn-cf-o0J" userLabel="Spacer View">
+<<<<<<< HEAD
+                                <rect key="frame" x="73" y="500" width="79.5" height="100"/>
+=======
                                 <rect key="frame" x="69" y="567" width="25" height="100"/>
+>>>>>>> Use a navigation controller
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -244,7 +268,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4HE-na-VOh" userLabel="Spacer View">
-                                <rect key="frame" x="211" y="567" width="80" height="100"/>
+                                <rect key="frame" x="211" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -252,7 +276,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jsv-K1-yv8" userLabel="Spacer View">
-                                <rect key="frame" x="280" y="567" width="25" height="100"/>
+                                <rect key="frame" x="280" y="500" width="79" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -260,7 +284,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xW4-3P-Kf3" userLabel="Spacer View">
-                                <rect key="frame" x="137" y="567" width="81" height="100"/>
+                                <rect key="frame" x="137" y="500" width="80.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -268,7 +292,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKI-Y9-bTG">
-                                <rect key="frame" x="122" y="605" width="20" height="20"/>
+                                <rect key="frame" x="122" y="538" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -336,8 +360,8 @@
                                 <exclude reference="tNU-SW-1Oc"/>
                                 <exclude reference="TuB-9p-Iia"/>
                                 <exclude reference="nAf-w9-KCX"/>
-                                <exclude reference="yjY-sH-YSV"/>
                                 <exclude reference="OEI-Tc-KJs"/>
+                                <exclude reference="yjY-sH-YSV"/>
                                 <exclude reference="icx-tT-LPC"/>
                             </mask>
                         </variation>

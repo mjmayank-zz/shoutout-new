@@ -545,6 +545,8 @@
     if ([segue.identifier  isEqual: @"openInboxSegue"]) {
         SOInboxViewController *destVC = (SOInboxViewController *)segue.destinationViewController;
         destVC.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
+        ((SOSettingsViewController*)segue.destinationViewController).oldVC = self;
     }
 }
 

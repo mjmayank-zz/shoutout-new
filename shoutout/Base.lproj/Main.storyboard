@@ -232,7 +232,7 @@
                                 </constraints>
                                 <state key="normal" image="settings.png"/>
                                 <connections>
-                                    <segue destination="Syc-BN-oMi" kind="presentation" id="KfY-hF-Bsa"/>
+                                    <segue destination="Syc-BN-oMi" kind="presentation" identifier="openSettingsSegue" id="KfY-hF-Bsa"/>
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZn-cf-o0J" userLabel="Spacer View">

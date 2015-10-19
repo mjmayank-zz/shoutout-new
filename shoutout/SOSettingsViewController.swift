@@ -15,6 +15,8 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var privacyToggle: UISwitch!
     
+    var oldVC: UIViewController!
+    
     override func viewDidLoad(){
         super.viewDidLoad();
         self.usernameTextField.text = PFUser.currentUser()?.username
@@ -69,19 +71,8 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         PFUser.logOut();
         let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
-        // Hooray! Let them use the app now.
-        let navigationController = UINavigationController(rootViewController: newVC!)
-        navigationController.navigationBarHidden = true
-        navigationController.interactivePopGestureRecognizer!.delegate = nil
-        UIApplication.sharedApplication().keyWindow?.rootViewController = navigationController
-//        self.dismissViewControllerAnimated(true) { () -> Void in
-//            let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
-//            // Hooray! Let them use the app now.
-//            let navigationController = UINavigationController(rootViewController: newVC!)
-//            navigationController.navigationBarHidden = true
-//            navigationController.interactivePopGestureRecognizer!.delegate = nil
-//            UIApplication.sharedApplication().keyWindow?.rootViewController = navigationController
-//        }
+        oldVC.navigationController?.setViewControllers([newVC!], animated: false)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
         PFUser.currentUser()?.username = self.usernameTextField.text;

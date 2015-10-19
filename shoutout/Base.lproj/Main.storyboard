@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -514,8 +514,8 @@
                                 <exclude reference="g54-Ge-oKt"/>
                                 <exclude reference="ND2-l8-txE"/>
                                 <exclude reference="J8g-KH-xUY"/>
-                                <exclude reference="RMV-Hw-SHe"/>
                                 <exclude reference="pCh-TY-g0m"/>
+                                <exclude reference="RMV-Hw-SHe"/>
                             </mask>
                         </variation>
                     </view>
@@ -919,15 +919,15 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjs-GE-lrp">
-                                <rect key="frame" x="108" y="170" width="220" height="98"/>
+                                <rect key="frame" x="108" y="170" width="224" height="98"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="kqf-hh-AhP">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="newBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="kqf-hh-AhP">
                                         <rect key="frame" x="0.0" y="0.0" width="220" height="98"/>
                                         <animations/>
                                         <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNc-Pc-kBT">
-                                        <rect key="frame" x="5" y="7" width="220" height="81"/>
+                                        <rect key="frame" x="7" y="7" width="224" height="81"/>
                                         <animations/>
                                         <string key="text">Use random avatar
 or</string>
@@ -935,7 +935,7 @@ or</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1d-Fn-mOS">
-                                        <rect key="frame" x="5" y="44" width="220" height="29"/>
+                                        <rect key="frame" x="7" y="44" width="224" height="29"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <state key="normal" title="Choose your own">
@@ -956,7 +956,7 @@ or</string>
                                     <constraint firstAttribute="height" constant="98" id="LH4-Rh-j5p"/>
                                     <constraint firstItem="C1d-Fn-mOS" firstAttribute="leading" secondItem="kNc-Pc-kBT" secondAttribute="leading" id="MCu-RL-JHP"/>
                                     <constraint firstItem="kNc-Pc-kBT" firstAttribute="top" secondItem="jjs-GE-lrp" secondAttribute="top" constant="7" id="Y7b-0m-pQ8"/>
-                                    <constraint firstItem="kNc-Pc-kBT" firstAttribute="centerX" secondItem="jjs-GE-lrp" secondAttribute="centerX" constant="5" id="fRx-hl-9wy"/>
+                                    <constraint firstItem="kNc-Pc-kBT" firstAttribute="centerX" secondItem="jjs-GE-lrp" secondAttribute="centerX" constant="7" id="fRx-hl-9wy"/>
                                     <constraint firstAttribute="bottom" secondItem="C1d-Fn-mOS" secondAttribute="bottom" constant="25" id="fsY-fZ-Ra9"/>
                                     <constraint firstItem="kqf-hh-AhP" firstAttribute="centerX" secondItem="jjs-GE-lrp" secondAttribute="centerX" id="iFf-Zn-168"/>
                                     <constraint firstAttribute="width" constant="220" id="igW-2S-2Qm"/>
@@ -965,6 +965,7 @@ or</string>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="igW-2S-2Qm"/>
                                         <exclude reference="Fm1-Om-hFx"/>
                                     </mask>
                                 </variation>
@@ -1032,7 +1033,7 @@ or</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Please fill out the fields below to get started." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDi-Om-xUa">
-                                <rect key="frame" x="31" y="70" width="313" height="55"/>
+                                <rect key="frame" x="31" y="70" width="313" height="54.5"/>
                                 <animations/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1046,6 +1047,7 @@ or</string>
                             <constraint firstItem="pDi-Om-xUa" firstAttribute="centerX" secondItem="J24-3p-6YL" secondAttribute="centerX" id="5Za-Ba-plb"/>
                             <constraint firstItem="rK5-A1-yJm" firstAttribute="centerX" secondItem="J24-3p-6YL" secondAttribute="centerX" id="66T-rM-cPw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8O7-yP-HU5" secondAttribute="trailing" constant="-24" id="6B3-Ye-DLS"/>
+                            <constraint firstItem="jjs-GE-lrp" firstAttribute="leading" secondItem="QD4-4C-M7r" secondAttribute="trailing" constant="-17" id="7eO-sJ-YKw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aZC-eK-PYZ" secondAttribute="trailing" constant="31" id="7wK-dE-JmG"/>
                             <constraint firstItem="jjs-GE-lrp" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="150" id="9ox-XL-YbF"/>
                             <constraint firstItem="fok-NK-qb4" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="597" id="B4Q-5X-3Am"/>
@@ -1053,6 +1055,7 @@ or</string>
                             <constraint firstItem="fok-NK-qb4" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="-16" id="KrH-qG-joE"/>
                             <constraint firstItem="2hs-mM-wui" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="31" id="Mab-9g-Ux5"/>
                             <constraint firstItem="QD4-4C-M7r" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="27" id="O6V-tg-M4B"/>
+                            <constraint firstItem="and-GE-HFT" firstAttribute="top" secondItem="fok-NK-qb4" secondAttribute="bottom" id="ONn-MT-c2K"/>
                             <constraint firstItem="rK5-A1-yJm" firstAttribute="width" secondItem="J24-3p-6YL" secondAttribute="width" id="Oad-PZ-hLC"/>
                             <constraint firstItem="pDi-Om-xUa" firstAttribute="top" secondItem="rK5-A1-yJm" secondAttribute="bottom" constant="21" id="Pv2-Bu-YCf"/>
                             <constraint firstItem="QD4-4C-M7r" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="150" id="Sdr-6B-p11"/>
@@ -1062,7 +1065,7 @@ or</string>
                             <constraint firstItem="H5A-T7-gAo" firstAttribute="top" secondItem="2hs-mM-wui" secondAttribute="bottom" constant="16" id="dbq-3v-Nb8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="H5A-T7-gAo" secondAttribute="trailing" constant="31" id="diJ-Gs-Cic"/>
                             <constraint firstItem="pDi-Om-xUa" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="50" id="dx6-Cw-du2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jjs-GE-lrp" secondAttribute="trailing" constant="31" id="hmo-lS-lGv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jjs-GE-lrp" secondAttribute="trailing" constant="27" id="hmo-lS-lGv"/>
                             <constraint firstItem="2hs-mM-wui" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="260" id="iq2-5b-oq0"/>
                             <constraint firstItem="pDi-Om-xUa" firstAttribute="width" secondItem="J24-3p-6YL" secondAttribute="width" constant="-62" id="lfC-1n-lUz"/>
                             <constraint firstItem="rK5-A1-yJm" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="10" id="nIB-SH-zeZ"/>
@@ -1070,10 +1073,13 @@ or</string>
                             <constraint firstAttribute="trailingMargin" secondItem="8O7-yP-HU5" secondAttribute="trailing" constant="-20" id="rt2-MC-5Kk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2hs-mM-wui" secondAttribute="trailing" constant="31" id="uDa-6d-fd2"/>
                             <constraint firstItem="aZC-eK-PYZ" firstAttribute="top" secondItem="H5A-T7-gAo" secondAttribute="bottom" constant="18" id="z9l-rR-0b1"/>
+                            <constraint firstItem="and-GE-HFT" firstAttribute="top" secondItem="8O7-yP-HU5" secondAttribute="bottom" id="zxw-H0-Dv6"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Pv2-Bu-YCf"/>
+                                <exclude reference="B4Q-5X-3Am"/>
+                                <exclude reference="3b9-FJ-dUC"/>
                                 <exclude reference="6B3-Ye-DLS"/>
                                 <exclude reference="rt2-MC-5Kk"/>
                             </mask>
@@ -1168,6 +1174,7 @@ or</string>
                             <constraint firstItem="D11-U6-QSn" firstAttribute="centerY" secondItem="pSn-R3-Hhr" secondAttribute="centerY" id="DCf-NP-BmQ"/>
                             <constraint firstItem="yoZ-KH-6Ef" firstAttribute="width" secondItem="pSn-R3-Hhr" secondAttribute="width" multiplier="0.5" id="RRb-Xm-hEe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mZt-aZ-zXI" secondAttribute="trailing" constant="31" id="Scm-7f-YhN"/>
+                            <constraint firstItem="tGL-i1-f4q" firstAttribute="top" secondItem="yoZ-KH-6Ef" secondAttribute="bottom" constant="216" id="Sht-Jj-d8u"/>
                             <constraint firstItem="mZt-aZ-zXI" firstAttribute="centerX" secondItem="pSn-R3-Hhr" secondAttribute="centerX" id="VZd-59-JcH"/>
                             <constraint firstItem="D11-U6-QSn" firstAttribute="centerX" secondItem="pSn-R3-Hhr" secondAttribute="centerX" id="YD5-mZ-21q"/>
                             <constraint firstItem="D11-U6-QSn" firstAttribute="width" secondItem="pSn-R3-Hhr" secondAttribute="width" id="clG-8Z-txn"/>
@@ -1184,6 +1191,7 @@ or</string>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="VZd-59-JcH"/>
+                                <exclude reference="mHt-Ac-j8h"/>
                                 <exclude reference="ldM-fq-Pn2"/>
                                 <exclude reference="qru-xm-YwW"/>
                                 <exclude reference="z2Q-ev-zKH"/>

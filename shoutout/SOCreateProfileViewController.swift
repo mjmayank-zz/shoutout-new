@@ -44,6 +44,13 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 })
             }
         };
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
+        
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
+        self.view .addGestureRecognizer(tap);
+        
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -97,6 +104,24 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder();
         return true;
+    }
+    
+    func dismissKeyboard(){
+        passwordTextField.resignFirstResponder();
+        usernameTextField.resignFirstResponder();
+        emailTextField.resignFirstResponder();
+    }
+    
+    func keyboardWillShow(notification: NSNotification){
+        if(self.view.frame.origin.y == 0.0){
+            self.view.frame.offsetInPlace(dx: 0, dy: -100)
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification){
+        if(self.view.frame.origin.y != 0.0){
+            self.view.frame.offsetInPlace(dx: 0, dy: 100)
+        }
     }
     
     // MARK: Status bar

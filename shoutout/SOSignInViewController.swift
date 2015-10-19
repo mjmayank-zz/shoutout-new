@@ -36,5 +36,4 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
         textField.resignFirstResponder();
         return true;
     }
-    
 }

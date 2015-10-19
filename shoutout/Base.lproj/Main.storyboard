@@ -26,10 +26,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Sh-VS-CKH" userLabel="Sliding View">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="450"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                 <subviews>
-                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-qt-yI4">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="450"/>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-qt-yI4">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                                         <color key="backgroundColor" red="0.34901960780000002" green="0.73333333329999995" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutWhiteLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7tt-dY-haA">
@@ -40,8 +40,8 @@
                                             <constraint firstAttribute="height" constant="100" id="whn-dR-1nu"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkI-ij-4nr">
-                                        <rect key="frame" x="283" y="236" width="80" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkI-ij-4nr">
+                                        <rect key="frame" x="500" y="236" width="80" height="30"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -74,16 +74,16 @@
                                             <constraint firstAttribute="width" constant="70" id="czC-J1-6ce"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-6E-t55">
-                                        <rect key="frame" x="86" y="138" width="277" height="71"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutSpeechBubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="QU9-6E-t55">
+                                        <rect key="frame" x="86" y="138" width="494" height="71"/>
                                         <animations/>
                                         <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="71" id="R7V-ju-TYG"/>
                                         </constraints>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-R1-bLk">
-                                        <rect key="frame" x="109" y="145" width="244" height="60"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cI6-R1-bLk">
+                                        <rect key="frame" x="109" y="145" width="461" height="60"/>
                                         <animations/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -100,8 +100,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sxa-nG-Jty">
-                                        <rect key="frame" x="326" y="33" width="44" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sxa-nG-Jty">
+                                        <rect key="frame" x="543" y="33" width="44" height="44"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Uno-h7-z8g"/>
@@ -187,8 +187,8 @@
                                     <action selector="centerButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="utU-TX-kJz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G6-ul-qtz">
-                                <rect key="frame" x="163" y="609" width="48" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G6-ul-qtz">
+                                <rect key="frame" x="276" y="542" width="48" height="48"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="4dc-G3-q5i"/>
@@ -211,7 +211,7 @@
                                 <state key="normal" image="more.png"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-nf-eoM">
-                                <rect key="frame" x="93" y="613" width="44" height="44"/>
+                                <rect key="frame" x="93" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="90a-92-lDh"/>
@@ -223,7 +223,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dW5-ci-VVn">
-                                <rect key="frame" x="236" y="613" width="44" height="44"/>
+                                <rect key="frame" x="236" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="04t-Xx-n4M"/>
@@ -235,7 +235,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZn-cf-o0J" userLabel="Spacer View">
-                                <rect key="frame" x="73" y="500" width="80" height="100"/>
+                                <rect key="frame" x="73" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -243,7 +243,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4HE-na-VOh" userLabel="Spacer View">
-                                <rect key="frame" x="211" y="567" width="25" height="100"/>
+                                <rect key="frame" x="211" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -251,7 +251,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jsv-K1-yv8" userLabel="Spacer View">
-                                <rect key="frame" x="280" y="567" width="25" height="100"/>
+                                <rect key="frame" x="280" y="500" width="79" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -259,7 +259,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xW4-3P-Kf3" userLabel="Spacer View">
-                                <rect key="frame" x="137" y="567" width="26" height="100"/>
+                                <rect key="frame" x="137" y="500" width="80.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -267,7 +267,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKI-Y9-bTG">
-                                <rect key="frame" x="122" y="605" width="20" height="20"/>
+                                <rect key="frame" x="122" y="538" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>

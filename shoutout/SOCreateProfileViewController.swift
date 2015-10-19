@@ -66,8 +66,9 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 print(errorString);
                 // Show the errorString somewhere and let the user try again.
             } else {
-                self.performSegueWithIdentifier("createProfileToMap", sender: self);
+                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
                 // Hooray! Let them use the app now.
+                self.navigationController?.setViewControllers([newVC!], animated: true)
             }
         }
     }

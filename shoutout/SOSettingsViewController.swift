@@ -68,7 +68,9 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         PFUser.logOut();
-        self.performSegueWithIdentifier("logoutToStart", sender: self);
+        let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
+        // Hooray! Let them use the app now.
+        self.navigationController?.setViewControllers([newVC!], animated: true)
     }
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
         PFUser.currentUser()?.username = self.usernameTextField.text;

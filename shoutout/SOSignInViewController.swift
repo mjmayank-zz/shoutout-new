@@ -24,7 +24,9 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     func login() {
         PFUser.logInWithUsernameInBackground(usernameTextField.text!, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if ((user) != nil){
-                self.performSegueWithIdentifier("signInToMap", sender: self);
+                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
+                // Hooray! Let them use the app now.
+                self.navigationController?.setViewControllers([newVC!], animated: true)
             }
             
             if ((error) != nil) {

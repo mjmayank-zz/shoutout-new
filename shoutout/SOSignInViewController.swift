@@ -17,15 +17,31 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad();
         self.usernameTextField.delegate = self;
         self.passwordTextField.delegate = self;
+        self.usernameTextField.becomeFirstResponder()
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
-    @IBAction func signInButtonPressed(sender: AnyObject) {
-        
+    func login() {
         PFUser.logInWithUsernameInBackground(usernameTextField.text!, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if ((user) != nil){
                 self.performSegueWithIdentifier("signInToMap", sender: self);
             }
+            
+            if ((error) != nil) {
+                let alert = UIAlertController(title: "Invalid login", message: "Please try again", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                    // Do nothing
+                })
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: { () -> Void in
+                    self.usernameTextField.becomeFirstResponder()
+                })
+            }
         }
+    }
+    
+    @IBAction func signInButtonPressed(sender: AnyObject) {
+        login()
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
@@ -33,7 +49,18 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder();
-        return true;
+        if (textField == usernameTextField) {
+            textField.resignFirstResponder();
+            passwordTextField.becomeFirstResponder()
+        } else {
+            login()
+        }
+        return true
+    }
+    
+    // MARK: Status bar
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 }

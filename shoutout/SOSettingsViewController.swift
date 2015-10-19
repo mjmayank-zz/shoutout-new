@@ -70,7 +70,18 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         PFUser.logOut();
         let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
         // Hooray! Let them use the app now.
-        self.navigationController?.setViewControllers([newVC!], animated: true)
+        let navigationController = UINavigationController(rootViewController: newVC!)
+        navigationController.navigationBarHidden = true
+        navigationController.interactivePopGestureRecognizer!.delegate = nil
+        UIApplication.sharedApplication().keyWindow?.rootViewController = navigationController
+//        self.dismissViewControllerAnimated(true) { () -> Void in
+//            let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
+//            // Hooray! Let them use the app now.
+//            let navigationController = UINavigationController(rootViewController: newVC!)
+//            navigationController.navigationBarHidden = true
+//            navigationController.interactivePopGestureRecognizer!.delegate = nil
+//            UIApplication.sharedApplication().keyWindow?.rootViewController = navigationController
+//        }
     }
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
         PFUser.currentUser()?.username = self.usernameTextField.text;

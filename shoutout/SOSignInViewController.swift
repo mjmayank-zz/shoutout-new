@@ -25,7 +25,8 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
         PFUser.logInWithUsernameInBackground(usernameTextField.text!, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if ((user) != nil){
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
-                // Hooray! Let them use the app now.
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+                appDelegate.startLocationKit();
                 self.navigationController?.setViewControllers([newVC!], animated: true)
             }
             

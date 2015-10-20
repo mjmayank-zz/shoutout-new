@@ -96,15 +96,34 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     //MARK: Delegates
+    
     func imagePickerController(
         picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
-        self.profileImageView.contentMode = .ScaleAspectFill;
+        self.profileImageView.contentMode = .ScaleToFill;
         self.profileImageView.image = chosenImage;
+        
+        let parseImageData = UIImageJPEGRepresentation(chosenImage, 0.05);
+        let imageFile = PFFile(data: parseImageData!);
+        
+        imageFile?.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
+            if(error == nil){
+                let photo = PFObject(className: "Images");
+                photo.setObject(imageFile!, forKey: "image");
+                
+                photo.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
+                    if(error == nil){
+                        PFUser.currentUser()?.setObject(photo, forKey: "profileImage");
+                    }
+                })
+            }
+        });
+        
         dismissViewControllerAnimated(true, completion: nil);
     }
+    
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil);
     }

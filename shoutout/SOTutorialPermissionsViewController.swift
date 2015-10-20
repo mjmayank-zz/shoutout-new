@@ -33,6 +33,10 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         
         updateNextButtonIfNecessary()
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        if( NSUserDefaults.standardUserDefaults().boolForKey("hasPermissions")){
+            self.performSegueWithIdentifier("permissionsToMap", sender: self)
+        }
     }
     
     func updateNextButtonIfNecessary() {
@@ -42,7 +46,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         }
         if (requestedLocation) {
             locationSwitch.on = true
-            locationSwitch.userInteractionEnabled = false
         }
     }
     
@@ -51,6 +54,15 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             locationManager.requestAlwaysAuthorization();
             requestedLocation = true
         }
+        else{
+            let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can alter this in your iPhone settings", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                // Do nothing
+            })
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            locationSwitch.on = true
+        }
     }
     
     func locationManager(manager: CLLocationManager,
@@ -58,7 +70,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             if(status == .AuthorizedWhenInUse){
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
                 appDelegate.startLocationKit();
-//                locationManager.startUpdatingLocation();
                 requestedLocation = true
             }
             if(status == .AuthorizedAlways){

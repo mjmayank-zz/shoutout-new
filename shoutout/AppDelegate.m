@@ -81,8 +81,15 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
-    [[LocationKit sharedInstance] setOperationMode:setting];
+    if([CLLocationManager locationServicesEnabled]){
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
+            [[LocationKit sharedInstance] setOperationMode:setting];
+        }
+        else{
+            [[LocationKit sharedInstance] pause];
+        }
+    }
     
     if([PFUser currentUser]){
         Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
@@ -96,6 +103,12 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeAuto];
     [[LocationKit sharedInstance] setOperationMode:setting];
+    
+    if ([PFUser currentUser]) {
+        if(![PFUser currentUser][@"visible"]){
+            [[LocationKit sharedInstance] pause];
+        }
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

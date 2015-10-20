@@ -14,7 +14,7 @@
 #import "SOAnnotation.h"
 #import "ShoutRMMarker.h"
 #import "ShoutClusterMarker.h"
-#import <Kingpin/Kingpin.h>
+#import "kingpin.h"
 #import "MKMapView+ZoomLevel.h"
 #import <LocationKit/LocationKit.h>
 #import "SOMapViewDelegate.h"

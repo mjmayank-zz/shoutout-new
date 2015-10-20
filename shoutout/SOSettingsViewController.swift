@@ -29,10 +29,11 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         let profileImageObj = PFUser.currentUser()?["profileImage"];
         if let profileImageObj = profileImageObj{
             profileImageObj.fetchIfNeededInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
-                let file = profileImageObj["image"] as! PFFile;
-                file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
-                    self.profileImageView.image = UIImage(data: data!);
-                })
+                if let file = profileImageObj["image"] as? PFFile{
+                    file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+                        self.profileImageView.image = UIImage(data: data!);
+                    })
+                }
             })
         }
         else{
@@ -100,12 +101,13 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         
         imageFile?.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
             if(error == nil){
-                let photo = PFObject(className: "Image");
-                photo.setObject(imageFile!, forKey: "file");
+                let photo = PFObject(className: "Images");
+                photo.setObject(imageFile!, forKey: "image");
                 
                 photo.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
                     if(error == nil){
                         PFUser.currentUser()?.setObject(photo, forKey: "profileImage");
+                        PFUser.currentUser()?.saveInBackground();
                     }
                 })
             }

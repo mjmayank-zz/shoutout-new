@@ -84,7 +84,7 @@
 }
 
 - (void)scaleForZoomLevel:(double)zoomLevel{
-    double scale = ((zoomLevel-12) * 20) / 100.0;
+    double scale = ((zoomLevel-13) * 20) / 100.0;
     if(scale < 0.1){
         scale = 0.1;
     }
@@ -110,6 +110,12 @@
     }
     self.subview.shoutLabel.text = annotation.subtitle;
     self.subview.usernameLabel.text = annotation.title;
+    if(annotation.userInfo[@"updatedAt"]){
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+        NSString *dateString = [dateFormatter stringFromDate:annotation.userInfo[@"updatedAt"]];
+        self.subview.timeLabel.text = dateString;
+    }
     self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
     self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }

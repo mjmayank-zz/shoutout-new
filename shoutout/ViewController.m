@@ -40,7 +40,7 @@
     
     self.markerDictionary = [[NSMutableDictionary alloc] init];
     
-    [[PFUser currentUser] fetchIfNeededInBackground];
+    [[PFUser currentUser] fetchInBackground];
     
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -65,8 +65,8 @@
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    self.locationManager.delegate = self;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
 //    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 //    self.locationManager.distanceFilter = 10.0;
 //    [self.locationManager startUpdatingLocation];
@@ -117,6 +117,7 @@
     self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
     
     self.statusTextView.text = [PFUser currentUser][@"status"];
+    self.statusTextView.delegate = self;
     
     [self.saveButton.layer setCornerRadius:4.0f];
     [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
@@ -209,56 +210,11 @@
             NSLog(@"Successfully retrieved %lu statuses.", (unsigned long)objects.count);
             
             for (PFObject * obj in objects){
-                CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(((PFGeoPoint *)obj[@"geo"]).latitude, ((PFGeoPoint *)obj[@"geo"]).longitude);
-                NSString *title = @"Hello world!";
-                if(obj[@"username"]){
-                    title = obj[@"username"];
-                }
-                NSString *subtitle = obj[@"status"];
-                SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
-                if(obj[@"picURL"])
-                    dict[@"picURL"] = obj[@"picURL"];
-                if(obj.objectId)
-                    dict[@"id"] = obj.objectId;
-                if(obj.updatedAt)
-                    dict[@"updatedAt"] = obj.updatedAt;
-                annotation.userInfo = dict;
-                annotation.online = [obj[@"online"] boolValue];
-  
                 if([self.markerDictionary objectForKey:[obj objectId]]){
                     [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                 }
                 
-                if(obj[@"visible"]){
-                    if(obj[@"profileImage"]){
-                        PFFile *file = obj[@"profileImage"][@"image"];
-                        [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                            annotation.profileImage = [UIImage imageWithData:data];
-                        }];
-                        
-                        if([self.markerDictionary objectForKey:[obj objectId]]){
-                            [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                        }
-                        [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-                    }
-                    else{
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                            annotation.profileImage = [UIImage imageWithData:
-                                                       [NSData dataWithContentsOfURL:
-                                                        [NSURL URLWithString: dict[@"picURL"]]]];
-                            dispatch_async(dispatch_get_main_queue(), ^(){
-                                if([self.markerDictionary objectForKey:[obj objectId]]){
-                                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                                }
-                                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-                            });
-                        });
-                    }
-                    
-                }
+                [self addUserToAnnotationDictionary:obj];
             }
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
             
@@ -267,6 +223,57 @@
             NSLog(@"Parse error: %@ %@", error, [error userInfo]);
         }
     }];
+}
+
+- (void) addUserToAnnotationDictionary:(PFObject *)obj{
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(((PFGeoPoint *)obj[@"geo"]).latitude, ((PFGeoPoint *)obj[@"geo"]).longitude);
+    NSString *title = @"Hello world!";
+    if(obj[@"username"]){
+        title = obj[@"username"];
+    }
+    NSString *subtitle = obj[@"status"];
+    SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
+    if(obj[@"picURL"])
+        dict[@"picURL"] = obj[@"picURL"];
+    if(obj.objectId)
+        dict[@"id"] = obj.objectId;
+    if(obj.updatedAt)
+        dict[@"updatedAt"] = obj.updatedAt;
+    annotation.userInfo = dict;
+    annotation.online = [obj[@"online"] boolValue];
+    
+    if(obj[@"visible"]){
+        if(obj[@"profileImage"]){
+            [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                PFFile *file = obj[@"profileImage"][@"image"];
+                [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                    annotation.profileImage = [UIImage imageWithData:data];
+                }];
+                
+                if([self.markerDictionary objectForKey:[obj objectId]]){
+                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                }
+                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+            }];
+        }
+        else{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                annotation.profileImage = [UIImage imageWithData:
+                                           [NSData dataWithContentsOfURL:
+                                            [NSURL URLWithString: dict[@"picURL"]]]];
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    if([self.markerDictionary objectForKey:[obj objectId]]){
+                        [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                    }
+                    [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                    [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                });
+            });
+        }
+        
+    }
 }
 
 #pragma mark -FirebaseEvents
@@ -299,7 +306,7 @@
         if(![clusterAnnotation isCluster]){
             [self.mapView deselectAnnotation:clusterAnnotation animated:NO];
             self.mapView.selectedAnnotations = @[clusterAnnotation];
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+//            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
     }
 }
@@ -471,6 +478,9 @@
     if(self.previousLocation){
         [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
     }
+    else{
+        
+    }
 }
 - (IBAction)centerButtonPressed:(id)sender {
     [self centerMapToUserLocation];
@@ -504,30 +514,6 @@
     [UIView commitAnimations];
 }
 
-#pragma mark -CLLocationManagerDelegate
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation *loc = locations[0];
-    if(self.previousLocation == nil){
-        [self updateMapWithLocation:loc.coordinate];
-    }
-    if(self.previousLocation != nil && [self.previousLocation distanceFromLocation:loc] > 5000){
-        [self updateMapWithLocation:loc.coordinate];
-    }
-    self.previousLocation = loc;
-    NSLog(@"%@", loc);
-    
-    NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
-    NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
-    
-    if([PFUser currentUser]){
-        [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
-        
-        [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
-        [[PFUser currentUser] saveInBackground];
-    }
-}
-
 -(void)mapPanned{
     [self.mapViewDelegate mapView:self.mapView regionIsChanging:YES];
 }
@@ -550,14 +536,46 @@
     }
 }
 
+#pragma mark -UITextViewDelegate
+
+- (void) textViewDidChange:(UITextView *)textView{
+    self.statusCharacterCount.text = [NSString stringWithFormat:@"%d/120", [textView.text length]];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [self updateStatus];
+        return NO;
+    }
+    else if([textView.text length] >= 120){
+        return NO;
+    }
+    
+    return YES;
+}
+
+#pragma mark -CLLocationManagerDelegate
+//LocationManager
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *loc = [locations lastObject];
+    [self updateUserLocation:loc];
+}
+
+//LocationKit
 -(void)locationUpdated:(NSNotification *)notification{
     CLLocation * loc = notification.object;
+    [self updateUserLocation:loc];
+}
+
+- (void)updateUserLocation:(CLLocation *)loc{
     NSLog(@"%@", loc);
     if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
+        [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
         if(self.previousLocation == nil){
             [self updateMapWithLocation:loc.coordinate];
         }
-        if(self.previousLocation != nil && [self.previousLocation distanceFromLocation:loc] > 5000){
+        else if([self.previousLocation distanceFromLocation:loc] > 5000){
             [self updateMapWithLocation:loc.coordinate];
         }
         if(self.previousLocation == nil || [self.previousLocation distanceFromLocation:loc] > 10){
@@ -567,9 +585,16 @@
             NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
             
             if([PFUser currentUser]){
+                if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
+                    [self addUserToAnnotationDictionary:[PFUser currentUser]];
+                }
+                else{
+                    SOAnnotation *annotation = [self.markerDictionary objectForKey:[[PFUser currentUser] objectId]];
+                    annotation.coordinate = loc.coordinate;
+                }
+                
                 [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
                 
-                [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
                 [[PFUser currentUser] saveInBackground];
                 NSLog(@"network request made");
             }

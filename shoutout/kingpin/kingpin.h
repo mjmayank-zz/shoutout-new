@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-#import <kingpin/KPAnnotation.h>
-#import <kingpin/KPClusteringAlgorithm.h>
-#import <kingpin/KPGridClusteringAlgorithm.h>
-#import <kingpin/KPClusteringController.h>
+#import "KPAnnotation.h"
+#import "KPClusteringAlgorithm.h"
+#import "KPGridClusteringAlgorithm.h"
+#import "KPClusteringController.h"

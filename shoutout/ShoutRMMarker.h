@@ -8,7 +8,7 @@
 
 //#import "ButtonRMMarker.h"
 #import "SOAnnotation.h"
-#import <Kingpin/Kingpin.h>
+#import "kingpin.h"
 #import "SOMarkerSubView.h"
 @import MapKit;
 

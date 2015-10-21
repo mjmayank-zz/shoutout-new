@@ -18,6 +18,9 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad(){
         super.viewDidLoad();
+        
+        PFAnalytics.trackEvent("openedInbox", dimensions:nil);
+        
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
     

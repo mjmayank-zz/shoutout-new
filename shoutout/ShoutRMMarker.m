@@ -84,7 +84,7 @@
 }
 
 - (void)scaleForZoomLevel:(double)zoomLevel{
-    double scale = ((zoomLevel-13) * 20) / 100.0;
+    double scale = ((zoomLevel-14) * 20) / 100.0;
     if(scale < 0.1){
         scale = 0.1;
     }
@@ -117,17 +117,29 @@
         self.subview.timeLabel.text = dateString;
     }
     self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width * 3.0, self.frame.size.height);
     self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)hideShout{
     [self.subview.bubbleContainerView setHidden:YES];
+    [self.subview.messageOverlayView setHidden:YES];
     self.transform = CGAffineTransformMakeScale(self.scale, self.scale);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width / 3.0, self.frame.size.height);
     self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 -(void)setOnline:(BOOL)online{
     self.subview.onlineIndicator.hidden = !online;
+}
+
+-(void)sendMessage{
+    SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
+    if([self.annotation isKindOfClass:[KPAnnotation class]]){
+        annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
+        NSString * username = annotation.userInfo[@"username"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"replyToShout" object:self userInfo:@{@"username":username}];
+    }
 }
 
 @end

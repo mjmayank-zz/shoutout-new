@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "shoutout"
+    },
+    "shoutout": {
+      "applicationId": "S5HVjNqmiwUgiGjMDiJLYh361p5P7Ob3fCOabrJ9"
+    }
+  }
+}

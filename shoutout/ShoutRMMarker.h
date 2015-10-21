@@ -34,5 +34,6 @@
 - (void)showShout;
 - (void)hideShout;
 -(void)setOnline:(BOOL)online;
+-(void)sendMessage;
 
 @end

@@ -72,11 +72,15 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
                 appDelegate.startLocationKit();
                 requestedLocation = true
             }
-            if(status == .AuthorizedAlways){
+            else if(status == .AuthorizedAlways){
+                PFAnalytics.trackEvent("allowedLocation", dimensions:nil);
                 requestedLocation = true
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
                 appDelegate.startLocationKit();
                 requestedMotion = true
+            }
+            else{
+                PFAnalytics.trackEvent("deniedLocation", dimensions:nil);
             }
             updateNextButtonIfNecessary()
     }
@@ -85,6 +89,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         if (sender.on && !requestedMotion) {
             self.requestMotionAccessData();
             requestedMotion = true
+            PFAnalytics.trackEvent("allowedMotion", dimensions:nil);
         }
     }
     
@@ -96,6 +101,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
             requestedPush = true
+            PFAnalytics.trackEvent("allowedPush", dimensions:nil);
         }
     }
     

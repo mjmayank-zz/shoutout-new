@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "LocationManager.h"
 //#import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -22,10 +23,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [ParseCrashReporting enable];
+    
     [Parse setApplicationId:@"S5HVjNqmiwUgiGjMDiJLYh361p5P7Ob3fCOabrJ9"
                   clientKey:@"3GWNcqZ7LJhBtGbbmQfs0ROHKFM5sX6GDT9IWhCk"];
     
-//    [PFFacebookUtils initializeFacebook];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     [LocationManager initLocationManager];
     
@@ -40,12 +43,10 @@
     
     BOOL enabled;
     // Try to use the newer isRegisteredForRemoteNotifications otherwise use the enabledRemoteNotificationTypes.
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-    {
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
         enabled = [application isRegisteredForRemoteNotifications];
     }
-    else
-    {
+    else{
         UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
         enabled = types & UIRemoteNotificationTypeAlert;
     }

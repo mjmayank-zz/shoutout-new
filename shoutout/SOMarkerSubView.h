@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface SOMarkerSubView : UIView
 
@@ -19,5 +20,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) IBOutlet UIView *onlineIndicator;
 @property (strong, nonatomic) IBOutlet UIImageView *pinView;
+@property (strong, nonatomic) IBOutlet UIView *messageOverlayView;
 
 @end

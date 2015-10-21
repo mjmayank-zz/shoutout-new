@@ -51,7 +51,7 @@
     // set the map's center coordinate
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(40.1105, -88.2284)
                              animated:NO];
-    [self.view insertSubview:self.mapView belowSubview:self.slidingView];
+    [self.view insertSubview:self.mapView aboveSubview:self.map];
     self.mapViewDelegate = [[SOMapViewDelegate alloc] initWithMapView:self.mapView];
     
     self.mapView.delegate = self.mapViewDelegate;
@@ -82,6 +82,8 @@
      UIApplicationWillResignActiveNotification object:locationInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:
      UIApplicationWillEnterForegroundNotification object:locationInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyNotificationReceived:) name:
+     @"replyToShout" object:nil];
     
     self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
@@ -116,8 +118,12 @@
     self.profilePic.layer.masksToBounds = YES;
     self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
     
-    self.statusTextView.text = [PFUser currentUser][@"status"];
+    NSString * status = [PFUser currentUser][@"status"];
+    self.statusTextView.text = status;
     self.statusTextView.delegate = self;
+    if(!status || [status isEqualToString:@""]){
+        [self openUpdateStatusView];
+    }
     
     [self.saveButton.layer setCornerRadius:4.0f];
     [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
@@ -234,6 +240,8 @@
     NSString *subtitle = obj[@"status"];
     SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
+    if(obj[@"username"])
+        dict[@"username"] = obj[@"username"];
     if(obj[@"picURL"])
         dict[@"picURL"] = obj[@"picURL"];
     if(obj.objectId)
@@ -388,11 +396,13 @@
     if(!self.shelf){
         [self animateSlidingView];
     }
+    [PFAnalytics trackEvent:@"openedComposeView" dimensions:nil];
 }
 
 - (void)openUpdateStatusViewWithStatus:(NSString *)status{
     self.statusTextView.text = status;
     [self openUpdateStatusView];
+    [PFAnalytics trackEvent:@"openedComposeView" dimensions:@{@"status":status}];
 }
 
 - (void)updateStatus{
@@ -400,6 +410,7 @@
         [PFUser currentUser][@"status"] = self.statusTextView.text;
         [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
         [self checkForRecipients:self.statusTextView.text];
+        [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
     }
     CLLocation *currentLocation = self.previousLocation;
     PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
@@ -484,6 +495,7 @@
 }
 - (IBAction)centerButtonPressed:(id)sender {
     [self centerMapToUserLocation];
+    [PFAnalytics trackEvent:@"pressedLocateButton" dimensions:nil];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -534,6 +546,12 @@
     } else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
         ((SOSettingsViewController*)segue.destinationViewController).oldVC = self;
     }
+}
+
+- (void)replyNotificationReceived:(NSNotification *)notification{
+    NSDictionary * userInfo = notification.userInfo;
+    NSString * username = userInfo[@"username"];
+    [self openUpdateStatusViewWithStatus:[NSString stringWithFormat:@"@%@ ", username]];
 }
 
 #pragma mark -UITextViewDelegate

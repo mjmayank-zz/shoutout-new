@@ -13,6 +13,8 @@ class SOFeedbackViewController: UIViewController{
     @IBOutlet var feedbackTextView: UITextField!
     override func viewDidLoad(){
         super.viewDidLoad();
+        
+        PFAnalytics.trackEvent("openedFeedback", dimensions:nil);
     }
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);

@@ -12,39 +12,57 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-nt-4Xr">
-                    <rect key="frame" x="45" y="0.0" width="278" height="97"/>
+                    <rect key="frame" x="58" y="0.0" width="252" height="97"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speechBubbleWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbN-jG-fi9">
-                            <rect key="frame" x="13" y="0.0" width="244" height="97"/>
+                            <rect key="frame" x="2" y="0.0" width="244" height="97"/>
                             <animations/>
                             <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is a label with three lines of text. shoutout shoutout shoutout shoutout" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMC-qY-Gdy">
-                            <rect key="frame" x="49" y="9" width="196" height="50"/>
+                            <rect key="frame" x="36" y="9" width="196" height="50"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
-                            <rect key="frame" x="44" y="56" width="90" height="21"/>
+                            <rect key="frame" x="31" y="56" width="90" height="21"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9/30/15 1:15pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
-                            <rect key="frame" x="137" y="57" width="100" height="19"/>
+                            <rect key="frame" x="124" y="57" width="100" height="19"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsv-Pd-Qw3">
-                            <rect key="frame" x="33" y="3" width="225" height="63"/>
+                            <rect key="frame" x="2" y="3" width="243" height="84"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="pressedMarkerButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="AIa-Ll-VhS"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="802-hh-Mhx">
+                            <rect key="frame" x="0.0" y="0.0" width="252" height="97"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speechBubbleOverlay.png" translatesAutoresizingMaskIntoConstraints="NO" id="uz5-Km-dkK">
+                                    <rect key="frame" x="2" y="0.0" width="244" height="97"/>
+                                    <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4U-mP-J22">
+                                    <rect key="frame" x="15" y="0.0" width="231" height="89"/>
+                                    <inset key="contentEdgeInsets" minX="80" minY="10" maxX="80" maxY="10"/>
+                                    <state key="normal" image="messages.png"/>
+                                    <connections>
+                                        <action selector="pressedMessageButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="TKi-gQ-XCg"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -53,7 +71,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="82" height="97"/>
                     <animations/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPO-dF-onS" userLabel="Profile Image">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPO-dF-onS" userLabel="Profile Image">
                     <rect key="frame" x="4" y="4" width="75" height="75"/>
                     <animations/>
                 </imageView>
@@ -70,6 +88,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bubbleContainerView" destination="ibl-nt-4Xr" id="Q8p-84-ok3"/>
+                <outlet property="messageOverlayView" destination="802-hh-Mhx" id="49v-g2-6m4"/>
                 <outlet property="onlineIndicator" destination="Mos-ta-ADP" id="B5S-W6-OSD"/>
                 <outlet property="pinView" destination="Hk5-qL-H5q" id="gKg-4g-GHc"/>
                 <outlet property="profileImageView" destination="DPO-dF-onS" id="PqP-r5-mrZ"/>
@@ -81,7 +100,9 @@
         </view>
     </objects>
     <resources>
+        <image name="messages.png" width="513" height="513"/>
         <image name="pinWithShadow.png" width="82" height="97"/>
+        <image name="speechBubbleOverlay.png" width="111" height="97"/>
         <image name="speechBubbleWithShadow.png" width="111" height="97"/>
     </resources>
 </document>

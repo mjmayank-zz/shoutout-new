@@ -5,6 +5,7 @@ target 'shoutout' do
 	pod 'Parse'
 	pod 'ParseUI'
 	pod 'ParseFacebookUtilsV4'
+	pod 'ParseCrashReporting'
 	pod 'FBSDKCoreKit'
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'

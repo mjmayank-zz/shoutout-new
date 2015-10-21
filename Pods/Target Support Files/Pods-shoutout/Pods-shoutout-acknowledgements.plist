@@ -129,6 +129,14 @@ Copyright (c) 2014-2015 SocialRadar. All rights reserved.</string>
 			<key>FooterText</key>
 			<string>See https://www.parse.com/about/terms</string>
 			<key>Title</key>
+			<string>ParseCrashReporting</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>See https://www.parse.com/about/terms</string>
+			<key>Title</key>
 			<string>ParseFacebookUtilsV4</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

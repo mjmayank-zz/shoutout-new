@@ -211,6 +211,8 @@ typedef NS_ENUM(NSInteger, KPClusteringControllerMapViewportChangeState) {
 
     BOOL clusteringEnabled = YES;
 
+    [self.annotationDict removeAllObjects];
+    
     if ([self.delegate respondsToSelector:@selector(clusteringControllerShouldClusterAnnotations:)]) {
         clusteringEnabled = [self.delegate clusteringControllerShouldClusterAnnotations:self];
     }

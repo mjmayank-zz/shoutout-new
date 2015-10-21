@@ -14,17 +14,27 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var privacyToggle: UISwitch!
+    @IBOutlet var updateButton: UIButton!
+    @IBOutlet var sendFeedbackButton: UIButton!
+    @IBOutlet var logoutButton: UIButton!
     
     var oldVC: UIViewController!
     
     override func viewDidLoad(){
         super.viewDidLoad();
+        
+        PFAnalytics.trackEvent("openedSettings", dimensions:nil);
+        
         self.usernameTextField.text = PFUser.currentUser()?.username
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height/2.0;
         self.profileImageView.layer.masksToBounds = true;
         if let on = PFUser.currentUser()?["visible"]{
             self.privacyToggle.on = on.boolValue;
         }
+        
+        self.updateButton.layer.cornerRadius = 5.0;
+        self.sendFeedbackButton.layer.cornerRadius = 5.0;
+        self.logoutButton.layer.cornerRadius = 5.0;
         
         let profileImageObj = PFUser.currentUser()?["profileImage"];
         if let profileImageObj = profileImageObj{
@@ -93,7 +103,6 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
-        self.profileImageView.contentMode = .ScaleToFill;
         self.profileImageView.image = chosenImage;
         
         let parseImageData = UIImageJPEGRepresentation(chosenImage, 0.05);

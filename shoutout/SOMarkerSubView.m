@@ -7,6 +7,7 @@
 //
 
 #import "SOMarkerSubView.h"
+#import "ShoutRMMarker.h"
 
 @implementation SOMarkerSubView
 
@@ -19,7 +20,16 @@
 */
 
 - (IBAction)pressedMarkerButton:(id)sender {
-    
+    NSLog(@"pressed shout");
+    self.messageOverlayView.hidden = NO;
+}
+- (IBAction)pressedMessageButton:(id)sender {
+    NSLog(@"pressed message");
+    if(self.superview){
+        ShoutRMMarker * marker = (ShoutRMMarker *)self.superview;
+        [marker sendMessage];
+    }
+    [PFAnalytics trackEvent:@"pressedMessageFromPin" dimensions:nil];
 }
 
 @end

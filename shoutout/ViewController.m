@@ -192,9 +192,7 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    self.markerDictionary = nil;
-    
+- (void)didReceiveMemoryWarning {  
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

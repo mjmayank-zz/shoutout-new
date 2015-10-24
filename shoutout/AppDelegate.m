@@ -41,15 +41,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
-    BOOL enabled;
-    // Try to use the newer isRegisteredForRemoteNotifications otherwise use the enabledRemoteNotificationTypes.
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]){
-        enabled = [application isRegisteredForRemoteNotifications];
-    }
-    else{
-        UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
-        enabled = types & UIRemoteNotificationTypeAlert;
-    }
+    BOOL enabled = [application isRegisteredForRemoteNotifications];
     
     if(enabled || hasPermissions){
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
@@ -84,21 +76,17 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     if([CLLocationManager locationServicesEnabled]){
         if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-//            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
-//            [[LocationKit sharedInstance] setOperationMode:setting];
             [[LocationManager sharedLocationManager] stopLocationUpdates];
             [[LocationManager sharedLocationManager] startBackgroundLocationUpdates];
         }
         else{
-//            [[LocationKit sharedInstance] pause];
-            [[LocationManager sharedLocationManager] stopLocationUpdates];
+            [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }
     
     if([PFUser currentUser]) {
         if(![PFUser currentUser][@"visible"]){
-//            [[LocationKit sharedInstance] pause];
-            [[LocationManager sharedLocationManager] stopLocationUpdates];
+            [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }
     
@@ -112,13 +100,10 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-//    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeAuto];
-//    [[LocationKit sharedInstance] setOperationMode:setting];
     [[LocationManager sharedLocationManager] startLocationUpdates];
     
     if ([PFUser currentUser]) {
         if(![PFUser currentUser][@"visible"]){
-//            [[LocationKit sharedInstance] pause];
             [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }
@@ -138,6 +123,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    if([PFUser currentUser]){
+        Firebase *shoutoutOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
+        [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"NO"];
+        [[PFUser currentUser] setObject:[NSNumber numberWithBool:NO] forKey:@"online"];
+        [[PFUser currentUser] saveInBackground];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
@@ -156,25 +147,6 @@
         }
 }
 
--(void)startLocationKit{
-//    if([CLLocationManager locationServicesEnabled]){
-//        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-//            CMMotionManager *manager = [[CMMotionManager alloc] init];
-//            if(manager.deviceMotionAvailable){
-//                NSDictionary *options = @{LKOptionUseiOSMotionActivity: @YES};
-//                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
-//            }
-//            else{
-//                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self];
-//            }
-//        }
-//        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
-//            NSDictionary *options = @{LKOptionWhenInUseOnly: @YES};
-//            [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
-//        }
-//    }
-}
-
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -189,14 +161,6 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     return YES;
-}
-
-- (void)locationKit:(LocationKit *)locationKit didUpdateLocation:(CLLocation *)location{
-        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:location];
-}
-
-- (void)locationKit:(LocationKit *)locationKit didStartVisit:(LKVisit *)visit{
-    
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

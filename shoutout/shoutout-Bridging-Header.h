@@ -4,7 +4,6 @@
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-#import <LocationKit/LocationKit.h>
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "LocationManager.h"

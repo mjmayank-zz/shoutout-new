@@ -16,7 +16,6 @@
 #import "ShoutClusterMarker.h"
 #import "kingpin.h"
 #import "MKMapView+ZoomLevel.h"
-#import <LocationKit/LocationKit.h>
 #import "SOMapViewDelegate.h"
 #import "SOComposeStatusView.h"
 @import MapKit;

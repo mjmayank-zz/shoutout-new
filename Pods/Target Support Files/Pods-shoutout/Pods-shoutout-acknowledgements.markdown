@@ -80,12 +80,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 https://www.firebase.com/terms/terms-of-service.html
 
-## LocationKit
-
-You are agreeing to the LocationKit license by using this SDK.
-See https://locationkit.io/terms-of-service/ for SocialRadar's LocationKit licensing information.
-Copyright (c) 2014-2015 SocialRadar. All rights reserved.
-
 ## Parse
 
 See https://www.parse.com/about/terms

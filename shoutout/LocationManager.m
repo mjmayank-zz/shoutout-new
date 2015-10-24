@@ -44,7 +44,9 @@ static LocationManager *sharedLocationManager = nil;
         manager = [[CLLocationManager alloc] init];
         [manager setDelegate:self];
         [manager pausesLocationUpdatesAutomatically];
-        [manager allowsBackgroundLocationUpdates];
+        if([manager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]){
+            [manager setAllowsBackgroundLocationUpdates:YES];
+        }
     }
     return self;
 }

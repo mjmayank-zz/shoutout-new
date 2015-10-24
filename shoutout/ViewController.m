@@ -578,7 +578,6 @@
     [self updateUserLocation:loc];
 }
 
-//LocationKit
 -(void)locationUpdated:(NSNotification *)notification{
     CLLocation * loc = notification.object;
     [self updateUserLocation:loc];

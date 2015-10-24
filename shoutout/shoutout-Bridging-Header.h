@@ -7,3 +7,4 @@
 #import <LocationKit/LocationKit.h>
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "LocationManager.h"

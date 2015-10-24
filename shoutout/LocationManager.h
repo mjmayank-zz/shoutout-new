@@ -21,6 +21,8 @@
 
 -(void)startLocationUpdates;
 -(void)stopLocationUpdates;
+-(void)startBackgroundLocationUpdates;
+-(void)stopBackgroundLocationUpdates;
 + (LocationManager *)sharedLocationManager;
 
 

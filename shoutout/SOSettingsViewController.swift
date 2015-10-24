@@ -72,10 +72,10 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         PFUser.currentUser()?.saveInBackground();
         
         if(privacySwitch.on){
-            LocationKit.sharedInstance().resume();
+            LocationManager.sharedLocationManager().startLocationUpdates();
         }
         else{
-            LocationKit.sharedInstance().pause();
+            LocationManager.sharedLocationManager().stopBackgroundLocationUpdates();
         }
     }
     

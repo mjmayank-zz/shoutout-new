@@ -32,7 +32,7 @@
     
     [LocationManager initLocationManager];
     
-    [self startLocationKit];
+    [self startLocationManager];
     
     BOOL hasPermissions =
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
@@ -84,11 +84,21 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     if([CLLocationManager locationServicesEnabled]){
         if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
-            [[LocationKit sharedInstance] setOperationMode:setting];
+//            LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeLow];
+//            [[LocationKit sharedInstance] setOperationMode:setting];
+            [[LocationManager sharedLocationManager] stopLocationUpdates];
+            [[LocationManager sharedLocationManager] startBackgroundLocationUpdates];
         }
         else{
-            [[LocationKit sharedInstance] pause];
+//            [[LocationKit sharedInstance] pause];
+            [[LocationManager sharedLocationManager] stopLocationUpdates];
+        }
+    }
+    
+    if([PFUser currentUser]) {
+        if(![PFUser currentUser][@"visible"]){
+//            [[LocationKit sharedInstance] pause];
+            [[LocationManager sharedLocationManager] stopLocationUpdates];
         }
     }
     
@@ -102,12 +112,14 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeAuto];
-    [[LocationKit sharedInstance] setOperationMode:setting];
+//    LKSetting *setting = [[LKSetting alloc] initWithType:LKSettingTypeAuto];
+//    [[LocationKit sharedInstance] setOperationMode:setting];
+    [[LocationManager sharedLocationManager] startLocationUpdates];
     
     if ([PFUser currentUser]) {
         if(![PFUser currentUser][@"visible"]){
-            [[LocationKit sharedInstance] pause];
+//            [[LocationKit sharedInstance] pause];
+            [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }
 }
@@ -133,23 +145,34 @@
     return YES;
 }
 
+-(void)startLocationManager{
+        if([CLLocationManager locationServicesEnabled]){
+            if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+                [[LocationManager sharedLocationManager] startLocationUpdates];
+            }
+            else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
+                [[LocationManager sharedLocationManager] startLocationUpdates];
+            }
+        }
+}
+
 -(void)startLocationKit{
-    if([CLLocationManager locationServicesEnabled]){
-        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-            CMMotionManager *manager = [[CMMotionManager alloc] init];
-            if(manager.deviceMotionAvailable){
-                NSDictionary *options = @{LKOptionUseiOSMotionActivity: @YES};
-                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
-            }
-            else{
-                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self];
-            }
-        }
-        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
-            NSDictionary *options = @{LKOptionWhenInUseOnly: @YES};
-            [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
-        }
-    }
+//    if([CLLocationManager locationServicesEnabled]){
+//        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+//            CMMotionManager *manager = [[CMMotionManager alloc] init];
+//            if(manager.deviceMotionAvailable){
+//                NSDictionary *options = @{LKOptionUseiOSMotionActivity: @YES};
+//                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
+//            }
+//            else{
+//                [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self];
+//            }
+//        }
+//        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
+//            NSDictionary *options = @{LKOptionWhenInUseOnly: @YES};
+//            [[LocationKit sharedInstance] startWithApiToken:@"0961455db144c71c" delegate:self options:options];
+//        }
+//    }
 }
 
 - (BOOL)application:(UIApplication *)application

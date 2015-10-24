@@ -68,15 +68,17 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     func locationManager(manager: CLLocationManager,
         didChangeAuthorizationStatus status: CLAuthorizationStatus){
             if(status == .AuthorizedWhenInUse){
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
-                appDelegate.startLocationKit();
+//                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+//                appDelegate.startLocationKit();
+                LocationManager.sharedLocationManager().startLocationUpdates();
                 requestedLocation = true
             }
             else if(status == .AuthorizedAlways){
                 PFAnalytics.trackEvent("allowedLocation", dimensions:nil);
                 requestedLocation = true
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
-                appDelegate.startLocationKit();
+//                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+//                appDelegate.startLocationKit();
+                LocationManager.sharedLocationManager().startLocationUpdates();
                 requestedMotion = true
             }
             else{
@@ -110,8 +112,9 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         let motionActivityQueue = NSOperationQueue();
         cmManager.startActivityUpdatesToQueue(motionActivityQueue) { (activity:CMMotionActivity?) -> Void in
             cmManager.stopActivityUpdates();
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
-            appDelegate.startLocationKit();
+//            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+//            appDelegate.startLocationKit();
+            LocationManager.sharedLocationManager().startLocationUpdates();
         }
     }
     

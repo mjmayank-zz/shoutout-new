@@ -43,6 +43,8 @@ static LocationManager *sharedLocationManager = nil;
     if(self = [super init]) {
         manager = [[CLLocationManager alloc] init];
         [manager setDelegate:self];
+        [manager pausesLocationUpdatesAutomatically];
+        [manager allowsBackgroundLocationUpdates];
     }
     return self;
 }
@@ -50,8 +52,21 @@ static LocationManager *sharedLocationManager = nil;
 #pragma mark -
 #pragma mark Location Methods
 
+-(void)startBackgroundLocationUpdates {
+    [manager startMonitoringVisits];
+    [manager startMonitoringSignificantLocationChanges];
+}
+
+-(void)stopBackgroundLocationUpdates {
+    [manager stopMonitoringVisits];
+    [manager stopMonitoringSignificantLocationChanges];
+    [manager stopUpdatingLocation];
+}
+
 -(void)startLocationUpdates {
     [manager startUpdatingLocation];
+    [manager startMonitoringVisits];
+    [manager startMonitoringSignificantLocationChanges];
 }
 
 -(void)stopLocationUpdates {
@@ -63,10 +78,15 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     if([locations count] > 0) {
-        _lastLocation = locations[0];
+        _lastLocation = [locations lastObject];
         [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:_lastLocation];
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit{
+    CLLocation *location = [[CLLocation alloc] initWithCoordinate:visit.coordinate altitude:0.0 horizontalAccuracy:visit.horizontalAccuracy verticalAccuracy:0.0 timestamp:[NSDate date]];
+    _lastLocation = location;
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:_lastLocation];
+}
 
 @end

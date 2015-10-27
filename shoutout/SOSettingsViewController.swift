@@ -86,7 +86,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
-        PFUser.currentUser()?.username = self.usernameTextField.text;
+        PFUser.currentUser()?.username = self.usernameTextField.text?.lowercaseString;
         PFUser.currentUser()?.saveInBackground();
     }
     

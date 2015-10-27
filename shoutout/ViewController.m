@@ -333,7 +333,7 @@
 
 - (void) changeUserOnline:(NSString *)userID toNewOnline:(NSString *)newMetadata {
     SOAnnotation *annotation = self.markerDictionary[userID];
-    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
+//    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
     
     if(annotation){
         if([newMetadata isEqualToString:@"YES"]){
@@ -427,7 +427,7 @@
     for (NSString *word in array){
         if ([word hasPrefix:@"@"]) {
             PFQuery *query = [PFUser query];
-            NSString *username = [word substringFromIndex:1];
+            NSString *username = [[word substringFromIndex:1] lowercaseString];
             [query whereKey:@"username" equalTo:username];
             [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                 for (PFObject *obj in objects ) {
@@ -555,7 +555,7 @@
 #pragma mark -UITextViewDelegate
 
 - (void) textViewDidChange:(UITextView *)textView{
-    self.statusCharacterCount.text = [NSString stringWithFormat:@"%d/120", [textView.text length]];
+    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", [textView.text length]];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

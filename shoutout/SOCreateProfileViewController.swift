@@ -60,7 +60,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
         let user = PFUser();
-        user.username = usernameTextField.text;
+        user.username = usernameTextField.text?.lowercaseString;
         user.email = emailTextField.text;
         user.password = passwordTextField.text;
         user["profileImage"] = self.chosenImage;

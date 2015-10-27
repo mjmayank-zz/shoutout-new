@@ -22,7 +22,7 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     }
     
     func login() {
-        PFUser.logInWithUsernameInBackground(usernameTextField.text!, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
+        PFUser.logInWithUsernameInBackground(usernameTextField.text!.lowercaseString, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if ((user) != nil){
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
                 LocationManager.sharedLocationManager().startLocationUpdates();

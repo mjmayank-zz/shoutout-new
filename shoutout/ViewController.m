@@ -22,10 +22,10 @@
 
 @interface ViewController ()
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign, nonatomic) int *count;
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
+@property (strong, nonatomic) SOListViewController *listViewVC;
 
 @end
 
@@ -53,6 +53,7 @@
                              animated:NO];
     [self.view insertSubview:self.mapView aboveSubview:self.map];
     self.mapViewDelegate = [[SOMapViewDelegate alloc] initWithMapView:self.mapView];
+    self.mapViewDelegate.listViewVC = self.listViewVC;
     
     self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
@@ -65,25 +66,13 @@
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-//    self.locationManager.distanceFilter = 10.0;
-//    [self.locationManager startUpdatingLocation];
+    for (CALayer *subLayer in self.listViewContainer.layer.sublayers)
+    {
+        subLayer.cornerRadius = 10;
+        subLayer.masksToBounds = YES;
+    }
     
-    CLLocation * locationInfo;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:
-     UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:
-     UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:
-     Notification_LocationUpdate object:locationInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterBackground:) name:
-     UIApplicationWillResignActiveNotification object:locationInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:
-     UIApplicationWillEnterForegroundNotification object:locationInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyNotificationReceived:) name:
-     @"replyToShout" object:nil];
+    [self registerNotifications];
     
     self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
@@ -157,11 +146,7 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_LocationUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [self unregisterNotifications];
     self.mapView.delegate = nil;
     [self.mapView removeFromSuperview];
     [self deregisterFirebaseListeners];
@@ -177,6 +162,36 @@
     [self checkForNewMessages];
 }
 
+- (void)didReceiveMemoryWarning {  
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)registerNotifications{
+    CLLocation * locationInfo;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:
+     UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:
+     UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:
+     Notification_LocationUpdate object:locationInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterBackground:) name:
+     UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:
+     UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyNotificationReceived:) name:
+     @"replyToShout" object:nil];
+}
+
+- (void)unregisterNotifications{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_LocationUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"replyToShout" object:nil];
+}
+
 - (void)checkForNewMessages{
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
     [query whereKey:@"to" equalTo:[PFUser currentUser]];
@@ -190,11 +205,6 @@
             self.unreadIndicator.hidden = YES;
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {  
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) updateMapWithLocation:(CLLocationCoordinate2D)userLocation{
@@ -384,16 +394,70 @@
     [self updateStatus];
 }
 
-- (void)closeUpdateStatusView{
-    if(self.shelf){
-        [self animateSlidingView];
+- (void)centerMapToUserLocation{
+    if(self.previousLocation){
+        [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
+    }
+    else{
+        
     }
 }
 
-- (void)openUpdateStatusView{
-    if(!self.shelf){
-        [self animateSlidingView];
+- (IBAction)listViewButtonPressed:(id)sender {
+    [self.view layoutIfNeeded];
+    if(self.listViewContainerConstraint.constant != 0){
+        self.listViewContainerConstraint.constant = 0;
+        [UIView animateWithDuration:0.3f
+                              delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:nil];
     }
+    else{
+        self.listViewContainerConstraint.constant = -300;
+        [UIView animateWithDuration:0.3f
+                              delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:nil];
+    }
+}
+
+- (IBAction)centerButtonPressed:(id)sender {
+    [self centerMapToUserLocation];
+    [PFAnalytics trackEvent:@"pressedLocateButton" dimensions:nil];
+}
+
+#pragma -mark Update Status View
+
+- (void)closeUpdateStatusView{
+    [self.view layoutIfNeeded];
+    self.slidingViewConstraint.constant = -450;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+    [self.statusTextView resignFirstResponder];
+}
+
+- (void)openUpdateStatusView{
+    [self.view layoutIfNeeded];
+    self.slidingViewConstraint.constant = 0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+    [self.statusTextView becomeFirstResponder];
     [PFAnalytics trackEvent:@"openedComposeView" dimensions:nil];
 }
 
@@ -456,72 +520,30 @@
 }
 
 - (void)animateSlidingView{
-    [self.view layoutIfNeeded];
-    if(!self.shelf){
-        self.slidingViewConstraint.constant = 0;
-        [UIView animateWithDuration:0.3f
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             [self.view layoutIfNeeded];
-                         }
-                         completion:nil];
-        [self.statusTextView becomeFirstResponder];
-        self.shelf = true;
+    if(self.slidingViewConstraint.constant != 0){
+        [self openUpdateStatusView];
     }
     else{
-        self.slidingViewConstraint.constant = -450;
-        [UIView animateWithDuration:0.3f
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             [self.view layoutIfNeeded];
-                         }
-                         completion:nil];
-        self.shelf = false;
-        [self.statusTextView resignFirstResponder];
+        [self closeUpdateStatusView];
     }
 }
 
-- (void)centerMapToUserLocation{
-    if(self.previousLocation){
-        [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
-    }
-    else{
-        
-    }
-}
-- (IBAction)centerButtonPressed:(id)sender {
-    [self centerMapToUserLocation];
-    [PFAnalytics trackEvent:@"pressedLocateButton" dimensions:nil];
-}
+#pragma -mark Notification Events
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-//    [self animateTextField:self.slidingView up:YES withInfo:notification.userInfo];
+
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-//    [self animateTextField:self.slidingView up:NO withInfo:notification.userInfo];
+
 }
 
-- (void) animateTextField: (UIView*) view up: (BOOL) up withInfo:(NSDictionary *)userInfo
-{
-    const int movementDistance = 140; // tweak as needed
-    NSTimeInterval movementDuration;
-    UIViewAnimationCurve animationCurve;
-    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&movementDuration]; // tweak as needed
-    
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationCurve: animationCurve];
-    [UIView setAnimationDuration: movementDuration];
-    self.slidingView.frame = CGRectOffset(self.slidingView.frame, 0, movement);
-    [UIView commitAnimations];
+- (void)replyNotificationReceived:(NSNotification *)notification{
+    NSDictionary * userInfo = notification.userInfo;
+    NSString * username = userInfo[@"username"];
+    [self openUpdateStatusViewWithStatus:[NSString stringWithFormat:@"@%@ ", username]];
 }
 
 -(void)mapPanned{
@@ -541,15 +563,13 @@
     if ([segue.identifier  isEqual: @"openInboxSegue"]) {
         SOInboxViewController *destVC = (SOInboxViewController *)segue.destinationViewController;
         destVC.delegate = self;
-    } else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
+    }
+    else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
         ((SOSettingsViewController*)segue.destinationViewController).oldVC = self;
     }
-}
-
-- (void)replyNotificationReceived:(NSNotification *)notification{
-    NSDictionary * userInfo = notification.userInfo;
-    NSString * username = userInfo[@"username"];
-    [self openUpdateStatusViewWithStatus:[NSString stringWithFormat:@"@%@ ", username]];
+    else if([segue.identifier isEqualToString:@"listViewController"]){
+        self.listViewVC = segue.destinationViewController;
+    }
 }
 
 #pragma mark -UITextViewDelegate

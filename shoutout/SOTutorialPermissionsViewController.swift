@@ -15,6 +15,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBOutlet var nextButton: UIButton!
     
+    @IBOutlet var pushSwitch: UISwitch!
     @IBOutlet var locationSwitch: UISwitch!
     let locationManager = CLLocationManager();
     

@@ -108,6 +108,7 @@
 		8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */; };
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
+		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
 		999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */; };
 /* End PBXBuildFile section */
 
@@ -252,6 +253,7 @@
 		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
+		8FF09DB61BE035ED001402E7 /* SOListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOListViewController.swift; sourceTree = "<group>"; };
 		8FFF0BFE1B9F74760009E619 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
 		8FFF0BFF1B9F7A210009E619 /* UVA.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UVA.gpx; sourceTree = "<group>"; };
 		97991FF71B916BD671C9AD8E /* Pods-shoutout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.release.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.release.xcconfig"; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
+				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
@@ -833,6 +836,7 @@
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,
 				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
+				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,
 				8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,

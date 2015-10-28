@@ -7,6 +7,7 @@
 //
 
 #import "SOMapViewDelegate.h"
+#import "Shoutout-Swift.h"
 
 @implementation SOMapViewDelegate
 
@@ -39,33 +40,42 @@
     NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
     NSArray *annotationArray = [annotationSet allObjects];
     
+    [self.listViewVC updateAnnotationArray:annotationArray];
+    
     if([annotationArray count] > 0){
         CLLocationDegrees centerLatitude = mapView.centerCoordinate.latitude;
         CLLocationDegrees centerLongitude = mapView.centerCoordinate.longitude;
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
         
-        KPAnnotation * toShow;
+        KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
         
-        CLLocationDistance minDistance = DBL_MAX;
-        
-        for(int i = 0; i<[annotationArray count]; i++){
-            KPAnnotation * annotation = annotationArray[i];
-            if(![annotation isCluster]){
-                CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
-                
-                CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
-                
-                if(distance <= minDistance){
-                    minDistance = distance;
-                    toShow = annotation;
-                }
-            }
-        }
         if (toShow) {
             [mapView selectAnnotation:toShow animated:YES];
         }
     }
+}
+
+- (KPAnnotation *)findClosestAnnotationToPoint:(CLLocation *)screenCenter inArray:(NSArray *)annotationArray{
+    KPAnnotation * toShow;
+    
+    CLLocationDistance minDistance = DBL_MAX;
+    
+    for(int i = 0; i<[annotationArray count]; i++){
+        KPAnnotation * annotation = annotationArray[i];
+        if(![annotation isCluster]){
+            CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
+            
+            CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
+            
+            if(distance <= minDistance){
+                minDistance = distance;
+                toShow = annotation;
+            }
+        }
+    }
+    
+    return toShow;
 }
 
 // Always show a callout when an annotation is tapped.
@@ -128,8 +138,6 @@
         }
         
     }
-    
-    
     
     return nil;
 }

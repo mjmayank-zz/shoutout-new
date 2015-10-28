@@ -29,12 +29,11 @@
 @property (strong, nonatomic) IBOutlet UITextView *statusTextView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) IBOutlet UILabel *statusCharacterCount;
+@property (strong, nonatomic) IBOutlet UIView *listViewContainer;
 
 @property (strong, nonatomic) IBOutlet UILabel *unreadIndicator;
 
 @property (strong, nonatomic) NSMutableDictionary * markerDictionary;
-
-@property (assign, nonatomic) BOOL shelf;
 
 @property (strong, nonatomic) CLLocation * previousLocation;
 
@@ -43,6 +42,7 @@
 @property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
 @property (strong, nonatomic) Firebase* shoutoutRootOnline;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *listViewContainerConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 

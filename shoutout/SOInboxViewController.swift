@@ -52,15 +52,16 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             if let messages = messages{
                 return messages.count;
             }
-            return 0;
+            return 1;
     }
     
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-            let cell = tableView.dequeueReusableCellWithIdentifier("messageCell", forIndexPath: indexPath) as! messagesCell;
-            if let messages = messages{
-                let message = messages[indexPath.row].objectForKey("message") as? String;
-                let from = messages[indexPath.row].objectForKey("from") as! PFObject;
+            if (messages != nil && messages?.count > 0){
+                let cell = tableView.dequeueReusableCellWithIdentifier("messageCell", forIndexPath: indexPath) as! messagesCell;
+                
+                let message = messages![indexPath.row].objectForKey("message") as? String;
+                let from = messages![indexPath.row].objectForKey("from") as! PFObject;
                 let fromImage = from.objectForKey("picURL") as? String;
                 cell.bodyLabel.text = message;
                 cell.usernameLabel.text = from.objectForKey("username") as? String;
@@ -71,7 +72,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 let date = from.updatedAt;
                 let dateString = dateFormatter.stringFromDate(date!);
                 cell.dateLabel.text = dateString;
-            
+                
                 var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
                 if(image == nil){
                     if let fromImage = fromImage{
@@ -96,8 +97,13 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 else{
                     cell.profileImage.image = image;
                 }
+                return cell;
             }
-            return cell;
+            else{
+                let cell = UITableViewCell()
+                cell.textLabel?.text = "No messages to show"
+                return cell;
+            }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

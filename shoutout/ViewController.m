@@ -404,23 +404,36 @@
 }
 
 - (IBAction)listViewButtonPressed:(id)sender {
+    NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
+    NSArray *annotationArray = [annotationSet allObjects];
+    
+    [self.listViewVC updateAnnotationArray:annotationArray];
+    
     [self.view layoutIfNeeded];
     if(self.listViewContainerConstraint.constant != 0){
+        self.listViewVC.open = YES;
         self.listViewContainerConstraint.constant = 0;
+        self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
+                             CGRect rect = CGRectMake(self.mapView.frame.origin.x, -1 * self.mapView.frame.size.height/2.0,  self.mapView.frame.size.width, self.mapView.frame.size.height * 1.5);
+                             self.mapView.frame = rect;
                              [self.view layoutIfNeeded];
                          }
                          completion:nil];
     }
     else{
+        self.listViewVC.open = NO;
         self.listViewContainerConstraint.constant = -300;
+        self.centerMarkYConstraint.constant = 0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
+                             CGRect rect = CGRectMake(self.mapView.frame.origin.x, 0,  self.mapView.frame.size.width, self.view.bounds.size.height);
+                             self.mapView.frame = rect;
                              [self.view layoutIfNeeded];
                          }
                          completion:nil];

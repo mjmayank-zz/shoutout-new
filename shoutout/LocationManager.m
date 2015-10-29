@@ -43,7 +43,7 @@ static LocationManager *sharedLocationManager = nil;
     if(self = [super init]) {
         manager = [[CLLocationManager alloc] init];
         [manager setDelegate:self];
-        [manager pausesLocationUpdatesAutomatically];
+        [manager setPausesLocationUpdatesAutomatically:YES];
         if([manager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]){
             [manager setAllowsBackgroundLocationUpdates:YES];
         }
@@ -67,6 +67,7 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)startLocationUpdates {
     [manager startUpdatingLocation];
+    manager.distanceFilter = 10.0;
     [manager startMonitoringVisits];
     [manager startMonitoringSignificantLocationChanges];
 }

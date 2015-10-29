@@ -40,13 +40,17 @@
     NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
     NSArray *annotationArray = [annotationSet allObjects];
     
-    [self.listViewVC updateAnnotationArray:annotationArray];
+//    [self.listViewVC updateAnnotationArray:annotationArray];
     
     if([annotationArray count] > 0){
-        CLLocationDegrees centerLatitude = mapView.centerCoordinate.latitude;
-        CLLocationDegrees centerLongitude = mapView.centerCoordinate.longitude;
+        CLLocationCoordinate2D coordinate = mapView.centerCoordinate;
         
-        CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:centerLatitude longitude:centerLongitude];
+        if(self.listViewVC.open){
+            CGPoint point = CGPointMake(self.mapView.bounds.size.width/2.0, self.mapView.bounds.size.height/2.0);
+            coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        }
+        
+        CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
         
         KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
         

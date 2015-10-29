@@ -15,12 +15,13 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBOutlet var nextButton: UIButton!
     
+    @IBOutlet var mapSwitch: UISwitch!
     @IBOutlet var pushSwitch: UISwitch!
     @IBOutlet var locationSwitch: UISwitch!
     let locationManager = CLLocationManager();
     
     var requestedLocation = false
-    var requestedMotion = false
+    var requestedMap = false
     var requestedPush = false
     
     override func viewDidLoad(){
@@ -41,12 +42,15 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     }
     
     func updateNextButtonIfNecessary() {
-        if (requestedLocation && !nextButton.enabled) {
+        if (requestedLocation && requestedMap && !nextButton.enabled) {
             nextButton.enabled = true
             nextButton.backgroundColor = UIColor(red: 0.0392, green: 0.8824, blue: 0.7373, alpha: 1.0)
         }
         if (requestedLocation) {
             locationSwitch.on = true
+        }
+        if (requestedMap) {
+            mapSwitch.on = true
         }
     }
     
@@ -56,7 +60,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             requestedLocation = true
         }
         else{
-            let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can alter this in your iPhone settings", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can disable this from the settings menu", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
                 // Do nothing
             })
@@ -76,7 +80,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
                 PFAnalytics.trackEvent("allowedLocation", dimensions:nil);
                 requestedLocation = true
                 LocationManager.sharedLocationManager().startLocationUpdates();
-                requestedMotion = true
             }
             else{
                 PFAnalytics.trackEvent("deniedLocation", dimensions:nil);
@@ -84,11 +87,20 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             updateNextButtonIfNecessary()
     }
     
-    @IBAction func motionPermissionButtonPressed(sender: UISwitch) {
-        if (sender.on && !requestedMotion) {
-            self.requestMotionAccessData();
-            requestedMotion = true
-            PFAnalytics.trackEvent("allowedMotion", dimensions:nil);
+    @IBAction func mapPermissionButtonPressed(sender: UISwitch) {
+        if (sender.on && !requestedMap) {
+            requestedMap = true
+            PFAnalytics.trackEvent("allowedMap", dimensions:nil);
+            updateNextButtonIfNecessary()
+        }
+        else{
+            let alert = UIAlertController(title: "Your location is required initially for Shoutout to work", message: "You can remove yourself from the map on the settings menu", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                // Do nothing
+            })
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            mapSwitch.on = true
         }
     }
     
@@ -101,15 +113,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             application.registerForRemoteNotifications()
             requestedPush = true
             PFAnalytics.trackEvent("allowedPush", dimensions:nil);
-        }
-    }
-    
-    func requestMotionAccessData(){
-        let cmManager = CMMotionActivityManager();
-        let motionActivityQueue = NSOperationQueue();
-        cmManager.startActivityUpdatesToQueue(motionActivityQueue) { (activity:CMMotionActivity?) -> Void in
-            cmManager.stopActivityUpdates();
-            LocationManager.sharedLocationManager().startLocationUpdates();
         }
     }
     

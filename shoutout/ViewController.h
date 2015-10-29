@@ -43,6 +43,7 @@
 @property (strong, nonatomic) Firebase* shoutoutRootOnline;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *listViewContainerConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerMarkYConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 

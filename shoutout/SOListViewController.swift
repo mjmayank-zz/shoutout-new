@@ -13,6 +13,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet var tableView: UITableView!
     var data:[SOAnnotation]!
+    var open = false;
     
     override func viewDidLoad(){
         super.viewDidLoad();

@@ -633,6 +633,10 @@
             NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
             
             if([PFUser currentUser]){
+                if([PFUser currentUser][@"static"]){
+                    return;
+                }
+                
                 if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
                     [self addUserToAnnotationDictionary:[PFUser currentUser]];
                 }

@@ -85,7 +85,7 @@
     }
     
     if([PFUser currentUser]) {
-        if(![PFUser currentUser][@"visible"]){
+        if(![PFUser currentUser][@"visible"] || [PFUser currentUser][@"static"]){
             [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }
@@ -103,7 +103,7 @@
     [[LocationManager sharedLocationManager] startLocationUpdates];
     
     if ([PFUser currentUser]) {
-        if(![PFUser currentUser][@"visible"]){
+        if(![PFUser currentUser][@"visible"] || [PFUser currentUser][@"static"]){
             [[LocationManager sharedLocationManager] stopBackgroundLocationUpdates];
         }
     }

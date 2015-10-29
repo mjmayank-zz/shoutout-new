@@ -15,7 +15,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var profileImageView: UIImageView!
-    var chosenImage : PFObject?
+    var chosenImageObj : PFObject?
     
     override func viewDidLoad(){
         super.viewDidLoad();
@@ -30,7 +30,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 let random = Int(arc4random_uniform(UInt32(array.count)));
                 array[random].fetchIfNeededInBackgroundWithBlock({ (pic:PFObject?, error:NSError?) -> Void in
                     if let pic = pic{
-                        self.chosenImage = pic;
+                        self.chosenImageObj = pic;
                         let userImageFile = pic["image"] as! PFFile;
                         userImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error:NSError?) -> Void in
                             if !(error != nil) {
@@ -63,7 +63,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         user.username = usernameTextField.text?.lowercaseString;
         user.email = emailTextField.text;
         user.password = passwordTextField.text;
-        user["profileImage"] = self.chosenImage;
+        user["profileImage"] = self.chosenImageObj;
         user["status"] = "";
         user["visible"] = NSNumber(bool: true);
         user.signUpInBackgroundWithBlock {
@@ -115,7 +115,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 
                 photo.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) -> Void in
                     if(error == nil){
-                        PFUser.currentUser()?.setObject(photo, forKey: "profileImage");
+                        self.chosenImageObj = photo;
                     }
                 })
             }

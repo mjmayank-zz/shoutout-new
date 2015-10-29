@@ -151,6 +151,14 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         }
     }
     
+    override func prepareForSegue(segue:(UIStoryboardSegue!), sender:AnyObject!)
+    {
+        if(segue.identifier == "privacyPolicy"){
+            let webVC = segue.destinationViewController as! SOWebViewController
+            webVC.URLString = "http://www.getshoutout.co/privacy.html"
+        }
+    }
+    
     // MARK: Status bar
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

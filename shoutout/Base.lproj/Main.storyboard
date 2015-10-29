@@ -951,7 +951,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dJ8-sg-OQ1">
-                                <rect key="frame" x="153" y="179" width="65" height="65"/>
+                                <rect key="frame" x="153" y="174" width="65" height="65"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="Azr-1T-kyU"/>
@@ -1026,7 +1026,7 @@
                         <constraints>
                             <constraint firstItem="2Q2-o9-Sx6" firstAttribute="top" secondItem="e2O-mh-jhX" secondAttribute="bottom" constant="8" id="0HR-Rg-xtL"/>
                             <constraint firstItem="dwh-0R-sl3" firstAttribute="leading" secondItem="YOp-Do-pQg" secondAttribute="leading" constant="7" id="0sW-SO-soW"/>
-                            <constraint firstItem="dJ8-sg-OQ1" firstAttribute="top" secondItem="d3M-VJ-4Zg" secondAttribute="bottom" constant="159" id="119-yg-jST"/>
+                            <constraint firstItem="dJ8-sg-OQ1" firstAttribute="top" secondItem="d3M-VJ-4Zg" secondAttribute="bottom" constant="154" id="119-yg-jST"/>
                             <constraint firstItem="K39-WO-Gck" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="1Rx-Tv-Cn3"/>
                             <constraint firstItem="5RV-k0-kIN" firstAttribute="leading" secondItem="b6m-au-SFf" secondAttribute="leadingMargin" constant="-20" id="26b-4g-0iO"/>
                             <constraint firstItem="Fxk-OW-zIg" firstAttribute="top" secondItem="b6m-au-SFf" secondAttribute="topMargin" constant="60" id="2lb-cB-WYD"/>
@@ -1314,6 +1314,45 @@ or</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2o-KG-rHu">
+                                <rect key="frame" x="39" y="422" width="297" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="3cJ-NU-be6"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="By creating an account you agree to our ">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Terms of Service">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" and ">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Privacy Policy">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <segue destination="hjZ-xc-9vQ" kind="presentation" identifier="privacyPolicy" id="Whh-Xg-nID"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.24313725489999999" green="0.75686274509999996" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1327,6 +1366,8 @@ or</string>
                             <constraint firstItem="jjs-GE-lrp" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="150" id="9ox-XL-YbF"/>
                             <constraint firstItem="fok-NK-qb4" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="597" id="B4Q-5X-3Am"/>
                             <constraint firstItem="8O7-yP-HU5" firstAttribute="width" secondItem="J24-3p-6YL" secondAttribute="width" multiplier="0.5" id="CIY-b7-3Qo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="c2o-KG-rHu" secondAttribute="trailing" constant="23" id="HNh-zN-JNj"/>
+                            <constraint firstItem="c2o-KG-rHu" firstAttribute="top" secondItem="rK5-A1-yJm" secondAttribute="bottom" constant="57" id="KBl-Vx-OMo"/>
                             <constraint firstItem="fok-NK-qb4" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="-16" id="KrH-qG-joE"/>
                             <constraint firstItem="2hs-mM-wui" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="31" id="Mab-9g-Ux5"/>
                             <constraint firstItem="QD4-4C-M7r" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="27" id="O6V-tg-M4B"/>
@@ -1345,14 +1386,17 @@ or</string>
                             <constraint firstItem="pDi-Om-xUa" firstAttribute="width" secondItem="J24-3p-6YL" secondAttribute="width" constant="-62" id="lfC-1n-lUz"/>
                             <constraint firstItem="rK5-A1-yJm" firstAttribute="top" secondItem="cud-t2-51p" secondAttribute="bottom" constant="10" id="nIB-SH-zeZ"/>
                             <constraint firstItem="8O7-yP-HU5" firstAttribute="leading" secondItem="fok-NK-qb4" secondAttribute="trailing" id="o3b-k8-IxA"/>
+                            <constraint firstItem="c2o-KG-rHu" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="23" id="qqI-Xp-zdl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8O7-yP-HU5" secondAttribute="trailing" constant="-20" id="rt2-MC-5Kk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2hs-mM-wui" secondAttribute="trailing" constant="31" id="uDa-6d-fd2"/>
+                            <constraint firstItem="c2o-KG-rHu" firstAttribute="top" secondItem="aZC-eK-PYZ" secondAttribute="bottom" constant="18" id="wia-9q-h8T"/>
                             <constraint firstItem="aZC-eK-PYZ" firstAttribute="top" secondItem="H5A-T7-gAo" secondAttribute="bottom" constant="18" id="z9l-rR-0b1"/>
                             <constraint firstItem="and-GE-HFT" firstAttribute="top" secondItem="8O7-yP-HU5" secondAttribute="bottom" id="zxw-H0-Dv6"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Pv2-Bu-YCf"/>
+                                <exclude reference="KBl-Vx-OMo"/>
                                 <exclude reference="B4Q-5X-3Am"/>
                                 <exclude reference="3b9-FJ-dUC"/>
                                 <exclude reference="6B3-Ye-DLS"/>
@@ -1755,6 +1799,54 @@ or</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgD-5f-4SX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="636" y="929"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="jwR-7T-X5B">
+            <objects>
+                <viewController id="hjZ-xc-9vQ" customClass="SOWebViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5lq-FW-nuN"/>
+                        <viewControllerLayoutGuide type="bottom" id="hMS-se-ypQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iar-jN-MpK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBo-Bu-O11">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFm-Xd-z55">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Shoutout" id="zUQ-fg-iUV">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7Oa-bV-hZB">
+                                            <connections>
+                                                <action selector="doneButtonPressed:" destination="hjZ-xc-9vQ" id="cCh-Yb-Ti6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hMS-se-ypQ" firstAttribute="top" secondItem="NBo-Bu-O11" secondAttribute="bottom" id="0i4-aa-kAC"/>
+                            <constraint firstItem="jFm-Xd-z55" firstAttribute="leading" secondItem="iar-jN-MpK" secondAttribute="leadingMargin" constant="-20" id="5l8-gp-JZK"/>
+                            <constraint firstItem="NBo-Bu-O11" firstAttribute="top" secondItem="5lq-FW-nuN" secondAttribute="bottom" constant="44" id="IKi-Rn-o5f"/>
+                            <constraint firstItem="jFm-Xd-z55" firstAttribute="top" secondItem="5lq-FW-nuN" secondAttribute="bottom" id="UMg-1Q-xO6"/>
+                            <constraint firstItem="NBo-Bu-O11" firstAttribute="leading" secondItem="iar-jN-MpK" secondAttribute="leadingMargin" constant="-20" id="Uez-Kg-ONG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jFm-Xd-z55" secondAttribute="trailing" constant="-20" id="qHU-Az-XwG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NBo-Bu-O11" secondAttribute="trailing" constant="-20" id="wYE-4c-9W3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="NBo-Bu-O11" id="XQf-hk-axY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q5q-Zd-3nO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1495" y="776"/>
         </scene>
     </scenes>
     <resources>

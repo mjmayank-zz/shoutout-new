@@ -14,12 +14,18 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var tableView: UITableView!
     var data:[SOAnnotation]!
     var open = false;
+    @IBOutlet var backgroundView: UIView!
+    @IBOutlet var countLabel: UILabel!
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         data = [SOAnnotation]();
+
+        
+        self.backgroundView.layer.cornerRadius = 20;
+        self.backgroundView.layer.masksToBounds = true;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,10 +46,17 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.height/2.0;
         cell.profileImage.layer.masksToBounds = true;
         
+        cell.profileImage.image = annotation.profileImage;
+        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let annotation = self.data[indexPath.row]
+        let username = annotation.title
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("replyToShout", object: self, userInfo: ["username": username])
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }
     
@@ -56,6 +69,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         data = pins;
+        countLabel.text = String(format: "%d pins", data.count)
         tableView.reloadData();
     }
 }

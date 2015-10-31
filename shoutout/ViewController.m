@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 @property (strong, nonatomic) SOListViewController *listViewVC;
+@property (strong, nonatomic) NSCache *profileImageCache;
 
 @end
 
@@ -39,6 +40,7 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPermissions"];
     
     self.markerDictionary = [[NSMutableDictionary alloc] init];
+    self.profileImageCache = [[NSCache alloc] init];
     
     [[PFUser currentUser] fetchInBackground];
     
@@ -66,11 +68,11 @@
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
-    for (CALayer *subLayer in self.listViewContainer.layer.sublayers)
-    {
-        subLayer.cornerRadius = 10;
-        subLayer.masksToBounds = YES;
-    }
+//    for (CALayer *subLayer in self.listViewContainer.layer.sublayers)
+//    {
+//        subLayer.cornerRadius = 20;
+//        subLayer.masksToBounds = YES;
+//    }
     
     [self registerNotifications];
     
@@ -86,6 +88,7 @@
             PFFile *file = profileImageObj[@"image"];
             [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
                 self.profilePic.image = [UIImage imageWithData:data];
+                [self.profileImageCache setObject:self.profilePic.image forKey:[PFUser currentUser].objectId];
             }];
         }];
     }
@@ -97,6 +100,7 @@
             dispatch_async(dispatch_get_main_queue(), ^(){
                 if(image){
                     self.profilePic.image = image;
+                    [self.profileImageCache setObject:self.profilePic.image forKey:[PFUser currentUser].objectId];
                 }
             });
         });
@@ -134,6 +138,8 @@
     PFInstallation *installation = [PFInstallation currentInstallation];
     installation[@"user"] = [PFUser currentUser];
     [installation saveInBackground];
+    
+    [self checkLocationPermission];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -160,6 +166,7 @@
     [self registerFirebaseListeners];
     [self updateMapWithLocation:self.previousLocation.coordinate];
     [self checkForNewMessages];
+    
 }
 
 - (void)didReceiveMemoryWarning {  
@@ -207,6 +214,35 @@
     }];
 }
 
+- (void)checkLocationPermission{
+    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Shoutout needs your location!", @"" ) message:NSLocalizedString( @"Please change your location permission to Always", @"" ) preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Cancel", @"" ) style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        UIApplicationOpenSettingsURLString]];
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:settingsAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+- (NSDate *)getLastWeekDate{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+    
+    components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
+    
+    [components setDay:([components day] - 7)];
+    NSDate *lastWeek  = [cal dateFromComponents:components];
+    NSLog(@"lastWeek=%@",lastWeek);
+    return lastWeek;
+}
+
 - (void) updateMapWithLocation:(CLLocationCoordinate2D)userLocation{
     // Construct query
     [self centerMapToUserLocation];
@@ -215,6 +251,7 @@
     PFQuery *query = [PFUser query];
     [query whereKey:@kParseObjectGeoKey nearGeoPoint:geoLoc withinKilometers:50];
     [query whereKey:@kParseObjectVisibleKey equalTo:[NSNumber numberWithBool:YES]];
+    [query whereKey:@"updatedAt" greaterThanOrEqualTo:[self getLastWeekDate]];
     [query includeKey:@"profileImage"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -253,40 +290,60 @@
     if(obj[@"picURL"])
         dict[@"picURL"] = obj[@"picURL"];
     if(obj.objectId)
-        dict[@"id"] = obj.objectId;
+        dict[@"objectId"] = obj.objectId;
     if(obj.updatedAt)
         dict[@"updatedAt"] = obj.updatedAt;
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
     
     if(obj[@"visible"]){
-        if(obj[@"profileImage"]){
-            [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-                PFFile *file = obj[@"profileImage"][@"image"];
-                [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                    annotation.profileImage = [UIImage imageWithData:data];
-                }];
-                
-                if([self.markerDictionary objectForKey:[obj objectId]]){
-                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                }
-                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-            }];
+        if ([self.profileImageCache objectForKey:[obj objectId]]) {
+            UIImage *image = [self.profileImageCache objectForKey:[obj objectId]];
+            annotation.profileImage = image;
+            if([self.markerDictionary objectForKey:[obj objectId]]){
+                [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+            }
+            [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+        }
+        else if([self.markerDictionary objectForKey:[obj objectId]]){
+            annotation.profileImage = ((SOAnnotation *)[self.markerDictionary objectForKey:[obj objectId]]).profileImage;
+            [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+            [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+            [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
         }
         else{
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                annotation.profileImage = [UIImage imageWithData:
-                                           [NSData dataWithContentsOfURL:
-                                            [NSURL URLWithString: dict[@"picURL"]]]];
-                dispatch_async(dispatch_get_main_queue(), ^(){
+            if(obj[@"profileImage"]){
+                [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                    PFFile *file = obj[@"profileImage"][@"image"];
+                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                        annotation.profileImage = [UIImage imageWithData:data];
+                        [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+                    }];
+                    
                     if([self.markerDictionary objectForKey:[obj objectId]]){
                         [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                     }
                     [self.markerDictionary setObject:annotation forKey:[obj objectId]];
                     [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                }];
+            }
+            else if(obj[@"picURL"]){
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    annotation.profileImage = [UIImage imageWithData:
+                                               [NSData dataWithContentsOfURL:
+                                                [NSURL URLWithString: dict[@"picURL"]]]];
+                    [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+                    dispatch_async(dispatch_get_main_queue(), ^(){
+                        if([self.markerDictionary objectForKey:[obj objectId]]){
+                            [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                        }
+                        [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                    });
                 });
-            });
+            }
         }
         
     }
@@ -331,13 +388,15 @@
     SOAnnotation *annotation = self.markerDictionary[userID];
     KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
 
-    if(annotation && ![clusterAnnotation isCluster]){
-        if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
-            [self.mapView removeAnnotation:clusterAnnotation];
+    if ([NSStringFromClass([clusterAnnotation class]) isEqualToString:@"KPAnnotation"]) {
+        if(annotation && ![clusterAnnotation isCluster]){
+            if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
+                [self.mapView removeAnnotation:clusterAnnotation];
+            }
         }
-    }
-    else{
-
+        else{
+            
+        }
     }
 }
 
@@ -410,15 +469,15 @@
     [self.listViewVC updateAnnotationArray:annotationArray];
     
     [self.view layoutIfNeeded];
-    if(self.listViewContainerConstraint.constant != 0){
+    if(!self.listViewVC.open){
         self.listViewVC.open = YES;
-        self.listViewContainerConstraint.constant = 0;
+        self.listViewContainerConstraint.constant = 60;
         self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             CGRect rect = CGRectMake(self.mapView.frame.origin.x, -1 * self.mapView.frame.size.height/2.0,  self.mapView.frame.size.width, self.mapView.frame.size.height * 1.5);
+                             CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
                              self.mapView.frame = rect;
                              [self.view layoutIfNeeded];
                          }
@@ -426,13 +485,13 @@
     }
     else{
         self.listViewVC.open = NO;
-        self.listViewContainerConstraint.constant = -300;
+        self.listViewContainerConstraint.constant = -500;
         self.centerMarkYConstraint.constant = 0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                             CGRect rect = CGRectMake(self.mapView.frame.origin.x, 0,  self.mapView.frame.size.width, self.view.bounds.size.height);
+                             CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
                              self.mapView.frame = rect;
                              [self.view layoutIfNeeded];
                          }
@@ -575,6 +634,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier  isEqual: @"openInboxSegue"]) {
         SOInboxViewController *destVC = (SOInboxViewController *)segue.destinationViewController;
+        destVC.profileImageCache = self.profileImageCache;
         destVC.delegate = self;
     }
     else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
@@ -588,7 +648,7 @@
 #pragma mark -UITextViewDelegate
 
 - (void) textViewDidChange:(UITextView *)textView{
-    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", [textView.text length]];
+    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", (unsigned long)[textView.text length]];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

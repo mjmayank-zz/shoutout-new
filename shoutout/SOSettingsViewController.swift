@@ -80,6 +80,13 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
+        if((PFUser.currentUser()) != nil){
+            let shoutoutOnline = Firebase(url: "https://shoutout.firebaseio.com/online");
+            shoutoutOnline.childByAppendingPath(PFUser.currentUser()?.objectId).setValue("NO");
+            PFUser.currentUser()?.setObject(NSNumber(bool: false), forKey: "online");
+            PFUser.currentUser()?.saveInBackground();
+        }
+        
         PFUser.logOut();
         let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
         oldVC.navigationController?.setViewControllers([newVC!], animated: false)

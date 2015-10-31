@@ -23,8 +23,6 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
-    
-        self.profileImageCache = NSCache();
         
         getMessages();
     }

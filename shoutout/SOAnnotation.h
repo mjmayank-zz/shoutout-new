@@ -11,11 +11,11 @@
 
 @interface SOAnnotation : NSObject<MKAnnotation>
 
+@property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSString *subtitle;
 @property (strong, nonatomic) NSDictionary *userInfo;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *profileImage;
-@property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *subtitle;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (assign, nonatomic) BOOL online;
 

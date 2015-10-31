@@ -107,6 +107,8 @@
 		8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */; };
 		8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */; };
 		8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */; };
+		8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */; };
+		8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC5E56A1BE320840068AC0C /* triangle@2x.png */; };
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
 		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
@@ -252,6 +254,8 @@
 		8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMarkerSubView.m; sourceTree = "<group>"; };
 		8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOCreateProfileViewController.swift; sourceTree = "<group>"; };
 		8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOWebViewController.swift; sourceTree = "<group>"; };
+		8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		8FC5E56A1BE320840068AC0C /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
 		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 				8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
+				8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */,
 				8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */,
 				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
@@ -479,6 +484,7 @@
 		8FA76FFA1BD70C5C00979C3A /* AllPurpose */ = {
 			isa = PBXGroup;
 			children = (
+				8FC5E56A1BE320840068AC0C /* triangle@2x.png */,
 				8FA76FFB1BD70C5C00979C3A /* anon.jpg */,
 				8FA76FFC1BD70C5C00979C3A /* gradient.png */,
 				8FA76FFD1BD70C5C00979C3A /* gradientGreen.png */,
@@ -672,6 +678,7 @@
 				8FA7705E1BD70C5C00979C3A /* shout@3x-09.png in Resources */,
 				8FA770931BD70E8300979C3A /* settingsPressed@2x.png in Resources */,
 				8FA770881BD70E8300979C3A /* listView@2x.png in Resources */,
+				8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */,
 				8FA770361BD70C5C00979C3A /* gradientGreenLong.png in Resources */,
 				8FA76FF51BD6D19A00979C3A /* Titillium-ThinItalic.otf in Resources */,
 				8FA770481BD70C5C00979C3A /* bigIcon.png in Resources */,
@@ -840,6 +847,7 @@
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,
 				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
+				8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */,
 				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,
 				8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,

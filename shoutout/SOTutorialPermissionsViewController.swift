@@ -35,10 +35,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         
         updateNextButtonIfNecessary()
         self.setNeedsStatusBarAppearanceUpdate()
-        
-        if( NSUserDefaults.standardUserDefaults().boolForKey("hasPermissions")){
-            self.performSegueWithIdentifier("permissionsToMap", sender: self)
-        }
     }
     
     func updateNextButtonIfNecessary() {

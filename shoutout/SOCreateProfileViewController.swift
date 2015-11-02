@@ -16,6 +16,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var profileImageView: UIImageView!
     var chosenImageObj : PFObject?
+    var termsChecked = false;
     
     override func viewDidLoad(){
         super.viewDidLoad();
@@ -59,6 +60,16 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
+        if(!termsChecked){
+            let alert = UIAlertController(title: "You must agree to the terms of service!", message: "Please read them and check the box", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                // Do nothing
+            })
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
         let user = PFUser();
         user.username = usernameTextField.text?.lowercaseString;
         user.email = emailTextField.text;
@@ -145,6 +156,17 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         }
     }
     
+    @IBAction func checkboxButtonPressed(sender: AnyObject) {
+        let button = sender as! UIButton as UIButton!
+        if(termsChecked){
+            button.setImage(UIImage(named: "unchecked_checkbox.png"), forState: UIControlState.Normal)
+            termsChecked = false;
+        }
+        else{
+            button.setImage(UIImage(named: "checked_checkbox.png"), forState: UIControlState.Normal)
+            termsChecked = true;
+        }
+    }
     func keyboardWillHide(notification: NSNotification){
         if(self.view.frame.origin.y != 0.0){
             self.view.frame.offsetInPlace(dx: 0, dy: 100)

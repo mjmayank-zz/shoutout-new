@@ -136,4 +136,12 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         dismissViewControllerAnimated(true, completion: nil);
 
     }
+    
+    override func prepareForSegue(segue:(UIStoryboardSegue!), sender:AnyObject!)
+    {
+        if(segue.identifier == "settingsToFeedback"){
+            let webVC = segue.destinationViewController as! SOWebViewController
+            webVC.URLString = "http://www.getshoutout.co/feedback.html"
+        }
+    }
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; };
+		8F0430B71BE46DA10024DF4E /* checked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */; };
+		8F0430B81BE46DA10024DF4E /* unchecked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */; };
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
@@ -128,6 +130,8 @@
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
+		8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked_checkbox@2x.png"; sourceTree = "<group>"; };
+		8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked_checkbox@2x.png"; sourceTree = "<group>"; };
 		8F0455CE1BA367DA003A3C55 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F0AA26D1BD3E2FA0068AE38 /* SOFirebaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOFirebaseDelegate.h; sourceTree = "<group>"; };
 		8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOFirebaseDelegate.m; sourceTree = "<group>"; };
@@ -547,6 +551,8 @@
 		8FA770211BD70C5C00979C3A /* OnboardingViews */ = {
 			isa = PBXGroup;
 			children = (
+				8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */,
+				8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */,
 				8FA770221BD70C5C00979C3A /* onboardingPage1@2x.png */,
 				8FA770231BD70C5C00979C3A /* onboardingPage2@2x.png */,
 				8FA770241BD70C5C00979C3A /* onboardingPage3@2x.png */,
@@ -701,6 +707,7 @@
 				8FA770621BD70C5C00979C3A /* shoutSpeechBubble@2x.png in Resources */,
 				8FA770A41BD7328E00979C3A /* Icon-40@2x.png in Resources */,
 				8FA770AC1BD7328E00979C3A /* Icon-Small@3x.png in Resources */,
+				8F0430B71BE46DA10024DF4E /* checked_checkbox@2x.png in Resources */,
 				8FA770831BD70E8300979C3A /* addShoutPressed@2x.png in Resources */,
 				8FA76FEC1BD6D19A00979C3A /* Titillium-LightItalic.otf in Resources */,
 				8FA770611BD70C5C00979C3A /* shoutSpeechBubble.png in Resources */,
@@ -717,6 +724,7 @@
 				8FA76FEB1BD6D19A00979C3A /* Titillium-Light.otf in Resources */,
 				8FA76FE81BD6D19A00979C3A /* Titillium-Bold.otf in Resources */,
 				8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */,
+				8F0430B81BE46DA10024DF4E /* unchecked_checkbox@2x.png in Resources */,
 				8FA7708E1BD70E8300979C3A /* myLocation@2x.png in Resources */,
 				8FA7708A1BD70E8300979C3A /* listViewPressed@2x.png in Resources */,
 				8FA770AA1BD7328E00979C3A /* Icon-Small.png in Resources */,

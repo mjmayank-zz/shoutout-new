@@ -13,7 +13,7 @@ class SOForgotPasswordViewController: UIViewController{
     
     @IBOutlet var usernameTextField: UITextField!
     override func viewDidLoad() {
-        
+        self.usernameTextField.becomeFirstResponder()
     }
     
     @IBAction func recoverButtonPressed(sender: AnyObject) {

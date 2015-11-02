@@ -68,6 +68,9 @@
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
+    // Hide the list view initially
+    self.listViewContainer.layer.opacity = 0;
+    
 //    for (CALayer *subLayer in self.listViewContainer.layer.sublayers)
 //    {
 //        subLayer.cornerRadius = 20;
@@ -477,6 +480,7 @@
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
+                              self.listViewContainer.layer.opacity = 1;
                              CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
                              self.mapView.frame = rect;
                              [self.view layoutIfNeeded];
@@ -485,7 +489,7 @@
     }
     else{
         self.listViewVC.open = NO;
-        self.listViewContainerConstraint.constant = -500;
+        self.listViewContainerConstraint.constant = 0;
         self.centerMarkYConstraint.constant = 0;
         [UIView animateWithDuration:0.3f
                               delay:0.0f
@@ -493,6 +497,7 @@
                          animations:^{
                              CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
                              self.mapView.frame = rect;
+                             self.listViewContainer.layer.opacity = 0;
                              [self.view layoutIfNeeded];
                          }
                          completion:nil];

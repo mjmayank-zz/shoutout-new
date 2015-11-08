@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
 @property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 @property (strong, nonatomic) SOListViewController *listViewVC;
+@property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 
 @end
@@ -647,6 +648,9 @@
     }
     else if([segue.identifier isEqualToString:@"listViewController"]){
         self.listViewVC = segue.destinationViewController;
+    }
+    else if([segue.identifier isEqualToString:@"composeStatusViewController"]){
+        self.composeStatusVC = segue.destinationViewController;
     }
 }
 

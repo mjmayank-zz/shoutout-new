@@ -15,8 +15,10 @@
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; };
 		8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */; };
+		8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */; };
+		8F3C85311BEFCE38005E658E /* mapBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85301BEFCE38005E658E /* mapBackground@2x.png */; };
+		8F3C85331BEFDFB0005E658E /* shoutoutLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */; };
 		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; };
-		8F4D24DB1BD3EBB300A3B6A1 /* SOComposeStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F8D47731B976DB900D902B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47721B976DB900D902B9 /* main.m */; };
@@ -79,10 +81,6 @@
 		8FA770631BD70C5C00979C3A /* shoutSpeechBubble@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770301BD70C5C00979C3A /* shoutSpeechBubble@3x.png */; };
 		8FA770641BD70C5C00979C3A /* speechBubbleOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770311BD70C5C00979C3A /* speechBubbleOverlay@2x.png */; };
 		8FA770651BD70C5C00979C3A /* speechBubbleWithShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770321BD70C5C00979C3A /* speechBubbleWithShadow@2x.png */; };
-		8FA7706B1BD70CC000979C3A /* onboardingBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770661BD70CC000979C3A /* onboardingBackground@2x.png */; };
-		8FA7706C1BD70CC000979C3A /* onboardingBackgroundLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770671BD70CC000979C3A /* onboardingBackgroundLogin@2x.png */; };
-		8FA7706E1BD70CC000979C3A /* onboardingBackgroundSignup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770691BD70CC000979C3A /* onboardingBackgroundSignup@2x.png */; };
-		8FA7706F1BD70CC000979C3A /* onboardingBackgroundTutorial@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA7706A1BD70CC000979C3A /* onboardingBackgroundTutorial@2x.png */; };
 		8FA770821BD70E8300979C3A /* addShout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770701BD70E8300979C3A /* addShout@2x.png */; };
 		8FA770831BD70E8300979C3A /* addShoutPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770711BD70E8300979C3A /* addShoutPressed@2x.png */; };
 		8FA770871BD70E8300979C3A /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA770751BD70E8300979C3A /* cancelButton.png */; };
@@ -140,9 +138,11 @@
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
 		8F168CE61BADDF94000D18D0 /* SOPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinView.xib; sourceTree = "<group>"; };
 		8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFeedbackViewController.swift; sourceTree = "<group>"; };
+		8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOComposeStatusViewController.h; sourceTree = "<group>"; };
+		8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOComposeStatusViewController.m; sourceTree = "<group>"; };
+		8F3C85301BEFCE38005E658E /* mapBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapBackground@2x.png"; sourceTree = "<group>"; };
+		8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoutoutLogo.png; sourceTree = "<group>"; };
 		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
-		8F4D24D91BD3EBB300A3B6A1 /* SOComposeStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOComposeStatusView.h; sourceTree = "<group>"; };
-		8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOComposeStatusView.m; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -227,10 +227,6 @@
 		8FA770301BD70C5C00979C3A /* shoutSpeechBubble@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoutSpeechBubble@3x.png"; sourceTree = "<group>"; };
 		8FA770311BD70C5C00979C3A /* speechBubbleOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speechBubbleOverlay@2x.png"; sourceTree = "<group>"; };
 		8FA770321BD70C5C00979C3A /* speechBubbleWithShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speechBubbleWithShadow@2x.png"; sourceTree = "<group>"; };
-		8FA770661BD70CC000979C3A /* onboardingBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackground@2x.png"; sourceTree = "<group>"; };
-		8FA770671BD70CC000979C3A /* onboardingBackgroundLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackgroundLogin@2x.png"; sourceTree = "<group>"; };
-		8FA770691BD70CC000979C3A /* onboardingBackgroundSignup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackgroundSignup@2x.png"; sourceTree = "<group>"; };
-		8FA7706A1BD70CC000979C3A /* onboardingBackgroundTutorial@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "onboardingBackgroundTutorial@2x.png"; sourceTree = "<group>"; };
 		8FA770701BD70E8300979C3A /* addShout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addShout@2x.png"; sourceTree = "<group>"; };
 		8FA770711BD70E8300979C3A /* addShoutPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addShoutPressed@2x.png"; sourceTree = "<group>"; };
 		8FA770751BD70E8300979C3A /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
@@ -359,12 +355,12 @@
 				8FA76FC11BD6D01900979C3A /* kingpin */,
 				8FA76FF91BD70C5C00979C3A /* images */,
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
-				8F4D24D91BD3EBB300A3B6A1 /* SOComposeStatusView.h */,
-				8F4D24DA1BD3EBB300A3B6A1 /* SOComposeStatusView.m */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
+				8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */,
+				8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */,
 				8F0AA26D1BD3E2FA0068AE38 /* SOFirebaseDelegate.h */,
 				8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
@@ -471,10 +467,6 @@
 		8FA76FF91BD70C5C00979C3A /* images */ = {
 			isa = PBXGroup;
 			children = (
-				8FA770661BD70CC000979C3A /* onboardingBackground@2x.png */,
-				8FA770671BD70CC000979C3A /* onboardingBackgroundLogin@2x.png */,
-				8FA770691BD70CC000979C3A /* onboardingBackgroundSignup@2x.png */,
-				8FA7706A1BD70CC000979C3A /* onboardingBackgroundTutorial@2x.png */,
 				8FA76FFA1BD70C5C00979C3A /* AllPurpose */,
 				8FA770011BD70C5C00979C3A /* Buttons */,
 				8FA770101BD70C5C00979C3A /* Icons */,
@@ -488,6 +480,7 @@
 		8FA76FFA1BD70C5C00979C3A /* AllPurpose */ = {
 			isa = PBXGroup;
 			children = (
+				8F3C85301BEFCE38005E658E /* mapBackground@2x.png */,
 				8FC5E56A1BE320840068AC0C /* triangle@2x.png */,
 				8FA76FFB1BD70C5C00979C3A /* anon.jpg */,
 				8FA76FFC1BD70C5C00979C3A /* gradient.png */,
@@ -540,6 +533,7 @@
 		8FA7701C1BD70C5C00979C3A /* Logos */ = {
 			isa = PBXGroup;
 			children = (
+				8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */,
 				8FA7701D1BD70C5C00979C3A /* shoutout_green.png */,
 				8FA7701E1BD70C5C00979C3A /* shoutout_white.png */,
 				8FA7701F1BD70C5C00979C3A /* shoutoutGrayLogo.png */,
@@ -687,10 +681,8 @@
 				8FA770361BD70C5C00979C3A /* gradientGreenLong.png in Resources */,
 				8FA76FF51BD6D19A00979C3A /* Titillium-ThinItalic.otf in Resources */,
 				8FA770481BD70C5C00979C3A /* bigIcon.png in Resources */,
-				8FA7706E1BD70CC000979C3A /* onboardingBackgroundSignup@2x.png in Resources */,
 				8FA770AB1BD7328E00979C3A /* Icon-Small@2x.png in Resources */,
 				8FA770511BD70C5C00979C3A /* smallIcon.png in Resources */,
-				8FA7706F1BD70CC000979C3A /* onboardingBackgroundTutorial@2x.png in Resources */,
 				8FA76FF01BD6D19A00979C3A /* Titillium-RegularUpright.otf in Resources */,
 				8FA770601BD70C5C00979C3A /* shoutBubble.png in Resources */,
 				8FA76FF11BD6D19A00979C3A /* Titillium-Semibold.otf in Resources */,
@@ -702,6 +694,7 @@
 				8FA770581BD70C5C00979C3A /* onboardingPage3@2x.png in Resources */,
 				8FA7705A1BD70C5C00979C3A /* pinBubble.png in Resources */,
 				8FA76FF31BD6D19A00979C3A /* Titillium-SemiboldUpright.otf in Resources */,
+				8F3C85331BEFDFB0005E658E /* shoutoutLogo.png in Resources */,
 				8FA76FF21BD6D19A00979C3A /* Titillium-SemiboldItalic.otf in Resources */,
 				8FA770621BD70C5C00979C3A /* shoutSpeechBubble@2x.png in Resources */,
 				8FA770A41BD7328E00979C3A /* Icon-40@2x.png in Resources */,
@@ -723,6 +716,7 @@
 				8FA76FEB1BD6D19A00979C3A /* Titillium-Light.otf in Resources */,
 				8FA76FE81BD6D19A00979C3A /* Titillium-Bold.otf in Resources */,
 				8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */,
+				8F3C85311BEFCE38005E658E /* mapBackground@2x.png in Resources */,
 				8F0430B81BE46DA10024DF4E /* unchecked_checkbox@2x.png in Resources */,
 				8FA7708E1BD70E8300979C3A /* myLocation@2x.png in Resources */,
 				8FA7708A1BD70E8300979C3A /* listViewPressed@2x.png in Resources */,
@@ -747,10 +741,8 @@
 				8FA770641BD70C5C00979C3A /* speechBubbleOverlay@2x.png in Resources */,
 				8FA76FF41BD6D19A00979C3A /* Titillium-Thin.otf in Resources */,
 				8FA7705D1BD70C5C00979C3A /* shout@3x-08.png in Resources */,
-				8FA7706C1BD70CC000979C3A /* onboardingBackgroundLogin@2x.png in Resources */,
 				8FA770561BD70C5C00979C3A /* onboardingPage1@2x.png in Resources */,
 				8FA770531BD70C5C00979C3A /* shoutout_white.png in Resources */,
-				8FA7706B1BD70CC000979C3A /* onboardingBackground@2x.png in Resources */,
 				8FA770331BD70C5C00979C3A /* anon.jpg in Resources */,
 				8FA7705F1BD70C5C00979C3A /* shout@3x-10.png in Resources */,
 				8F8D477E1B976DB900D902B9 /* Images.xcassets in Resources */,
@@ -829,6 +821,7 @@
 				8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */,
 				8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */,
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
+				8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */,
 				8FA76FD51BD6D02D00979C3A /* KPGridClusteringAlgorithm.m in Sources */,
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,
@@ -845,7 +838,6 @@
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,
-				8F4D24DB1BD3EBB300A3B6A1 /* SOComposeStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,7 +17,7 @@
 #import "kingpin.h"
 #import "MKMapView+ZoomLevel.h"
 #import "SOMapViewDelegate.h"
-#import "SOComposeStatusView.h"
+#import "SOComposeStatusViewController.h"
 @import MapKit;
 
 @interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>

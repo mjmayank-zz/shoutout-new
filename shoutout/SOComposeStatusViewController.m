@@ -1,51 +1,43 @@
 //
-//  SOComposeStatusView.m
+//  SOComposeStatusViewController.m
 //  shoutout
 //
-//  Created by Mayank Jain on 10/18/15.
+//  Created by Mayank Jain on 11/8/15.
 //  Copyright © 2015 Mayank Jain. All rights reserved.
 //
-
 #define kParseObjectClassKey    "StatusObject"
 #define kParseObjectGeoKey      "geo"
 #define kParseObjectImageKey    "imageFile"
 #define kParseObjectUserKey     "user"
 #define kParseObjectCaption     "caption"
 #define kParseObjectVisibleKey  "visible"
+#define Notification_LocationUpdate @"LocationUpdate"
 
-#import "SOComposeStatusView.h"
-#import "ViewController.h"
+#import "SOComposeStatusViewController.h"
 
-@implementation SOComposeStatusView
+@implementation SOComposeStatusViewController
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    if(self = [super initWithCoder:aDecoder]){
-        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
-        self.profilePic.layer.masksToBounds = YES;
-        self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
-        
-        self.statusTextView.text = [PFUser currentUser][@"status"];
-        
-        [self.saveButton.layer setCornerRadius:4.0f];
-        [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
-    }
-    return self;
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
+    self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
 }
 
 - (void)updateStatus{
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
         [PFUser currentUser][@"status"] = self.statusTextView.text;
-        [[[self.delegate.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
+        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
         [self checkForRecipients:self.statusTextView.text];
+        [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
     }
-    CLLocation *currentLocation = self.delegate.previousLocation;
-    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-                                                      longitude:currentLocation.coordinate.longitude];
-    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-    [[PFUser currentUser] saveInBackground];
-    
-    [self.delegate closeUpdateStatusView];
-    [self.statusTextView resignFirstResponder];
+//    CLLocation *currentLocation = self.previousLocation;
+//    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
+//                                                      longitude:currentLocation.coordinate.longitude];
+//    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
+//    [[PFUser currentUser] saveInBackground];
+//    
+//    [self closeUpdateStatusView];
+//    [self.statusTextView resignFirstResponder];
 }
 
 - (void)checkForRecipients:(NSString *)message{
@@ -55,7 +47,7 @@
     for (NSString *word in array){
         if ([word hasPrefix:@"@"]) {
             PFQuery *query = [PFUser query];
-            NSString *username = [word substringFromIndex:1];
+            NSString *username = [[word substringFromIndex:1] lowercaseString];
             [query whereKey:@"username" equalTo:username];
             [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                 for (PFObject *obj in objects ) {
@@ -83,12 +75,5 @@
     }
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
-    [self.delegate closeUpdateStatusView];
-}
-
-- (IBAction)saveButtonPressed:(id)sender {
-    [self updateStatus];
-}
 
 @end

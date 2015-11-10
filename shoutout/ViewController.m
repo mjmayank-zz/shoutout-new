@@ -248,36 +248,33 @@
 }
 
 - (void) updateMapWithLocation:(CLLocationCoordinate2D)userLocation{
-    // Construct query
+    // Construct quer
     [self centerMapToUserLocation];
-    PFGeoPoint * geoLoc = [PFGeoPoint geoPointWithLatitude:userLocation.latitude
-                                                 longitude:userLocation.longitude];
-    PFQuery *query = [PFUser query];
-    [query whereKey:@kParseObjectGeoKey nearGeoPoint:geoLoc withinKilometers:50];
-    [query whereKey:@kParseObjectVisibleKey equalTo:[NSNumber numberWithBool:YES]];
-    [query whereKey:@"updatedAt" greaterThanOrEqualTo:[self getLastWeekDate]];
-    [query includeKey:@"profileImage"];
-
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            
-            NSLog(@"Successfully retrieved %lu statuses.", (unsigned long)objects.count);
-            
-            for (PFObject * obj in objects){
-                if([self.markerDictionary objectForKey:[obj objectId]]){
-                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                }
-                
-                [self addUserToAnnotationDictionary:obj];
-            }
-            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-            
-        } else {
-            // Log details of the failure
-            NSLog(@"Parse error: %@ %@", error, [error userInfo]);
-        }
-    }];
+    
+    [PFCloud callFunctionInBackground:@"queryUsers"
+                       withParameters:@{@"lat": [NSNumber numberWithDouble:userLocation.latitude],
+                                        @"long": [NSNumber numberWithDouble:userLocation.longitude],
+                                        @"user": [PFUser currentUser].objectId}
+                                block:^(NSArray *objects, NSError *error) {
+                                    if (!error) {
+                                        // The find succeeded.
+                                        
+                                        NSLog(@"Successfully retrieved %lu statuses.", (unsigned long)objects.count);
+                                        
+                                        for (PFObject * obj in objects){
+                                            if([self.markerDictionary objectForKey:[obj objectId]]){
+                                                [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                                            }
+                                            
+                                            [self addUserToAnnotationDictionary:obj];
+                                        }
+                                        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+                                        
+                                    } else {
+                                        // Log details of the failure
+                                        NSLog(@"Parse error: %@ %@", error, [error userInfo]);
+                                    }
+                                }];
 }
 
 - (void) addUserToAnnotationDictionary:(PFObject *)obj{

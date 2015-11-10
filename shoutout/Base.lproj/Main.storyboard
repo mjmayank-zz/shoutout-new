@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -293,7 +293,7 @@
                                     <action selector="shoutOutButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eV0-iS-UPH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-OA-sKY" userLabel="ListView Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-OA-sKY" userLabel="ListView Button">
                                 <rect key="frame" x="152" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
@@ -348,7 +348,7 @@
                                     <constraint firstAttribute="height" constant="100" id="e3Z-De-JuJ"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xW4-3P-Kf3" userLabel="Spacer View">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xW4-3P-Kf3" userLabel="Spacer View">
                                 <rect key="frame" x="196" y="500" width="80" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -577,6 +577,8 @@
                             <mask key="constraints">
                                 <exclude reference="06P-BH-dEj"/>
                                 <exclude reference="Z3E-bL-PXM"/>
+                                <exclude reference="lrq-yV-uob"/>
+                                <exclude reference="qhl-8J-XM1"/>
                                 <exclude reference="JbS-Ns-xzh"/>
                                 <exclude reference="N2t-l9-6Cw"/>
                                 <exclude reference="jxO-H5-xTB"/>
@@ -599,8 +601,6 @@
                                 <exclude reference="TuB-9p-Iia"/>
                                 <exclude reference="nAf-w9-KCX"/>
                                 <exclude reference="vDX-Cy-nnP"/>
-                                <exclude reference="lrq-yV-uob"/>
-                                <exclude reference="qhl-8J-XM1"/>
                                 <exclude reference="icx-tT-LPC"/>
                             </mask>
                         </variation>
@@ -661,7 +661,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put your pin onto the map so you can see what others are up to around you." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aho-4y-Dxe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put your pin onto the map and keep your location up to date in the background" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aho-4y-Dxe">
                                 <rect key="frame" x="51" y="272" width="176" height="31"/>
                                 <animations/>
                                 <constraints>
@@ -673,7 +673,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Push Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqa-yz-hAq">
-                                <rect key="frame" x="51" y="338" width="175" height="17"/>
+                                <rect key="frame" x="51" y="338" width="174.5" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -992,8 +992,8 @@
                                     <action selector="privacyChanged:" destination="Syc-BN-oMi" eventType="valueChanged" id="0ez-gK-13B"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location is Public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gF-o4-psp">
-                                <rect key="frame" x="155" y="261" width="123" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display my location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gF-o4-psp">
+                                <rect key="frame" x="155" y="261" width="139" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1083,7 +1083,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fxk-OW-zIg">
-                                <rect key="frame" x="250" y="60" width="100" height="28"/>
+                                <rect key="frame" x="250" y="60" width="99.5" height="28"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Titillium-Semibold" family="Titillium" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1102,11 +1102,11 @@
                                     <action selector="didPressDoneButton:" destination="Syc-BN-oMi" eventType="touchUpInside" id="WQc-DK-uDw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turning this off this will remove you from the map and disable the app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWF-lA-C9u">
-                                <rect key="frame" x="155" y="279" width="179" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turning this off this will remove you from the map, and stop updating your location in the background" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWF-lA-C9u">
+                                <rect key="frame" x="155" y="279" width="179" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="179" id="Tbw-Rk-X0C"/>
-                                    <constraint firstAttribute="height" constant="28" id="xdu-m6-9mK"/>
+                                    <constraint firstAttribute="height" constant="38" id="xdu-m6-9mK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1637,6 +1637,15 @@ or</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <animations/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="EZg-AT-aRj">
+                                <rect key="frame" x="42" y="86" width="232" height="347"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="347" id="8rh-iy-mBu"/>
+                                    <constraint firstAttribute="width" constant="232" id="Fdl-Od-lpC"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="347" id="NN8-xK-NQl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="232" id="vCv-Ch-bhx"/>
+                                </constraints>
+                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Vt-E1-NQe">
                                 <rect key="frame" x="47" y="328" width="281" height="30"/>
                                 <animations/>
@@ -1702,15 +1711,6 @@ or</string>
                                     <segue destination="PwG-y4-9XG" kind="show" id="b3b-j6-clH"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="EZg-AT-aRj">
-                                <rect key="frame" x="42" y="86" width="232" height="347"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="347" id="8rh-iy-mBu"/>
-                                    <constraint firstAttribute="width" constant="232" id="Fdl-Od-lpC"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="347" id="NN8-xK-NQl"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="232" id="vCv-Ch-bhx"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.24313725489999999" green="0.75686274509999996" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1968,6 +1968,13 @@ or</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <animations/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ybm-q5-1bE">
+                                <rect key="frame" x="42" y="86" width="232" height="347"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="347" id="4OG-bf-fxb"/>
+                                    <constraint firstAttribute="width" constant="232" id="VYm-XF-Bda"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJZ-CN-syb">
                                 <rect key="frame" x="188" y="382" width="187" height="50"/>
                                 <animations/>
@@ -2013,13 +2020,6 @@ or</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutoutLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ybm-q5-1bE">
-                                <rect key="frame" x="42" y="86" width="232" height="347"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="347" id="4OG-bf-fxb"/>
-                                    <constraint firstAttribute="width" constant="232" id="VYm-XF-Bda"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2169,6 +2169,6 @@ or</string>
         <image name="unchecked_checkbox.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Whh-Xg-nID"/>
+        <segue reference="cV0-b7-xl9"/>
     </inferredMetricsTieBreakers>
 </document>

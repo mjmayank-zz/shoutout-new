@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -13,6 +13,8 @@
             <string>Titillium-Bold</string>
         </mutableArray>
         <mutableArray key="Titillium-Regular.otf">
+            <string>Titillium-Regular</string>
+            <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
@@ -620,11 +622,12 @@
                         <outlet property="statusCharacterCount" destination="DvD-G3-rW1" id="5gQ-2z-sb2"/>
                         <outlet property="statusTextView" destination="cI6-R1-bLk" id="Rg1-Av-E3G"/>
                         <outlet property="unreadIndicator" destination="uKI-Y9-bTG" id="YN2-u4-tYn"/>
+                        <segue destination="GiJ-Zo-oY1" kind="presentation" identifier="blockMapSegue" id="sku-Hk-EcA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="753" y="-442"/>
+            <point key="canvasLocation" x="742" y="-493"/>
         </scene>
         <!--Tutorial Permissions View Controller-->
         <scene sceneID="Y5U-sW-Swi">
@@ -823,6 +826,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCH-2c-MJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="23" y="-427"/>
+        </scene>
+        <!--Block Map View Controller-->
+        <scene sceneID="AGX-61-1jS">
+            <objects>
+                <viewController id="GiJ-Zo-oY1" customClass="SOBlockMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aau-3F-pbj"/>
+                        <viewControllerLayoutGuide type="bottom" id="QEg-Qc-GOo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2G4-eB-gQ7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-ep-cK5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J9-Qc-l7T">
+                                <rect key="frame" x="258.5" y="296" width="83" height="37"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.80784313725490198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="194" id="cH1-mP-UUF"/>
+                                    <constraint firstAttribute="width" constant="83" id="de4-cY-O0S"/>
+                                    <constraint firstAttribute="height" constant="37" id="loT-aN-CZQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="15"/>
+                                <state key="normal" title="Enable">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="cH1-mP-UUF"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="Syc-BN-oMi" kind="presentation" id="QGH-hx-fbt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOX-dB-bC6">
+                                <rect key="frame" x="35" y="164" width="530" height="124.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="124.5" id="2zH-RW-6y5"/>
+                                </constraints>
+                                <string key="text">Shoutout relies on users sharing their location. Unless you are sharing your location, we can’t allow you to see other users’ locations. To continue using the app, please turn on location services in settings.</string>
+                                <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.65490196079999996" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1J9-Qc-l7T" firstAttribute="centerY" secondItem="2G4-eB-gQ7" secondAttribute="centerY" id="76y-X2-Bku"/>
+                            <constraint firstItem="1J9-Qc-l7T" firstAttribute="centerX" secondItem="2G4-eB-gQ7" secondAttribute="centerX" id="CIa-lb-dM3"/>
+                            <constraint firstItem="qHd-ep-cK5" firstAttribute="leading" secondItem="2G4-eB-gQ7" secondAttribute="leadingMargin" constant="-20" id="GHj-MA-8G9"/>
+                            <constraint firstItem="1J9-Qc-l7T" firstAttribute="top" secondItem="GOX-dB-bC6" secondAttribute="bottom" constant="7.5" id="QUd-lL-Brg"/>
+                            <constraint firstItem="GOX-dB-bC6" firstAttribute="centerY" secondItem="2G4-eB-gQ7" secondAttribute="centerY" constant="-73.75" id="Tmw-gH-smu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GOX-dB-bC6" secondAttribute="trailing" constant="15" id="e7L-0E-vdW"/>
+                            <constraint firstItem="qHd-ep-cK5" firstAttribute="top" secondItem="2G4-eB-gQ7" secondAttribute="topMargin" id="jYR-aV-fUd"/>
+                            <constraint firstItem="GOX-dB-bC6" firstAttribute="leading" secondItem="2G4-eB-gQ7" secondAttribute="leadingMargin" constant="15" id="nY6-U3-d1Q"/>
+                            <constraint firstItem="QEg-Qc-GOo" firstAttribute="top" secondItem="qHd-ep-cK5" secondAttribute="bottom" id="oGu-rd-cRs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qHd-ep-cK5" secondAttribute="trailing" constant="-20" id="tjB-oZ-GZr"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="76y-X2-Bku"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mrq-ec-ZEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1456" y="-1488"/>
         </scene>
         <!--Inbox View Controller-->
         <scene sceneID="jtp-rI-z19">
@@ -1817,7 +1891,7 @@ or</string>
                                     <segue destination="9Xm-8Z-xw2" kind="embed" identifier="NUXPageViewControllerSegue" id="gh4-iR-nxZ"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N97-ya-QuT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N97-ya-QuT">
                                 <rect key="frame" x="167" y="634" width="40" height="28"/>
                                 <animations/>
                                 <constraints>
@@ -2190,6 +2264,7 @@ or</string>
         <image name="unchecked_checkbox.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="KfY-hF-Bsa"/>
         <segue reference="cV0-b7-xl9"/>
     </inferredMetricsTieBreakers>
 </document>

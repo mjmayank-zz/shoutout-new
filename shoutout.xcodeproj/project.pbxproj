@@ -14,6 +14,7 @@
 		8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; };
+		8F1F46281BF328B400D64F29 /* SOBlockMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F46271BF328B400D64F29 /* SOBlockMapViewController.m */; };
 		8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */; };
 		8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */; };
 		8F3C85311BEFCE38005E658E /* mapBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85301BEFCE38005E658E /* mapBackground@2x.png */; };
@@ -137,6 +138,8 @@
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
 		8F168CE61BADDF94000D18D0 /* SOPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinView.xib; sourceTree = "<group>"; };
+		8F1F46261BF328B400D64F29 /* SOBlockMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOBlockMapViewController.h; sourceTree = "<group>"; };
+		8F1F46271BF328B400D64F29 /* SOBlockMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOBlockMapViewController.m; sourceTree = "<group>"; };
 		8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFeedbackViewController.swift; sourceTree = "<group>"; };
 		8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOComposeStatusViewController.h; sourceTree = "<group>"; };
 		8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOComposeStatusViewController.m; sourceTree = "<group>"; };
@@ -359,6 +362,8 @@
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
+				8F1F46261BF328B400D64F29 /* SOBlockMapViewController.h */,
+				8F1F46271BF328B400D64F29 /* SOBlockMapViewController.m */,
 				8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */,
 				8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */,
 				8F0AA26D1BD3E2FA0068AE38 /* SOFirebaseDelegate.h */,
@@ -826,6 +831,7 @@
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
+				8F1F46281BF328B400D64F29 /* SOBlockMapViewController.m in Sources */,
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,

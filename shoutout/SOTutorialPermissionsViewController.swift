@@ -104,12 +104,25 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBAction func mapPermissionButtonPressed(sender: UISwitch) {
         if (sender.on && !requestedMap) {
-            requestedMap = true
-            PFAnalytics.trackEvent("allowedMap", dimensions:nil);
-            updateNextButtonIfNecessary()
+            let alertController = UIAlertController(title: "Shoutout will take your location and share it on the map for other users to see, even after you close the app.", message: "You can disable location services in the settings menu.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (alert:UIAlertAction) -> Void in
+                sender.on = false
+            })
+            
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
+                self.requestedMap = true
+                PFAnalytics.trackEvent("allowedMap", dimensions:nil);
+                self.updateNextButtonIfNecessary()
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(okayAction);
+            
+            self.presentViewController(alertController, animated: true, completion: nil);
         }
         else{
-            let alert = UIAlertController(title: "Your location is required initially for Shoutout to work", message: "You can remove yourself from the map on the settings menu", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Shoutout needs your location to work.", message: "You can remove yourself from the map on the settings menu", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
                 // Do nothing
                 self.requestedMap = false

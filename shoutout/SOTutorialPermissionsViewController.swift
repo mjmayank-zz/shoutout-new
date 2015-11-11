@@ -40,6 +40,10 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        updateNextButtonIfNecessary()
+    }
+    
     func updateNextButtonIfNecessary() {
         if (requestedLocation && requestedMap && !nextButton.enabled) {
             nextButton.enabled = true

@@ -63,7 +63,8 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 let fromImage = from.objectForKey("picURL") as? String;
                 cell.bodyLabel.text = message;
                 cell.usernameLabel.text = from.objectForKey("username") as? String;
-                cell.profileImage.layer.cornerRadius = 25.0;
+                cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
+                cell.profileImage.clipsToBounds = true;
                 
                 let dateFormatter = NSDateFormatter();
                 dateFormatter.dateFormat = "MM/dd/yy HH:mm";
@@ -170,7 +171,6 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
 }
 
 class messagesCell : UITableViewCell{
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var usernameLabel: UILabel!

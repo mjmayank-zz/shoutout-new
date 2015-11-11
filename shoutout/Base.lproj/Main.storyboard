@@ -1261,8 +1261,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" image="mapBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-6u-J0I">
-                                <rect key="frame" x="0.0" y="0.0" width="374" height="668"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="mapBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-6u-J0I">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                                 <animations/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2hs-mM-wui">
@@ -1413,7 +1413,7 @@ or</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Please fill out the fields below to get started." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDi-Om-xUa">
-                                <rect key="frame" x="31" y="70" width="313" height="55"/>
+                                <rect key="frame" x="31" y="70" width="313" height="54.5"/>
                                 <animations/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1515,9 +1515,13 @@ or</string>
                             <constraint firstItem="8O7-yP-HU5" firstAttribute="leading" secondItem="fok-NK-qb4" secondAttribute="trailing" id="o3b-k8-IxA"/>
                             <constraint firstItem="c2o-KG-rHu" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="23" id="qqI-Xp-zdl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8O7-yP-HU5" secondAttribute="trailing" constant="-20" id="rt2-MC-5Kk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Bk-6u-J0I" secondAttribute="trailing" constant="-20" id="sod-zC-CBG"/>
                             <constraint firstItem="blY-CZ-GJs" firstAttribute="centerY" secondItem="c2o-KG-rHu" secondAttribute="centerY" id="thJ-nW-qIi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2hs-mM-wui" secondAttribute="trailing" constant="31" id="uDa-6d-fd2"/>
                             <constraint firstItem="c2o-KG-rHu" firstAttribute="top" secondItem="aZC-eK-PYZ" secondAttribute="bottom" constant="18" id="wia-9q-h8T"/>
+                            <constraint firstItem="2Bk-6u-J0I" firstAttribute="leading" secondItem="J24-3p-6YL" secondAttribute="leadingMargin" constant="-20" id="wpE-4y-Rzg"/>
+                            <constraint firstItem="2Bk-6u-J0I" firstAttribute="top" secondItem="J24-3p-6YL" secondAttribute="topMargin" id="xfd-zs-Dfl"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="2Bk-6u-J0I" secondAttribute="bottom" id="yKi-4G-qfb"/>
                             <constraint firstItem="aZC-eK-PYZ" firstAttribute="top" secondItem="H5A-T7-gAo" secondAttribute="bottom" constant="18" id="z9l-rR-0b1"/>
                             <constraint firstItem="and-GE-HFT" firstAttribute="top" secondItem="8O7-yP-HU5" secondAttribute="bottom" id="zxw-H0-Dv6"/>
                         </constraints>
@@ -2265,6 +2269,6 @@ or</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="KfY-hF-Bsa"/>
-        <segue reference="cV0-b7-xl9"/>
+        <segue reference="Whh-Xg-nID"/>
     </inferredMetricsTieBreakers>
 </document>

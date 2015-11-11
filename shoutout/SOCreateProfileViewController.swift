@@ -157,6 +157,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     @IBAction func checkboxButtonPressed(sender: AnyObject) {
+        self.dismissKeyboard();
         let button = sender as! UIButton as UIButton!
         if(termsChecked){
             button.setImage(UIImage(named: "unchecked_checkbox.png"), forState: UIControlState.Normal)

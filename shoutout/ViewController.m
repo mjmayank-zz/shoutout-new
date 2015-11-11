@@ -139,7 +139,6 @@
     
     [self checkLocationPermission];
     [self promptForCheckinPermission];
-    [self checkToBlockMap];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

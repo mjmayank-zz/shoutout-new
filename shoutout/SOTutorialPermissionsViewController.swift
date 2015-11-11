@@ -33,6 +33,9 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             requestedLocation = true
         }
         
+        let application = UIApplication.sharedApplication()
+        requestedPush = application.isRegisteredForRemoteNotifications()
+
         updateNextButtonIfNecessary()
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -41,17 +44,17 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
         if (requestedLocation && requestedMap && !nextButton.enabled) {
             nextButton.enabled = true
             nextButton.backgroundColor = UIColor(red: 0.0392, green: 0.8824, blue: 0.7373, alpha: 1.0)
+        } else {
+            nextButton.enabled = false;
+            nextButton.backgroundColor = UIColor(red: 0.7676, green: 0.7676, blue: 0.7676, alpha: 1.0)
         }
-        if (requestedLocation) {
-            locationSwitch.on = true
-        }
-        if (requestedMap) {
-            mapSwitch.on = true
-        }
+        locationSwitch.on = requestedLocation;
+        mapSwitch.on = requestedMap;
+        pushSwitch.on = requestedPush;
     }
     
     @IBAction func locationPermissionButtonPressed(sender: UISwitch) {
-        if (sender.on && !requestedLocation) {
+        if (sender.on) {
             locationManager.requestAlwaysAuthorization();
             requestedLocation = true
         }
@@ -62,8 +65,9 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             })
             alert.addAction(defaultAction)
             self.presentViewController(alert, animated: true, completion: nil)
-            locationSwitch.on = true
         }
+        sender.enabled = false
+        updateNextButtonIfNecessary()
     }
     
     func locationManager(manager: CLLocationManager,
@@ -71,14 +75,29 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             if(status == .AuthorizedWhenInUse){
                 LocationManager.sharedLocationManager().startLocationUpdates();
                 requestedLocation = true
+                locationSwitch.enabled = false
             }
             else if(status == .AuthorizedAlways){
                 PFAnalytics.trackEvent("allowedLocation", dimensions:nil);
                 requestedLocation = true
                 LocationManager.sharedLocationManager().startLocationUpdates();
+                locationSwitch.enabled = false
             }
-            else{
+            else if(status != .NotDetermined){
+                requestedLocation = false
+                if (locationSwitch.enabled == false) {
+                    let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can disable this from the settings menu", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                    let defaultAction = UIAlertAction(title: "Settings", style: .Default, handler: { (UIAlertAction) -> Void in
+                        // Do nothing
+                        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+                    })
+                    alert.addAction(cancelAction)
+                    alert.addAction(defaultAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
                 PFAnalytics.trackEvent("deniedLocation", dimensions:nil);
+                locationSwitch.enabled = false
             }
             updateNextButtonIfNecessary()
     }
@@ -93,23 +112,28 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             let alert = UIAlertController(title: "Your location is required initially for Shoutout to work", message: "You can remove yourself from the map on the settings menu", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
                 // Do nothing
+                self.requestedMap = false
+                self.updateNextButtonIfNecessary()
             })
             alert.addAction(defaultAction)
             self.presentViewController(alert, animated: true, completion: nil)
-            mapSwitch.on = true
         }
     }
     
     @IBAction func pushNotificationsButtonPressed(sender: UISwitch) {
         if (sender.on && !requestedPush) {
+            sender.enabled = false;
             let application = UIApplication.sharedApplication();
             
             let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
-            requestedPush = true
             PFAnalytics.trackEvent("allowedPush", dimensions:nil);
         }
+        
+        let application = UIApplication.sharedApplication()
+        requestedPush = application.isRegisteredForRemoteNotifications()
+        pushSwitch.on = requestedPush;
     }
     
     @IBAction func didPressBackButton() {

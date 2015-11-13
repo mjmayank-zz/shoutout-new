@@ -9,7 +9,9 @@ Parse.Cloud.define("hello", function(request, response) {
 Parse.Cloud.define("queryUsers", function(request, response) {
   var query = new Parse.Query(Parse.User);
   var loc = new Parse.GeoPoint(request.params.lat, request.params.long)
-  query.withinKilometers("geo", loc, 50);
+  // if(!(request.params.user === "MXUYiDQWKk" || request.params.user === "5Lfcn6WUvk" || request.params.user === "G02Hp4alXN")){
+    query.withinKilometers("geo", loc, 50);
+  // }
   query.equalTo("visible", true);
   // query.greaterThanOrEqualTo("updatedAt", true);
   query.find({

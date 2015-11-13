@@ -335,7 +335,9 @@
         }
         else if([self.markerDictionary objectForKey:[obj objectId]]){
             annotation.profileImage = ((SOAnnotation *)[self.markerDictionary objectForKey:[obj objectId]]).profileImage;
-            [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+            if(annotation.profileImage){
+                [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+            }
             [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
             [self.markerDictionary setObject:annotation forKey:[obj objectId]];
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
@@ -361,7 +363,9 @@
                     annotation.profileImage = [UIImage imageWithData:
                                                [NSData dataWithContentsOfURL:
                                                 [NSURL URLWithString: dict[@"picURL"]]]];
-                    [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+                    if(annotation.profileImage){
+                        [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+                    }
                     dispatch_async(dispatch_get_main_queue(), ^(){
                         if([self.markerDictionary objectForKey:[obj objectId]]){
                             [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];

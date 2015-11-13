@@ -590,7 +590,7 @@
 }
 
 - (void)checkForRecipients:(NSString *)message{
-    NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
+    NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@_"];
     [set formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
     NSArray *array = [message componentsSeparatedByCharactersInSet:[set invertedSet]];
     for (NSString *word in array){

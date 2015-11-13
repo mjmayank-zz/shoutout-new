@@ -92,7 +92,18 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         oldVC.navigationController?.setViewControllers([newVC!], animated: false)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
+        let validUsername = self.validateUsername(usernameTextField.text!)
+        if(!validUsername){
+            let alert = UIAlertController(title: "Invalid username", message: "Your username can only consist of letters, numbers and underscores", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                // Do nothing
+            })
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
         PFUser.currentUser()?.username = self.usernameTextField.text?.lowercaseString;
         PFUser.currentUser()?.saveInBackground();
     }
@@ -143,5 +154,18 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             let webVC = segue.destinationViewController as! SOWebViewController
             webVC.URLString = "http://www.getshoutout.co/feedback.html"
         }
+    }
+    
+    func validateUsername(username:String) -> Bool{
+        let set = NSMutableCharacterSet(charactersInString: "_");
+        set.formUnionWithCharacterSet(NSCharacterSet.alphanumericCharacterSet());
+        let finalSet = set.invertedSet;
+        
+        let range = username.rangeOfCharacterFromSet(finalSet)
+        if (range != nil) {
+            print("invalid character found")
+            return false
+        }
+        return true;
     }
 }

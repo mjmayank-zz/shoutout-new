@@ -60,6 +60,17 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
+        let validUsername = self.validateUsername(usernameTextField.text!)
+        if(!validUsername){
+            let alert = UIAlertController(title: "Invalid username", message: "Your username can only consist of letters, numbers and underscores", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                // Do nothing
+            })
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
         if(!termsChecked){
             let alert = UIAlertController(title: "You must agree to the terms of service!", message: "Please read them and check the box", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
@@ -74,9 +85,11 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         user.username = usernameTextField.text?.lowercaseString;
         user.email = emailTextField.text;
         user.password = passwordTextField.text;
+        user["displayName"] = usernameTextField.text!
         user["profileImage"] = self.chosenImageObj;
         user["status"] = "";
         user["visible"] = NSNumber(bool: true);
+        user["platform"] = "iOS"
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
             if let error = error {
@@ -186,6 +199,19 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    func validateUsername(username:String) -> Bool{
+        let set = NSMutableCharacterSet(charactersInString: "_");
+        set.formUnionWithCharacterSet(NSCharacterSet.alphanumericCharacterSet());
+        let finalSet = set.invertedSet;
+        
+        let range = username.rangeOfCharacterFromSet(finalSet)
+        if (range != nil) {
+            print("invalid character found")
+            return false
+        }
+        return true;
     }
     
 }

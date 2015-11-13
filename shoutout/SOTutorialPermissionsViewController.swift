@@ -45,7 +45,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     }
     
     func updateNextButtonIfNecessary() {
-        if (requestedLocation && requestedMap && !nextButton.enabled) {
+        if (requestedLocation && requestedMap) {
             nextButton.enabled = true
             nextButton.backgroundColor = UIColor(red: 0.0392, green: 0.8824, blue: 0.7373, alpha: 1.0)
         } else {
@@ -59,8 +59,20 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     
     @IBAction func locationPermissionButtonPressed(sender: UISwitch) {
         if (sender.on) {
-            locationManager.requestAlwaysAuthorization();
-            requestedLocation = true
+            if(CLLocationManager.authorizationStatus() == .NotDetermined){
+                locationManager.requestAlwaysAuthorization();
+            }
+            else{
+                let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can disable this from the settings menu", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                let defaultAction = UIAlertAction(title: "Settings", style: .Default, handler: { (UIAlertAction) -> Void in
+                    // Do nothing
+                    UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+                })
+                alert.addAction(cancelAction)
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
         else{
             let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can disable this from the settings menu", preferredStyle: .Alert)
@@ -70,7 +82,6 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             alert.addAction(defaultAction)
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        sender.enabled = false
         updateNextButtonIfNecessary()
     }
     
@@ -89,19 +100,7 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
             }
             else if(status != .NotDetermined){
                 requestedLocation = false
-                if (locationSwitch.enabled == false) {
-                    let alert = UIAlertController(title: "Your location is required for Shoutout to work", message: "You can disable this from the settings menu", preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-                    let defaultAction = UIAlertAction(title: "Settings", style: .Default, handler: { (UIAlertAction) -> Void in
-                        // Do nothing
-                        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
-                    })
-                    alert.addAction(cancelAction)
-                    alert.addAction(defaultAction)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
                 PFAnalytics.trackEvent("deniedLocation", dimensions:nil);
-                locationSwitch.enabled = false
             }
             updateNextButtonIfNecessary()
     }

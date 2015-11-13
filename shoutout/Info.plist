@@ -42,8 +42,6 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>To display your location to your friends on the map</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To display your location to your friends on the map</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Titillium-Black.otf</string>

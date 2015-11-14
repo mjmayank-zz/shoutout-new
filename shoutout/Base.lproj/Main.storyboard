@@ -237,7 +237,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nib-xd-APd">
-                                <rect key="frame" x="294" y="290" width="11" height="21"/>
+                                <rect key="frame" x="294" y="290" width="11" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -311,7 +311,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-nf-eoM" userLabel="Inbox Button">
-                                <rect key="frame" x="404" y="546" width="44" height="44"/>
+                                <rect key="frame" x="403" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="90a-92-lDh"/>
@@ -324,7 +324,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dW5-ci-VVn" userLabel="Settings Button">
-                                <rect key="frame" x="28" y="546" width="44" height="44"/>
+                                <rect key="frame" x="29" y="546" width="44" height="44"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="04t-Xx-n4M"/>
@@ -336,7 +336,7 @@
                                     <segue destination="Syc-BN-oMi" kind="presentation" identifier="openSettingsSegue" id="KfY-hF-Bsa"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DZn-cf-o0J" userLabel="Spacer View">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZn-cf-o0J" userLabel="Spacer View">
                                 <rect key="frame" x="72" y="500" width="80" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -345,7 +345,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4HE-na-VOh" userLabel="Spacer View">
-                                <rect key="frame" x="324" y="500" width="80" height="100"/>
+                                <rect key="frame" x="324" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -353,7 +353,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xW4-3P-Kf3" userLabel="Spacer View">
-                                <rect key="frame" x="196" y="500" width="80" height="100"/>
+                                <rect key="frame" x="196" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -361,7 +361,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsv-K1-yv8" userLabel="Spacer View">
-                                <rect key="frame" x="448" y="500" width="79" height="100"/>
+                                <rect key="frame" x="447" y="500" width="79.5" height="100"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -369,7 +369,7 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKI-Y9-bTG">
-                                <rect key="frame" x="432" y="538" width="20" height="20"/>
+                                <rect key="frame" x="431" y="538" width="20" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -387,7 +387,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="506"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-G3-rW1">
-                                                <rect key="frame" x="540" y="213" width="35" height="16"/>
+                                                <rect key="frame" x="540" y="213" width="34.5" height="16"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1075,7 +1075,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwh-0R-sl3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwh-0R-sl3">
                                 <rect key="frame" x="155" y="325" width="130" height="42"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.1803921568627451" green="0.80784313725490198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1201,6 +1201,7 @@
                             <constraint firstItem="Fxk-OW-zIg" firstAttribute="top" secondItem="b6m-au-SFf" secondAttribute="topMargin" constant="60" id="2lb-cB-WYD"/>
                             <constraint firstItem="K39-WO-Gck" firstAttribute="trailing" secondItem="Yie-Jf-C6A" secondAttribute="trailing" id="6Rh-cS-rdE"/>
                             <constraint firstItem="gvl-j4-nOQ" firstAttribute="height" secondItem="dJ8-sg-OQ1" secondAttribute="height" constant="-5" id="6bb-en-NjP"/>
+                            <constraint firstItem="Yie-Jf-C6A" firstAttribute="top" secondItem="dwh-0R-sl3" secondAttribute="top" id="BBp-ZD-iwe"/>
                             <constraint firstItem="dwh-0R-sl3" firstAttribute="leading" secondItem="3gF-o4-psp" secondAttribute="leading" id="D0Q-7g-L7O"/>
                             <constraint firstItem="JWF-lA-C9u" firstAttribute="top" secondItem="3gF-o4-psp" secondAttribute="bottom" constant="1" id="FUp-d7-3aw"/>
                             <constraint firstItem="3gF-o4-psp" firstAttribute="top" secondItem="gvl-j4-nOQ" secondAttribute="bottom" constant="27" id="I9F-kr-nA6"/>
@@ -1230,6 +1231,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="TMX-62-hLr"/>
+                                <exclude reference="R8I-P2-hXg"/>
                                 <exclude reference="osm-Bp-DNL"/>
                                 <exclude reference="1Rx-Tv-Cn3"/>
                             </mask>
@@ -2269,6 +2271,6 @@ or</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="KfY-hF-Bsa"/>
-        <segue reference="Whh-Xg-nID"/>
+        <segue reference="cV0-b7-xl9"/>
     </inferredMetricsTieBreakers>
 </document>

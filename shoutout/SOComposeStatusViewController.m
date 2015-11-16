@@ -14,6 +14,7 @@
 #define Notification_LocationUpdate @"LocationUpdate"
 
 #import "SOComposeStatusViewController.h"
+#import "ViewController.h"
 
 @implementation SOComposeStatusViewController
 
@@ -21,6 +22,51 @@
     [super viewDidLoad];
     
     self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
+    
+    PFObject *profileImageObj = [PFUser currentUser][@"profileImage"];
+    if(profileImageObj){
+        [profileImageObj fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            PFFile *file = profileImageObj[@"image"];
+            [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                self.profilePic.image = [UIImage imageWithData:data];
+            }];
+        }];
+    }
+    else{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage * image = [UIImage imageWithData:
+                               [NSData dataWithContentsOfURL:
+                                [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                if(image){
+                    self.profilePic.image = image;
+                }
+            });
+        });
+    }
+    
+    //setup sliding view elements
+    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
+    self.profilePic.layer.masksToBounds = YES;
+    self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
+    
+    NSString * status = [PFUser currentUser][@"status"];
+    self.statusTextView.text = status;
+    self.statusTextView.delegate = self;
+    if(!status || [status isEqualToString:@""]){
+        [self.delegate openUpdateStatusView];
+    }
+    
+    [self.saveButton.layer setCornerRadius:4.0f];
+    
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(closeUpdateStatusView)];
+    [self.backgroundView addGestureRecognizer:singleFingerTap];
+}
+
+- (void)setStatusText:(NSString *)status{
+    self.statusTextView.text = status;
 }
 
 - (void)updateStatus{
@@ -30,14 +76,9 @@
         [self checkForRecipients:self.statusTextView.text];
         [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
     }
-//    CLLocation *currentLocation = self.previousLocation;
-//    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-//                                                      longitude:currentLocation.coordinate.longitude];
-//    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-//    [[PFUser currentUser] saveInBackground];
-//    
-//    [self closeUpdateStatusView];
-//    [self.statusTextView resignFirstResponder];
+
+    [self.delegate closeUpdateStatusView];
+    [self.statusTextView resignFirstResponder];
 }
 
 - (void)checkForRecipients:(NSString *)message{
@@ -65,9 +106,13 @@
                     NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], message];
                     
                     // Send push notification to query
+                    NSDictionary *data = @{
+                                           @"alert":fullMessage,
+                                           @"badge":@"Increment"
+                                           };
                     PFPush *push = [[PFPush alloc] init];
                     [push setQuery:pushQuery]; // Set our Installation query
-                    [push setMessage:fullMessage];
+                    [push setData:data];
                     [push sendPushInBackground];
                 }
             }];
@@ -75,5 +120,40 @@
     }
 }
 
+- (void)openUpdateStatusView{
+    [self.statusTextView becomeFirstResponder];
+}
+
+- (void)closeUpdateStatusView{
+    [self.delegate closeUpdateStatusView];
+    [self.statusTextView resignFirstResponder];
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+    [self closeUpdateStatusView];
+}
+
+- (IBAction)saveButtonPressed:(id)sender {
+    [self updateStatus];
+}
+
+#pragma mark -UITextViewDelegate
+
+- (void) textViewDidChange:(UITextView *)textView{
+    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", (unsigned long)[textView.text length]];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [self updateStatus];
+        return NO;
+    }
+    else if([textView.text length] >= 120){
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

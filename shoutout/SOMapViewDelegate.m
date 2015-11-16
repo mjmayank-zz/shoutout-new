@@ -40,7 +40,9 @@
     NSSet *annotationSet = [mapView annotationsInMapRect:[mapView visibleMapRect]];
     NSArray *annotationArray = [annotationSet allObjects];
     
-    [self.listViewVC updateAnnotationArray:annotationArray];
+    if(self.listViewVC.open){
+        [self.listViewVC updateAnnotationArray:annotationArray];
+    }
     
     if([annotationArray count] > 0){
         CLLocationCoordinate2D coordinate = mapView.centerCoordinate;

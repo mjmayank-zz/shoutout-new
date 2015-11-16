@@ -21,10 +21,15 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         
         PFAnalytics.trackEvent("openedInbox", dimensions:nil);
         
+        if(profileImageCache == nil){
+            profileImageCache = NSCache();
+        }
+        
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         
-        getMessages();
+        self.view.layer.cornerRadius = 20;
+        self.view.layer.masksToBounds = true;
     }
     
     func getMessages(){
@@ -42,6 +47,11 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 }
             }
             self.tableView.reloadData();
+        }
+        let currentInstallation = PFInstallation.currentInstallation();
+        if (currentInstallation.badge != 0) {
+            currentInstallation.badge = 0;
+            currentInstallation.saveEventually();
         }
     }
     
@@ -68,7 +78,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 
                 let dateFormatter = NSDateFormatter();
                 dateFormatter.dateFormat = "MM/dd/yy HH:mm";
-                let date = from.updatedAt;
+                let date = messages![indexPath.row].createdAt;
                 let dateString = dateFormatter.stringFromDate(date!);
                 cell.dateLabel.text = dateString;
                 

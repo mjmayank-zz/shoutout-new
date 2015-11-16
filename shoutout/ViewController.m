@@ -16,17 +16,14 @@
 
 #import "ViewController.h"
 #import "LocationManager.h"
-//#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <AudioToolbox/AudioServices.h>
 #import "Shoutout-Swift.h"
 
 @interface ViewController ()
 
-@property (assign, nonatomic) int *count;
-@property (strong, nonatomic) IBOutlet UIButton *cancelStatusButton;
-@property (strong, nonatomic) IBOutlet UIView *profilePictureBorder;
 @property (strong, nonatomic) SOListViewController *listViewVC;
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
+@property (strong, nonatomic) SOInboxViewController *inboxVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 
 @end
@@ -35,8 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.count = 0;
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPermissions"];
     
@@ -71,6 +66,7 @@
     
     // Hide the list view initially
     self.listViewContainer.layer.opacity = 0;
+    self.inboxContainer.layer.opacity = 0;
     
     [self registerNotifications];
     
@@ -79,50 +75,6 @@
     self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
     self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
     [self registerFirebaseListeners];
-    
-    PFObject *profileImageObj = [PFUser currentUser][@"profileImage"];
-    if(profileImageObj){
-        [profileImageObj fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            PFFile *file = profileImageObj[@"image"];
-            [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                self.profilePic.image = [UIImage imageWithData:data];
-                [self.profileImageCache setObject:self.profilePic.image forKey:[PFUser currentUser].objectId];
-            }];
-        }];
-    }
-    else{
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage * image = [UIImage imageWithData:
-                               [NSData dataWithContentsOfURL:
-                                [NSURL URLWithString: [PFUser currentUser][@"picURL"]]]];
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                if(image){
-                    self.profilePic.image = image;
-                    [self.profileImageCache setObject:self.profilePic.image forKey:[PFUser currentUser].objectId];
-                }
-            });
-        });
-    }
-    
-    //setup sliding view elements
-    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.height/2.0;
-    self.profilePic.layer.masksToBounds = YES;
-    self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
-    
-    NSString * status = [PFUser currentUser][@"status"];
-    self.statusTextView.text = status;
-    self.statusTextView.delegate = self;
-    if(!status || [status isEqualToString:@""]){
-        [self openUpdateStatusView];
-    }
-    
-    [self.saveButton.layer setCornerRadius:4.0f];
-    [self.cancelStatusButton.layer setCornerRadius:self.cancelStatusButton.frame.size.height/2];
-    
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(closeUpdateStatusView)];
-    [self.slidingView addGestureRecognizer:singleFingerTap];
     
     //set up mailbox
     [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
@@ -476,14 +428,6 @@
     [self animateSlidingView];
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
-    [self closeUpdateStatusView];
-}
-
-- (IBAction)saveButtonPressed:(id)sender {
-    [self updateStatus];
-}
-
 - (void)centerMapToUserLocation{
     if(self.previousLocation){
         [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
@@ -493,43 +437,90 @@
     }
 }
 
+- (IBAction)inboxButtonPressed:(id)sender {
+    [self closeListView];
+    if(self.inboxContainerConstraint.constant == 0){
+        [self openInboxView];
+    }
+    else{
+        [self closeInboxView];
+    }
+}
+
+- (void)openInboxView{
+    [self.view layoutIfNeeded];
+    [self.inboxVC getMessages];
+    self.inboxContainerConstraint.constant = 83;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.inboxContainer.layer.opacity = 1;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (void)closeInboxView{
+    [self.view layoutIfNeeded];
+    self.inboxContainerConstraint.constant = 0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.inboxContainer.layer.opacity = 0;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
 - (IBAction)listViewButtonPressed:(id)sender {
+    [self closeInboxView];
     NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
     NSArray *annotationArray = [annotationSet allObjects];
     
     [self.listViewVC updateAnnotationArray:annotationArray];
     
-    [self.view layoutIfNeeded];
     if(!self.listViewVC.open){
-        self.listViewVC.open = YES;
-        self.listViewContainerConstraint.constant = 60;
-        self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
-        [UIView animateWithDuration:0.3f
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                              self.listViewContainer.layer.opacity = 1;
-                             CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
-                             self.mapView.frame = rect;
-                             [self.view layoutIfNeeded];
-                         }
-                         completion:nil];
+        [self openListView];
     }
     else{
-        self.listViewVC.open = NO;
-        self.listViewContainerConstraint.constant = 0;
-        self.centerMarkYConstraint.constant = 0;
-        [UIView animateWithDuration:0.3f
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
-                             self.mapView.frame = rect;
-                             self.listViewContainer.layer.opacity = 0;
-                             [self.view layoutIfNeeded];
-                         }
-                         completion:nil];
+        [self closeListView];
     }
+}
+
+- (void)closeListView{
+    [self.view layoutIfNeeded];
+    self.listViewVC.open = NO;
+    self.listViewContainerConstraint.constant = 0;
+    self.centerMarkYConstraint.constant = 0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
+                         self.mapView.frame = rect;
+                         self.listViewContainer.layer.opacity = 0;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (void)openListView{
+    [self.view layoutIfNeeded];
+    self.listViewVC.open = YES;
+    self.listViewContainerConstraint.constant = 83;
+    self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.listViewContainer.layer.opacity = 1;
+                         CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
+                         self.mapView.frame = rect;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 
 - (IBAction)centerButtonPressed:(id)sender {
@@ -549,7 +540,6 @@
                          [self.view layoutIfNeeded];
                      }
                      completion:nil];
-    [self.statusTextView resignFirstResponder];
 }
 
 - (void)openUpdateStatusView{
@@ -561,67 +551,16 @@
                      animations:^{
                          [self.view layoutIfNeeded];
                      }
-                     completion:nil];
-    [self.statusTextView becomeFirstResponder];
+                     completion:^(BOOL finished) {
+                         [self.composeStatusVC openUpdateStatusView];
+                     }];
     [PFAnalytics trackEvent:@"openedComposeView" dimensions:nil];
 }
 
 - (void)openUpdateStatusViewWithStatus:(NSString *)status{
-    self.statusTextView.text = status;
+    [self.composeStatusVC setStatusText:status];
     [self openUpdateStatusView];
     [PFAnalytics trackEvent:@"openedComposeView" dimensions:@{@"status":status}];
-}
-
-- (void)updateStatus{
-    if([PFUser currentUser][@"status"] != self.statusTextView.text){
-        [PFUser currentUser][@"status"] = self.statusTextView.text;
-        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
-        [self checkForRecipients:self.statusTextView.text];
-        [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
-    }
-    CLLocation *currentLocation = self.previousLocation;
-    PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude
-                                                      longitude:currentLocation.coordinate.longitude];
-    [[PFUser currentUser] setObject:currentPoint forKey:@kParseObjectGeoKey];
-    [[PFUser currentUser] saveInBackground];
-    
-    [self closeUpdateStatusView];
-    [self.statusTextView resignFirstResponder];
-}
-
-- (void)checkForRecipients:(NSString *)message{
-    NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@_"];
-    [set formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
-    NSArray *array = [message componentsSeparatedByCharactersInSet:[set invertedSet]];
-    for (NSString *word in array){
-        if ([word hasPrefix:@"@"]) {
-            PFQuery *query = [PFUser query];
-            NSString *username = [[word substringFromIndex:1] lowercaseString];
-            [query whereKey:@"username" equalTo:username];
-            [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                for (PFObject *obj in objects ) {
-                    PFObject *messageObj = [[PFObject alloc] initWithClassName:@"Messages"];
-                    messageObj[@"from"] = [PFUser currentUser];
-                    messageObj[@"to"] = obj;
-                    messageObj[@"message"] = message;
-                    messageObj[@"read"] = [NSNumber numberWithBool:NO];
-                    [messageObj saveInBackground];
-                    
-                    // Create our Installation query
-                    PFQuery *pushQuery = [PFInstallation query];
-                    [pushQuery whereKey:@"user" equalTo:obj];
-                    
-                    NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], message];
-                    
-                    // Send push notification to query
-                    PFPush *push = [[PFPush alloc] init];
-                    [push setQuery:pushQuery]; // Set our Installation query
-                    [push setMessage:fullMessage];
-                    [push sendPushInBackground];
-                }
-            }];
-        }
-    }
 }
 
 - (void)animateSlidingView{
@@ -676,28 +615,14 @@
     else if([segue.identifier isEqualToString:@"listViewController"]){
         self.listViewVC = segue.destinationViewController;
     }
-    else if([segue.identifier isEqualToString:@"composeStatusViewController"]){
+    else if([segue.identifier isEqualToString:@"composeStatusView"]){
         self.composeStatusVC = segue.destinationViewController;
+        self.composeStatusVC.delegate = self;
     }
-}
-
-#pragma mark -UITextViewDelegate
-
-- (void) textViewDidChange:(UITextView *)textView{
-    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", (unsigned long)[textView.text length]];
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
-    if([text isEqualToString:@"\n"]) {
-        [self updateStatus];
-        return NO;
+    else if([segue.identifier isEqualToString:@"inboxSegue"]){
+        self.inboxVC = segue.destinationViewController;
+        self.inboxVC.profileImageCache = self.profileImageCache;
     }
-    else if([textView.text length] >= 120){
-        return NO;
-    }
-    
-    return YES;
 }
 
 #pragma mark -CLLocationManagerDelegate

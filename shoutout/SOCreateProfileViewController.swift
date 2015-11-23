@@ -83,7 +83,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         
         let user = PFUser();
         user.username = usernameTextField.text?.lowercaseString;
-        user.email = emailTextField.text;
+        user.email = emailTextField.text?.lowercaseString;
         user.password = passwordTextField.text;
         user["displayName"] = usernameTextField.text!
         user["profileImage"] = self.chosenImageObj;

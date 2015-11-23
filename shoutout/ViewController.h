@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
-#import <ParseUI/ParseUI.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Firebase/Firebase.h>
 #import "SOAnnotation.h"
 #import "ShoutRMMarker.h"
@@ -20,7 +18,7 @@
 #import "SOComposeStatusViewController.h"
 @import MapKit;
 
-@interface ViewController : UIViewController<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface ViewController : UIViewController<UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;
@@ -52,6 +50,8 @@
 - (void)changeUserOnline:(NSString *)userID toNewOnline:(NSString *)newMetadata;
 - (void)closeUpdateStatusView;
 - (void)openUpdateStatusView;
+- (void)closeInboxView;
+- (void)allowMapLoad;
 
 @end
 

@@ -30,24 +30,11 @@
     
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
-        SOAnnotation * shoutAnnotation = (SOAnnotation *)annotation;
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
         [self addSubview:self.subview];
         self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
         self.subview.onlineIndicator.layer.cornerRadius = self.subview.onlineIndicator.frame.size.height/2.0;
         self.subview.profileImageView.layer.masksToBounds = YES;
-        if (annotation.subtitle)
-            self.shout = [[NSString alloc] initWithString:((SOAnnotation*)annotation).subtitle];
-        if (annotation.title)
-            self.subview.usernameLabel.text = annotation.title;
-        else
-            self.subview.usernameLabel.text = @"";
-        if(shoutAnnotation.userInfo[@"updatedAt"]){
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
-            NSString *dateString = [dateFormatter stringFromDate:shoutAnnotation.userInfo[@"updatedAt"]];
-            self.subview.timeLabel.text = dateString;
-        }
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
@@ -85,8 +72,8 @@
 
 - (void)scaleForZoomLevel:(double)zoomLevel{
     double scale = ((zoomLevel-14) * 20) / 100.0;
-    if(scale < 0.1){
-        scale = 0.1;
+    if(scale < 0.2){
+        scale = 0.2;
     }
     self.scale = scale;
     double factor = 1;
@@ -109,7 +96,10 @@
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
     self.subview.shoutLabel.text = annotation.subtitle;
-    self.subview.usernameLabel.text = annotation.title;
+    self.subview.usernameLabel.text = [NSString stringWithFormat:@"-%@", annotation.title];
+    if(annotation.anonymous == YES){
+        self.subview.usernameLabel.text = @"";
+    }
     if(annotation.userInfo[@"updatedAt"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];

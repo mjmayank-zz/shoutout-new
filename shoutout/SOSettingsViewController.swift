@@ -17,6 +17,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var updateButton: UIButton!
     @IBOutlet var sendFeedbackButton: UIButton!
     @IBOutlet var logoutButton: UIButton!
+    @IBOutlet var anonymousToggle: UISwitch!
     
     var oldVC: UIViewController!
     
@@ -30,6 +31,10 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.profileImageView.layer.masksToBounds = true;
         if let on = PFUser.currentUser()?["visible"]{
             self.privacyToggle.on = on.boolValue;
+        }
+        
+        if let anon = PFUser.currentUser()?["anonymous"]{
+            self.anonymousToggle.on = anon.boolValue;
         }
         
         self.updateButton.layer.cornerRadius = 5.0;
@@ -61,6 +66,12 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     
     @IBAction func didPressDoneButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
+    }
+    
+    @IBAction func anonymousChanged(sender: AnyObject) {
+        let privacySwitch = sender as! UISwitch;
+        PFUser.currentUser()?["anonymous"] = NSNumber(bool: privacySwitch.on);
+        PFUser.currentUser()?.saveInBackground();
     }
     
     @IBAction func privacyChanged(sender: AnyObject) {

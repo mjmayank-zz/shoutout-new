@@ -7,6 +7,7 @@
 //
 
 #import "SOMapViewDelegate.h"
+#import "ViewController.h"
 #import "Shoutout-Swift.h"
 
 @implementation SOMapViewDelegate
@@ -28,6 +29,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    [self.delegate allowMapLoad];
     [self.clusteringController refresh:YES];
 }
 

@@ -5,6 +5,25 @@ Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
 });
 
+Parse.Cloud.afterSave(Parse.User, function(request) {
+	if(request.object.updatedAt - request.object.createdAt !== 0){
+		console.log(request.object.existed());
+	    return;
+	}
+	else{
+	  var obj = new Parse.Object("Messages");
+	  obj.set("message", "Hey! Welcome to Shoutout. I'm one of the creators of the app. Send me a reply and say hi!");
+	  obj.set("from", {
+	        __type: "Pointer",
+	        className: "_User",
+	        objectId: "MXUYiDQWKk"})
+	  obj.set("to", request["object"])
+	  obj.set("toArray", [request["object"]])
+	  obj.set("read", false);
+	  obj.set("isDuplicate", false);
+	  obj.save();
+	}
+});
 
 Parse.Cloud.define("queryUsers", function(request, response) {
   var query = new Parse.Query(Parse.User);

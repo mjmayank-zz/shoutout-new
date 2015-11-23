@@ -12,6 +12,7 @@
 #import "ShoutRMMarker.h"
 #import "ShoutClusterMarker.h"
 @class SOListViewController;
+@class ViewController;
 @import MapKit;
 
 @interface SOMapViewDelegate : NSObject<MKMapViewDelegate, KPClusteringControllerDelegate>
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) MKMapView *mapView;
 @property (assign, nonatomic) double latitudeDelta;
 @property (strong, nonatomic) SOListViewController *listViewVC;
+@property (weak, nonatomic) ViewController *delegate;
 
 -(instancetype)initWithMapView:(MKMapView *)mapView;
 - (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated;

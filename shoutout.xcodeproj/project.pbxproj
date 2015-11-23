@@ -110,6 +110,7 @@
 		8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */; };
 		8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */; };
 		8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC5E56A1BE320840068AC0C /* triangle@2x.png */; };
+		8FD1D8C31C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */; };
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
 		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
@@ -259,6 +260,7 @@
 		8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOWebViewController.swift; sourceTree = "<group>"; };
 		8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		8FC5E56A1BE320840068AC0C /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
+		8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoutSpeechBubbleFlipped@2x.png"; sourceTree = "<group>"; };
 		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		35872A8A1BC5D462004E99C6 /* NUX */ = {
 			isa = PBXGroup;
 			children = (
+				8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */,
 				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
 				8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */,
@@ -370,7 +373,6 @@
 				8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */,
 				8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */,
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
-				8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */,
 				8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */,
 				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
@@ -573,6 +575,7 @@
 				8FA7702E1BD70C5C00979C3A /* shoutSpeechBubble.png */,
 				8FA7702F1BD70C5C00979C3A /* shoutSpeechBubble@2x.png */,
 				8FA770301BD70C5C00979C3A /* shoutSpeechBubble@3x.png */,
+				8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */,
 				8FA770311BD70C5C00979C3A /* speechBubbleOverlay@2x.png */,
 				8FA770321BD70C5C00979C3A /* speechBubbleWithShadow@2x.png */,
 			);
@@ -732,6 +735,7 @@
 				8FA770651BD70C5C00979C3A /* speechBubbleWithShadow@2x.png in Resources */,
 				8FA7708D1BD70E8300979C3A /* messagesPressed@2x.png in Resources */,
 				8FA770A81BD7328E00979C3A /* Icon-76.png in Resources */,
+				8FD1D8C31C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png in Resources */,
 				8FA76FEE1BD6D19A00979C3A /* Titillium-Regular.otf in Resources */,
 				8F8D477C1B976DB900D902B9 /* Main.storyboard in Resources */,
 				8FA770A61BD7328E00979C3A /* Icon-60@2x.png in Resources */,

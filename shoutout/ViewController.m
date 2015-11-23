@@ -25,7 +25,7 @@
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) SOInboxViewController *inboxVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
-
+@property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @end
 
 @implementation ViewController
@@ -52,6 +52,7 @@
     [self.view insertSubview:self.mapView aboveSubview:self.map];
     self.mapViewDelegate = [[SOMapViewDelegate alloc] initWithMapView:self.mapView];
     self.mapViewDelegate.listViewVC = self.listViewVC;
+    self.mapViewDelegate.delegate = self;
     
     self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
@@ -81,6 +82,7 @@
     self.unreadIndicator.layer.masksToBounds = YES;
     
     CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
+    [self centerMapToUserLocation];
     [self updateMapWithLocation:userLocation];
     // set the map's center coordinate
     
@@ -116,6 +118,7 @@
 
 - (void)applicationWillEnterForeground:(NSNotification*)notification{
     [self registerFirebaseListeners];
+    [self centerMapToUserLocation];
     [self updateMapWithLocation:self.previousLocation.coordinate];
     [self checkForNewMessages];
     [self checkLocationPermission];
@@ -213,25 +216,19 @@
     }
 }
 
-- (NSDate *)getLastWeekDate{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
-    
-    components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
-    
-    [components setDay:([components day] - 7)];
-    NSDate *lastWeek  = [cal dateFromComponents:components];
-    NSLog(@"lastWeek=%@",lastWeek);
-    return lastWeek;
+- (void)allowMapLoad{
+    [self.loadButton setHidden:NO];
 }
 
-- (void) updateMapWithLocation:(CLLocationCoordinate2D)userLocation{
+- (void)disallowMapLoad{
+    [self.loadButton setHidden:YES];
+}
+
+- (void)updateMapWithLocation:(CLLocationCoordinate2D)location{
     // Construct quer
-    [self centerMapToUserLocation];
-    
     [PFCloud callFunctionInBackground:@"queryUsers"
-                       withParameters:@{@"lat": [NSNumber numberWithDouble:userLocation.latitude],
-                                        @"long": [NSNumber numberWithDouble:userLocation.longitude],
+                       withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
+                                        @"long": [NSNumber numberWithDouble:location.longitude],
                                         @"user": [PFUser currentUser].objectId}
                                 block:^(NSArray *objects, NSError *error) {
                                     if (!error) {
@@ -272,6 +269,9 @@
         dict[@"objectId"] = obj.objectId;
     if(obj.updatedAt)
         dict[@"updatedAt"] = obj.updatedAt;
+    if(obj[@"anonymous"]){
+        annotation.anonymous = [obj[@"anonymous"] boolValue];
+    }
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
     
@@ -528,6 +528,11 @@
     [PFAnalytics trackEvent:@"pressedLocateButton" dimensions:nil];
 }
 
+- (IBAction)loadMapPressed:(id)sender {
+    [self updateMapWithLocation:self.mapView.centerCoordinate];
+    [self.loadButton setHidden:YES];
+}
+
 #pragma -mark Update Status View
 
 - (void)closeUpdateStatusView{
@@ -622,6 +627,7 @@
     else if([segue.identifier isEqualToString:@"inboxSegue"]){
         self.inboxVC = segue.destinationViewController;
         self.inboxVC.profileImageCache = self.profileImageCache;
+        self.inboxVC.delegate = self;
     }
 }
 
@@ -642,9 +648,11 @@
     if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
         [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
         if(self.previousLocation == nil){
+            [self centerMapToUserLocation];
             [self updateMapWithLocation:loc.coordinate];
         }
         else if([self.previousLocation distanceFromLocation:loc] > 5000){
+            [self centerMapToUserLocation];
             [self updateMapWithLocation:loc.coordinate];
         }
         if(self.previousLocation == nil || [self.previousLocation distanceFromLocation:loc] > 10){

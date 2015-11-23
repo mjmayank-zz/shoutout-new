@@ -151,6 +151,18 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             
             let locateAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Locate") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
                 
+                let from = self.messages![indexPath.row].objectForKey("from") as! PFObject;
+                
+                if let visible = from.objectForKey("visible") as? Bool{
+                    if(visible){
+                        let loc = from.objectForKey("geo") as! PFGeoPoint;
+                        self.delegate?.mapView.setCenterCoordinate(CLLocationCoordinate2DMake(loc.latitude, loc.longitude), animated: true);
+                    }
+                    else{
+                        
+                    }
+                }
+                
                 tableView.setEditing(false, animated: true)
             }
             
@@ -168,8 +180,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             let fromUsername = from.objectForKey("username") as? String;
             
             self.delegate?.openUpdateStatusViewWithStatus("@" + fromUsername! + " ");
-            
-            self.dismissViewControllerAnimated(true, completion: nil);
+//            self.dismissViewControllerAnimated(true, completion: nil);
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }

@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UIImage *profileImage;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (assign, nonatomic) BOOL online;
+@property (assign, nonatomic) BOOL anonymous;
 
 -(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate;
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;

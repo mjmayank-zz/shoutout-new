@@ -17,7 +17,7 @@ class SOForgotPasswordViewController: UIViewController{
     }
     
     @IBAction func recoverButtonPressed(sender: AnyObject) {
-        PFUser.requestPasswordResetForEmailInBackground(usernameTextField.text!) { (bool:Bool, error:NSError?) -> Void in
+        PFUser.requestPasswordResetForEmailInBackground(usernameTextField.text!.lowercaseString) { (bool:Bool, error:NSError?) -> Void in
             if(error != nil){
                 let errorString = error!.userInfo["error"] as? String
                 let alert = UIAlertController(title: "Error", message: errorString!, preferredStyle: .Alert)

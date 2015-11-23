@@ -11,6 +11,7 @@
         <mutableArray key="Titillium-Regular.otf">
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
+            <string>Titillium-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -35,14 +36,23 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-usernameusernam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-eatenbysquirrels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
                             <rect key="frame" x="36" y="56" width="100" height="21"/>
                             <animations/>
                             <fontDescription key="fontDescription" name="Titillium-Bold" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mso-Fe-2C5">
+                            <rect key="frame" x="121" y="57" width="18" height="19"/>
+                            <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="oBL-nK-lEG">
+                            <rect key="frame" x="141" y="62" width="12" height="7.5"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12/30/15 17:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
-                            <rect key="frame" x="155" y="57" width="78" height="19"/>
+                            <rect key="frame" x="160" y="57" width="76" height="19"/>
                             <animations/>
                             <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
@@ -104,11 +114,13 @@
                 <outlet property="shoutLabel" destination="jMC-qY-Gdy" id="KVL-QF-vbp"/>
                 <outlet property="timeLabel" destination="9EP-zf-Qgh" id="EIT-WE-3qg"/>
                 <outlet property="usernameLabel" destination="9Uk-jX-qOm" id="XcC-Yg-bSS"/>
+                <outlet property="viewCountLabel" destination="mso-Fe-2C5" id="OOU-Ll-EMl"/>
             </connections>
             <point key="canvasLocation" x="202" y="95.5"/>
         </view>
     </objects>
     <resources>
+        <image name="eye.png" width="37" height="22"/>
         <image name="messages.png" width="41" height="44"/>
         <image name="pinWithShadow.png" width="82" height="97"/>
         <image name="speechBubbleOverlay.png" width="111" height="97"/>

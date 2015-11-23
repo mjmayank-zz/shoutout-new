@@ -111,6 +111,9 @@
 		8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */; };
 		8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC5E56A1BE320840068AC0C /* triangle@2x.png */; };
 		8FD1D8C31C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */; };
+		8FD1D8CB1C02B01F0006445B /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C81C02B01F0006445B /* eye.png */; };
+		8FD1D8CC1C02B01F0006445B /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C91C02B01F0006445B /* eye@2x.png */; };
+		8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8CA1C02B01F0006445B /* eye@3x.png */; };
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
 		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
@@ -261,6 +264,9 @@
 		8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		8FC5E56A1BE320840068AC0C /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
 		8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoutSpeechBubbleFlipped@2x.png"; sourceTree = "<group>"; };
+		8FD1D8C81C02B01F0006445B /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		8FD1D8C91C02B01F0006445B /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
+		8FD1D8CA1C02B01F0006445B /* eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@3x.png"; sourceTree = "<group>"; };
 		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
@@ -487,6 +493,9 @@
 		8FA76FFA1BD70C5C00979C3A /* AllPurpose */ = {
 			isa = PBXGroup;
 			children = (
+				8FD1D8C81C02B01F0006445B /* eye.png */,
+				8FD1D8C91C02B01F0006445B /* eye@2x.png */,
+				8FD1D8CA1C02B01F0006445B /* eye@3x.png */,
 				8F3C85301BEFCE38005E658E /* mapBackground@2x.png */,
 				8FC5E56A1BE320840068AC0C /* triangle@2x.png */,
 				8FA76FFB1BD70C5C00979C3A /* anon.jpg */,
@@ -691,7 +700,9 @@
 				8FA76FF51BD6D19A00979C3A /* Titillium-ThinItalic.otf in Resources */,
 				8FA770481BD70C5C00979C3A /* bigIcon.png in Resources */,
 				8FA770AB1BD7328E00979C3A /* Icon-Small@2x.png in Resources */,
+				8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */,
 				8FA770511BD70C5C00979C3A /* smallIcon.png in Resources */,
+				8FD1D8CC1C02B01F0006445B /* eye@2x.png in Resources */,
 				8FA76FF01BD6D19A00979C3A /* Titillium-RegularUpright.otf in Resources */,
 				8FA770601BD70C5C00979C3A /* shoutBubble.png in Resources */,
 				8FA76FF11BD6D19A00979C3A /* Titillium-Semibold.otf in Resources */,
@@ -731,6 +742,7 @@
 				8FA7708A1BD70E8300979C3A /* listViewPressed@2x.png in Resources */,
 				8FA770AA1BD7328E00979C3A /* Icon-Small.png in Resources */,
 				8FA76FED1BD6D19A00979C3A /* Titillium-LightUpright.otf in Resources */,
+				8FD1D8CB1C02B01F0006445B /* eye.png in Resources */,
 				8FA770821BD70E8300979C3A /* addShout@2x.png in Resources */,
 				8FA770551BD70C5C00979C3A /* shoutoutWhiteLogo.png in Resources */,
 				8FA770651BD70C5C00979C3A /* speechBubbleWithShadow@2x.png in Resources */,

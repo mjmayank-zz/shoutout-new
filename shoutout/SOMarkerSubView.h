@@ -21,5 +21,6 @@
 @property (strong, nonatomic) IBOutlet UIView *onlineIndicator;
 @property (strong, nonatomic) IBOutlet UIImageView *pinView;
 @property (strong, nonatomic) IBOutlet UIView *messageOverlayView;
+@property (strong, nonatomic) IBOutlet UILabel *viewCountLabel;
 
 @end

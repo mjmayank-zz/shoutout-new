@@ -7,16 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QTree.h"
 @import MapKit;
 
-@interface SOAnnotation : NSObject<MKAnnotation>
+@interface SOAnnotation : NSObject<MKAnnotation, QTreeInsertable>
 
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+
 @property (strong, nonatomic) NSDictionary *userInfo;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *profileImage;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (assign, nonatomic) BOOL online;
 @property (assign, nonatomic) BOOL anonymous;
 

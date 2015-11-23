@@ -20,6 +20,8 @@
         self.latitudeDelta = mapView.region.span.latitudeDelta;
         self.clusteringController = [[KPClusteringController alloc] initWithMapView:mapView];
         self.clusteringController.delegate = self;
+        
+        self.tree = [QTree new];
     }
     return self;
 }
@@ -56,6 +58,14 @@
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
         
+        /* Using Quadtree */
+//        SOAnnotation *test = [self.tree neighboursForLocation:screenCenter.coordinate limitCount:1][0];
+//        KPAnnotation *toShow = [self.clusteringController getClusterForAnnotation:test];
+//        if(![toShow isCluster]){
+//            [mapView selectAnnotation:toShow animated:YES];
+//        }
+        
+        /* Looping through array of annotations currently on screen */
         KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
         
         if (toShow) {

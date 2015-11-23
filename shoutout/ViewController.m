@@ -275,6 +275,8 @@
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
     
+    [self.mapViewDelegate.tree insertObject:annotation];
+    
     if(obj[@"visible"]){
         if ([self.profileImageCache objectForKey:[obj objectId]]) {
             UIImage *image = [self.profileImageCache objectForKey:[obj objectId]];
@@ -295,40 +297,44 @@
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
         }
         else{
-            if(obj[@"profileImage"]){
-                [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-                    PFFile *file = obj[@"profileImage"][@"image"];
-                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                        annotation.profileImage = [UIImage imageWithData:data];
-                        [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
-                    }];
-                    
-                    if([self.markerDictionary objectForKey:[obj objectId]]){
-                        [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                    }
-                    [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                    [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-                }];
-            }
-            else if(obj[@"picURL"]){
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    annotation.profileImage = [UIImage imageWithData:
-                                               [NSData dataWithContentsOfURL:
-                                                [NSURL URLWithString: dict[@"picURL"]]]];
-                    if(annotation.profileImage){
-                        [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
-                    }
-                    dispatch_async(dispatch_get_main_queue(), ^(){
-                        if([self.markerDictionary objectForKey:[obj objectId]]){
-                            [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                        }
-                        [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-                    });
-                });
-            }
+            [self loadImageForObject:obj andAnnotation:annotation];
         }
         
+    }
+}
+
+-(void)loadImageForObject:(PFObject *)obj andAnnotation:(SOAnnotation *)annotation{
+    if(obj[@"profileImage"]){
+        [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            PFFile *file = obj[@"profileImage"][@"image"];
+            [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                annotation.profileImage = [UIImage imageWithData:data];
+                [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+            }];
+            
+            if([self.markerDictionary objectForKey:[obj objectId]]){
+                [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+            }
+            [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+            [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+        }];
+    }
+    else if(obj[@"picURL"]){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            annotation.profileImage = [UIImage imageWithData:
+                                       [NSData dataWithContentsOfURL:
+                                        [NSURL URLWithString: obj[@"picURL"]]]];
+            if(annotation.profileImage){
+                [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                if([self.markerDictionary objectForKey:[obj objectId]]){
+                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
+                }
+                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
+                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+            });
+        });
     }
 }
 
@@ -647,17 +653,18 @@
     NSLog(@"%@", loc);
     if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
         [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
-        if(self.previousLocation == nil){
+        CLLocation *oldLocation = self.previousLocation;
+        self.previousLocation = loc;
+        
+        if(oldLocation == nil){
             [self centerMapToUserLocation];
             [self updateMapWithLocation:loc.coordinate];
         }
-        else if([self.previousLocation distanceFromLocation:loc] > 5000){
+        else if([oldLocation distanceFromLocation:loc] > 5000){
             [self centerMapToUserLocation];
             [self updateMapWithLocation:loc.coordinate];
         }
-        if(self.previousLocation == nil || [self.previousLocation distanceFromLocation:loc] > 10){
-            self.previousLocation = loc;
-            
+        if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
             NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
             NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
             

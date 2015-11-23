@@ -9,6 +9,7 @@ target 'shoutout' do
 	pod 'FBSDKCoreKit'
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'
+	pod 'QTree-objc'
 end
 
 target 'shoutoutTests' do

@@ -11,6 +11,7 @@
 #import "SOAnnotation.h"
 #import "ShoutRMMarker.h"
 #import "ShoutClusterMarker.h"
+#import "QTree.h"
 @class SOListViewController;
 @class ViewController;
 @import MapKit;
@@ -22,6 +23,7 @@
 @property (assign, nonatomic) double latitudeDelta;
 @property (strong, nonatomic) SOListViewController *listViewVC;
 @property (weak, nonatomic) ViewController *delegate;
+@property (strong, nonatomic) QTree *tree;
 
 -(instancetype)initWithMapView:(MKMapView *)mapView;
 - (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated;

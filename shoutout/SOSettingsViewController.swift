@@ -51,17 +51,6 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
                 }
             })
         }
-        else{
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                let image = UIImage(data: NSData(contentsOfURL: NSURL(string: (PFUser.currentUser()?["picURL"])! as! String)!)!);
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if let image = image{
-                        self.profileImageView.image = image;
-                    }
-                })
-            });
-        }
     }
     
     @IBAction func didPressDoneButton(sender: AnyObject) {

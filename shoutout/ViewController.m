@@ -340,8 +340,6 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj[@"username"])
         dict[@"username"] = obj[@"username"];
-    if(obj[@"picURL"])
-        dict[@"picURL"] = obj[@"picURL"];
     if(obj.objectId)
         dict[@"objectId"] = obj.objectId;
     if(obj.updatedAt)
@@ -349,6 +347,7 @@
     if(obj[@"anonymous"]){
         annotation.anonymous = [obj[@"anonymous"] boolValue];
     }
+    annotation.objectId = obj.objectId;
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
     
@@ -383,7 +382,7 @@
 -(void)loadImageForObject:(PFObject *)obj andAnnotation:(SOAnnotation *)annotation{
     if(obj[@"profileImage"]){
         [obj[@"profileImage"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            PFFile *file = obj[@"profileImage"][@"image"];
+            PFFile *file = object[@"image"];
             [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
                 annotation.profileImage = [UIImage imageWithData:data];
                 [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
@@ -395,23 +394,6 @@
             [self.markerDictionary setObject:annotation forKey:[obj objectId]];
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
         }];
-    }
-    else if(obj[@"picURL"]){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            annotation.profileImage = [UIImage imageWithData:
-                                       [NSData dataWithContentsOfURL:
-                                        [NSURL URLWithString: obj[@"picURL"]]]];
-            if(annotation.profileImage){
-                [self.profileImageCache setObject:annotation.profileImage forKey:obj.objectId];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                if([self.markerDictionary objectForKey:[obj objectId]]){
-                    [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
-                }
-                [self.markerDictionary setObject:annotation forKey:[obj objectId]];
-                [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
-            });
-        });
     }
 }
 
@@ -521,6 +503,7 @@
 }
 
 - (IBAction)inboxButtonPressed:(id)sender {
+    [self checkForNewMessages];
     [self closeListView];
     if(self.inboxBottomConstraint.constant == SO_POPOVER_VERTICAL_SHIFT){
         [self openInboxView];

@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *subtitle;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
+@property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSDictionary *userInfo;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *profileImage;

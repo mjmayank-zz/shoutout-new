@@ -177,9 +177,9 @@ typedef NS_ENUM(NSInteger, KPClusteringControllerMapViewportChangeState) {
 
 }
 
--(KPAnnotation *)getClusterForAnnotation:(NSObject<MKAnnotation> *)annotation{
-    if(self.annotationDict[[NSValue valueWithNonretainedObject:annotation]]){
-        return [[self.annotationDict objectForKey:[NSValue valueWithNonretainedObject:annotation]] nonretainedObjectValue];
+-(KPAnnotation *)getClusterForAnnotation:(SOAnnotation *)annotation{
+    if(self.annotationDict[annotation.objectId]){
+        return self.annotationDict[annotation.objectId];
     }
     else{
         return nil;
@@ -227,7 +227,7 @@ typedef NS_ENUM(NSInteger, KPClusteringControllerMapViewportChangeState) {
 
         newClusters = [newAnnotations kp_map:^id(id annotation) {
             KPAnnotation * ann = [[KPAnnotation alloc] initWithAnnotations:@[ annotation ]];
-            [self.annotationDict setObject:[NSValue valueWithNonretainedObject:ann] forKey:[NSValue valueWithNonretainedObject:annotation]];
+            [self.annotationDict setObject:ann forKey:((SOAnnotation *)annotation).objectId];
             return ann;
         }];
     }

@@ -8,8 +8,10 @@
         <mutableArray key="Titillium-Bold.otf">
             <string>Titillium-Bold</string>
         </mutableArray>
+        <mutableArray key="Titillium-LightItalic.otf">
+            <string>Titillium-LightItalic</string>
+        </mutableArray>
         <mutableArray key="Titillium-Regular.otf">
-            <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
         </mutableArray>
@@ -54,7 +56,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12/30/15 17:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
                             <rect key="frame" x="160" y="57" width="76" height="19"/>
                             <animations/>
-                            <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
+                            <fontDescription key="fontDescription" name="Titillium-LightItalic" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsv-Pd-Qw3">

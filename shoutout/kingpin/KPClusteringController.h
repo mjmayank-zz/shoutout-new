@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 
 #import "KPClusteringAlgorithm.h"
+#import "SOAnnotation.h"
 
 @class KPAnnotation;
 
@@ -36,7 +37,7 @@
 - (id)initWithMapView:(MKMapView *)mapView;
 - (id)initWithMapView:(MKMapView *)mapView clusteringAlgorithm:(id<KPClusteringAlgorithm>)algorithm;
 - (void)setAnnotations:(NSArray *)annoations;
-- (KPAnnotation *)getClusterForAnnotation:(NSObject<MKAnnotation> *)annotation;
+- (KPAnnotation *)getClusterForAnnotation:(SOAnnotation *)annotation;
 
 /**
  *  Refreshes the map annotations. This will check if the map is visible and if the viewport has changed

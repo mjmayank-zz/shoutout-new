@@ -752,7 +752,7 @@
         <!--Block Map View Controller-->
         <scene sceneID="AGX-61-1jS">
             <objects>
-                <viewController id="GiJ-Zo-oY1" customClass="SOBlockMapViewController" sceneMemberID="viewController">
+                <viewController id="GiJ-Zo-oY1" customClass="SOBlockMapViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aau-3F-pbj"/>
                         <viewControllerLayoutGuide type="bottom" id="QEg-Qc-GOo"/>
@@ -2313,7 +2313,7 @@ or</string>
         <image name="unchecked_checkbox.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KfY-hF-Bsa"/>
+        <segue reference="QGH-hx-fbt"/>
         <segue reference="cV0-b7-xl9"/>
     </inferredMetricsTieBreakers>
 </document>

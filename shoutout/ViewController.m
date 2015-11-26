@@ -14,6 +14,9 @@
 #define kParseObjectVisibleKey  "visible"
 #define Notification_LocationUpdate @"LocationUpdate"
 
+#define SO_POPOVER_VERTICAL_SHIFT 80
+#define SO_POPOVER_HORIZ_PADDING 20
+
 #import "ViewController.h"
 #import "LocationManager.h"
 #import <AudioToolbox/AudioServices.h>
@@ -21,9 +24,17 @@
 
 @interface ViewController ()
 
+// List
 @property (strong, nonatomic) SOListViewController *listViewVC;
-@property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
+@property (strong, nonatomic) IBOutlet UIButton *listButton;
+@property (strong, nonatomic) NSLayoutConstraint* listViewBottomConstraint;
+
+// Inbox
 @property (strong, nonatomic) SOInboxViewController *inboxVC;
+@property (strong, nonatomic) IBOutlet UIButton *inboxButton;
+@property (strong, nonatomic) NSLayoutConstraint* inboxBottomConstraint;
+
+@property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @end
@@ -39,6 +50,14 @@
     self.profileImageCache = [[NSCache alloc] init];
     
     [[PFUser currentUser] fetchInBackground];
+
+    // Create the list view
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.listViewVC = [storyboard instantiateViewControllerWithIdentifier:@"soListView"];
+    // Create the inbox view
+    self.inboxVC = [storyboard instantiateViewControllerWithIdentifier:@"soInboxView"];
+    self.inboxVC.profileImageCache = self.profileImageCache;
+    self.inboxVC.delegate = self;
     
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -65,9 +84,8 @@
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
-    // Hide the list view initially
-    self.listViewContainer.layer.opacity = 0;
-    self.inboxContainer.layer.opacity = 0;
+    // Create popovers for inbox and list
+    [self setupPopovers];
     
     [self registerNotifications];
     
@@ -93,6 +111,65 @@
     
     [self checkLocationPermission];
     [self promptForCheckinPermission];
+}
+
+- (void)setupPopovers {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    // Create the popovers
+    SOPopoverViewController* listPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    [self addChildViewController:listPopover];
+    [listPopover didMoveToParentViewController:self];
+    self.listViewContainer = listPopover.view;
+    [listPopover updateChildController:self.listViewVC];
+    [self.view addSubview:self.listViewContainer];
+    self.listViewVC.countLabel = listPopover.popoverTitle;
+    
+    SOPopoverViewController* inboxPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    [self addChildViewController:inboxPopover];
+    [inboxPopover didMoveToParentViewController:self];
+    self.inboxContainer = inboxPopover.view;
+    [inboxPopover updateChildController:self.inboxVC];
+    [self.view addSubview:self.inboxContainer];
+    inboxPopover.popoverTitle.text = @"Inbox";
+    
+    // TODO: better handling of the pip location
+    [listPopover updatePipLocation:self.listButton.frame.origin.x - SO_POPOVER_HORIZ_PADDING*2.5];
+    [inboxPopover updatePipLocation:self.listButton.frame.origin.x + SO_POPOVER_HORIZ_PADDING*4.7];
+    
+    // Add constraints to the popovers
+    NSMutableArray* constraints = [NSMutableArray array];
+    NSDictionary* views = @{
+                            @"listPopover": self.listViewContainer,
+                            @"inboxPopover": self.inboxContainer
+                            };
+    NSDictionary* metrics = @{
+                              @"padding": @SO_POPOVER_HORIZ_PADDING
+                              };
+    
+    [self.listViewContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.inboxContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // Horizontal padding
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[listPopover]-padding-|" options:0 metrics:metrics views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[inboxPopover]-padding-|" options:0 metrics:metrics views:views]];
+    
+    // Height
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.inboxContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
+    
+    // Bottom margin
+    self.listViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.listButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];
+    self.inboxBottomConstraint = [NSLayoutConstraint constraintWithItem:self.inboxContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.inboxButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];
+    [constraints addObject:self.listViewBottomConstraint];
+    [constraints addObject:self.inboxBottomConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    
+    // Hide the views initially
+    self.listViewContainer.layer.opacity = 0;
+    self.inboxContainer.layer.opacity = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -445,7 +522,7 @@
 
 - (IBAction)inboxButtonPressed:(id)sender {
     [self closeListView];
-    if(self.inboxContainerConstraint.constant == 0){
+    if(self.inboxBottomConstraint.constant == SO_POPOVER_VERTICAL_SHIFT){
         [self openInboxView];
     }
     else{
@@ -456,7 +533,7 @@
 - (void)openInboxView{
     [self.view layoutIfNeeded];
     [self.inboxVC getMessages];
-    self.inboxContainerConstraint.constant = 83;
+    self.inboxBottomConstraint.constant = 0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
@@ -469,7 +546,7 @@
 
 - (void)closeInboxView{
     [self.view layoutIfNeeded];
-    self.inboxContainerConstraint.constant = 0;
+    self.inboxBottomConstraint.constant = SO_POPOVER_VERTICAL_SHIFT;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
@@ -498,7 +575,7 @@
 - (void)closeListView{
     [self.view layoutIfNeeded];
     self.listViewVC.open = NO;
-    self.listViewContainerConstraint.constant = 0;
+    self.listViewBottomConstraint.constant = SO_POPOVER_VERTICAL_SHIFT;
     self.centerMarkYConstraint.constant = 0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
@@ -515,7 +592,7 @@
 - (void)openListView{
     [self.view layoutIfNeeded];
     self.listViewVC.open = YES;
-    self.listViewContainerConstraint.constant = 83;
+    self.listViewBottomConstraint.constant = 0;
     self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
@@ -615,25 +692,12 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier  isEqual: @"openInboxSegue"]) {
-        SOInboxViewController *destVC = (SOInboxViewController *)segue.destinationViewController;
-        destVC.profileImageCache = self.profileImageCache;
-        destVC.delegate = self;
-    }
-    else if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
+    if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
         ((SOSettingsViewController*)segue.destinationViewController).oldVC = self;
-    }
-    else if([segue.identifier isEqualToString:@"listViewController"]){
-        self.listViewVC = segue.destinationViewController;
     }
     else if([segue.identifier isEqualToString:@"composeStatusView"]){
         self.composeStatusVC = segue.destinationViewController;
         self.composeStatusVC.delegate = self;
-    }
-    else if([segue.identifier isEqualToString:@"inboxSegue"]){
-        self.inboxVC = segue.destinationViewController;
-        self.inboxVC.profileImageCache = self.profileImageCache;
-        self.inboxVC.delegate = self;
     }
 }
 

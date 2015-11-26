@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */; };
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; };
 		8F0430B71BE46DA10024DF4E /* checked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */; };
 		8F0430B81BE46DA10024DF4E /* unchecked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */; };
@@ -132,6 +133,7 @@
 
 /* Begin PBXFileReference section */
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
+		352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOPopoverViewController.swift; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked_checkbox@2x.png"; sourceTree = "<group>"; };
 		8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked_checkbox@2x.png"; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */,
 				8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */,
 				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
+				352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
@@ -859,6 +862,7 @@
 				8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */,
 				8F8D47AF1B98B6CD00D902B9 /* SOAnnotation.m in Sources */,
 				8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */,
+				352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */,
 				8FA76FD51BD6D02D00979C3A /* KPGridClusteringAlgorithm.m in Sources */,
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,

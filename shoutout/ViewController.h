@@ -23,8 +23,8 @@
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UIView *slidingView;
-@property (strong, nonatomic) IBOutlet UIView *listViewContainer;
-@property (strong, nonatomic) IBOutlet UIView *inboxContainer;
+@property (strong, nonatomic) UIView *listViewContainer;
+@property (strong, nonatomic) UIView *inboxContainer;
 
 @property (strong, nonatomic) IBOutlet UILabel *unreadIndicator;
 
@@ -37,9 +37,7 @@
 @property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
 @property (strong, nonatomic) Firebase* shoutoutRootOnline;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *listViewContainerConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerMarkYConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *inboxContainerConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 

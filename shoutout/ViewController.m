@@ -459,7 +459,9 @@
     self.inboxContainerConstraint.constant = 83;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
                      animations:^{
                          self.inboxContainer.layer.opacity = 1;
                          [self.view layoutIfNeeded];
@@ -472,7 +474,9 @@
     self.inboxContainerConstraint.constant = 0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
                      animations:^{
                          self.inboxContainer.layer.opacity = 0;
                          [self.view layoutIfNeeded];
@@ -502,7 +506,9 @@
     self.centerMarkYConstraint.constant = 0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
                      animations:^{
                          CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
                          self.mapView.frame = rect;
@@ -519,7 +525,9 @@
     self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
                      animations:^{
                          self.listViewContainer.layer.opacity = 1;
                          CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);

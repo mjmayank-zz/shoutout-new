@@ -14,18 +14,14 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var tableView: UITableView!
     var data:[SOAnnotation]!
     var open = false;
-    @IBOutlet var backgroundView: UIView!
-    @IBOutlet var countLabel: UILabel!
+    var countLabel: UILabel!
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        self.tableView.reloadData()
         data = [SOAnnotation]();
-
-        
-        self.backgroundView.layer.cornerRadius = 20;
-        self.backgroundView.layer.masksToBounds = true;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

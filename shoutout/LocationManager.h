@@ -19,10 +19,9 @@
 #pragma mark -
 #pragma mark Location Methods
 
--(void)startLocationUpdates;
+-(void)enterBackgroundMode;
+-(void)enterForegroundMode;
 -(void)stopLocationUpdates;
--(void)startBackgroundLocationUpdates;
--(void)stopBackgroundLocationUpdates;
 + (LocationManager *)sharedLocationManager;
 
 

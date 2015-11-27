@@ -54,18 +54,20 @@ static LocationManager *sharedLocationManager = nil;
 #pragma mark -
 #pragma mark Location Methods
 
--(void)startBackgroundLocationUpdates {
-    [manager startMonitoringVisits];
-    [manager startMonitoringSignificantLocationChanges];
+-(void)enterBackgroundMode{
+    if([CLLocationManager locationServicesEnabled]){
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+            [manager stopUpdatingLocation];
+            [manager startMonitoringVisits];
+            [manager startMonitoringSignificantLocationChanges];
+        }
+        else{
+            [self stopLocationUpdates];
+        }
+    }
 }
 
--(void)stopBackgroundLocationUpdates {
-    [manager stopMonitoringVisits];
-    [manager stopMonitoringSignificantLocationChanges];
-    [manager stopUpdatingLocation];
-}
-
--(void)startLocationUpdates {
+-(void)enterForegroundMode{
     [manager startUpdatingLocation];
     manager.distanceFilter = 10.0;
     [manager startMonitoringVisits];
@@ -74,6 +76,8 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)stopLocationUpdates {
     [manager stopUpdatingLocation];
+    [manager stopMonitoringVisits];
+    [manager stopMonitoringSignificantLocationChanges];
 }
 
 #pragma mark -

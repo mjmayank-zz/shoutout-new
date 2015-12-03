@@ -131,10 +131,10 @@
 -(void)startLocationManager{
         if([CLLocationManager locationServicesEnabled]){
             if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-                [[LocationManager sharedLocationManager] startLocationUpdates];
+                [[LocationManager sharedLocationManager] enterForegroundMode];
             }
             else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
-                [[LocationManager sharedLocationManager] startLocationUpdates];
+                [[LocationManager sharedLocationManager] enterForegroundMode];
             }
         }
 }

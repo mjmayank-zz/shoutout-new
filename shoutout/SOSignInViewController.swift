@@ -29,7 +29,7 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
                     newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
                 }
                 
-                LocationManager.sharedLocationManager().startLocationUpdates();
+                LocationManager.sharedLocationManager().enterForegroundMode();
                 self.navigationController?.setViewControllers([newVC!], animated: true)
             }
             

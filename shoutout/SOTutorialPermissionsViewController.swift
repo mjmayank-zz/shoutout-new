@@ -88,14 +88,14 @@ class SOTutorialPermissionsViewController: UIViewController, CLLocationManagerDe
     func locationManager(manager: CLLocationManager,
         didChangeAuthorizationStatus status: CLAuthorizationStatus){
             if(status == .AuthorizedWhenInUse){
-                LocationManager.sharedLocationManager().startLocationUpdates();
+                LocationManager.sharedLocationManager().enterForegroundMode();
                 requestedLocation = true
                 locationSwitch.enabled = false
             }
             else if(status == .AuthorizedAlways){
                 PFAnalytics.trackEvent("allowedLocation", dimensions:nil);
                 requestedLocation = true
-                LocationManager.sharedLocationManager().startLocationUpdates();
+                LocationManager.sharedLocationManager().enterForegroundMode();
                 locationSwitch.enabled = false
             }
             else if(status != .NotDetermined){

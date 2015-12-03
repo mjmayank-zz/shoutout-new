@@ -25,6 +25,19 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         self.passwordTextField.delegate = self;
         self.usernameTextField.delegate = self;
         self.emailTextField.delegate = self;
+        
+        self.loadRandomDefaultImage();
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
+        
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
+        self.view .addGestureRecognizer(tap);
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func loadRandomDefaultImage(){
         PFQuery(className: "DefaultImage").getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
             if let object = object{
                 let array = object.objectForKey("images") as! [AnyObject];
@@ -45,14 +58,6 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 })
             }
         };
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
-        
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
-        self.view .addGestureRecognizer(tap);
-        
-        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
@@ -113,10 +118,28 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     @IBAction func addPictureButtonPressed(sender: AnyObject) {
-        let imagePicker = UIImagePickerController();
-        imagePicker.delegate = self;
-        imagePicker.allowsEditing = false
-        presentViewController(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Set your profile picture", message: "Choose a method", preferredStyle: .ActionSheet)
+        
+        let uploadAction = UIAlertAction(title: "Upload a picture", style: .Default) { (action:UIAlertAction) -> Void in
+                    let imagePicker = UIImagePickerController();
+                    imagePicker.delegate = self;
+                    imagePicker.allowsEditing = false
+                    self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        
+        let randomAction = UIAlertAction(title: "New Random", style: .Default) { (action:UIAlertAction) -> Void in
+            self.loadRandomDefaultImage()
+        }
+
+        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addAction(randomAction)
+        alertController.addAction(uploadAction)
+        alertController.addAction(threeAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //MARK: Delegates

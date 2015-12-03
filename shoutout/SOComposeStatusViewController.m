@@ -73,6 +73,8 @@
     NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@"@"];
     [set formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];
     NSArray *array = [message componentsSeparatedByCharactersInSet:[set invertedSet]];
+    PFObject *messageObj = [[PFObject alloc] initWithClassName:@"Messages"];
+    messageObj[@"from"] = [PFUser currentUser];
     for (NSString *word in array){
         if ([word hasPrefix:@"@"]) {
             PFQuery *query = [PFUser query];
@@ -80,9 +82,8 @@
             [query whereKey:@"username" equalTo:username];
             [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                 for (PFObject *obj in objects ) {
-                    PFObject *messageObj = [[PFObject alloc] initWithClassName:@"Messages"];
-                    messageObj[@"from"] = [PFUser currentUser];
                     messageObj[@"to"] = obj;
+                    [messageObj addUniqueObject:obj forKey:@"toArray"];
                     messageObj[@"message"] = message;
                     messageObj[@"read"] = [NSNumber numberWithBool:NO];
                     [messageObj saveInBackground];

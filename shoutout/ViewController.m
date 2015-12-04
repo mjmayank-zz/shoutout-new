@@ -235,7 +235,7 @@
 
 - (void)checkForNewMessages{
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
-    [query whereKey:@"to" equalTo:[PFUser currentUser]];
+    [query whereKey:@"toArray" equalTo:[PFUser currentUser]];
     [query whereKey:@"read" notEqualTo:[NSNumber numberWithBool:YES]];
     [query countObjectsInBackgroundWithBlock:^(int number, NSError * _Nullable error) {
         if(number != 0){

@@ -53,6 +53,30 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
     }
     
+    func loadRandomDefaultImage(){
+        PFQuery(className: "DefaultImage").getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
+            if let object = object{
+                let array = object.objectForKey("images") as! [AnyObject];
+                let random = Int(arc4random_uniform(UInt32(array.count)));
+                array[random].fetchIfNeededInBackgroundWithBlock({ (pic:PFObject?, error:NSError?) -> Void in
+                    if let pic = pic{
+                        let userImageFile = pic["image"] as! PFFile;
+                        userImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error:NSError?) -> Void in
+                            if !(error != nil) {
+                                if let imageData = imageData{
+                                    let image = UIImage(data:imageData)
+                                    self.profileImageView.image = image;
+                                    PFUser.currentUser()?.setObject(pic, forKey: "profileImage");
+                                    PFUser.currentUser()?.saveInBackground();
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        };
+    }
+    
     @IBAction func didPressDoneButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
     }
@@ -109,10 +133,28 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func addPictureButtonPressed(sender: AnyObject) {
-        let imagePicker = UIImagePickerController();
-        imagePicker.delegate = self;
-        imagePicker.allowsEditing = false
-        presentViewController(imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Change your profile picture", message: "Choose a method", preferredStyle: .ActionSheet)
+        
+        let uploadAction = UIAlertAction(title: "Upload a picture", style: .Default) { (action:UIAlertAction) -> Void in
+            let imagePicker = UIImagePickerController();
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = false
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        
+        let randomAction = UIAlertAction(title: "New Random", style: .Default) { (action:UIAlertAction) -> Void in
+            self.loadRandomDefaultImage()
+        }
+        
+        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addAction(randomAction)
+        alertController.addAction(uploadAction)
+        alertController.addAction(threeAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //MARK: Delegates

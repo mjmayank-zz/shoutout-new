@@ -5,6 +5,12 @@ Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
 });
 
+Parse.Cloud.beforeSave("Messages", function(request, response) {
+  request["object"].addUnique("toArray", request.object.get("to"))
+  console.log(request.object.get("to"))
+  response.success();
+});
+
 Parse.Cloud.afterSave(Parse.User, function(request) {
 	if(request.object.updatedAt - request.object.createdAt !== 0){
 		console.log(request.object.existed());
@@ -49,16 +55,11 @@ Parse.Cloud.define("queryUsers", function(request, response) {
       		for(var index in blockResults){
       			toRemove.push(blockResults[index].get("fromUser").id)
       		}
-      		console.log("final blocks")
-      		console.log(toRemove);
       		results = results.filter(function(x){
-      			console.log(x.id)
       			if(toRemove.indexOf(x.id) >= 0){
-      				console.log("blocked");
       				return false;
       			}
       			else{
-      				console.log("not blocked");
       			}
       			return true;
       		});
@@ -68,6 +69,32 @@ Parse.Cloud.define("queryUsers", function(request, response) {
       		response.error(error)
       	}
       });
+    },
+    error: function() {
+      response.error("users lookup failed");
+    }
+  });
+});
+
+Parse.Cloud.define("clusterMessage", function(request, response) {
+  var query = new Parse.Query(Parse.User);
+  var loc = new Parse.GeoPoint(request.params.lat, request.params.long)
+  var radius = .1
+  if(request.params.radius){
+    radius = request.params.radius;
+  }
+  query.withinKilometers("geo", loc, radius);
+  query.equalTo("visible", true);
+  query.find({
+    success: function(results) {
+        var obj = new Parse.Object("Messages");
+        obj.set("message", request.params.message);
+        obj.set("from", request.params.user)
+        obj.set("toArray", results)
+        obj.set("read", false);
+        obj.set("isDuplicate", false);
+        obj.save();
+        response.success(results);
     },
     error: function() {
       response.error("users lookup failed");

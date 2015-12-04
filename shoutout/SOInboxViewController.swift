@@ -190,10 +190,35 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let messages = messages{
             let from = messages[indexPath.row].objectForKey("from") as! PFObject;
-            let fromUsername = from.objectForKey("username") as? String;
+            var toArray = messages[indexPath.row].objectForKey("toArray") as! [PFObject]
+            toArray += [from];
+            var count = toArray.count
+            var usernames = ""
+            for obj in toArray{
+                if(obj.objectId != PFUser.currentUser()?.objectId){
+                    obj.fetchIfNeededInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
+                        count--
+                        if let username = object!.objectForKey("username") as? String{
+                            usernames += "@" + username + " ";
+                        }
+                    })
+                }
+                else{
+                    count--
+                }
+            }
             
-            self.delegate?.openUpdateStatusViewWithStatus("@" + fromUsername! + " ");
-//            self.dismissViewControllerAnimated(true, completion: nil);
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                while(count != 0){
+                    
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.delegate?.openUpdateStatusViewWithStatus(usernames);
+                    //            self.dismissViewControllerAnimated(true, completion: nil);
+                    });
+            })
+        
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }

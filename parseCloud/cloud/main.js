@@ -32,7 +32,9 @@ Parse.Cloud.define("queryUsers", function(request, response) {
     query.withinKilometers("geo", loc, 50);
   // }
   query.equalTo("visible", true);
-  // query.greaterThanOrEqualTo("updatedAt", true);
+  var oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  query.greaterThanOrEqualTo("updatedAt", oneWeekAgo);
   query.find({
     success: function(results) {
       var blockQuery = new Parse.Query("Block");

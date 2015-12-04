@@ -932,16 +932,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shoutSpeechBubbleFlipped.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-G9-geS">
-                                                    <rect key="frame" x="8" y="6" width="421" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoutSpeechBubbleFlipped.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hxr-G9-geS">
+                                                    <rect key="frame" x="8" y="6" width="541" height="50"/>
                                                     <animations/>
                                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="8iq-7u-Ggl"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSH-AI-90x">
-                                                    <rect key="frame" x="18" y="8" width="384" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSH-AI-90x">
+                                                    <rect key="frame" x="18" y="8" width="504" height="29"/>
                                                     <animations/>
                                                     <string key="text">Lorem ipsum asldjf;sdja;lfja;sldfja;lsdjf a;lfj alfajsdlfjdkjfasjdhfaksjdfhajdhfakjhfdakjhfkasd hfkahdfkashdf kasdfkjahskdfjha kshaksjhdfkasjhdfkasjhdfkjhfaksdhfakjdhfkajhfdkasjf</string>
                                                     <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
@@ -968,8 +968,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="anon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="zjQ-lG-h9q">
-                                                    <rect key="frame" x="422" y="6" width="50" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anon.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="zjQ-lG-h9q">
+                                                    <rect key="frame" x="542" y="6" width="50" height="50"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="ERW-fT-fLd"/>
@@ -982,6 +982,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="bSH-AI-90x" secondAttribute="trailing" constant="70" id="AL4-hh-cAL"/>
                                                 <constraint firstItem="Hxr-G9-geS" firstAttribute="centerY" secondItem="TeR-qS-YS1" secondAttribute="centerY" id="DxU-g7-Cki"/>
                                                 <constraint firstItem="0er-JK-TvZ" firstAttribute="bottom" secondItem="TeR-qS-YS1" secondAttribute="bottomMargin" constant="-5" id="FvP-Dw-17u"/>
+                                                <constraint firstItem="zjQ-lG-h9q" firstAttribute="leading" secondItem="Hxr-G9-geS" secondAttribute="trailing" constant="-7" id="GDd-mX-gok"/>
                                                 <constraint firstItem="zjQ-lG-h9q" firstAttribute="trailing" secondItem="TeR-qS-YS1" secondAttribute="trailingMargin" id="HDv-dY-QzG"/>
                                                 <constraint firstItem="Hxr-G9-geS" firstAttribute="centerY" secondItem="TeR-qS-YS1" secondAttribute="centerY" id="Mbi-Xu-9TV"/>
                                                 <constraint firstItem="uE5-td-KRn" firstAttribute="top" secondItem="TeR-qS-YS1" secondAttribute="topMargin" constant="30" id="QjD-TA-Trf"/>
@@ -997,6 +998,7 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="VHZ-8P-4bv"/>
                                                     <exclude reference="kAD-Ha-x3r"/>
                                                 </mask>
                                             </variation>
@@ -1006,6 +1008,7 @@
                                         <connections>
                                             <outlet property="bodyLabel" destination="bSH-AI-90x" id="lx1-zf-Kq8"/>
                                             <outlet property="dateLabel" destination="0er-JK-TvZ" id="o4H-YQ-Sd9"/>
+                                            <outlet property="profileImage" destination="zjQ-lG-h9q" id="9Rm-pF-gNh"/>
                                             <outlet property="usernameLabel" destination="uE5-td-KRn" id="ekQ-1O-eee"/>
                                         </connections>
                                     </tableViewCell>

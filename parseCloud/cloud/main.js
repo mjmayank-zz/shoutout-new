@@ -18,7 +18,7 @@ Parse.Cloud.afterSave(Parse.User, function(request) {
 	}
 	else{
 	  var obj = new Parse.Object("Messages");
-	  obj.set("message", "Hey! Welcome to Shoutout. I'm one of the creators of the app. Send me a reply and say hi!");
+	  obj.set("message", "Hey @" + request.object.get("username") + "! Welcome to Shoutout. I'm one of the creators of the app. Send me a reply and say hi!");
 	  obj.set("from", {
 	        __type: "Pointer",
 	        className: "_User",

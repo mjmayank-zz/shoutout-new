@@ -122,7 +122,7 @@
     [listPopover didMoveToParentViewController:self];
     self.listViewContainer = listPopover.view;
     [listPopover updateChildController:self.listViewVC];
-    [self.view addSubview:self.listViewContainer];
+    [self.view insertSubview:self.listViewContainer belowSubview:self.slidingView];
     self.listViewVC.countLabel = listPopover.popoverTitle;
     
     SOPopoverViewController* inboxPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
@@ -130,7 +130,7 @@
     [inboxPopover didMoveToParentViewController:self];
     self.inboxContainer = inboxPopover.view;
     [inboxPopover updateChildController:self.inboxVC];
-    [self.view addSubview:self.inboxContainer];
+    [self.view insertSubview:self.inboxContainer belowSubview:self.slidingView];
     inboxPopover.popoverTitle.text = @"Inbox";
     
     // TODO: better handling of the pip location
@@ -623,7 +623,7 @@
 
 - (void)openUpdateStatusView{
     [self.view layoutIfNeeded];
-    self.slidingViewConstraint.constant = 0;
+    self.slidingViewConstraint.constant = -20;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
@@ -643,7 +643,7 @@
 }
 
 - (void)animateSlidingView{
-    if(self.slidingViewConstraint.constant != 0){
+    if(self.slidingViewConstraint.constant != -20){
         [self openUpdateStatusView];
     }
     else{

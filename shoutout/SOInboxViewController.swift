@@ -223,10 +223,6 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }
     
-    @IBAction func didPressDoneButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil);
-    }
-    
 }
 
 class messagesCell : UITableViewCell{

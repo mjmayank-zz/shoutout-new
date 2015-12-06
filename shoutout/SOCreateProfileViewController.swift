@@ -123,7 +123,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         let uploadAction = UIAlertAction(title: "Upload a picture", style: .Default) { (action:UIAlertAction) -> Void in
                     let imagePicker = UIImagePickerController();
                     imagePicker.delegate = self;
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true;
                     self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
@@ -148,7 +148,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage;
         self.profileImageView.contentMode = .ScaleToFill;
         self.profileImageView.image = chosenImage;
         

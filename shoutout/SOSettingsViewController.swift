@@ -138,7 +138,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         let uploadAction = UIAlertAction(title: "Upload a picture", style: .Default) { (action:UIAlertAction) -> Void in
             let imagePicker = UIImagePickerController();
             imagePicker.delegate = self;
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
@@ -162,7 +162,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage;
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage;
         self.profileImageView.image = chosenImage;
         
         let parseImageData = UIImageJPEGRepresentation(chosenImage, 0.05);

@@ -25,6 +25,7 @@
 #import "KPGeometry.h"
 
 #import "NSArray+KP.h"
+#import "SOAnnotation.h"
 
 static NSValue *NSValueFromCGPoint(CGPoint point) {
     NSValue *value;
@@ -99,7 +100,7 @@ static CGPoint CGPointFromNSValue(NSValue *value) {
                 id annotation = [[KPAnnotation alloc] initWithAnnotations:newAnnotations];
                 [newClusters addObject:annotation];
                 for(NSObject<MKAnnotation> * newAnnotation in newAnnotations){
-                    [annotationDict setObject:[NSValue valueWithNonretainedObject:annotation] forKey:[NSValue valueWithNonretainedObject:newAnnotation]];
+                    [annotationDict setObject:annotation forKey:((SOAnnotation *)newAnnotation).objectId];
                 }
 
                 kp_cluster_t *cluster = clusterGrid[col] + row;

@@ -178,7 +178,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self checkForNewMessages];
+    [self checkNumberOfNewMessages];
     [self checkToBlockMap];
 }
 
@@ -197,7 +197,7 @@
     [self registerFirebaseListeners];
     [self centerMapToUserLocation];
     [self updateMapWithLocation:self.previousLocation.coordinate];
-    [self checkForNewMessages];
+    [self checkNumberOfNewMessages];
     [self checkLocationPermission];
     [self promptForCheckinPermission];
     [self checkToBlockMap];
@@ -233,7 +233,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"replyToShout" object:nil];
 }
 
-- (void)checkForNewMessages{
+- (void)checkNumberOfNewMessages{
     PFQuery *query = [PFQuery queryWithClassName:@"Messages"];
     [query whereKey:@"toArray" equalTo:[PFUser currentUser]];
     [query whereKey:@"read" notEqualTo:[NSNumber numberWithBool:YES]];
@@ -252,6 +252,41 @@
     if(![[PFUser currentUser][@"visible"] boolValue]){
         [self performSegueWithIdentifier:@"blockMapSegue" sender:self];
     }
+}
+
+- (void)sendPush{
+//    PFGeoPoint * geoLoc = [PFGeoPoint geoPointWithLatitude:40.11284489654015
+//                                                 longitude:-88.23131809950641];
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"attendedJoes" equalTo:[NSNumber numberWithBool:YES]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+            for (PFObject *obj in objects ) {
+                
+                // Create our Installation query
+                PFQuery *pushQuery = [PFInstallation query];
+                [pushQuery whereKey:@"user" equalTo:obj];
+                
+                NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], @"Thanks for coming to Joe's last night! We'll be doing more events with free cover at other bars as well, so stay tuned! Tell your friends to download Shoutout!"];
+                
+                // Send push notification to query
+                NSDictionary *data = @{
+                                       @"alert":fullMessage,
+                                       };
+                PFPush *push = [[PFPush alloc] init];
+                [push setQuery:pushQuery]; // Set our Installation query
+                [push setData:data];
+                [push sendPushInBackground];
+            }
+        }
+    }];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Push Sent" message:@"All Done" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:yesAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)promptForCheckinPermission{
@@ -503,7 +538,7 @@
 }
 
 - (IBAction)inboxButtonPressed:(id)sender {
-    [self checkForNewMessages];
+    [self checkNumberOfNewMessages];
     [self closeListView];
     if(self.inboxBottomConstraint.constant == SO_POPOVER_VERTICAL_SHIFT){
         [self openInboxView];
@@ -611,7 +646,7 @@
 
 - (void)closeUpdateStatusView{
     [self.view layoutIfNeeded];
-    self.slidingViewConstraint.constant = -450;
+    self.slidingViewConstraint.constant = -500;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut

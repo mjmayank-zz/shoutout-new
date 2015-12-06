@@ -25,6 +25,8 @@
 @property (weak, nonatomic) ViewController *delegate;
 @property (strong, nonatomic) QTree *tree;
 
+@property (assign, nonatomic) BOOL mapIsClustered;
+
 -(instancetype)initWithMapView:(MKMapView *)mapView;
 - (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated;
 

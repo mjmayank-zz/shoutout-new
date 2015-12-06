@@ -47,10 +47,10 @@
     
     [self.saveButton.layer setCornerRadius:4.0f];
     
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(closeUpdateStatusView)];
-    [self.backgroundView addGestureRecognizer:singleFingerTap];
+//    UITapGestureRecognizer *singleFingerTap =
+//    [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                            action:@selector(closeUpdateStatusView)];
+//    [self.backgroundView addGestureRecognizer:singleFingerTap];
 }
 
 - (void)setStatusText:(NSString *)status{
@@ -62,6 +62,8 @@
         [PFUser currentUser][@"status"] = self.statusTextView.text;
         [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
         [self checkForRecipients:self.statusTextView.text];
+//        [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.statusTextView.text];
+        [[PFUser currentUser] saveInBackground];
         [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
     }
 
@@ -107,6 +109,22 @@
             }];
         }
     }
+}
+
+- (void)sendClusterMessage:(CLLocationCoordinate2D)location withMessage:(NSString *)message{
+    [PFCloud callFunctionInBackground:@"clusterMessage"
+                       withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
+                                        @"long": [NSNumber numberWithDouble:location.longitude],
+                                        @"user": [PFUser currentUser].objectId,
+                                        @"message":message}
+                                block:^(NSArray *objects, NSError *error) {
+                                    if (!error) {
+                                        
+                                    } else {
+                                        // Log details of the failure
+                                        NSLog(@"Parse error: %@ %@", error, [error userInfo]);
+                                    }
+                                }];
 }
 
 - (void)openUpdateStatusView{

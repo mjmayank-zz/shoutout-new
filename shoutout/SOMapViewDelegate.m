@@ -31,7 +31,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    [self.delegate allowMapLoad];
+//    [self.delegate allowMapLoad];
     [self.clusteringController refresh:YES];
 }
 
@@ -58,18 +58,21 @@
         
         CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
         
-        /* Using Quadtree */
-//        SOAnnotation *test = [self.tree neighboursForLocation:screenCenter.coordinate limitCount:1][0];
-//        KPAnnotation *toShow = [self.clusteringController getClusterForAnnotation:test];
-//        if(![toShow isCluster]){
-//            [mapView selectAnnotation:toShow animated:YES];
-//        }
-        
-        /* Looping through array of annotations currently on screen */
-        KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
-        
-        if (toShow) {
-            [mapView selectAnnotation:toShow animated:YES];
+        if (self.mapIsClustered) {
+            /* Looping through array of annotations currently on screen */
+            KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
+            
+            if (toShow) {
+                [mapView selectAnnotation:toShow animated:YES];
+            }
+        }
+        else{
+            /* Using Quadtree */
+            SOAnnotation *test = [self.tree neighboursForLocation:screenCenter.coordinate limitCount:1][0];
+            KPAnnotation *toShow = [self.clusteringController getClusterForAnnotation:test];
+            if(![toShow isCluster]){
+                [mapView selectAnnotation:toShow animated:YES];
+            }
         }
     }
 }
@@ -168,7 +171,29 @@
 }
 
 - (BOOL)clusteringControllerShouldClusterAnnotations:(KPClusteringController *)clusteringController {
-    return self.mapView.zoomLevel < 14; // Find zoom level that suits your dataset
+    NSLog(@"%f", self.mapView.zoomLevel);
+    if(self.mapView.zoomLevel > 18){
+        self.mapIsClustered = false;
+    }
+    else if (self.mapView.zoomLevel < 8){
+        self.mapIsClustered = true;
+    }
+    else{
+        NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
+        NSArray *annotationArray = [annotationSet allObjects];
+        int count = 0;
+        for(int i = 0; i<[annotationArray count]; i++){
+            KPAnnotation * annotation = annotationArray[i];
+            if([annotation isCluster]){
+                count += [[annotation annotations] count];
+            }
+            else{
+                count++;
+            }
+        }
+        self.mapIsClustered = count > 30;
+    }
+    return self.mapIsClustered;
 }
 
 

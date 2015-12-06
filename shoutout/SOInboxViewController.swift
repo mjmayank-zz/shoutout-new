@@ -45,7 +45,8 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             self.messages = results;
             for message in results!{
                 let read = message.objectForKey("read") as? Bool
-                if read != true{
+                let from = message.objectForKey("from") as? PFObject
+                if read != true && from?.objectId != PFUser.currentUser()?.objectId{
                     message.setObject(NSNumber(bool: true), forKey: "read");
                     message.saveInBackground();
                 }

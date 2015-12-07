@@ -16,6 +16,7 @@
 #import "MKMapView+ZoomLevel.h"
 #import "SOMapViewDelegate.h"
 #import "SOComposeStatusViewController.h"
+#import "LocationManager.h"
 @import MapKit;
 
 @interface ViewController : UIViewController<UITextViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>

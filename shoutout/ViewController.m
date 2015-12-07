@@ -100,6 +100,10 @@
     self.unreadIndicator.layer.masksToBounds = YES;
     
     CLLocationCoordinate2D userLocation = CLLocationCoordinate2DMake(40.1105, -88.2284);
+    self.previousLocation = [LocationManager sharedLocationManager].lastLocation;
+    if (self.previousLocation) {
+        userLocation = self.previousLocation.coordinate;
+    }
     [self centerMapToUserLocation];
     [self updateMapWithLocation:userLocation];
     // set the map's center coordinate
@@ -195,7 +199,6 @@
 
 - (void)applicationWillEnterForeground:(NSNotification*)notification{
     [self registerFirebaseListeners];
-    [self centerMapToUserLocation];
     [self updateMapWithLocation:self.previousLocation.coordinate];
     [self checkNumberOfNewMessages];
     [self checkLocationPermission];
@@ -755,9 +758,6 @@
             [self updateMapWithLocation:loc.coordinate];
         }
         if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
-            NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
-            NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
-            
             if([PFUser currentUser]){
                 if([PFUser currentUser][@"static"]){
                     return;
@@ -770,11 +770,6 @@
                     SOAnnotation *annotation = [self.markerDictionary objectForKey:[[PFUser currentUser] objectId]];
                     annotation.coordinate = loc.coordinate;
                 }
-                
-                [[self.shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
-                
-                [[PFUser currentUser] saveInBackground];
-                NSLog(@"network request made");
             }
         }
     }

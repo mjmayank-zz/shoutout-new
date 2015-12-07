@@ -85,14 +85,38 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     if([locations count] > 0) {
-        _lastLocation = [locations lastObject];
-        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:_lastLocation];
+        CLLocation *location = [locations lastObject];
+        [self updateUserLocation:location];
     }
 }
 
 -(void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit{
     CLLocation *location = [[CLLocation alloc] initWithCoordinate:visit.coordinate altitude:0.0 horizontalAccuracy:visit.horizontalAccuracy verticalAccuracy:0.0 timestamp:[NSDate date]];
-    _lastLocation = location;
+    [self updateUserLocation:location];
+}
+
+-(void)updateUserLocation:(CLLocation *)loc{
+    NSLog(@"%@", loc);
+    if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
+        [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
+        CLLocation *oldLocation = self.lastLocation;
+        _lastLocation = loc;
+        
+        if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
+            if([PFUser currentUser]){
+                if(![PFUser currentUser][@"static"]){
+                    
+                    NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
+                    NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
+                    Firebase *shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
+                    [[shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
+                    
+                    [[PFUser currentUser] saveInBackground];
+                    NSLog(@"network request made");
+                }
+            }
+        }
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LocationUpdate object:_lastLocation];
 }
 

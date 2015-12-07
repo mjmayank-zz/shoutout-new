@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
+#import <Firebase/Firebase.h>
 
 #define Notification_LocationUpdate @"LocationUpdate"
 

@@ -108,13 +108,13 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             let shoutoutOnline = Firebase(url: "https://shoutout.firebaseio.com/online");
             shoutoutOnline.childByAppendingPath(PFUser.currentUser()?.objectId).setValue("NO");
             PFUser.currentUser()?.setObject(NSNumber(bool: false), forKey: "online");
-            PFUser.currentUser()?.saveInBackground();
+            PFUser.currentUser()?.saveInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
+                PFUser.logOut();
+                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
+                self.oldVC.navigationController?.setViewControllers([newVC!], animated: false)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
-        
-        PFUser.logOut();
-        let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
-        oldVC.navigationController?.setViewControllers([newVC!], animated: false)
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {

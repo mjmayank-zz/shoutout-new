@@ -56,7 +56,6 @@ Parse.Cloud.afterSave(Parse.User, function(request) {
 	  obj.set("to", request["object"])
 	  obj.set("toArray", [request["object"]])
 	  obj.set("read", false);
-	  obj.set("isDuplicate", false);
 	  obj.save();
 	}
 });
@@ -126,7 +125,6 @@ Parse.Cloud.define("clusterMessage", function(request, response) {
           objectId: request.params.user})
         obj.set("toArray", results)
         obj.set("read", false);
-        obj.set("isDuplicate", false);
         obj.save();
         response.success(results);
     },

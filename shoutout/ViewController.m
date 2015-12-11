@@ -730,13 +730,7 @@
     }
 }
 
-#pragma mark -CLLocationManagerDelegate
-//LocationManager
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation *loc = [locations lastObject];
-    [self updateUserLocation:loc];
-}
-
+#pragma mark -LocationManager Notifications
 -(void)locationUpdated:(NSNotification *)notification{
     CLLocation * loc = notification.object;
     [self updateUserLocation:loc];
@@ -745,7 +739,6 @@
 - (void)updateUserLocation:(CLLocation *)loc{
     NSLog(@"%@", loc);
     if((loc.coordinate.latitude != 0.0 && loc.coordinate.longitude != 0.0)){
-        [PFUser currentUser][@"geo"] = [PFGeoPoint geoPointWithLatitude:loc.coordinate.latitude longitude:loc.coordinate.longitude];
         CLLocation *oldLocation = self.previousLocation;
         self.previousLocation = loc;
         
@@ -759,16 +752,14 @@
         }
         if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
             if([PFUser currentUser]){
-                if([PFUser currentUser][@"static"]){
-                    return;
-                }
-                
-                if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
-                    [self addUserToAnnotationDictionary:[PFUser currentUser]];
-                }
-                else{
-                    SOAnnotation *annotation = [self.markerDictionary objectForKey:[[PFUser currentUser] objectId]];
-                    annotation.coordinate = loc.coordinate;
+                if(![PFUser currentUser][@"static"]){
+                    if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
+                        [self addUserToAnnotationDictionary:[PFUser currentUser]];
+                    }
+                    else{
+                        SOAnnotation *annotation = [self.markerDictionary objectForKey:[[PFUser currentUser] objectId]];
+                        annotation.coordinate = loc.coordinate;
+                    }
                 }
             }
         }

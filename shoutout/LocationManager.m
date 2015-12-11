@@ -56,7 +56,7 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)enterBackgroundMode{
     if([CLLocationManager locationServicesEnabled]){
-        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![PFUser currentUser][@"static"] && [PFUser currentUser][@"visible"]){
             [manager stopUpdatingLocation];
             [manager startMonitoringVisits];
             [manager startMonitoringSignificantLocationChanges];
@@ -68,10 +68,12 @@ static LocationManager *sharedLocationManager = nil;
 }
 
 -(void)enterForegroundMode{
-    [manager startUpdatingLocation];
-    manager.distanceFilter = 10.0;
-    [manager startMonitoringVisits];
-    [manager startMonitoringSignificantLocationChanges];
+    if(![PFUser currentUser][@"static"]){
+        [manager startUpdatingLocation];
+        manager.distanceFilter = 10.0;
+        [manager startMonitoringVisits];
+        [manager startMonitoringSignificantLocationChanges];
+    }
 }
 
 -(void)stopLocationUpdates {
@@ -104,16 +106,13 @@ static LocationManager *sharedLocationManager = nil;
         
         if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
             if([PFUser currentUser]){
-                if(![PFUser currentUser][@"static"]){
-                    
-                    NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
-                    NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
-                    Firebase *shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
-                    [[shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
-                    
-                    [[PFUser currentUser] saveInBackground];
-                    NSLog(@"network request made");
-                }
+                NSString *longitude = [NSString stringWithFormat:@"%f", loc.coordinate.longitude ];
+                NSString *latitude = [NSString stringWithFormat:@"%f", loc.coordinate.latitude ];
+                Firebase *shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
+                [[shoutoutRoot childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@{@"lat": latitude, @"long": longitude}];
+                
+                [[PFUser currentUser] saveInBackground];
+                NSLog(@"network request made");
             }
         }
     }

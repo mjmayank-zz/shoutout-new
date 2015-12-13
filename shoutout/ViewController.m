@@ -76,23 +76,19 @@
     self.mapView.delegate = self.mapViewDelegate;
     [self.mapView removeAnnotations:self.mapView.annotations];
 
+    //gesture recognizers so that delegate events fire as we pan/pinch instead of after it finishes
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(mapPanned)];
     pinchGesture.delegate = self;
     [self.mapView addGestureRecognizer:pinchGesture];
-    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(mapPanned)];
     panGesture.delegate = self;
     [self.mapView addGestureRecognizer:panGesture];
     
-    // Create popovers for inbox and list
+    //Create popovers for inbox and list
     [self setupPopovers];
     
     [self registerNotifications];
     
-    self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
-    self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
-    self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
-    self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
     [self registerFirebaseListeners];
     
     //set up mailbox
@@ -257,39 +253,43 @@
     }
 }
 
-- (void)sendPush{
-//    PFGeoPoint * geoLoc = [PFGeoPoint geoPointWithLatitude:40.11284489654015
-//                                                 longitude:-88.23131809950641];
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"attendedJoes" equalTo:[NSNumber numberWithBool:YES]];
+- (void)sendPush{ //DANGEROUS METHOD. SENDS A PUSH MEHTOD TO EVERYONE.
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-            for (PFObject *obj in objects ) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Send push?" message:@"This will send a push to everyone" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //    PFGeoPoint * geoLoc = [PFGeoPoint geoPointWithLatitude:40.11284489654015
+        //                                                 longitude:-88.23131809950641];
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"attendedJoes" equalTo:[NSNumber numberWithBool:YES]];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
                 
-                // Create our Installation query
-                PFQuery *pushQuery = [PFInstallation query];
-                [pushQuery whereKey:@"user" equalTo:obj];
-                
-                NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], @"Thanks for coming to Joe's last night! We'll be doing more events with free cover at other bars as well, so stay tuned! Tell your friends to download Shoutout!"];
-                
-                // Send push notification to query
-                NSDictionary *data = @{
-                                       @"alert":fullMessage,
-                                       };
-                PFPush *push = [[PFPush alloc] init];
-                [push setQuery:pushQuery]; // Set our Installation query
-                [push setData:data];
-                [push sendPushInBackground];
+                for (PFObject *obj in objects ) {
+                    
+                    // Create our Installation query
+                    PFQuery *pushQuery = [PFInstallation query];
+                    [pushQuery whereKey:@"user" equalTo:obj];
+                    
+                    NSString * fullMessage = [NSString stringWithFormat:@"%@: %@", [PFUser currentUser][@"username"], @"Thanks for coming to Joe's last night! We'll be doing more events with free cover at other bars as well, so stay tuned! Tell your friends to download Shoutout!"];
+                    
+                    // Send push notification to query
+                    NSDictionary *data = @{
+                                           @"alert":fullMessage,
+                                           };
+                    PFPush *push = [[PFPush alloc] init];
+                    [push setQuery:pushQuery]; // Set our Installation query
+                    [push setData:data];
+                    [push sendPushInBackground];
+                }
             }
-        }
+        }];
     }];
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Push Sent" message:@"All Done" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [alertController addAction:yesAction];
+    [alertController addAction:yesAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 - (void)promptForCheckinPermission{
@@ -369,22 +369,21 @@
 
 - (void) addUserToAnnotationDictionary:(PFObject *)obj{
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(((PFGeoPoint *)obj[@"geo"]).latitude, ((PFGeoPoint *)obj[@"geo"]).longitude);
-    NSString *title = @"Hello world!";
+    NSString *title = @"";
     if(obj[@"username"]){
         title = obj[@"username"];
+    }
+    if(obj[@"displayName"]){
+        title = obj[@"displayName"];
+    }
+    if([obj[@"anonymous"] boolValue]){
+        title = @"";
     }
     NSString *subtitle = obj[@"status"];
     SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
-    if(obj[@"username"])
-        dict[@"username"] = obj[@"username"];
-    if(obj.objectId)
-        dict[@"objectId"] = obj.objectId;
-    if(obj.updatedAt)
+    if(obj.updatedAt) //used for date on bubble
         dict[@"updatedAt"] = obj.updatedAt;
-    if(obj[@"anonymous"]){
-        annotation.anonymous = [obj[@"anonymous"] boolValue];
-    }
     annotation.objectId = obj.objectId;
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
@@ -501,6 +500,10 @@
 }
 
 -(void)registerFirebaseListeners{
+    self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
+    self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
+    self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
+    self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
     [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
         [self animateUser:snapshot.key toNewPosition:snapshot.value];
     }];

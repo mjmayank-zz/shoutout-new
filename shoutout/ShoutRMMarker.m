@@ -97,9 +97,6 @@
     }
     self.subview.shoutLabel.text = annotation.subtitle;
     self.subview.usernameLabel.text = [NSString stringWithFormat:@"-%@", annotation.title];
-    if(annotation.anonymous == YES){
-        self.subview.usernameLabel.text = @"";
-    }
     if(annotation.userInfo[@"updatedAt"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];

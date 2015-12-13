@@ -70,6 +70,7 @@ Parse.Cloud.define("queryUsers", function(request, response) {
   var oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   query.greaterThanOrEqualTo("updatedAt", oneWeekAgo);
+  query.limit(1000); //maximum limit in Parse. Will have to page after this.
   query.find({
     success: function(results) {
       var blockQuery = new Parse.Query("Block");
@@ -85,10 +86,11 @@ Parse.Cloud.define("queryUsers", function(request, response) {
       			toRemove.push(blockResults[index].get("fromUser").id)
       		}
       		results = results.filter(function(x){
+            // if(x.get("anonymous")){
+            //   x.set("displayName", "")
+            // }
       			if(toRemove.indexOf(x.id) >= 0){
       				return false;
-      			}
-      			else{
       			}
       			return true;
       		});

@@ -82,28 +82,20 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 
                 let message = messages![indexPath.row].objectForKey("message") as? String;
                 from.fetchInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
-                    let fromImage = from.objectForKey("picURL") as? String;
                     cell.usernameLabel.text = from.objectForKey("username") as? String;
                     var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
                     if(image == nil){
-                        if let fromImage = fromImage{
-                            image = UIImage(data: NSData(contentsOfURL: NSURL(string: fromImage)!)!);
-                            self.profileImageCache.setObject(image!, forKey: from.objectId!)
-                            cell.profileImage.image = image;
-                        }
-                        else{
-                            from.objectForKey("profileImage")?.fetchIfNeededInBackgroundWithBlock({ (obj:PFObject?, error:NSError?) -> Void in
+                        from.objectForKey("profileImage")?.fetchIfNeededInBackgroundWithBlock({ (obj:PFObject?, error:NSError?) -> Void in
+                            
+                            obj?.objectForKey("image")?.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+                                if let data = data{
+                                    image = UIImage(data:data);
+                                    self.profileImageCache.setObject(image!, forKey: from.objectId!)
+                                    cell.profileImage.image = image;
+                                }
                                 
-                                obj?.objectForKey("image")?.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
-                                    if let data = data{
-                                        image = UIImage(data:data);
-                                        self.profileImageCache.setObject(image!, forKey: from.objectId!)
-                                        cell.profileImage.image = image;
-                                    }
-                                    
-                                })
                             })
-                        }
+                        })
                     }
                     else{
                         cell.profileImage.image = image;

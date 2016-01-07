@@ -21,6 +21,7 @@
 		8F3C85331BEFDFB0005E658E /* shoutoutLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */; };
 		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
+		8F732DDA1C3B1BBC00A1C44C /* SOBusinessPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F732DD91C3B1BBC00A1C44C /* SOBusinessPinView.xib */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F8D47731B976DB900D902B9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47721B976DB900D902B9 /* main.m */; };
 		8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8D47751B976DB900D902B9 /* AppDelegate.m */; };
@@ -110,6 +111,7 @@
 		8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */; };
 		8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */; };
 		8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC5E56A1BE320840068AC0C /* triangle@2x.png */; };
+		8FC832B61C3EFFFF00B027DE /* SOBusinessPinVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC832B51C3EFFFF00B027DE /* SOBusinessPinVew.swift */; };
 		8FD1D8C31C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */; };
 		8FD1D8CB1C02B01F0006445B /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C81C02B01F0006445B /* eye.png */; };
 		8FD1D8CC1C02B01F0006445B /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C91C02B01F0006445B /* eye@2x.png */; };
@@ -151,6 +153,7 @@
 		8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoutoutLogo.png; sourceTree = "<group>"; };
 		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
+		8F732DD91C3B1BBC00A1C44C /* SOBusinessPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOBusinessPinView.xib; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
 		8F8D476D1B976DB900D902B9 /* shoutout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shoutout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +266,7 @@
 		8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOWebViewController.swift; sourceTree = "<group>"; };
 		8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		8FC5E56A1BE320840068AC0C /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
+		8FC832B51C3EFFFF00B027DE /* SOBusinessPinVew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOBusinessPinVew.swift; sourceTree = "<group>"; };
 		8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoutSpeechBubbleFlipped@2x.png"; sourceTree = "<group>"; };
 		8FD1D8C81C02B01F0006445B /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		8FD1D8C91C02B01F0006445B /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
@@ -334,6 +338,8 @@
 				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */,
 				8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */,
+				8F732DD91C3B1BBC00A1C44C /* SOBusinessPinView.xib */,
+				8FC832B51C3EFFFF00B027DE /* SOBusinessPinVew.swift */,
 				8FA956BE1BC050E1003C7357 /* SOMarkerSubView.h */,
 				8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */,
 				8F9A48D01BA66F0D002C68EE /* ShoutClusterMarker.h */,
@@ -766,6 +772,7 @@
 				8FA7705D1BD70C5C00979C3A /* shout@3x-08.png in Resources */,
 				8FA770561BD70C5C00979C3A /* onboardingPage1@2x.png in Resources */,
 				8FA770531BD70C5C00979C3A /* shoutout_white.png in Resources */,
+				8F732DDA1C3B1BBC00A1C44C /* SOBusinessPinView.xib in Resources */,
 				8FA770331BD70C5C00979C3A /* anon.jpg in Resources */,
 				8FA7705F1BD70C5C00979C3A /* shout@3x-10.png in Resources */,
 				8F8D477E1B976DB900D902B9 /* Images.xcassets in Resources */,
@@ -853,6 +860,7 @@
 				8F9A48D21BA66F0D002C68EE /* ShoutClusterMarker.m in Sources */,
 				8FA76FD41BD6D02D00979C3A /* KPClusteringController.m in Sources */,
 				8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */,
+				8FC832B61C3EFFFF00B027DE /* SOBusinessPinVew.swift in Sources */,
 				8F9A48CF1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m in Sources */,
 				8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */,
 				8F8D47791B976DB900D902B9 /* ViewController.m in Sources */,

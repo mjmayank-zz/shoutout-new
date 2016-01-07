@@ -39,6 +39,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
+        self.businessSubview = [[SOBusinessPinVew alloc] init];
+        
+        [self.subview.bubbleContainerView addSubview:self.businessSubview];
+        
         self.frame = self.subview.pinView.frame;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
     }

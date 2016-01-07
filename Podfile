@@ -10,6 +10,7 @@ target 'shoutout' do
 	pod 'FBSDKLoginKit'
 	pod 'Firebase'
 	pod 'QTree-objc'
+	pod 'PNChart'
 end
 
 target 'shoutoutTests' do

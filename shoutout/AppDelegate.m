@@ -30,9 +30,14 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    [LocationManager initLocationManager];
-    
-    [self startLocationManager];
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
+        LocationManager *manager = [LocationManager sharedLocationManager];
+        [manager enterBackgroundMode];
+    }
+    else{
+        [LocationManager initLocationManager];
+        [self startLocationManager];
+    }
     
     BOOL hasPermissions =
     ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
@@ -62,8 +67,7 @@
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -130,10 +134,7 @@
 
 -(void)startLocationManager{
         if([CLLocationManager locationServicesEnabled]){
-            if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways){
-                [[LocationManager sharedLocationManager] enterForegroundMode];
-            }
-            else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
+            if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse){
                 [[LocationManager sharedLocationManager] enterForegroundMode];
             }
         }

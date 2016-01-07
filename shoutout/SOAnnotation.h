@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *profileImage;
 @property (assign, nonatomic) BOOL online;
+@property (assign, nonatomic) BOOL isStatic;
 
 -(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate;
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;

@@ -146,12 +146,18 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             self.loadRandomDefaultImage()
         }
         
-        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (_) in }
+        let takeAction = UIAlertAction(title: "Take a picture", style: .Default) { (action:UIAlertAction) -> Void in
+            let imagePicker = UIImagePickerController();
+            imagePicker.sourceType = .Camera;
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addAction(randomAction)
         alertController.addAction(uploadAction)
-        alertController.addAction(threeAction)
+        alertController.addAction(takeAction)
         alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)

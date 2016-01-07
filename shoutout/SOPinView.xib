@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Titillium-Bold.otf">
@@ -28,42 +28,35 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speechBubbleWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbN-jG-fi9">
                             <rect key="frame" x="2" y="0.0" width="244" height="97"/>
-                            <animations/>
                             <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is a label with three lines of text. shoutout shoutout shoutout shoutout" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMC-qY-Gdy">
                             <rect key="frame" x="36" y="9" width="196" height="50"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-eatenbysquirrels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-jX-qOm" userLabel="usernameLabel">
                             <rect key="frame" x="36" y="56" width="100" height="21"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="Titillium-Bold" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mso-Fe-2C5">
                             <rect key="frame" x="121" y="57" width="18" height="19"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="oBL-nK-lEG">
                             <rect key="frame" x="141" y="62" width="12" height="7.5"/>
-                            <animations/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12/30/15 17:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
                             <rect key="frame" x="160" y="57" width="76" height="19"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="Titillium-LightItalic" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsv-Pd-Qw3">
                             <rect key="frame" x="2" y="3" width="243" height="84"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="pressedMarkerButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="AIa-Ll-VhS"/>
@@ -74,12 +67,10 @@
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speechBubbleOverlay.png" translatesAutoresizingMaskIntoConstraints="NO" id="uz5-Km-dkK">
                                     <rect key="frame" x="2" y="0.0" width="244" height="97"/>
-                                    <animations/>
                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4U-mP-J22">
                                     <rect key="frame" x="15" y="0.0" width="231" height="89"/>
-                                    <animations/>
                                     <inset key="contentEdgeInsets" minX="80" minY="10" maxX="80" maxY="10"/>
                                     <state key="normal" image="messages.png"/>
                                     <connections>
@@ -87,28 +78,22 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pinWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hk5-qL-H5q">
                     <rect key="frame" x="0.0" y="0.0" width="82" height="97"/>
-                    <animations/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPO-dF-onS" userLabel="Profile Image">
                     <rect key="frame" x="4" y="4" width="75" height="75"/>
-                    <animations/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-ta-ADP">
                     <rect key="frame" x="3" y="71" width="8" height="8"/>
-                    <animations/>
                     <color key="backgroundColor" red="0.80000001192092896" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

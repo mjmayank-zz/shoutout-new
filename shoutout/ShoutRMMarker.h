@@ -10,6 +10,8 @@
 #import "SOAnnotation.h"
 #import "kingpin.h"
 #import "SOMarkerSubView.h"
+#import "PNChart.h"
+#import "Shoutout-Swift.h"
 @import MapKit;
 
 @class ShoutRMMarker;
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic, assign) double scale;
+@property (nonatomic, strong) SOBusinessPinVew *businessSubview;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,7 +36,8 @@
 - (void)scaleForZoomLevel:(double)zoomLevel;
 - (void)showShout;
 - (void)hideShout;
--(void)setOnline:(BOOL)online;
--(void)sendMessage;
+- (void)setOnline:(BOOL)online;
+- (void)sendMessage;
+- (void)mapDidScale:(NSNotification *)notification;
 
 @end

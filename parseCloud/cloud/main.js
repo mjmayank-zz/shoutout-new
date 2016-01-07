@@ -13,6 +13,8 @@ Parse.Cloud.beforeSave("Messages", function(request, response) {
   response.success();
 });
 
+/*** Note: Attended Joes code. Can be modified for other use cases ***/
+
 // Parse.Cloud.beforeSave(Parse.User, function(request, response){
   // var geoPoint = request.object.get("geo");
 
@@ -134,4 +136,8 @@ Parse.Cloud.define("clusterMessage", function(request, response) {
       response.error("users lookup failed");
     }
   });
+});
+
+Parse.Cloud.define("locationCrowdedness", function(request, response) {
+  response.success("4");
 });

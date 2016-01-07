@@ -143,7 +143,7 @@
             return annotationView;
         } else {
             SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
-            //            SOAnnotation *shoutoutAnnotation = (SOAnnotation *)annotation;
+
             UIImage *image = shoutoutAnnotation.profileImage;
             ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
             if ( ! annotationView)

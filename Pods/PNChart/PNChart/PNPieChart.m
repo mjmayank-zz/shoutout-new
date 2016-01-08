@@ -47,22 +47,31 @@
     self = [self initWithFrame:frame];
     if(self){
         _items = [NSArray arrayWithArray:items];
-        _selectedItems = [NSMutableDictionary dictionary];
-        _outerCircleRadius  = CGRectGetWidth(self.bounds) / 2;
-        _innerCircleRadius  = CGRectGetWidth(self.bounds) / 6;
-        _descriptionTextColor = [UIColor whiteColor];
-        _descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:18.0];
-        _descriptionTextShadowColor  = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-        _descriptionTextShadowOffset =  CGSizeMake(0, 1);
-        _duration = 1.0;
-        _shouldHighlightSectorOnTouch = YES;
-        _enableMultipleSelection = NO;
-        
-        [super setupDefaultValues];
-        [self loadDefault];
+        [self baseInit];
     }
     
     return self;
+}
+
+- (void)awakeFromNib{
+    [self baseInit];
+}
+
+- (void)baseInit{
+    _selectedItems = [NSMutableDictionary dictionary];
+    _outerCircleRadius  = CGRectGetWidth(self.bounds) / 2;
+    _innerCircleRadius  = CGRectGetWidth(self.bounds) / 6;
+    _descriptionTextColor = [UIColor whiteColor];
+    _descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:18.0];
+    _descriptionTextShadowColor  = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+    _descriptionTextShadowOffset =  CGSizeMake(0, 1);
+    _duration = 1.0;
+    _shouldHighlightSectorOnTouch = YES;
+    _enableMultipleSelection = NO;
+    _hideValues = NO;
+    
+    [super setupDefaultValues];
+    [self loadDefault];
 }
 
 - (void)loadDefault{
@@ -106,7 +115,7 @@
         currentItem = [self dataItemForIndex:i];
         
         
-        CGFloat startPercnetage = [self startPercentageForItemAtIndex:i];
+        CGFloat startPercentage = [self startPercentageForItemAtIndex:i];
         CGFloat endPercentage   = [self endPercentageForItemAtIndex:i];
         
         CGFloat radius = _innerCircleRadius + (_outerCircleRadius - _innerCircleRadius) / 2;
@@ -116,7 +125,7 @@
                                                            borderWidth:borderWidth
                                                              fillColor:[UIColor clearColor]
                                                            borderColor:currentItem.color
-                                                       startPercentage:startPercnetage
+                                                       startPercentage:startPercentage
                                                          endPercentage:endPercentage];
         [_pieLayer addSublayer:currentPieLayer];
     }
@@ -128,6 +137,8 @@
         [_contentView addSubview:descriptionLabel];
         [_descriptionLabels addObject:descriptionLabel];
     }
+    
+    [self addAnimationIfNeeded];
 }
 
 - (UILabel *)descriptionLabelForItemAtIndex:(NSUInteger)index{
@@ -138,6 +149,7 @@
     
     UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 80)];
     NSString *titleText = currentDataItem.textDescription;
+    
     NSString *titleValue;
     
     if (self.showAbsoluteValues) {
@@ -145,9 +157,11 @@
     }else{
         titleValue = [NSString stringWithFormat:@"%.0f%%",[self ratioForItemAtIndex:index] * 100];
     }
-    if(!titleText || self.showOnlyValues){
+    
+    if (self.hideValues)
+        descriptionLabel.text = titleText;
+    else if(!titleText || self.showOnlyValues)
         descriptionLabel.text = titleValue;
-    }
     else {
         NSString* str = [titleValue stringByAppendingString:[NSString stringWithFormat:@"\n%@",titleText]];
         descriptionLabel.text = str ;
@@ -240,28 +254,25 @@
                                                endPercentage:1];
     
     _pieLayer.mask = maskLayer;
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration  = _duration;
-    animation.fromValue = @0;
-    animation.toValue   = @1;
-    animation.delegate  = self;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animation.removedOnCompletion = YES;
-    [maskLayer addAnimation:animation forKey:@"circleAnimation"];
 }
 
-- (void)createArcAnimationForLayer:(CAShapeLayer *)layer
-                            forKey:(NSString *)key
-                         fromValue:(NSNumber *)from
-                           toValue:(NSNumber *)to
-                          delegate:(id)delegate{
-    CABasicAnimation *arcAnimation = [CABasicAnimation animationWithKeyPath:key];
-    arcAnimation.fromValue         = @0;
-    arcAnimation.toValue           = to;
-    arcAnimation.delegate          = delegate;
-    arcAnimation.timingFunction    = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-    [layer addAnimation:arcAnimation forKey:key];
-    [layer setValue:to forKey:key];
+- (void)addAnimationIfNeeded{
+    if (self.displayAnimated) {
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        animation.duration  = _duration;
+        animation.fromValue = @0;
+        animation.toValue   = @1;
+        animation.delegate  = self;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        animation.removedOnCompletion = YES;
+        [_pieLayer.mask addAnimation:animation forKey:@"circleAnimation"];
+    }
+    else {
+        // Add description labels since no animation is required
+        [_descriptionLabels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [obj setAlpha:1];
+        }];
+    }
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
@@ -312,14 +323,14 @@
         alpha /= 2;
         UIColor *newColor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
         
-        CGFloat startPercnetage = [self startPercentageForItemAtIndex:index];
+        CGFloat startPercentage = [self startPercentageForItemAtIndex:index];
         CGFloat endPercentage   = [self endPercentageForItemAtIndex:index];
         
         self.sectorHighlight = [self newCircleLayerWithRadius:_outerCircleRadius + 5
                                                   borderWidth:10
                                                     fillColor:[UIColor clearColor]
                                                   borderColor:newColor
-                                              startPercentage:startPercnetage
+                                              startPercentage:startPercentage
                                                 endPercentage:endPercentage];
         
         if (self.enableMultipleSelection)

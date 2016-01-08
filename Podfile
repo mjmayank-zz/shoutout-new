@@ -11,6 +11,7 @@ target 'shoutout' do
 	pod 'Firebase'
 	pod 'QTree-objc'
 	pod 'PNChart'
+	pod 'UIColor+Hex'
 end
 
 target 'shoutoutTests' do

@@ -138,6 +138,10 @@ Parse.Cloud.define("clusterMessage", function(request, response) {
   });
 });
 
-Parse.Cloud.define("locationCrowdedness", function(request, response) {
-  response.success("4");
+Parse.Cloud.define("getLocationCrowdLevel", function(request, response) {
+  response.success({"value":4, "lat":request.params.lat,"long":request.params.long, "backgroundColor":{"red":244, "green":144, "blue":140, "alpha":150}});
+});
+
+Parse.Cloud.define("getLocationRatio", function(request, response) {
+  response.success({"female":4, "male":15});
 });

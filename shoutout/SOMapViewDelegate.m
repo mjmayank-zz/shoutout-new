@@ -145,10 +145,21 @@
             SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
 
             UIImage *image = shoutoutAnnotation.profileImage;
-            ShoutRMMarker *annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
+            ShoutRMMarker *annotationView;
+            if(shoutoutAnnotation.isStatic){
+                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"businessPin"];
+            }
+            else{
+                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
+            }
             if ( ! annotationView)
             {
-                annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
+                if(shoutoutAnnotation.isStatic){
+                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"businessPin" image:image];
+                }
+                else{
+                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
+                }
                 annotationView.shout = shoutoutAnnotation.subtitle;
                 annotationView.canShowCallout = NO;
             }

@@ -11,9 +11,11 @@
 #import "kingpin.h"
 #import "SOMarkerSubView.h"
 #import "PNChart.h"
-#import "Shoutout-Swift.h"
+#import "UIImage+ColorMask.h"
+#import "UIColor+Hex.h"
 @import MapKit;
 
+@class SOPinBusinessViewController;
 @class ShoutRMMarker;
 @class RMAnnotation;
 
@@ -27,7 +29,7 @@
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic, assign) double scale;
-@property (nonatomic, strong) SOBusinessPinVew *businessSubview;
+@property (nonatomic, strong) SOPinBusinessViewController *businessSubVC;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier

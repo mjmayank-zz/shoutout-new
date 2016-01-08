@@ -44,6 +44,7 @@
 
 - (void)setupDefaultValues
 {
+    [super setupDefaultValues];
     self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds   = YES;
     _showLabel           = YES;
@@ -62,6 +63,7 @@
     _chartMarginBottom   = 25.0;
     _barRadius           = 2.0;
     _showChartBorder     = NO;
+    _chartBorderColor    = PNLightGrey;
     _showLevelLine       = NO;
     _yChartLabelWidth    = 18;
     _rotateForXAxisText  = false;
@@ -234,12 +236,15 @@
             }
 
             bar = [[PNBar alloc] initWithFrame:CGRectMake(barXPosition, //Bar X position
-                                                          self.frame.size.height - chartCavanHeight - kXLabelHeight - _chartMarginTop , //Bar Y position
+                                                          self.frame.size.height - chartCavanHeight - kXLabelHeight - _chartMarginBottom + _chartMarginTop , //Bar Y position
                                                           barWidth, // Bar witdh
                                                           self.showLevelLine ? chartCavanHeight/2.0:chartCavanHeight)]; //Bar height
 
             //Change Bar Radius
             bar.barRadius = _barRadius;
+            
+            //Set Bar Animation
+            bar.displayAnimated = self.displayAnimated;
 
             //Change Bar Background color
             bar.backgroundColor = _barBackgroundColor;
@@ -248,6 +253,10 @@
                 bar.barColor = self.strokeColor;
             }else{
                 bar.barColor = [self barColorAtIndex:index];
+            }
+            
+            if (self.labelTextColor) {
+                bar.labelTextColor = self.labelTextColor;
             }
 
             // Add gradient
@@ -309,21 +318,13 @@
 
         UIBezierPath *progressline = [UIBezierPath bezierPath];
 
-        [progressline moveToPoint:CGPointMake(_chartMarginLeft, self.frame.size.height - kXLabelHeight - _chartMarginTop)];
-        [progressline addLineToPoint:CGPointMake(self.frame.size.width - _chartMarginRight,  self.frame.size.height - kXLabelHeight - _chartMarginTop)];
+        [progressline moveToPoint:CGPointMake(_chartMarginLeft, self.frame.size.height - kXLabelHeight - _chartMarginBottom + _chartMarginTop)];
+        [progressline addLineToPoint:CGPointMake(self.frame.size.width - _chartMarginRight,  self.frame.size.height - kXLabelHeight - _chartMarginBottom + _chartMarginTop)];
 
         [progressline setLineWidth:1.0];
         [progressline setLineCapStyle:kCGLineCapSquare];
         _chartBottomLine.path = progressline.CGPath;
-        _chartBottomLine.strokeColor = PNLightGrey.CGColor;
-
-        CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        pathAnimation.duration = 0.5;
-        pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        pathAnimation.fromValue = @0.0f;
-        pathAnimation.toValue = @1.0f;
-        [_chartBottomLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
-
+        _chartBottomLine.strokeColor = [_chartBorderColor CGColor];;
         _chartBottomLine.strokeEnd = 1.0;
 
         [self.layer addSublayer:_chartBottomLine];
@@ -344,17 +345,10 @@
         [progressLeftline setLineWidth:1.0];
         [progressLeftline setLineCapStyle:kCGLineCapSquare];
         _chartLeftLine.path = progressLeftline.CGPath;
-        _chartLeftLine.strokeColor = PNLightGrey.CGColor;
-
-        CABasicAnimation *pathLeftAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-        pathLeftAnimation.duration = 0.5;
-        pathLeftAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        pathLeftAnimation.fromValue = @0.0f;
-        pathLeftAnimation.toValue = @1.0f;
-        [_chartLeftLine addAnimation:pathLeftAnimation forKey:@"strokeEndAnimation"];
-
+        _chartLeftLine.strokeColor = [_chartBorderColor CGColor];
         _chartLeftLine.strokeEnd = 1.0;
 
+        [self addBorderAnimationIfNeeded];
         [self.layer addSublayer:_chartLeftLine];
     }
 
@@ -376,14 +370,8 @@
     _chartLevelLine.path = progressline.CGPath;
 
     _chartLevelLine.strokeColor = PNLightGrey.CGColor;
-
-    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 0.5;
-    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    pathAnimation.fromValue = @0.0f;
-    pathAnimation.toValue = @1.0f;
-    [_chartLevelLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
-
+      
+    [self addSeparatorAnimationIfNeeded];
     _chartLevelLine.strokeEnd = 1.0;
 
     [self.layer addSublayer:_chartLevelLine];
@@ -393,6 +381,37 @@
       _chartLevelLine = nil;
     }
   }
+}
+
+- (void)addBorderAnimationIfNeeded
+{
+    if (self.displayAnimated) {
+        CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        pathAnimation.duration = 0.5;
+        pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        pathAnimation.fromValue = @0.0f;
+        pathAnimation.toValue = @1.0f;
+        [_chartBottomLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
+        
+        CABasicAnimation *pathLeftAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        pathLeftAnimation.duration = 0.5;
+        pathLeftAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        pathLeftAnimation.fromValue = @0.0f;
+        pathLeftAnimation.toValue = @1.0f;
+        [_chartLeftLine addAnimation:pathLeftAnimation forKey:@"strokeEndAnimation"];
+    }
+}
+
+- (void)addSeparatorAnimationIfNeeded
+{
+    if (self.displayAnimated) {
+        CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        pathAnimation.duration = 0.5;
+        pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        pathAnimation.fromValue = @0.0f;
+        pathAnimation.toValue = @1.0f;
+        [_chartLevelLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
+    }
 }
 
 - (void)viewCleanupForCollection:(NSMutableArray *)array

@@ -34,6 +34,15 @@ class SOPopoverViewController:UIViewController {
         view.setNeedsDisplay()
     }
     
+    func updatePipLocationAndAnimate(location: CGFloat, duration: NSTimeInterval) {
+        self.view.layoutIfNeeded()
+        pipLocation = location
+        pipConstraint!.constant = pipLocation! - 20
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     func updateChildController(controller: UIViewController) {
         containerView?.addSubview(controller.view)
         controller.didMoveToParentViewController(self)

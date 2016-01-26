@@ -20,12 +20,23 @@ class SOPopoverViewController:UIViewController {
     var pipLocation: CGFloat?
     
     @IBOutlet private weak var pipConstraint: NSLayoutConstraint?
+    @IBOutlet private weak var containerTopConstraint: NSLayoutConstraint?
     @IBOutlet private weak var containerView: UIView?
+    
+    private var shouldHideTitle: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         popoverContent?.layer.cornerRadius = POPOVER_CORNER_RADIUS
         popoverContent?.layer.masksToBounds = true
+    }
+    
+    func setShowsTitle(showTitle: Bool) {
+        shouldHideTitle = !showTitle
+        if (!showTitle) {
+            containerTopConstraint?.constant = 0
+            popoverTitle?.hidden = true
+        }
     }
     
     func updatePipLocation(location: CGFloat) {

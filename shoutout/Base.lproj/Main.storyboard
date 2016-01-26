@@ -694,6 +694,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="containerTopConstraint" destination="Mwg-C4-FLE" id="5Kj-s1-oKo"/>
                         <outlet property="containerView" destination="mmo-sJ-UUN" id="cGF-cz-9Et"/>
                         <outlet property="pip" destination="0aw-wi-WeA" id="Ol9-bE-xJS"/>
                         <outlet property="pipConstraint" destination="epm-6a-VRQ" id="82e-5b-0PQ"/>
@@ -776,10 +777,10 @@
             </objects>
             <point key="canvasLocation" x="1364" y="-2368"/>
         </scene>
-        <!--View Controller-->
+        <!--Tutorial Card View Controller-->
         <scene sceneID="0n5-Iu-Nqd">
             <objects>
-                <viewController id="vYq-eh-B8a" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="soTutorialCard" id="vYq-eh-B8a" customClass="SONUXTutorialCardViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="b3f-lV-Pgs"/>
                         <viewControllerLayoutGuide type="bottom" id="gic-CI-MeW"/>
@@ -794,36 +795,37 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QY3-QB-H1L">
-                                <rect key="frame" x="40" y="109.5" width="520" height="420.5"/>
-                                <connections>
-                                    <segue destination="KJ9-k8-YbI" kind="embed" id="nTk-Ml-874"/>
-                                </connections>
-                            </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcB-gE-rIM">
-                                <rect key="frame" x="277" y="550" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcB-gE-rIM">
+                                <rect key="frame" x="284" y="550" width="32" height="30"/>
                                 <state key="normal" title="Next">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfc-P3-SbQ">
+                                <rect key="frame" x="40" y="99" width="520" height="430.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.1215686275" green="0.69411764710000001" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.65490196079999996" blue="0.61568627450000002" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9Bx-08-vXh" firstAttribute="top" secondItem="b3f-lV-Pgs" secondAttribute="bottom" constant="20" id="135-1t-VeO"/>
                             <constraint firstItem="9Bx-08-vXh" firstAttribute="leading" secondItem="IuT-DW-DkM" secondAttribute="leadingMargin" constant="20" id="5ST-nL-uEU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QY3-QB-H1L" secondAttribute="trailing" constant="20" id="D5S-Fb-ZCy"/>
-                            <constraint firstItem="pcB-gE-rIM" firstAttribute="top" secondItem="QY3-QB-H1L" secondAttribute="bottom" constant="20" id="YSV-pQ-Eb4"/>
-                            <constraint firstItem="QY3-QB-H1L" firstAttribute="leading" secondItem="IuT-DW-DkM" secondAttribute="leadingMargin" constant="20" id="jch-ue-Bb8"/>
-                            <constraint firstItem="QY3-QB-H1L" firstAttribute="top" secondItem="9Bx-08-vXh" secondAttribute="bottom" constant="30" id="lrF-3I-edQ"/>
+                            <constraint firstItem="pcB-gE-rIM" firstAttribute="top" secondItem="rfc-P3-SbQ" secondAttribute="bottom" constant="20" id="bn2-Bo-VZs"/>
+                            <constraint firstItem="rfc-P3-SbQ" firstAttribute="leading" secondItem="IuT-DW-DkM" secondAttribute="leadingMargin" constant="20" id="cGk-Po-gJS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rfc-P3-SbQ" secondAttribute="trailing" constant="20" id="cgV-0I-M62"/>
+                            <constraint firstItem="rfc-P3-SbQ" firstAttribute="top" secondItem="9Bx-08-vXh" secondAttribute="bottom" constant="20" id="jDD-5r-lgA"/>
                             <constraint firstItem="pcB-gE-rIM" firstAttribute="centerX" secondItem="IuT-DW-DkM" secondAttribute="centerX" id="mTg-ND-BjQ"/>
                             <constraint firstItem="gic-CI-MeW" firstAttribute="top" secondItem="pcB-gE-rIM" secondAttribute="bottom" constant="20" id="uci-xJ-2Bm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9Bx-08-vXh" secondAttribute="trailing" constant="20" id="xjr-Wi-6Qh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="rfc-P3-SbQ" id="ehn-fy-Aky"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLb-V4-5qb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-344" y="-1995"/>
+            <point key="canvasLocation" x="-612" y="-2007"/>
         </scene>
         <!--Inbox View Controller-->
         <scene sceneID="jtp-rI-z19">
@@ -1894,6 +1896,41 @@ or</string>
             </objects>
             <point key="canvasLocation" x="-1067.5" y="243.5"/>
         </scene>
+        <!--Tutorial Text View Controller-->
+        <scene sceneID="bKY-ft-1Vb">
+            <objects>
+                <viewController id="ReJ-f8-EfK" customClass="SONUXTutorialTextViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0i2-Cv-ULm"/>
+                        <viewControllerLayoutGuide type="bottom" id="cMJ-7y-Z26"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x4s-ad-IRF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="AS9-OP-LJx">
+                                <rect key="frame" x="0.5" y="0.0" width="600" height="600"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AS9-OP-LJx" firstAttribute="centerY" secondItem="x4s-ad-IRF" secondAttribute="centerY" id="7dn-rw-EYi"/>
+                            <constraint firstItem="AS9-OP-LJx" firstAttribute="height" secondItem="x4s-ad-IRF" secondAttribute="height" id="jJT-cl-Ohq"/>
+                            <constraint firstItem="AS9-OP-LJx" firstAttribute="width" secondItem="x4s-ad-IRF" secondAttribute="width" id="jZu-6c-uCB"/>
+                            <constraint firstItem="AS9-OP-LJx" firstAttribute="centerX" secondItem="x4s-ad-IRF" secondAttribute="centerX" id="vLn-Nb-Es3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="AS9-OP-LJx" id="01A-sG-BUa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aw1-o2-p4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1668" y="-1373"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="4L9-8N-jHO">
             <objects>
@@ -2269,20 +2306,6 @@ or</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zaE-jD-Ch3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="JTb-2R-opG">
-            <objects>
-                <viewController id="KJ9-k8-YbI" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8o6-Hg-wiQ">
-                        <rect key="frame" x="0.0" y="0.0" width="520" height="420.5"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TPw-Iv-ngM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1059" y="-2052"/>
         </scene>
     </scenes>
     <resources>

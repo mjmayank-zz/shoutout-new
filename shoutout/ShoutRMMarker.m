@@ -7,6 +7,7 @@
 //
 
 #import "ShoutRMMarker.h"
+#import "Shoutout-Swift.h"
 
 @interface ShoutRMMarker ()
 
@@ -31,13 +32,20 @@
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
-        [self addSubview:self.subview];
+
+        [self setPinColor:[UIColor colorWithCSS:@"2ECEFF"]];
+        
         self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
         self.subview.onlineIndicator.layer.cornerRadius = self.subview.onlineIndicator.frame.size.height/2.0;
         self.subview.profileImageView.layer.masksToBounds = YES;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
+        
+        SOAnnotation *soannotation = ((SOAnnotation *)self.annotation);
+        if(soannotation.isStatic){
+            [self setupBusinessView:soannotation];
+        }
         
         self.frame = self.subview.pinView.frame;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
@@ -54,6 +62,21 @@
     if ([name isEqualToString:@"profile"]) {
         [self toggleShout];
     }
+}
+
+- (void)setupBusinessView:(SOAnnotation *)soannotation{
+    self.businessSubVC = [[SOPinBusinessViewController alloc] init];
+    self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
+    self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
+    self.businessSubVC.view.frame = CGRectMake(27, 0, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
+    [self.subview.bubbleContainerView insertSubview:self.businessSubVC.view atIndex:0];
+}
+
+- (void)setPinColor:(UIColor *)color{
+    UIImage *image = [UIImage imageNamed:@"pinWithShadowGrayscale.png" withColor:color];
+    UIImageView *iview = [[UIImageView alloc] initWithImage:image];
+    [self.subview insertSubview:iview aboveSubview:self.subview.pinView];
+    [self addSubview:self.subview];
 }
 
 - (void)toggleShout
@@ -99,9 +122,14 @@
     self.subview.usernameLabel.text = [NSString stringWithFormat:@"-%@", annotation.title];
     if(annotation.userInfo[@"updatedAt"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/dd/yy HH:mm"];
+        [dateFormatter setDateFormat:@"MMM dd hh:mm a"];
         NSString *dateString = [dateFormatter stringFromDate:annotation.userInfo[@"updatedAt"]];
         self.subview.timeLabel.text = dateString;
+    }
+    if(annotation.isStatic){
+        self.businessSubVC.latitude =  [NSNumber numberWithDouble:annotation.coordinate.latitude];
+        self.businessSubVC.longitude = [NSNumber numberWithDouble:annotation.coordinate.longitude];
+        [self.businessSubVC refreshData];
     }
     self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width * 3.0, self.frame.size.height);
@@ -124,7 +152,7 @@
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
-        NSString * username = annotation.userInfo[@"username"];
+        NSString * username = annotation.title;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"replyToShout" object:self userInfo:@{@"username":username}];
     }
 }

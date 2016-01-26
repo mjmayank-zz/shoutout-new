@@ -14,6 +14,7 @@
 		8F0455CF1BA367DA003A3C55 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0455CE1BA367DA003A3C55 /* MapKit.framework */; };
 		8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */; };
 		8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */; };
+		8F1680E91C532FC100435596 /* shoutoutLogoCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1680E81C532FC100435596 /* shoutoutLogoCropped.png */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; };
 		8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */; };
 		8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */; };
@@ -110,6 +111,9 @@
 		8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */; };
 		8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */; };
 		8FC5E56B1BE320840068AC0C /* triangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC5E56A1BE320840068AC0C /* triangle@2x.png */; };
+		8FC832BB1C3F5E5500B027DE /* SOPinBusinessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC832B91C3F5E5500B027DE /* SOPinBusinessViewController.swift */; };
+		8FC832BC1C3F5E5500B027DE /* SOPinBusinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC832BA1C3F5E5500B027DE /* SOPinBusinessViewController.xib */; };
+		8FC832BE1C40280E00B027DE /* PNFilledPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC832BD1C40280E00B027DE /* PNFilledPieChart.swift */; };
 		8FD1D8C31C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */; };
 		8FD1D8CB1C02B01F0006445B /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C81C02B01F0006445B /* eye.png */; };
 		8FD1D8CC1C02B01F0006445B /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8C91C02B01F0006445B /* eye@2x.png */; };
@@ -118,6 +122,9 @@
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
 		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
+		8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */; };
+		8FFF9A881C55C2910058BE67 /* pinWithShadowGrayscale@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF9A871C55C2910058BE67 /* pinWithShadowGrayscale@2x.png */; };
+		8FFF9A8A1C56D2410058BE67 /* pinWithShadowBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF9A891C56D2410058BE67 /* pinWithShadowBlack@2x.png */; };
 		999C19E811FC92E4CF9326E7 /* libPods-shoutout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +149,7 @@
 		8F0AA26E1BD3E2FA0068AE38 /* SOFirebaseDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOFirebaseDelegate.m; sourceTree = "<group>"; };
 		8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shoutout-Bridging-Header.h"; sourceTree = "<group>"; };
 		8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTutorialPermissionsViewController.swift; sourceTree = "<group>"; };
+		8F1680E81C532FC100435596 /* shoutoutLogoCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoutoutLogoCropped.png; sourceTree = "<group>"; };
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
 		8F168CE61BADDF94000D18D0 /* SOPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinView.xib; sourceTree = "<group>"; };
 		8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFeedbackViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +271,9 @@
 		8FAC6C8E1BE291BB00C3EA1B /* SOWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOWebViewController.swift; sourceTree = "<group>"; };
 		8FC5E5681BE2B7E00068AC0C /* SOForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		8FC5E56A1BE320840068AC0C /* triangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle@2x.png"; sourceTree = "<group>"; };
+		8FC832B91C3F5E5500B027DE /* SOPinBusinessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOPinBusinessViewController.swift; sourceTree = "<group>"; };
+		8FC832BA1C3F5E5500B027DE /* SOPinBusinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinBusinessViewController.xib; sourceTree = "<group>"; };
+		8FC832BD1C40280E00B027DE /* PNFilledPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNFilledPieChart.swift; sourceTree = "<group>"; };
 		8FD1D8C21C0137DD0006445B /* shoutSpeechBubbleFlipped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoutSpeechBubbleFlipped@2x.png"; sourceTree = "<group>"; };
 		8FD1D8C81C02B01F0006445B /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		8FD1D8C91C02B01F0006445B /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
@@ -274,6 +285,10 @@
 		8FF09DB61BE035ED001402E7 /* SOListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOListViewController.swift; sourceTree = "<group>"; };
 		8FFF0BFE1B9F74760009E619 /* Home.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Home.gpx; sourceTree = "<group>"; };
 		8FFF0BFF1B9F7A210009E619 /* UVA.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UVA.gpx; sourceTree = "<group>"; };
+		8FFF9A821C55BD880058BE67 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
+		8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
+		8FFF9A871C55C2910058BE67 /* pinWithShadowGrayscale@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinWithShadowGrayscale@2x.png"; sourceTree = "<group>"; };
+		8FFF9A891C56D2410058BE67 /* pinWithShadowBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinWithShadowBlack@2x.png"; sourceTree = "<group>"; };
 		97991FF71B916BD671C9AD8E /* Pods-shoutout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.release.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.release.xcconfig"; sourceTree = "<group>"; };
 		BBF3B612BE40D36E3DB703F4 /* libPods-shoutout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-shoutout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -334,6 +349,8 @@
 				8F168CE61BADDF94000D18D0 /* SOPinView.xib */,
 				8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */,
 				8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */,
+				8FC832B91C3F5E5500B027DE /* SOPinBusinessViewController.swift */,
+				8FC832BA1C3F5E5500B027DE /* SOPinBusinessViewController.xib */,
 				8FA956BE1BC050E1003C7357 /* SOMarkerSubView.h */,
 				8FA956BF1BC050E1003C7357 /* SOMarkerSubView.m */,
 				8F9A48D01BA66F0D002C68EE /* ShoutClusterMarker.h */,
@@ -391,8 +408,6 @@
 				8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */,
 				8F5AEDBD1BBCC99B00DF1BB1 /* Pins */,
 				35872A8A1BC5D462004E99C6 /* NUX */,
-				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
-				8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */,
 				8FFF0BFF1B9F7A210009E619 /* UVA.gpx */,
 				8F168CE51BAC9D70000D18D0 /* UIUC.gpx */,
 				8FFF0BFE1B9F74760009E619 /* Home.gpx */,
@@ -400,6 +415,7 @@
 				8F8D477F1B976DB900D902B9 /* LaunchScreen.xib */,
 				8F8D47701B976DB900D902B9 /* Supporting Files */,
 				8F0BBC6B1BA1E56C00F9851B /* shoutout-Bridging-Header.h */,
+				8FC832BD1C40280E00B027DE /* PNFilledPieChart.swift */,
 			);
 			path = shoutout;
 			sourceTree = "<group>";
@@ -407,6 +423,10 @@
 		8F8D47701B976DB900D902B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FFF9A821C55BD880058BE67 /* UIImage+ColorMask.h */,
+				8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */,
+				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,
+				8F9A48CE1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m */,
 				8F8E16DA1BD58B2E00840A14 /* Fonts */,
 				8F8D47971B97717C00D902B9 /* Settings.bundle */,
 				8F8D47711B976DB900D902B9 /* Info.plist */,
@@ -550,6 +570,7 @@
 		8FA7701C1BD70C5C00979C3A /* Logos */ = {
 			isa = PBXGroup;
 			children = (
+				8F1680E81C532FC100435596 /* shoutoutLogoCropped.png */,
 				8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */,
 				8FA7701D1BD70C5C00979C3A /* shoutout_green.png */,
 				8FA7701E1BD70C5C00979C3A /* shoutout_white.png */,
@@ -575,6 +596,8 @@
 		8FA770261BD70C5C00979C3A /* PinsAndBubbles */ = {
 			isa = PBXGroup;
 			children = (
+				8FFF9A891C56D2410058BE67 /* pinWithShadowBlack@2x.png */,
+				8FFF9A871C55C2910058BE67 /* pinWithShadowGrayscale@2x.png */,
 				8FA770941BD7107800979C3A /* circularBackground@3x.png */,
 				8FA770271BD70C5C00979C3A /* pinBubble.png */,
 				8FA770281BD70C5C00979C3A /* pinWithShadow@2x.png */,
@@ -693,6 +716,7 @@
 				8FA770541BD70C5C00979C3A /* shoutoutGrayLogo.png in Resources */,
 				8FA76FE91BD6D19A00979C3A /* Titillium-BoldItalic.otf in Resources */,
 				8FA76FF61BD6D19A00979C3A /* Titillium-ThinUpright.otf in Resources */,
+				8FFF9A8A1C56D2410058BE67 /* pinWithShadowBlack@2x.png in Resources */,
 				8FA7705E1BD70C5C00979C3A /* shout@3x-09.png in Resources */,
 				8FA770931BD70E8300979C3A /* settingsPressed@2x.png in Resources */,
 				8FA770881BD70E8300979C3A /* listView@2x.png in Resources */,
@@ -704,6 +728,7 @@
 				8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */,
 				8FA770511BD70C5C00979C3A /* smallIcon.png in Resources */,
 				8FD1D8CC1C02B01F0006445B /* eye@2x.png in Resources */,
+				8FFF9A881C55C2910058BE67 /* pinWithShadowGrayscale@2x.png in Resources */,
 				8FA76FF01BD6D19A00979C3A /* Titillium-RegularUpright.otf in Resources */,
 				8FA770601BD70C5C00979C3A /* shoutBubble.png in Resources */,
 				8FA76FF11BD6D19A00979C3A /* Titillium-Semibold.otf in Resources */,
@@ -764,12 +789,14 @@
 				8FA770641BD70C5C00979C3A /* speechBubbleOverlay@2x.png in Resources */,
 				8FA76FF41BD6D19A00979C3A /* Titillium-Thin.otf in Resources */,
 				8FA7705D1BD70C5C00979C3A /* shout@3x-08.png in Resources */,
+				8FC832BC1C3F5E5500B027DE /* SOPinBusinessViewController.xib in Resources */,
 				8FA770561BD70C5C00979C3A /* onboardingPage1@2x.png in Resources */,
 				8FA770531BD70C5C00979C3A /* shoutout_white.png in Resources */,
 				8FA770331BD70C5C00979C3A /* anon.jpg in Resources */,
 				8FA7705F1BD70C5C00979C3A /* shout@3x-10.png in Resources */,
 				8F8D477E1B976DB900D902B9 /* Images.xcassets in Resources */,
 				8FA76FEA1BD6D19A00979C3A /* Titillium-BoldUpright.otf in Resources */,
+				8F1680E91C532FC100435596 /* shoutoutLogoCropped.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,6 +878,7 @@
 			files = (
 				8F8D479B1B97809B00D902B9 /* LocationManager.m in Sources */,
 				8F9A48D21BA66F0D002C68EE /* ShoutClusterMarker.m in Sources */,
+				8FC832BE1C40280E00B027DE /* PNFilledPieChart.swift in Sources */,
 				8FA76FD41BD6D02D00979C3A /* KPClusteringController.m in Sources */,
 				8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */,
 				8F9A48CF1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m in Sources */,
@@ -863,11 +891,13 @@
 				352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */,
 				8FD1D8CF1C04CA8C0006445B /* SOBlockMapViewController.swift in Sources */,
 				8FA76FD51BD6D02D00979C3A /* KPGridClusteringAlgorithm.m in Sources */,
+				8FC832BB1C3F5E5500B027DE /* SOPinBusinessViewController.swift in Sources */,
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
+				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,
 				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,
@@ -1008,6 +1038,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1028,6 +1059,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 97991FF71B916BD671C9AD8E /* Pods-shoutout.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

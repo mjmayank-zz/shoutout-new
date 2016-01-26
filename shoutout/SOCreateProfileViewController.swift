@@ -131,7 +131,13 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
             self.loadRandomDefaultImage()
         }
 
-        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (_) in }
+        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (action:UIAlertAction) -> Void in
+            let imagePicker = UIImagePickerController();
+            imagePicker.sourceType = .Camera;
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addAction(randomAction)

@@ -10,8 +10,12 @@
 #import "SOAnnotation.h"
 #import "kingpin.h"
 #import "SOMarkerSubView.h"
+#import "PNChart.h"
+#import "UIImage+ColorMask.h"
+#import "UIColor+Hex.h"
 @import MapKit;
 
+@class SOPinBusinessViewController;
 @class ShoutRMMarker;
 @class RMAnnotation;
 
@@ -25,6 +29,7 @@
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic, assign) double scale;
+@property (nonatomic, strong) SOPinBusinessViewController *businessSubVC;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
                    reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,7 +38,8 @@
 - (void)scaleForZoomLevel:(double)zoomLevel;
 - (void)showShout;
 - (void)hideShout;
--(void)setOnline:(BOOL)online;
--(void)sendMessage;
+- (void)setOnline:(BOOL)online;
+- (void)sendMessage;
+- (void)mapDidScale:(NSNotification *)notification;
 
 @end

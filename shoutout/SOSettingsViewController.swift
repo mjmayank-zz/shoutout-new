@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
-class SOSettingsViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class SOSettingsViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate{
 
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var usernameTextField: UITextField!
@@ -18,6 +19,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var sendFeedbackButton: UIButton!
     @IBOutlet var logoutButton: UIButton!
     @IBOutlet var anonymousToggle: UISwitch!
+    @IBOutlet var genderControl: UISegmentedControl!
     
     var oldVC: UIViewController!
     
@@ -35,6 +37,15 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         
         if let anon = PFUser.currentUser()?["anonymous"]{
             self.anonymousToggle.on = anon.boolValue;
+        }
+        
+        if let gender = PFUser.currentUser()?["gender"] as? Int{
+            if(gender < 2){
+                self.genderControl.selectedSegmentIndex = gender;
+            }
+            else{
+                self.genderControl.selectedSegmentIndex = 2;
+            }
         }
         
         self.updateButton.layer.cornerRadius = 5.0;
@@ -79,6 +90,12 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     
     @IBAction func didPressDoneButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
+    }
+    
+    @IBAction func genderChanged(sender: AnyObject) {
+        let genderControl = sender as! UISegmentedControl;
+        PFUser.currentUser()?["gender"] = genderControl.selectedSegmentIndex;
+        PFUser.currentUser()?.saveInBackground();
     }
     
     @IBAction func anonymousChanged(sender: AnyObject) {
@@ -130,6 +147,35 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
         PFUser.currentUser()?.username = self.usernameTextField.text?.lowercaseString;
         PFUser.currentUser()?.saveInBackground();
+        self.usernameTextField.resignFirstResponder();
+    }
+    
+    @IBAction func inviteFriendButtonPressed(sender: AnyObject){
+        let messageVC = MFMessageComposeViewController()
+        
+        messageVC.body = "Hey! Check out this app that lets you know what's going on around campus. http://www.getshoutout.co";
+        messageVC.recipients = [""]
+        messageVC.messageComposeDelegate = self;
+    
+        if(MFMessageComposeViewController.canSendText()){
+            self.presentViewController(messageVC, animated: false, completion: nil)
+        }
+    }
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        switch (result.rawValue) {
+        case MessageComposeResultCancelled.rawValue:
+            print("Message was cancelled")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        case MessageComposeResultFailed.rawValue:
+            print("Message failed")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        case MessageComposeResultSent.rawValue:
+            print("Message was sent")
+            self.dismissViewControllerAnimated(true, completion: nil)
+        default:
+            break;
+        }
     }
     
     @IBAction func addPictureButtonPressed(sender: AnyObject) {
@@ -146,12 +192,18 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             self.loadRandomDefaultImage()
         }
         
-        let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (_) in }
+        let takeAction = UIAlertAction(title: "Take a picture", style: .Default) { (action:UIAlertAction) -> Void in
+            let imagePicker = UIImagePickerController();
+            imagePicker.sourceType = .Camera;
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addAction(randomAction)
         alertController.addAction(uploadAction)
-        alertController.addAction(threeAction)
+        alertController.addAction(takeAction)
         alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)

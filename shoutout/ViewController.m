@@ -387,6 +387,7 @@
     annotation.objectId = obj.objectId;
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
+    annotation.isStatic = [obj[@"static"] boolValue];
     
     [self.mapViewDelegate.tree insertObject:annotation];
     
@@ -640,7 +641,6 @@
 
 - (IBAction)centerButtonPressed:(id)sender {
     [self centerMapToUserLocation];
-    [PFAnalytics trackEvent:@"pressedLocateButton" dimensions:nil];
 }
 
 - (IBAction)loadMapPressed:(id)sender {

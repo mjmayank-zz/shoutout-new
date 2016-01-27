@@ -140,11 +140,84 @@
     SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
     [self addChildViewController:tutPopover];
     [tutPopover didMoveToParentViewController:self];
-    [self.view insertSubview:tutPopover.view belowSubview:self.slidingView];
+    [self.view addSubview:tutPopover.view];
     
     SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
     [tutPopover updateChildController:tutController];
     [tutPopover setShowsTitle:NO];
+    
+    SONUXTutorialTextViewController* tutText = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialText"];
+    [tutController.contentView addSubview:tutText.view];
+    [tutController addChildViewController:tutText];
+    [tutText didMoveToParentViewController:tutController];
+    
+    // Auto Layout for NUX popover
+    {
+        NSMutableArray* constraints = [NSMutableArray array];
+        NSDictionary* views = @{
+                                @"popover": tutPopover.view,
+                                @"tuttext": tutText.view
+                                };
+        NSDictionary* metrics = @{
+                                  @"padding": @SO_POPOVER_HORIZ_PADDING
+                                  };
+        
+        [tutPopover.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        
+        // Tutorial card
+        [tutText.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:tutController.contentView
+                                                            attribute:NSLayoutAttributeWidth
+                                                           multiplier:1.0
+                                                             constant:0]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
+                                                            attribute:NSLayoutAttributeHeight
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:tutController.contentView
+                                                            attribute:NSLayoutAttributeHeight
+                                                           multiplier:1.0
+                                                             constant:0]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
+                                                            attribute:NSLayoutAttributeCenterX
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:tutController.contentView
+                                                            attribute:NSLayoutAttributeCenterX
+                                                           multiplier:1.0
+                                                             constant:0]];
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
+                                                            attribute:NSLayoutAttributeCenterY
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:tutController.contentView
+                                                            attribute:NSLayoutAttributeCenterY
+                                                           multiplier:1.0
+                                                             constant:0]];
+        
+        // Horizontal padding
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[popover]-padding-|"
+                                                                                 options:0
+                                                                                 metrics:metrics
+                                                                                   views:views]];
+        // Top margin
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                            attribute:NSLayoutAttributeTopMargin
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self.view
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1
+                                                             constant:50.0f]];
+        // Bottom margin
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                            attribute:NSLayoutAttributeBottom
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self.inboxButton
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1
+                                                             constant:0]];
+        [NSLayoutConstraint activateConstraints:constraints];
+    }
     
 // RAJ_END
     
@@ -157,7 +230,6 @@
     NSDictionary* views = @{
                             @"listPopover": self.listViewContainer,
                             @"inboxPopover": self.inboxContainer,
-                            @"tutPopover": tutPopover.view
                             };
     NSDictionary* metrics = @{
                               @"padding": @SO_POPOVER_HORIZ_PADDING
@@ -169,12 +241,10 @@
     // Horizontal padding
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[listPopover]-padding-|" options:0 metrics:metrics views:views]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[inboxPopover]-padding-|" options:0 metrics:metrics views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[tutPopover]-padding-|" options:0 metrics:metrics views:views]];
     
     // Height
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.inboxContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
     
     // Bottom margin
     self.listViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.listButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];

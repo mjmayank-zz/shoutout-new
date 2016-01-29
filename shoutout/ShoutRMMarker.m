@@ -33,7 +33,14 @@
     if (self) {
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
 
-        [self setPinColor:[UIColor colorWithCSS:@"2ECEFF"]];
+        SOAnnotation *soannotation = ((SOAnnotation *)self.annotation);
+        if(soannotation.isStatic){
+            [self setupBusinessView:soannotation];
+            [self setPinColor:[UIColor colorWithCSS:@"00A79D"]];
+        }
+        else{
+            [self setPinColor:[UIColor colorWithCSS:@"2ECEFF"]];
+        }
         
         self.subview.profileImageView.layer.cornerRadius = self.subview.profileImageView.frame.size.height/2.0;
         self.subview.onlineIndicator.layer.cornerRadius = self.subview.onlineIndicator.frame.size.height/2.0;
@@ -41,11 +48,6 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
-        
-        SOAnnotation *soannotation = ((SOAnnotation *)self.annotation);
-        if(soannotation.isStatic){
-            [self setupBusinessView:soannotation];
-        }
         
         self.frame = self.subview.pinView.frame;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);

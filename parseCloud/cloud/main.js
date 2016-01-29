@@ -9,7 +9,7 @@ Parse.Cloud.beforeSave("Messages", function(request, response) {
   if(request.object.get("to")){
     request["object"].addUnique("toArray", request.object.get("to"))
   }
-  console.log(request.object.get("to"))
+  // console.log(request.object.get("to"))
   response.success();
 });
 
@@ -65,15 +65,25 @@ Parse.Cloud.afterSave(Parse.User, function(request) {
 Parse.Cloud.define("queryUsers", function(request, response) {
   var query = new Parse.Query(Parse.User);
   var loc = new Parse.GeoPoint(request.params.lat, request.params.long)
+  var radius = 50
   // if(!(request.params.user === "MXUYiDQWKk" || request.params.user === "5Lfcn6WUvk" || request.params.user === "G02Hp4alXN")){
-    query.withinKilometers("geo", loc, 50);
+    query.withinKilometers("geo", loc, radius);
   // }
   query.equalTo("visible", true);
   var oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  query.greaterThanOrEqualTo("updatedAt", oneWeekAgo);
-  query.limit(1000); //maximum limit in Parse. Will have to page after this.
-  query.find({
+  if(!request.params.debug){
+  	query.greaterThanOrEqualTo("updatedAt", oneWeekAgo);
+  }
+  query.limit(1000); //1000 is the maximum limit in Parse. Will have to page after this.
+
+  var businessPinQuery = new Parse.Query(Parse.User);
+  businessPinQuery.withinKilometers("geo", loc, radius);
+  businessPinQuery.equalTo("static", true);
+
+  var orQuery = Parse.Query.or(query, businessPinQuery);
+  orQuery.limit(1000);
+  orQuery.find({
     success: function(results) {
       var blockQuery = new Parse.Query("Block");
       blockQuery.equalTo("blockedUser", {
@@ -120,7 +130,7 @@ Parse.Cloud.define("clusterMessage", function(request, response) {
   query.equalTo("visible", true);
   query.find({
     success: function(results) {
-      console.log(results)
+      // console.log(results)
         var obj = new Parse.Object("Messages");
         obj.set("message", request.params.message);
         obj.set("from", {
@@ -139,9 +149,38 @@ Parse.Cloud.define("clusterMessage", function(request, response) {
 });
 
 Parse.Cloud.define("getLocationCrowdLevel", function(request, response) {
-  response.success({"value":150, "lat":request.params.lat,"long":request.params.long, "backgroundColor":{"red":244, "green":144, "blue":140, "alpha":150}});
+  var query = new Parse.Query(Parse.User);
+  var loc = new Parse.GeoPoint(request.params.lat, request.params.long)
+  var radius = .1
+  query.withinKilometers("geo", loc, radius);
+  query.count({
+    success: function(count) {
+      response.success({"value":count, "lat":request.params.lat,"long":request.params.long, "backgroundColor":{"red":244, "green":144, "blue":140, "alpha":150}});
+    },
+    error: function(error){
+
+    }
+  });
 });
 
 Parse.Cloud.define("getLocationRatio", function(request, response) {
-  response.success({"female":20, "male":15});
+  var loc = new Parse.GeoPoint(request.params.lat, request.params.long)
+  var radius = .1
+  var queryMale = new Parse.Query(Parse.User);
+  queryMale.withinKilometers("geo", loc, radius);
+  queryMale.equalTo("gender", 0)
+  queryMale.count();
+
+  var queryFemale = new Parse.Query(Parse.User);
+  queryFemale.withinKilometers("geo", loc, radius);
+  queryFemale.equalTo("gender", 1)
+  queryFemale.count();
+
+  Parse.Promise.when(queryMale, queryFemale).then(function(maleCount, femaleCount) {
+        console.log("hello")
+        console.log(maleCount)
+        console.log(femaleCount)
+        response.success({"female":5, "male":4});
+    });
+
 });

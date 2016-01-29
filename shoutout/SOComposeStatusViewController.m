@@ -59,6 +59,26 @@
 
 - (void)updateStatus{
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
+        if([PFUser currentUser][@"statusObj"] == nil){
+            PFObject *status = [PFObject objectWithClassName:@"Status"];
+            status[@"status"] = self.statusTextView.text;
+            status[@"views"] = @0;
+            status[@"author"] = [PFUser currentUser];
+            [status saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [PFUser currentUser][@"statusObj"] = status;
+                    [[PFUser currentUser] saveInBackground];
+                } else {
+                    // There was a problem, check error.description
+                }
+            }];
+        }
+        
+        [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            [PFUser currentUser][@"statusObj"][@"status"] = self.statusTextView.text;
+            [PFUser currentUser][@"statusObj"][@"views"] = @0;
+            [[PFUser currentUser][@"statusObj"] saveInBackground];
+        }];
         [PFUser currentUser][@"status"] = self.statusTextView.text;
         [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
         [self checkForRecipients:self.statusTextView.text];

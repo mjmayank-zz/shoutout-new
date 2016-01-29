@@ -344,7 +344,8 @@
     [PFCloud callFunctionInBackground:@"queryUsers"
                        withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
                                         @"long": [NSNumber numberWithDouble:location.longitude],
-                                        @"user": [PFUser currentUser].objectId}
+                                        @"user": [PFUser currentUser].objectId,
+                                        @"debug": @NO}
                                 block:^(NSArray *objects, NSError *error) {
                                     if (!error) {
                                         // The find succeeded.

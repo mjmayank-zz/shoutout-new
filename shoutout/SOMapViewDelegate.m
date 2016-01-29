@@ -125,6 +125,11 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView
+didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
+    
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[KPAnnotation class]]) {
@@ -156,6 +161,7 @@
             {
                 if(shoutoutAnnotation.isStatic){
                     annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"businessPin" image:image];
+                    annotationView.layer.zPosition = 1;
                 }
                 else{
                     annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];

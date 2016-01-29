@@ -107,7 +107,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 cell.profileImage.clipsToBounds = true;
                 
                 let dateFormatter = NSDateFormatter();
-                dateFormatter.dateFormat = "MM/dd/yy HH:mm";
+                dateFormatter.dateFormat = "MMM dd hh:mm a";
                 let date = messages![indexPath.row].createdAt;
                 let dateString = dateFormatter.stringFromDate(date!);
                 cell.dateLabel.text = dateString;

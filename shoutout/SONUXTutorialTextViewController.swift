@@ -11,6 +11,6 @@ import UIKit
 
 class SONUXTutorialTextViewController: UIViewController {
     
-    @IBOutlet var textField: UITextField!
+    @IBOutlet var textView: UITextView!
     
 }

@@ -147,9 +147,15 @@
     [tutPopover setShowsTitle:NO];
     
     SONUXTutorialTextViewController* tutText = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialText"];
+    
     [tutController.contentView addSubview:tutText.view];
     [tutController addChildViewController:tutText];
     [tutText didMoveToParentViewController:tutController];
+    
+    tutController.slideTitle.text = @"Welcome to Shoutout";
+    [tutText.textView setText:@"Before you can get started, we need to show you a couple of things about the app.\n\nShoutout is all about getting on the map. In order for this to work, we need to get your permissions and show you how everything works."];
+    [tutController.nextButton setTitle:@"OK! Let's get on with it" forState:UIControlStateNormal];
+    [tutPopover.pip setHidden:YES];
     
     // Auto Layout for NUX popover
     {

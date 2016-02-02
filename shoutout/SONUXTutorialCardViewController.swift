@@ -12,5 +12,7 @@ import UIKit
 class SONUXTutorialCardViewController: UIViewController {
     
     @IBOutlet var contentView: UIView!
+    @IBOutlet var slideTitle: UILabel!
+    @IBOutlet var nextButton: UIButton!
     
 }

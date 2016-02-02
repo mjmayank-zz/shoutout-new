@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */; };
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; };
+		359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */; };
 		35FEEBDB1C57301000FBF2EF /* SONUXTutorialTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */; };
 		35FEEBDD1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */; };
 		8F0430B71BE46DA10024DF4E /* checked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */; };
@@ -144,6 +145,7 @@
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOPopoverViewController.swift; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
+		359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialTextImageViewController.swift; sourceTree = "<group>"; };
 		35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialTextViewController.swift; sourceTree = "<group>"; };
 		35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialCardViewController.swift; sourceTree = "<group>"; };
 		8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked_checkbox@2x.png"; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */,
+				359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */,
 				35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
@@ -913,6 +916,7 @@
 				8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */,
 				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,
 				8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */,
+				359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,

@@ -28,6 +28,7 @@ class SONUXTutorialCardViewController: UIViewController {
         if (contentView.subviews.count > 0) {
             contentView.subviews[0].removeFromSuperview()
         }
+        currentSlide = (currentSlide + 1) % contentViewControllers.count
         displayViewController(currentSlide)
     }
     
@@ -46,6 +47,16 @@ class SONUXTutorialCardViewController: UIViewController {
             popover.pip?.hidden = true
             nextButton.setTitle("OK! Let's get on with it", forState: .Normal)
             slideTitle.text = "Welcome to Shoutout"
+        case 1:
+            popover.pip?.hidden = false
+            popover.updatePipLocationAndAnimate(105.0, duration: 0.3)
+            nextButton.setTitle("Next", forState: .Normal)
+            slideTitle.text = "List View"
+        case 2:
+            popover.pip?.hidden = false
+            popover.updatePipLocationAndAnimate(242.0, duration: 0.3)
+            nextButton.setTitle("Next", forState: .Normal)
+            slideTitle.text = "Inbox View"
         default:
             return
         }
@@ -61,6 +72,18 @@ class SONUXTutorialCardViewController: UIViewController {
         tutText?.view
         tutText?.textView.text = "Before you can get started, we need to show you a couple of things about the app.\n\nShoutout is all about getting on the map. In order for this to work, we need to get your permissions and show you how everything works."
         contentViewControllers.append(tutText)
+        
+        let slideTwo = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
+        slideTwo?.view
+        slideTwo?.textView.text = "Too many people on the map?\n\nTry using List View to help sort through the masses."
+        contentViewControllers.append(slideTwo)
+        // MAYANK-TODO: set image
+        
+        let slideThree = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
+        slideThree?.view
+        slideThree?.textView.text = "If someone shouts back at you, it will show up here. From here, you can also block the haters and find your homies."
+        contentViewControllers.append(slideThree)
+        // MAYANK-TODO: set image
         
         for contentViewController in contentViewControllers {
             addChildViewController(contentViewController)

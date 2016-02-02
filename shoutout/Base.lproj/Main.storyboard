@@ -48,6 +48,7 @@
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
+            <string>Titillium-Regular</string>
         </mutableArray>
         <mutableArray key="Titillium-Semibold.otf">
             <string>Titillium-Semibold</string>
@@ -1957,7 +1958,7 @@ or</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aw1-o2-p4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1668" y="-1373"/>
+            <point key="canvasLocation" x="-1666" y="-1353"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4L9-8N-jHO">
@@ -2334,6 +2335,65 @@ or</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zaE-jD-Ch3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Tutorial Text Image View Controller-->
+        <scene sceneID="VwK-nR-naA">
+            <objects>
+                <viewController storyboardIdentifier="soTutorialTextImage" id="AfC-tD-q5Z" customClass="SONUXTutorialTextImageViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MwA-5P-yrm"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fzx-Nc-uKr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MkI-oT-Gwf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-mF-gmC">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t7V-Ic-4xC">
+                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="By2-Ly-I3m"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="L2T-mF-gmC" firstAttribute="width" secondItem="MkI-oT-Gwf" secondAttribute="width" id="2Pl-Q0-s4i"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="t7V-Ic-4xC" secondAttribute="bottom" id="56A-Lc-adT"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="width" secondItem="MkI-oT-Gwf" secondAttribute="width" id="9aA-BT-C4y"/>
+                            <constraint firstItem="L2T-mF-gmC" firstAttribute="centerY" secondItem="MkI-oT-Gwf" secondAttribute="centerY" id="BfC-6Z-nnn"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="top" id="JLn-A9-icN"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="centerX" secondItem="MkI-oT-Gwf" secondAttribute="centerX" id="LZl-2l-kgq"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="bottom" constant="20" id="Rh4-LM-8cy"/>
+                            <constraint firstItem="L2T-mF-gmC" firstAttribute="height" secondItem="MkI-oT-Gwf" secondAttribute="height" id="XGe-lf-W1N"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="bottom" constant="-364" id="lmd-U1-eAc"/>
+                            <constraint firstAttribute="topMargin" secondItem="L2T-mF-gmC" secondAttribute="top" id="s6H-h0-ZGS"/>
+                            <constraint firstAttribute="topMargin" secondItem="L2T-mF-gmC" secondAttribute="top" id="uRF-kw-QDY"/>
+                            <constraint firstItem="L2T-mF-gmC" firstAttribute="centerX" secondItem="MkI-oT-Gwf" secondAttribute="centerX" id="v4C-aa-Gvn"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BfC-6Z-nnn"/>
+                                <exclude reference="XGe-lf-W1N"/>
+                                <exclude reference="s6H-h0-ZGS"/>
+                                <exclude reference="JLn-A9-icN"/>
+                                <exclude reference="lmd-U1-eAc"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="t7V-Ic-4xC" id="AWt-PT-XNG"/>
+                        <outlet property="textView" destination="L2T-mF-gmC" id="R0a-we-jIj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IAq-Kh-DBy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1002" y="-1353"/>
         </scene>
     </scenes>
     <resources>

@@ -110,7 +110,8 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 })
                 // Show the errorString somewhere and let the user try again.
             } else {
-                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
+                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
+
                 // Hooray! Let them use the app now.
                 self.navigationController?.setViewControllers([newVC!], animated: true)
             }

@@ -12,6 +12,7 @@
 #define kParseObjectUserKey     "user"
 #define kParseObjectCaption     "caption"
 #define kParseObjectVisibleKey  "visible"
+#define kUserDefaultShownNUXKey  @"nuxShown"
 #define Notification_LocationUpdate @"LocationUpdate"
 
 #define SO_POPOVER_VERTICAL_SHIFT 80
@@ -111,6 +112,17 @@
     
     [self checkLocationPermission];
     [self promptForCheckinPermission];
+    
+    // Check if the NUX has been shown yet
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+#warning Remove before merge
+    shownNUX = NO;
+    if (!shownNUX) {
+        [defaults setBool:YES forKey:kUserDefaultShownNUXKey];
+        [defaults synchronize];
+        [self showNUX];
+    }
 }
 
 - (void)setupPopovers {
@@ -132,61 +144,6 @@
     [inboxPopover updateChildController:self.inboxVC];
     [self.view insertSubview:self.inboxContainer belowSubview:self.slidingView];
     inboxPopover.popoverTitle.text = @"Inbox";
-    
-// RAJ_BEGIN
-#warning Remove this before merging
-    
-    
-    SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
-    [self addChildViewController:tutPopover];
-    [tutPopover didMoveToParentViewController:self];
-    [self.view addSubview:tutPopover.view];
-    
-    SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
-    [tutPopover updateChildController:tutController];
-    [tutPopover setShowsTitle:NO];
-    tutController.popover = tutPopover;
-    
-    // Auto Layout for NUX popover
-    {
-        NSMutableArray* constraints = [NSMutableArray array];
-        NSDictionary* views = @{
-                                @"popover": tutPopover.view
-                                };
-        NSDictionary* metrics = @{
-                                  @"padding": @SO_POPOVER_HORIZ_PADDING
-                                  };
-        
-        [tutPopover.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        
-        // Horizontal padding
-        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[popover]-padding-|"
-                                                                                 options:0
-                                                                                 metrics:metrics
-                                                                                   views:views]];
-        // Top margin
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
-                                                            attribute:NSLayoutAttributeTopMargin
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:self.view
-                                                            attribute:NSLayoutAttributeTop
-                                                           multiplier:1
-                                                             constant:50.0f]];
-        // Bottom margin
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
-                                                            attribute:NSLayoutAttributeBottom
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:self.inboxButton
-                                                            attribute:NSLayoutAttributeTop
-                                                           multiplier:1
-                                                             constant:0]];
-        [NSLayoutConstraint activateConstraints:constraints];
-    }
-    
-    // Show the initial tutorial
-    [tutController showInitialController];
-    
-// RAJ_END
     
     // TODO: better handling of the pip location
     [listPopover updatePipLocation:self.listButton.frame.origin.x - SO_POPOVER_HORIZ_PADDING*2.5];
@@ -225,6 +182,57 @@
     // Hide the views initially
     self.listViewContainer.layer.opacity = 0;
     self.inboxContainer.layer.opacity = 0;
+}
+
+- (void)showNUX {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    [self addChildViewController:tutPopover];
+    [tutPopover didMoveToParentViewController:self];
+    [self.view addSubview:tutPopover.view];
+    
+    SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
+    [tutPopover updateChildController:tutController];
+    [tutPopover setShowsTitle:NO];
+    tutController.popover = tutPopover;
+    
+    // Auto Layout for NUX popover
+    NSMutableArray* constraints = [NSMutableArray array];
+    NSDictionary* views = @{
+                            @"popover": tutPopover.view
+                            };
+    NSDictionary* metrics = @{
+                              @"padding": @SO_POPOVER_HORIZ_PADDING
+                              };
+    
+    [tutPopover.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // Horizontal padding
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[popover]-padding-|"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // Top margin
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                        attribute:NSLayoutAttributeTopMargin
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.view
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:50.0f]];
+    // Bottom margin
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.inboxButton
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    // Show the initial tutorial
+    [tutController showInitialController];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -594,9 +602,6 @@
 - (void)centerMapToUserLocation{
     if(self.previousLocation){
         [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
-    }
-    else{
-        
     }
 }
 

@@ -810,6 +810,9 @@
                                         <state key="normal" title="Next">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="nextButtonPressed:" destination="vYq-eh-B8a" eventType="touchUpInside" id="DJS-ZB-SGf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.87450980392156863" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>

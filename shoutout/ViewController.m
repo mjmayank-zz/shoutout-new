@@ -145,61 +145,19 @@
     SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
     [tutPopover updateChildController:tutController];
     [tutPopover setShowsTitle:NO];
-    
-    SONUXTutorialTextViewController* tutText = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialText"];
-    
-    [tutController.contentView addSubview:tutText.view];
-    [tutController addChildViewController:tutText];
-    [tutText didMoveToParentViewController:tutController];
-    
-    tutController.slideTitle.text = @"Welcome to Shoutout";
-    [tutText.textView setText:@"Before you can get started, we need to show you a couple of things about the app.\n\nShoutout is all about getting on the map. In order for this to work, we need to get your permissions and show you how everything works."];
-    [tutController.nextButton setTitle:@"OK! Let's get on with it" forState:UIControlStateNormal];
-    [tutPopover.pip setHidden:YES];
+    tutController.popover = tutPopover;
     
     // Auto Layout for NUX popover
     {
         NSMutableArray* constraints = [NSMutableArray array];
         NSDictionary* views = @{
-                                @"popover": tutPopover.view,
-                                @"tuttext": tutText.view
+                                @"popover": tutPopover.view
                                 };
         NSDictionary* metrics = @{
                                   @"padding": @SO_POPOVER_HORIZ_PADDING
                                   };
         
         [tutPopover.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        
-        // Tutorial card
-        [tutText.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
-                                                            attribute:NSLayoutAttributeWidth
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:tutController.contentView
-                                                            attribute:NSLayoutAttributeWidth
-                                                           multiplier:1.0
-                                                             constant:0]];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
-                                                            attribute:NSLayoutAttributeHeight
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:tutController.contentView
-                                                            attribute:NSLayoutAttributeHeight
-                                                           multiplier:1.0
-                                                             constant:0]];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
-                                                            attribute:NSLayoutAttributeCenterX
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:tutController.contentView
-                                                            attribute:NSLayoutAttributeCenterX
-                                                           multiplier:1.0
-                                                             constant:0]];
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:tutText.view
-                                                            attribute:NSLayoutAttributeCenterY
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:tutController.contentView
-                                                            attribute:NSLayoutAttributeCenterY
-                                                           multiplier:1.0
-                                                             constant:0]];
         
         // Horizontal padding
         [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[popover]-padding-|"
@@ -224,6 +182,9 @@
                                                              constant:0]];
         [NSLayoutConstraint activateConstraints:constraints];
     }
+    
+    // Show the initial tutorial
+    [tutController showInitialController];
     
 // RAJ_END
     

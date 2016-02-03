@@ -12,7 +12,6 @@
 #define kParseObjectUserKey     "user"
 #define kParseObjectCaption     "caption"
 #define kParseObjectVisibleKey  "visible"
-#define kUserDefaultShownNUXKey  @"nuxShown"
 #define Notification_LocationUpdate @"LocationUpdate"
 
 #define SO_POPOVER_VERTICAL_SHIFT 80
@@ -38,6 +37,9 @@
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
+
+// NUX
+@property (strong, nonatomic) SOPopoverViewController* nuxPopover;
 @end
 
 @implementation ViewController
@@ -110,18 +112,47 @@
     installation[@"user"] = [PFUser currentUser];
     [installation saveInBackground];
     
-    [self checkLocationPermission];
-    [self promptForCheckinPermission];
-    
     // Check if the NUX has been shown yet
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
-#warning Remove before merge
-    shownNUX = NO;
     if (!shownNUX) {
         [defaults setBool:YES forKey:kUserDefaultShownNUXKey];
         [defaults synchronize];
         [self showNUX];
+    } else {
+        [self checkLocationPermission];
+        [self promptForCheckinPermission];
+    }
+}
+
++ (CLLocationManager *)sharedLocationManager {
+    static CLLocationManager *sharedLocationManager;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sharedLocationManager = [[CLLocationManager alloc] init];
+    });
+    
+    return sharedLocationManager;
+}
+
+- (void)completeNUX {
+    // First, remove the popover
+    [self.nuxPopover removeFromParentViewController];
+    [self.nuxPopover.view removeFromSuperview];
+    self.nuxPopover = nil;
+    
+    CLLocationManager* locationManager = [ViewController sharedLocationManager];
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+        [locationManager requestAlwaysAuthorization];
+    } else{
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Your location is required for Shoutout to work" message:@"You can disable this from the settings menu" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -188,6 +219,7 @@
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
     SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    self.nuxPopover = tutPopover;
     [self addChildViewController:tutPopover];
     [tutPopover didMoveToParentViewController:self];
     [self.view addSubview:tutPopover.view];
@@ -196,6 +228,7 @@
     [tutPopover updateChildController:tutController];
     [tutPopover setShowsTitle:NO];
     tutController.popover = tutPopover;
+    tutController.delegate = self;
     
     // Auto Layout for NUX popover
     NSMutableArray* constraints = [NSMutableArray array];

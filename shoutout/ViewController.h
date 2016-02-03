@@ -52,5 +52,7 @@
 - (void)closeInboxView;
 - (void)allowMapLoad;
 
+- (void)completeNUX;
+
 @end
 

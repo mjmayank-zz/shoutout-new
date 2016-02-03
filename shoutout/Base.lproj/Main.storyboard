@@ -49,6 +49,8 @@
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
             <string>Titillium-Regular</string>
+            <string>Titillium-Regular</string>
+            <string>Titillium-Regular</string>
         </mutableArray>
         <mutableArray key="Titillium-Semibold.otf">
             <string>Titillium-Semibold</string>
@@ -1958,7 +1960,7 @@ or</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aw1-o2-p4z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1666" y="-1353"/>
+            <point key="canvasLocation" x="-2810" y="-2007"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4L9-8N-jHO">
@@ -2393,7 +2395,88 @@ or</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IAq-Kh-DBy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1002" y="-1353"/>
+            <point key="canvasLocation" x="-2146" y="-2007"/>
+        </scene>
+        <!--Tutorial Text Permission View Controller-->
+        <scene sceneID="hfR-41-qkv">
+            <objects>
+                <viewController storyboardIdentifier="soTutorialTextPermission" id="TA0-Ig-nT8" customClass="SONUXTutorialTextPermissionViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gvq-Ut-Zgi"/>
+                        <viewControllerLayoutGuide type="bottom" id="2f8-Up-oFn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cQE-1f-aOH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kXZ-p9-8Vg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0z-5I-sFh">
+                                <rect key="frame" x="0.0" y="380" width="600" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Q5C-lf-b3J"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1iU-cg-FFW">
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="JwA-Ot-GTF"/>
+                                    <constraint firstAttribute="height" constant="100" id="pwB-5i-yLR"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JwA-Ot-GTF"/>
+                                    </mask>
+                                </variation>
+                            </textView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="1iU-cg-FFW" firstAttribute="width" secondItem="cQE-1f-aOH" secondAttribute="width" id="4Ju-N1-LeN"/>
+                            <constraint firstItem="kXZ-p9-8Vg" firstAttribute="width" secondItem="cQE-1f-aOH" secondAttribute="width" id="8Cq-zn-F6S"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="bottom" constant="20" id="8ud-GY-pZC"/>
+                            <constraint firstAttribute="topMargin" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="DjV-f8-xpI"/>
+                            <constraint firstItem="1iU-cg-FFW" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="Eho-RD-nLb"/>
+                            <constraint firstItem="kXZ-p9-8Vg" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="Li9-Kf-gYh"/>
+                            <constraint firstItem="1iU-cg-FFW" firstAttribute="top" secondItem="i0z-5I-sFh" secondAttribute="bottom" constant="20" id="W2x-W8-IZw"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="WiO-G7-2TA"/>
+                            <constraint firstItem="kXZ-p9-8Vg" firstAttribute="centerY" secondItem="cQE-1f-aOH" secondAttribute="centerY" id="X2g-Wy-rkt"/>
+                            <constraint firstItem="kXZ-p9-8Vg" firstAttribute="height" secondItem="cQE-1f-aOH" secondAttribute="height" id="YTC-id-o7E"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="width" secondItem="cQE-1f-aOH" secondAttribute="width" id="auE-ze-yqu"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="bottom" constant="-364" id="exK-Mr-Qqf"/>
+                            <constraint firstAttribute="topMargin" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="j5V-Dt-UkN"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="kiu-Y2-w4m"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="i0z-5I-sFh" secondAttribute="bottom" id="rhZ-Xk-yV9"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="1iU-cg-FFW" secondAttribute="bottom" id="sXM-9y-2ox"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="DjV-f8-xpI"/>
+                                <exclude reference="X2g-Wy-rkt"/>
+                                <exclude reference="YTC-id-o7E"/>
+                                <exclude reference="WiO-G7-2TA"/>
+                                <exclude reference="exK-Mr-Qqf"/>
+                                <exclude reference="rhZ-Xk-yV9"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="i0z-5I-sFh" id="C6u-sY-lmV"/>
+                        <outlet property="textBelowImageView" destination="1iU-cg-FFW" id="3UA-41-E5L"/>
+                        <outlet property="textView" destination="kXZ-p9-8Vg" id="C67-49-alv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="skg-G2-GCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1474" y="-2007"/>
         </scene>
     </scenes>
     <resources>

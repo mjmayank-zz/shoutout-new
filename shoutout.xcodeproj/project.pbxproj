@@ -10,6 +10,7 @@
 		352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */; };
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; };
 		359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */; };
+		359511FC1C617207005E93F3 /* SONUXTutorialTextPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359511FB1C617207005E93F3 /* SONUXTutorialTextPermissionViewController.swift */; };
 		35FEEBDB1C57301000FBF2EF /* SONUXTutorialTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */; };
 		35FEEBDD1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */; };
 		8F0430B71BE46DA10024DF4E /* checked_checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */; };
@@ -146,6 +147,7 @@
 		352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOPopoverViewController.swift; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
 		359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialTextImageViewController.swift; sourceTree = "<group>"; };
+		359511FB1C617207005E93F3 /* SONUXTutorialTextPermissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialTextPermissionViewController.swift; sourceTree = "<group>"; };
 		35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialTextViewController.swift; sourceTree = "<group>"; };
 		35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXTutorialCardViewController.swift; sourceTree = "<group>"; };
 		8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked_checkbox@2x.png"; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */,
 				359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */,
+				359511FB1C617207005E93F3 /* SONUXTutorialTextPermissionViewController.swift */,
 				35FEEBDC1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
@@ -893,6 +896,7 @@
 				8F9A48CF1BA3BDB8002C68EE /* MKMapView+ZoomLevel.m in Sources */,
 				8FAC6C8F1BE291BB00C3EA1B /* SOWebViewController.swift in Sources */,
 				8F8D47791B976DB900D902B9 /* ViewController.m in Sources */,
+				359511FC1C617207005E93F3 /* SONUXTutorialTextPermissionViewController.swift in Sources */,
 				35FEEBDB1C57301000FBF2EF /* SONUXTutorialTextViewController.swift in Sources */,
 				8F8D47761B976DB900D902B9 /* AppDelegate.m in Sources */,
 				8FA956C21BC05F16003C7357 /* SOCreateProfileViewController.swift in Sources */,

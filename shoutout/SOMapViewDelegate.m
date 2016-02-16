@@ -105,6 +105,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+    view.layer.zPosition = 1;
     if([view isKindOfClass:[ShoutRMMarker class]]){
         ShoutRMMarker *marker = (ShoutRMMarker *)view;
         [marker didPressButtonWithName:@"profile"];
@@ -119,6 +120,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view{
+    view.layer.zPosition = 0;
     if([view isKindOfClass:[ShoutRMMarker class]]){
         ShoutRMMarker *marker = (ShoutRMMarker *)view;
         [marker didPressButtonWithName:@"profile"];

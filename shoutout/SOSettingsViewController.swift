@@ -262,4 +262,5 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
         return true;
     }
+    
 }

@@ -48,7 +48,9 @@
     
     BOOL enabled = [application isRegisteredForRemoteNotifications];
     
-    if(enabled || hasPermissions){
+    BOOL willShowNUX = ![[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultShownNUXKey];
+    
+    if(!willShowNUX && (enabled || hasPermissions)){
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
                                                         UIUserNotificationTypeSound);

@@ -20,7 +20,10 @@ class SOPopoverViewController:UIViewController {
     var pipLocation: CGFloat?
     
     @IBOutlet private weak var pipConstraint: NSLayoutConstraint?
+    @IBOutlet private weak var containerTopConstraint: NSLayoutConstraint?
     @IBOutlet private weak var containerView: UIView?
+    
+    private var shouldHideTitle: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +31,27 @@ class SOPopoverViewController:UIViewController {
         popoverContent?.layer.masksToBounds = true
     }
     
+    func setShowsTitle(showTitle: Bool) {
+        shouldHideTitle = !showTitle
+        if (!showTitle) {
+            containerTopConstraint?.constant = 0
+            popoverTitle?.hidden = true
+        }
+    }
+    
     func updatePipLocation(location: CGFloat) {
         pipLocation = location
         pipConstraint!.constant = pipLocation! - 20
         view.setNeedsDisplay()
+    }
+    
+    func updatePipLocationAndAnimate(location: CGFloat, duration: NSTimeInterval) {
+        self.view.layoutIfNeeded()
+        pipLocation = location
+        pipConstraint!.constant = pipLocation! - 20
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
     
     func updateChildController(controller: UIViewController) {

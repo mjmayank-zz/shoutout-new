@@ -37,6 +37,9 @@
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
+
+// NUX
+@property (strong, nonatomic) SOPopoverViewController* nuxPopover;
 @end
 
 @implementation ViewController
@@ -109,8 +112,48 @@
     installation[@"user"] = [PFUser currentUser];
     [installation saveInBackground];
     
-    [self checkLocationPermission];
-    [self promptForCheckinPermission];
+    // Check if the NUX has been shown yet
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+    if (!shownNUX) {
+        [defaults setBool:YES forKey:kUserDefaultShownNUXKey];
+        [defaults synchronize];
+        [self showNUX];
+    } else {
+        [self checkLocationPermission];
+        [self promptForCheckinPermission];
+    }
+}
+
++ (CLLocationManager *)sharedLocationManager {
+    static CLLocationManager *sharedLocationManager;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        sharedLocationManager = [[CLLocationManager alloc] init];
+    });
+    
+    return sharedLocationManager;
+}
+
+- (void)completeNUX {
+    // First, remove the popover
+    [self.nuxPopover removeFromParentViewController];
+    [self.nuxPopover.view removeFromSuperview];
+    self.nuxPopover = nil;
+    
+    CLLocationManager* locationManager = [ViewController sharedLocationManager];
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+        [locationManager requestAlwaysAuthorization];
+    } else{
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Your location is required for Shoutout to work" message:@"You can disable this from the settings menu" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)setupPopovers {
@@ -137,11 +180,11 @@
     [listPopover updatePipLocation:self.listButton.frame.origin.x - SO_POPOVER_HORIZ_PADDING*2.5];
     [inboxPopover updatePipLocation:self.listButton.frame.origin.x + SO_POPOVER_HORIZ_PADDING*4.7];
     
-    // Add constraints to the popovers
+    // Add constraints to the popovers. Resizes them to have margins
     NSMutableArray* constraints = [NSMutableArray array];
     NSDictionary* views = @{
                             @"listPopover": self.listViewContainer,
-                            @"inboxPopover": self.inboxContainer
+                            @"inboxPopover": self.inboxContainer,
                             };
     NSDictionary* metrics = @{
                               @"padding": @SO_POPOVER_HORIZ_PADDING
@@ -170,6 +213,59 @@
     // Hide the views initially
     self.listViewContainer.layer.opacity = 0;
     self.inboxContainer.layer.opacity = 0;
+}
+
+- (void)showNUX {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    self.nuxPopover = tutPopover;
+    [self addChildViewController:tutPopover];
+    [tutPopover didMoveToParentViewController:self];
+    [self.view addSubview:tutPopover.view];
+    
+    SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
+    [tutPopover updateChildController:tutController];
+    [tutPopover setShowsTitle:NO];
+    tutController.popover = tutPopover;
+    tutController.delegate = self;
+    
+    // Auto Layout for NUX popover
+    NSMutableArray* constraints = [NSMutableArray array];
+    NSDictionary* views = @{
+                            @"popover": tutPopover.view
+                            };
+    NSDictionary* metrics = @{
+                              @"padding": @SO_POPOVER_HORIZ_PADDING
+                              };
+    
+    [tutPopover.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    // Horizontal padding
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[popover]-padding-|"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // Top margin
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                        attribute:NSLayoutAttributeTopMargin
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.view
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:50.0f]];
+    // Bottom margin
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:tutPopover.view
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.inboxButton
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    // Show the initial tutorial
+    [tutController showInitialController];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -539,9 +635,6 @@
 - (void)centerMapToUserLocation{
     if(self.previousLocation){
         [self.mapView setCenterCoordinate:self.previousLocation.coordinate animated:YES];
-    }
-    else{
-        
     }
 }
 

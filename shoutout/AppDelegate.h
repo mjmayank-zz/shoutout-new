@@ -10,6 +10,8 @@
 #import <Firebase/Firebase.h>
 @import CoreMotion;
 
+#define kUserDefaultShownNUXKey  @"nuxShown"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

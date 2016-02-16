@@ -24,11 +24,7 @@ class SOSignInViewController: UIViewController, UITextFieldDelegate{
     func login() {
         PFUser.logInWithUsernameInBackground(usernameTextField.text!.lowercaseString, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if ((user) != nil){
-                var newVC = self.storyboard?.instantiateViewControllerWithIdentifier("NUXPermissions")
-                if(NSUserDefaults.standardUserDefaults().boolForKey("hasPermissions")){
-                    newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
-                }
-                
+                let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
                 LocationManager.sharedLocationManager().enterForegroundMode();
                 self.navigationController?.setViewControllers([newVC!], animated: true)
             }

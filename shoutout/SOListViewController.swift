@@ -65,7 +65,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         data = pins;
-        countLabel.text = String(format: "%d pins", data.count)
+        countLabel.text = String(format: "%d people on screen", data.count)
         tableView.reloadData();
     }
 }

@@ -452,8 +452,14 @@
                                             if([self.markerDictionary objectForKey:[obj objectId]]){
                                                 [self.mapView removeAnnotation:[self.markerDictionary objectForKey:[obj objectId]]];
                                             }
-                                            
-                                            [self addUserToAnnotationDictionary:obj];
+                                            if (obj[@"statusObj"]) {
+                                                [obj[@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                                                    [self addUserToAnnotationDictionary:obj];
+                                                }];
+                                            }
+                                            else{
+                                                [self addUserToAnnotationDictionary:obj];
+                                            }
                                         }
                                         [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
                                         
@@ -477,6 +483,9 @@
         title = @"";
     }
     NSString *subtitle = obj[@"status"];
+    if (obj[@"statusObj"]){
+        subtitle = obj[@"statusObj"][@"status"];
+    }
     SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj.updatedAt) //used for date on bubble
@@ -539,11 +548,17 @@
     SOAnnotation * annotation = ((SOAnnotation *)self.markerDictionary[userID]);
     KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
     if(annotation){
-        annotation.coordinate = coordinate;
+        [UIView animateWithDuration:0.6f
+                         animations:^{
+                             annotation.coordinate = coordinate;
+                         }];
     }
     if(clusterAnnotation){
         if(![clusterAnnotation isCluster]){
-            clusterAnnotation.coordinate = coordinate;
+            [UIView animateWithDuration:0.6f
+                             animations:^{
+                                 clusterAnnotation.coordinate = coordinate;
+                             }];
         }
     }
     
@@ -851,7 +866,9 @@
             if([PFUser currentUser]){
                 if(![PFUser currentUser][@"static"]){
                     if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
-                        [self addUserToAnnotationDictionary:[PFUser currentUser]];
+                        [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                            [self addUserToAnnotationDictionary:object];
+                        }];
                     }
                     else{
                         SOAnnotation *annotation = [self.markerDictionary objectForKey:[[PFUser currentUser] objectId]];

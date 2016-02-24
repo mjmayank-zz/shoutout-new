@@ -25,10 +25,8 @@
 
 @interface ShoutRMMarker : MKAnnotationView
 
-@property (nonatomic, strong) SOMarkerSubView *subview;
 @property (nonatomic, strong) NSString *shout;
 @property (nonatomic, strong) UIImage *profileImage;
-@property (nonatomic, assign) double scale;
 @property (nonatomic, strong) SOPinBusinessViewController *businessSubVC;
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation
@@ -40,6 +38,5 @@
 - (void)hideShout;
 - (void)setOnline:(BOOL)online;
 - (void)sendMessage;
-- (void)mapDidScale:(NSNotification *)notification;
 
 @end

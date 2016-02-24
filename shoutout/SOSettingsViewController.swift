@@ -55,7 +55,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         let profileImageObj = PFUser.currentUser()?["profileImage"];
         if let profileImageObj = profileImageObj{
             profileImageObj.fetchIfNeededInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
-                if let file = profileImageObj["image"] as? PFFile{
+                if let file = profileImageObj.objectForKey("image") as? PFFile{
                     file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
                         self.profileImageView.image = UIImage(data: data!);
                     })

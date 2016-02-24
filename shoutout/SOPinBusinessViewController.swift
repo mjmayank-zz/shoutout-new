@@ -64,7 +64,8 @@ class SOPinBusinessViewController: UIViewController {
         PFCloud.callFunctionInBackground("getLocationCrowdLevel", withParameters: ["lat":self.latitude, "long":self.longitude]) { (response:AnyObject?, error:NSError?) -> Void in
             if(error == nil){
                 print(response);
-                let capacity = response!["value"] as! Int;
+                let responseDict = response as! [String: AnyObject];
+                let capacity = responseDict["value"] as! Int;
                 if(capacity == -1){
                     self.capacityLabel.hidden = true;
                 }
@@ -89,8 +90,9 @@ class SOPinBusinessViewController: UIViewController {
         PFCloud.callFunctionInBackground("getLocationRatio", withParameters: ["lat":self.latitude, "long":self.longitude]) { (response:AnyObject?, error:NSError?) -> Void in
             if(error == nil){
                 print(response);
-                let femaleCount = response!["female"] as! CGFloat;
-                let maleCount = response!["male"] as! CGFloat;
+                let responseDict = response as! [String: AnyObject];
+                let femaleCount = responseDict["female"] as! CGFloat;
+                let maleCount = responseDict["male"] as! CGFloat;
                 let items = [PNPieChartDataItem(value: maleCount, color:self.blueColor), PNPieChartDataItem(value: femaleCount, color:self.pinkColor)]
                 self.pieChart.updateChartData(items);
                 self.pieChart.strokeChart();

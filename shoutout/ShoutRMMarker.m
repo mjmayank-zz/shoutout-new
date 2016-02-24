@@ -11,10 +11,10 @@
 
 @interface ShoutRMMarker ()
 
-@end
+@property (nonatomic, strong) SOMarkerSubView *subview;
+@property (nonatomic, assign) double scale;
 
-#define ANCHOR_POINT_X 0.0f
-#define ANCHOR_POINT_Y 0.5f
+@end
 
 @implementation ShoutRMMarker
 
@@ -49,8 +49,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
-        self.frame = self.subview.pinView.frame;
-        self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
+        self.frame = self.subview.frame;
+        [self resetCenterOffset];
     }
     return self;
 }
@@ -70,29 +70,32 @@
     self.businessSubVC = [[SOPinBusinessViewController alloc] init];
     self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
     self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
-    self.businessSubVC.view.frame = CGRectMake(27, 0, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
+    self.businessSubVC.view.frame = CGRectMake(13, -self.businessSubVC.view.frame.size.height, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
     [self.subview.bubbleContainerView insertSubview:self.businessSubVC.view atIndex:0];
 }
 
 - (void)setPinColor:(UIColor *)color{
     UIImage *image = [UIImage imageNamed:@"pinWithShadowGrayscale.png" withColor:color];
     UIImageView *iview = [[UIImageView alloc] initWithImage:image];
+    iview.frame = self.subview.pinView.frame;
     [self.subview insertSubview:iview aboveSubview:self.subview.pinView];
     [self addSubview:self.subview];
 }
 
-- (void)toggleShout
-{
+- (void)toggleShout{
     if (self.subview.bubbleContainerView.hidden)
         [self showShout];
     else
         [self hideShout];
 }
 
+- (void)resetCenterOffset{
+    self.centerOffset = CGPointMake(self.subview.pinView.frame.size.width/4.0, -self.frame.size.height/2.0);
+}
+
 -(void)mapDidScale:(NSNotification *)notification{
     double zoomLevel = [notification.userInfo[@"zoomLevel"] doubleValue];
     [self scaleForZoomLevel:zoomLevel];
-//    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
 }
 
 - (void)scaleForZoomLevel:(double)zoomLevel{
@@ -106,7 +109,7 @@
         factor = 1.2;
     }
     self.transform = CGAffineTransformMakeScale(scale * factor, scale * factor);
-    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
+    [self resetCenterOffset];
 }
 
 - (void)setProfileImage:(UIImage *)profileImage{
@@ -115,7 +118,6 @@
 }
 
 - (void)showShout{
-    [self.subview.bubbleContainerView setHidden:NO];
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
@@ -134,16 +136,28 @@
         [self.businessSubVC refreshData];
     }
     self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width * 3.0, self.frame.size.height);
-    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
+    
+    self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    [self.subview.bubbleContainerView setHidden:NO];
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        // animate it to the identity transform (100% scale)
+        self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            // animate it to the identity transform (100% scale)
+            self.subview.bubbleContainerView.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished){
+            // if you want to do something once the animation finishes, put it here
+        }];
+    }];
+    [self resetCenterOffset];
 }
 
 - (void)hideShout{
     [self.subview.bubbleContainerView setHidden:YES];
     [self.subview.messageOverlayView setHidden:YES];
     self.transform = CGAffineTransformMakeScale(self.scale, self.scale);
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width / 3.0, self.frame.size.height);
-    self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);
+    [self resetCenterOffset];
 }
 
 -(void)setOnline:(BOOL)online{

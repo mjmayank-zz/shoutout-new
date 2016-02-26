@@ -90,7 +90,8 @@
 }
 
 - (void)resetCenterOffset{
-    self.centerOffset = CGPointMake(self.subview.pinView.frame.size.width/4.0, -self.frame.size.height/2.0);
+    NSLog(@"%f, %f", -self.subview.pinView.frame.size.width, -self.frame.size.width);
+    self.centerOffset = CGPointMake(self.frame.size.width * 41.0/310.0, -self.frame.size.height/2.0);
 }
 
 -(void)mapDidScale:(NSNotification *)notification{
@@ -104,9 +105,13 @@
         scale = 0.2;
     }
     self.scale = scale;
+
     double factor = 1;
     if (!self.subview.bubbleContainerView.hidden) {
         factor = 1.2;
+        if(scale * factor < .6){
+            factor = .6/scale;
+        }
     }
     self.transform = CGAffineTransformMakeScale(scale * factor, scale * factor);
     [self resetCenterOffset];
@@ -135,22 +140,26 @@
         self.businessSubVC.longitude = [NSNumber numberWithDouble:annotation.coordinate.longitude];
         [self.businessSubVC refreshData];
     }
-    self.transform = CGAffineTransformMakeScale(self.scale * 1.2, self.scale * 1.2);
+    
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.transform = CGAffineTransformMakeScale(fmax(self.scale * 1.2, 0.6), fmax(self.scale * 1.2, 0.6));
+        [self resetCenterOffset];
+    } completion:^(BOOL finished){
+    }];
     
     self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    self.subview.bubbleContainerView.layer.opacity = 0;
     [self.subview.bubbleContainerView setHidden:NO];
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        // animate it to the identity transform (100% scale)
+        self.subview.bubbleContainerView.layer.opacity = 1;
         self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(1.1, 1.1);
     } completion:^(BOOL finished){
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            // animate it to the identity transform (100% scale)
             self.subview.bubbleContainerView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished){
             // if you want to do something once the animation finishes, put it here
         }];
     }];
-    [self resetCenterOffset];
 }
 
 - (void)hideShout{

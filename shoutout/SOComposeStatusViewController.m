@@ -59,9 +59,10 @@
 
 - (void)updateStatus{
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
+        NSString *status = [self replaceEmptyMessage:self.statusTextView.text];
         if([PFUser currentUser][@"statusObj"] == nil){
             PFObject *status = [PFObject objectWithClassName:@"Status"];
-            status[@"status"] = self.statusTextView.text;
+            status[@"status"] = status;
             status[@"views"] = @0;
             status[@"author"] = [PFUser currentUser];
             [status saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -75,13 +76,13 @@
         }
         
         [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            [PFUser currentUser][@"statusObj"][@"status"] = self.statusTextView.text;
+            [PFUser currentUser][@"statusObj"][@"status"] = status;
             [PFUser currentUser][@"statusObj"][@"views"] = @0;
             [[PFUser currentUser][@"statusObj"] saveInBackground];
         }];
-        [PFUser currentUser][@"status"] = self.statusTextView.text;
-        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:self.statusTextView.text];
-        [self checkForRecipients:self.statusTextView.text];
+        [PFUser currentUser][@"status"] = status;
+        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:status];
+        [self checkForRecipients:status];
 //        [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.statusTextView.text];
         [[PFUser currentUser] saveInBackground];
         [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
@@ -89,6 +90,14 @@
 
     [self.delegate closeUpdateStatusView];
     [self.statusTextView resignFirstResponder];
+}
+
+- (NSString*)replaceEmptyMessage:(NSString*)message{
+    if ([message length] == 0){
+        NSDictionary *object = [PFCloud callFunction:@"getRandomStatus" withParameters:@{}];
+        return [object objectForKey:@"status"];
+    }
+    return message;
 }
 
 - (void)checkForRecipients:(NSString *)message{

@@ -20,23 +20,35 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var logoutButton: UIButton!
     @IBOutlet var anonymousToggle: UISwitch!
     @IBOutlet var genderControl: UISegmentedControl!
+    @IBOutlet var statusControl: UISegmentedControl!
+    @IBOutlet var statusExplanationLabel: UILabel!
+    @IBOutlet var colorPickerCollectionView: UICollectionView!
     
     var oldVC: UIViewController!
+    let colorPickerDelegate = SOSettingsColorPickerDelegate()
     
     override func viewDidLoad(){
         super.viewDidLoad();
         
         PFAnalytics.trackEvent("openedSettings", dimensions:nil);
         
+        self.colorPickerCollectionView.dataSource = self.colorPickerDelegate
+        self.colorPickerCollectionView.delegate = self.colorPickerDelegate
+        
         self.usernameTextField.text = PFUser.currentUser()?.username
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height/2.0;
         self.profileImageView.layer.masksToBounds = true;
-        if let on = PFUser.currentUser()?["visible"]{
-            self.privacyToggle.on = on.boolValue;
+        if ((PFUser.currentUser()?["visible"]) as! Bool == false){
+            self.statusControl.selectedSegmentIndex = 0;
+            self.statusExplanationLabel.text = "You are off the map, and we won't update your location in the background"
         }
-        
-        if let anon = PFUser.currentUser()?["anonymous"]{
-            self.anonymousToggle.on = anon.boolValue;
+        else if(PFUser.currentUser()?["anonymous"] as! Bool == true){
+            self.statusControl.selectedSegmentIndex = 1;
+            self.statusExplanationLabel.text = "We removed your username from your pin"
+        }
+        else{
+            self.statusControl.selectedSegmentIndex = 2;
+            self.statusExplanationLabel.text = "Awesome, you're good to go!"
         }
         
         if let gender = PFUser.currentUser()?["gender"] as? Int{
@@ -162,6 +174,37 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
     }
     
+    @IBAction func statusValueChanged(sender: AnyObject) {
+        let statusControl = sender as! UISegmentedControl
+        if(statusControl.selectedSegmentIndex == 0){
+            let privacyStatus = "NO";
+            let shoutoutRootPrivacy = Firebase(url: "https://shoutout.firebaseio.com/privacy");
+            shoutoutRootPrivacy.childByAppendingPath(PFUser.currentUser()?.objectId).childByAppendingPath("privacy").setValue(privacyStatus);
+            PFUser.currentUser()?["visible"] = NSNumber(bool: false);
+            LocationManager.sharedLocationManager().stopLocationUpdates();
+            self.statusExplanationLabel.text = "You are off the map, and we won't update your location in the background"
+        }
+        else if(statusControl.selectedSegmentIndex == 1){
+            PFUser.currentUser()?["anonymous"] = NSNumber(bool: true);
+            PFUser.currentUser()?["visible"] = NSNumber(bool: true);
+            let privacyStatus = "YES";
+            let shoutoutRootPrivacy = Firebase(url: "https://shoutout.firebaseio.com/privacy");
+            shoutoutRootPrivacy.childByAppendingPath(PFUser.currentUser()?.objectId).childByAppendingPath("privacy").setValue(privacyStatus);
+            LocationManager.sharedLocationManager().enterForegroundMode();
+            self.statusExplanationLabel.text = "We removed your username from your pin"
+        }
+        else{
+            PFUser.currentUser()?["anonymous"] = NSNumber(bool: false);
+            PFUser.currentUser()?["visible"] = NSNumber(bool: true);
+            let privacyStatus = "YES";
+            let shoutoutRootPrivacy = Firebase(url: "https://shoutout.firebaseio.com/privacy");
+            shoutoutRootPrivacy.childByAppendingPath(PFUser.currentUser()?.objectId).childByAppendingPath("privacy").setValue(privacyStatus);
+            LocationManager.sharedLocationManager().enterForegroundMode();
+            self.statusExplanationLabel.text = "Awesome, you're good to go!"
+        }
+        PFUser.currentUser()?.saveInBackground();
+    }
+    
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         switch (result.rawValue) {
         case MessageComposeResultCancelled.rawValue:
@@ -262,5 +305,24 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
         return true;
     }
+}
+
+class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
     
+    let colors = [UIColor.redColor(), UIColor.blueColor(), UIColor.greenColor(), UIColor.orangeColor(), UIColor.purpleColor()]
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("pinColorCell",forIndexPath:indexPath) as! SOSettingsColorCell
+        let image = UIImage(named: "pinWithShadowGrayscale.png", withColor: colors[indexPath.row])
+        cell.imageView.image = image;
+        return cell
+    }
+}
+
+class SOSettingsColorCell: UICollectionViewCell{
+    @IBOutlet var imageView: UIImageView!
 }

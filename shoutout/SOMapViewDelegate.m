@@ -190,7 +190,6 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
 }
 
 - (BOOL)clusteringControllerShouldClusterAnnotations:(KPClusteringController *)clusteringController {
-    NSLog(@"%f", self.mapView.zoomLevel);
     if(self.mapView.zoomLevel > 18){
         self.mapIsClustered = false;
     }

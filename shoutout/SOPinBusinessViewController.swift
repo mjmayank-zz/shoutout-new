@@ -63,7 +63,6 @@ class SOPinBusinessViewController: UIViewController {
     func setCrowdLevel(){
         PFCloud.callFunctionInBackground("getLocationCrowdLevel", withParameters: ["lat":self.latitude, "long":self.longitude]) { (response:AnyObject?, error:NSError?) -> Void in
             if(error == nil){
-                print(response);
                 let responseDict = response as! [String: AnyObject];
                 let capacity = responseDict["value"] as! Int;
                 if(capacity == -1){
@@ -89,7 +88,6 @@ class SOPinBusinessViewController: UIViewController {
     func setRatio(){
         PFCloud.callFunctionInBackground("getLocationRatio", withParameters: ["lat":self.latitude, "long":self.longitude]) { (response:AnyObject?, error:NSError?) -> Void in
             if(error == nil){
-                print(response);
                 let responseDict = response as! [String: AnyObject];
                 let femaleCount = responseDict["female"] as! CGFloat;
                 let maleCount = responseDict["male"] as! CGFloat;

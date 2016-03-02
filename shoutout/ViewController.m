@@ -177,8 +177,10 @@
     inboxPopover.popoverTitle.text = @"Inbox";
     
     // TODO: better handling of the pip location
-    [listPopover updatePipLocation:self.listButton.frame.origin.x - SO_POPOVER_HORIZ_PADDING*2.5];
-    [inboxPopover updatePipLocation:self.listButton.frame.origin.x + SO_POPOVER_HORIZ_PADDING*4.7];
+    [listPopover updatePipLocation:self.listButton.frame.origin.x];
+    NSLog(@"%f", self.listButton.frame.origin.x);
+    [inboxPopover updatePipLocation:self.inboxButton.frame.origin.x];
+    NSLog(@"%f", self.inboxButton.frame.origin.x);
     
     // Add constraints to the popovers. Resizes them to have margins
     NSMutableArray* constraints = [NSMutableArray array];
@@ -389,25 +391,25 @@
 }
 
 - (void)promptForCheckinPermission{
-    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Do you want to continue to leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
-    
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
-        
-        UIAlertAction *yesAlwaysAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yup, don't ask me again", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCheckinPermissions"];
-        }];
-        
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"No, take me to settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self performSegueWithIdentifier:@"openSettingsSegue" sender:self];
-        }];
-        
-        [alertController addAction:yesAction];
-        [alertController addAction:yesAlwaysAction];
-        [alertController addAction:noAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+//    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Do you want to continue to leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
+//    
+//        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
+//        
+//        UIAlertAction *yesAlwaysAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yup, don't ask me again", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCheckinPermissions"];
+//        }];
+//        
+//        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"No, take me to settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self performSegueWithIdentifier:@"openSettingsSegue" sender:self];
+//        }];
+//        
+//        [alertController addAction:yesAction];
+//        [alertController addAction:yesAlwaysAction];
+//        [alertController addAction:noAction];
+//        
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }
 }
 
 - (void)checkLocationPermission{

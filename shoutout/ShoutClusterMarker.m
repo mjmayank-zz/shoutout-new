@@ -56,7 +56,6 @@
         self.textLayer.foregroundColor = [UIColor blackColor].CGColor;
         [self.layer addSublayer:self.textLayer];
         
-        NSLog(@"created pin");
 //        self.transform = CGAffineTransformMakeScale(0.8, 0.8);
         self.frame = self.backgroundLayer.bounds;
         self.centerOffset = CGPointMake(self.frame.size.width/2.0, -self.frame.size.height/2.0);

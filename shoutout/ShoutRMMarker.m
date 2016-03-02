@@ -90,7 +90,6 @@
 }
 
 - (void)resetCenterOffset{
-    NSLog(@"%f, %f", -self.subview.pinView.frame.size.width, -self.frame.size.width);
     self.centerOffset = CGPointMake(self.frame.size.width * 41.0/310.0, -self.frame.size.height/2.0);
 }
 

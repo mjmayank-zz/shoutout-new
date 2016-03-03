@@ -35,6 +35,12 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.colorPickerCollectionView.dataSource = self.colorPickerDelegate
         self.colorPickerCollectionView.delegate = self.colorPickerDelegate
         
+        for var i = 0; i < self.colorPickerDelegate.colors.count; ++i {
+            if(PFUser.currentUser()?.objectForKey("pinColor") as! String == self.colorPickerDelegate.colors[i]){
+                self.colorPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
+            }
+        }
+        
         self.usernameTextField.text = PFUser.currentUser()?.username
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height/2.0;
         self.profileImageView.layer.masksToBounds = true;
@@ -309,7 +315,11 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
 
 class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    let colors = [UIColor.redColor(), UIColor.blueColor(), UIColor.greenColor(), UIColor.orangeColor(), UIColor.purpleColor()]
+    let colors = ["2ECEFF", "29B4B9", "00E4C9", "4CD78B", "A6A8AB", "299AE6"]
+    
+    override init() {
+        super.init()
+    }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count
@@ -317,12 +327,33 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("pinColorCell",forIndexPath:indexPath) as! SOSettingsColorCell
-        let image = UIImage(named: "pinWithShadowGrayscale.png", withColor: colors[indexPath.row])
+        let image = UIImage(named: "pinWithShadowGrayscale.png", withColor: UIColor(CSS: colors[indexPath.row]))
         cell.imageView.image = image;
+        cell.selectedOutlineImageView.hidden = true;
+        let whitePin = UIImage(named: "pinWithShadowGrayscale.png", withColor: UIColor.whiteColor())
+        cell.selectedOutlineImageView.image = whitePin;
+        if(cell.selected){
+            cell.selectedOutlineImageView.hidden = false;
+        }
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        PFUser.currentUser()?.setObject(colors[indexPath.row], forKey: "pinColor")
+        PFUser.currentUser()?.saveInBackground()
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
+        cell.selectedOutlineImageView.hidden = false;
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
+        cell.selectedOutlineImageView.hidden = true;
     }
 }
 
 class SOSettingsColorCell: UICollectionViewCell{
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var selectedOutlineImageView: UIImageView!
+    @IBOutlet var lockImageView: UIImageView!
 }

@@ -42,16 +42,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mso-Fe-2C5">
-                            <rect key="frame" x="113" y="92" width="18" height="19"/>
+                            <rect key="frame" x="106" y="92" width="18" height="19"/>
                             <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="11"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="oBL-nK-lEG">
-                            <rect key="frame" x="133" y="97" width="12" height="7.5"/>
+                            <rect key="frame" x="126" y="97" width="12" height="7.5"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feb 22 12:12PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
-                            <rect key="frame" x="158" y="92" width="77" height="19"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feb 22 12:12 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EP-zf-Qgh">
+                            <rect key="frame" x="151" y="92" width="84" height="19"/>
                             <fontDescription key="fontDescription" name="Titillium-LightItalic" family="Titillium" pointSize="11"/>
                             <nil key="highlightedColor"/>
                         </label>

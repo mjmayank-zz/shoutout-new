@@ -1170,7 +1170,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LZO-Mm-zRY">
-                                <rect key="frame" x="213" y="290" width="173" height="29"/>
+                                <rect key="frame" x="213.5" y="304" width="173" height="29"/>
                                 <segments>
                                     <segment title="Off"/>
                                     <segment title="Stealth"/>
@@ -1182,7 +1182,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are off the map, and we won't update your location in the background" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWF-lA-C9u">
-                                <rect key="frame" x="204" y="326" width="191" height="27"/>
+                                <rect key="frame" x="204" y="340" width="191" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="191" id="Tbw-Rk-X0C"/>
                                     <constraint firstAttribute="height" constant="27" id="xdu-m6-9mK"/>
@@ -1192,40 +1192,48 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="idx-Uq-a88">
-                                <rect key="frame" x="148" y="225" width="297" height="50"/>
+                                <rect key="frame" x="148" y="225" width="297" height="62"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="q0R-0w-or6"/>
+                                    <constraint firstAttribute="height" constant="62" id="q0R-0w-or6"/>
                                     <constraint firstAttribute="width" constant="297" id="vVB-C0-Xf3"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hal-Cc-1RC">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="53" height="56"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pinColorCell" id="OTu-Gd-RJU" customClass="SOSettingsColorCell" customModule="shoutout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="3" width="53" height="56"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="53" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pinWithShadowGrayscale.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Sd-Kl-yR5">
+                                                    <rect key="frame" x="5" y="4" width="43" height="51"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pinWithShadowGrayscale.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gac-Ng-7NI">
-                                                    <rect key="frame" x="4" y="2" width="42" height="50"/>
+                                                    <rect key="frame" x="7" y="6" width="39" height="46"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="8FX-vb-b2p">
+                                                    <rect key="frame" x="17" y="17" width="16" height="16"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
                                             <outlet property="imageView" destination="Gac-Ng-7NI" id="03n-Zi-0pG"/>
+                                            <outlet property="lockImageView" destination="8FX-vb-b2p" id="w5A-uz-1uZ"/>
+                                            <outlet property="selectedOutlineImageView" destination="4Sd-Kl-yR5" id="HGU-WF-eyf"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change pin color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joq-TV-wz4">
-                                <rect key="frame" x="148" y="204" width="118" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change pin color:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joq-TV-wz4">
+                                <rect key="frame" x="148" y="204" width="121.5" height="17"/>
                                 <fontDescription key="fontDescription" name="Titillium-Regular" family="Titillium" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1241,11 +1249,11 @@
                             <constraint firstItem="idx-Uq-a88" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" constant="-3.5" id="4Y4-pX-xj9"/>
                             <constraint firstItem="gvl-j4-nOQ" firstAttribute="height" secondItem="dJ8-sg-OQ1" secondAttribute="height" constant="-5" id="6bb-en-NjP"/>
                             <constraint firstItem="ffS-D0-WDQ" firstAttribute="top" secondItem="2Kc-5G-Ym1" secondAttribute="bottom" constant="11.5" id="6uv-eE-9dK"/>
-                            <constraint firstItem="LZO-Mm-zRY" firstAttribute="top" secondItem="idx-Uq-a88" secondAttribute="bottom" constant="15" id="6yx-Ao-SYz"/>
+                            <constraint firstItem="LZO-Mm-zRY" firstAttribute="top" secondItem="idx-Uq-a88" secondAttribute="bottom" constant="17" id="6yx-Ao-SYz"/>
                             <constraint firstItem="2Kc-5G-Ym1" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="9t8-BR-kb9"/>
                             <constraint firstItem="Yie-Jf-C6A" firstAttribute="top" secondItem="dwh-0R-sl3" secondAttribute="top" id="BBp-ZD-iwe"/>
                             <constraint firstItem="ffS-D0-WDQ" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="BbS-uI-FhI"/>
-                            <constraint firstItem="2Kc-5G-Ym1" firstAttribute="top" secondItem="LZO-Mm-zRY" secondAttribute="bottom" constant="73" id="BsN-WU-BEv"/>
+                            <constraint firstItem="2Kc-5G-Ym1" firstAttribute="top" secondItem="LZO-Mm-zRY" secondAttribute="bottom" constant="59" id="BsN-WU-BEv"/>
                             <constraint firstItem="e2O-mh-jhX" firstAttribute="top" secondItem="YOp-Do-pQg" secondAttribute="top" constant="5" id="Eo9-Si-IzY"/>
                             <constraint firstItem="Yie-Jf-C6A" firstAttribute="trailing" secondItem="e2O-mh-jhX" secondAttribute="trailing" id="JBU-SA-yvt"/>
                             <constraint firstItem="LZO-Mm-zRY" firstAttribute="centerX" secondItem="b6m-au-SFf" secondAttribute="centerX" id="KCJ-oP-jgJ"/>
@@ -1296,7 +1304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATh-pO-pT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1356" y="244"/>
+            <point key="canvasLocation" x="1356" y="245"/>
         </scene>
         <!--Create Profile View Controller-->
         <scene sceneID="0fv-ly-XfT">
@@ -2452,6 +2460,7 @@ or</string>
         <image name="gradient.png" width="8" height="71"/>
         <image name="listView.png" width="41" height="44"/>
         <image name="listViewPressed.png" width="41" height="44"/>
+        <image name="lock.png" width="16" height="20"/>
         <image name="mapBackground.png" width="563" height="1001"/>
         <image name="messages.png" width="41" height="44"/>
         <image name="messagesPressed.png" width="41" height="44"/>

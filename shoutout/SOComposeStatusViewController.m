@@ -59,37 +59,50 @@
 
 - (void)updateStatus{
     if([PFUser currentUser][@"status"] != self.statusTextView.text){
-        NSString *status = [self replaceEmptyMessage:self.statusTextView.text];
-        if([PFUser currentUser][@"statusObj"] == nil){
-            PFObject *status = [PFObject objectWithClassName:@"Status"];
-            status[@"status"] = status;
-            status[@"views"] = @0;
-            status[@"author"] = [PFUser currentUser];
-            [status saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [PFUser currentUser][@"statusObj"] = status;
-                    [[PFUser currentUser] saveInBackground];
-                } else {
-                    // There was a problem, check error.description
+        if ([self.statusTextView.text length] == 0){
+            SOComposeStatusViewController *this = self;
+            [PFCloud callFunctionInBackground:@"getRandomStatus" withParameters:@{} block:^(NSDictionary * object, NSError * error) {
+                if (error == nil) {
+                    [this updateStatus:[object objectForKey:@"status"]];
                 }
             }];
+        } else {
+            [self updateStatus:self.statusTextView.text];
         }
-        
-        [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            [PFUser currentUser][@"statusObj"][@"status"] = status;
-            [PFUser currentUser][@"statusObj"][@"views"] = @0;
-            [[PFUser currentUser][@"statusObj"] saveInBackground];
-        }];
-        [PFUser currentUser][@"status"] = status;
-        [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:status];
-        [self checkForRecipients:status];
-//        [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.statusTextView.text];
-        [[PFUser currentUser] saveInBackground];
-        [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
     }
 
     [self.delegate closeUpdateStatusView];
     [self.statusTextView resignFirstResponder];
+}
+
+-(void)updateStatus:(NSString*)status{
+    if([PFUser currentUser][@"statusObj"] == nil){
+        PFObject *status = [PFObject objectWithClassName:@"Status"];
+        status[@"status"] = status;
+        status[@"views"] = @0;
+        status[@"author"] = [PFUser currentUser];
+        [status saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [PFUser currentUser][@"statusObj"] = status;
+                [[PFUser currentUser] saveInBackground];
+            } else {
+                // There was a problem, check error.description
+            }
+        }];
+    }
+    
+    [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [PFUser currentUser][@"statusObj"][@"status"] = status;
+        [PFUser currentUser][@"statusObj"][@"views"] = @0;
+        [[PFUser currentUser][@"statusObj"] saveInBackground];
+    }];
+    [PFUser currentUser][@"status"] = status;
+    [[[self.shoutoutRootStatus childByAppendingPath:[[PFUser currentUser] objectId]] childByAppendingPath:@"status" ] setValue:status];
+    [self checkForRecipients:status];
+    //        [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.statusTextView.text];
+    [[PFUser currentUser] saveInBackground];
+    [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
+
 }
 
 - (NSString*)replaceEmptyMessage:(NSString*)message{

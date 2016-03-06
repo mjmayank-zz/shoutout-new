@@ -37,23 +37,31 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.colorPickerDelegate.delegate = self;
         
         for i in 0...self.colorPickerDelegate.colors.count-1{
-            if(PFUser.currentUser()?.objectForKey("pinColor") as! String == self.colorPickerDelegate.colors[i]){
-                self.colorPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
+            if let color = PFUser.currentUser()?.objectForKey("pinColor") as? String{
+                if(color == self.colorPickerDelegate.colors[i]){
+                    self.colorPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
+                }
+            }
+            else{
+                PFUser.currentUser()?.setObject("2ECEFF", forKey: "pinColor")
+                PFUser.currentUser()?.saveInBackground()
             }
         }
         
         self.usernameTextField.text = PFUser.currentUser()?.username
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height/2.0;
         self.profileImageView.layer.masksToBounds = true;
-        if ((PFUser.currentUser()?["visible"]) as! Bool == false){
+        if ((PFUser.currentUser()?["visible"]) as? Bool == false){
             self.statusControl.selectedSegmentIndex = 0;
             self.statusExplanationLabel.text = "You are off the map, and we won't update your location in the background"
         }
-        else if(PFUser.currentUser()?["anonymous"] as! Bool == true){
+        else if(PFUser.currentUser()?["anonymous"] as? Bool == true){
             self.statusControl.selectedSegmentIndex = 1;
             self.statusExplanationLabel.text = "We removed your username from your pin"
         }
         else{
+            PFUser.currentUser()?.setObject(NSNumber(bool: false), forKey: "anonymous")
+            PFUser.currentUser()?.saveInBackground()
             self.statusControl.selectedSegmentIndex = 2;
             self.statusExplanationLabel.text = "Awesome, you're good to go!"
         }
@@ -314,7 +322,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     func displayPrompt(){
-        let alertview = JSSAlertView().show(self, title: "These are locked!", text: "You need to invite some friends to the app to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
+        let alertview = JSSAlertView().show(self, title: "These are locked!", text: "Invite some friends to use Shoutout to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
         alertview.addAction { 
             print("test")
         }

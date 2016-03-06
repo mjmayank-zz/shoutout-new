@@ -116,8 +116,6 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
     if (!shownNUX) {
-        [defaults setBool:YES forKey:kUserDefaultShownNUXKey];
-        [defaults synchronize];
         [self showNUX];
     } else {
         [self checkLocationPermission];
@@ -139,6 +137,9 @@
 
 - (void)completeNUX {
     // First, remove the popover
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:kUserDefaultShownNUXKey];
+    [defaults synchronize];
     [self.nuxPopover removeFromParentViewController];
     [self.nuxPopover.view removeFromSuperview];
     self.nuxPopover = nil;

@@ -13,6 +13,7 @@ class SOPinBusinessViewController: UIViewController {
     @IBOutlet var capacityLabel: UILabel!
     @IBOutlet var capacityBackgroundView: UIView!
     @IBOutlet var graphView: UIView!
+    @IBOutlet var headerBackgroundView: UIView!
     
     var latitude : NSNumber!
     var longitude : NSNumber!
@@ -23,10 +24,10 @@ class SOPinBusinessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.layer.borderColor = UIColor(red: 147/255.0, green: 149 / 255.0, blue: 152 / 255.0, alpha: 1.0).CGColor;
-        self.view.layer.borderWidth = 4.0;
-        self.view.layer.cornerRadius = 30.0;
-        self.view.clipsToBounds = true;
+//        self.view.layer.borderColor = UIColor(red: 147/255.0, green: 149 / 255.0, blue: 152 / 255.0, alpha: 1.0).CGColor;
+//        self.view.layer.borderWidth = 4.0;
+        self.headerBackgroundView.layer.cornerRadius = 20.0;
+        self.headerBackgroundView.clipsToBounds = true;
         
         self.capacityBackgroundView.layer.borderColor = UIColor.blackColor().CGColor;
 //            UIColor(red: 147/255.0, green: 149 / 255.0, blue: 152 / 255.0, alpha: 1.0).CGColor;

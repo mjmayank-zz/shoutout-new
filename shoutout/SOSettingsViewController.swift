@@ -34,8 +34,9 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         
         self.colorPickerCollectionView.dataSource = self.colorPickerDelegate
         self.colorPickerCollectionView.delegate = self.colorPickerDelegate
+        self.colorPickerDelegate.delegate = self;
         
-        for var i = 0; i < self.colorPickerDelegate.colors.count; ++i {
+        for i in 0...self.colorPickerDelegate.colors.count-1{
             if(PFUser.currentUser()?.objectForKey("pinColor") as! String == self.colorPickerDelegate.colors[i]){
                 self.colorPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
             }
@@ -311,10 +312,23 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
         return true;
     }
+    
+    func displayPrompt(){
+        let alertview = JSSAlertView().show(self, title: "These are locked!", text: "You need to invite some friends to the app to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
+        alertview.addAction { 
+            print("test")
+        }
+        alertview.setTitleFont("Titillium-Bold")
+        alertview.setTextFont("Titillium")
+        alertview.setButtonFont("Titillium-Light")
+        alertview.setTextTheme(.Light)
+    }
+    
 }
 
 class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
     
+    weak var delegate: SOSettingsViewController!
     let colors = ["2ECEFF", "29B4B9", "00E4C9", "4CD78B", "A6A8AB", "299AE6"]
     
     override init() {
@@ -335,7 +349,35 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
         if(cell.selected){
             cell.selectedOutlineImageView.hidden = false;
         }
+        if(indexPath.row == 0){
+            cell.lockImageView.hidden = true;
+        }
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100){
+            cell.lockImageView.hidden = true;
+        }
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView,
+                          shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 && indexPath.row > 0){
+//            let alertController = UIAlertController(title: "Are you sure?", message: "This will prevent either of you from seeing each other on the map", preferredStyle: UIAlertControllerStyle.Alert)
+//            
+//            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+//            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
+//
+//            })
+//            
+//            alertController.addAction(cancelAction)
+//            alertController.addAction(okayAction);
+//            
+//            self.presentViewController(alertController, animated: true, completion: nil);
+            return true;
+        }
+        else{
+            self.delegate.displayPrompt()
+            return false;
+        }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

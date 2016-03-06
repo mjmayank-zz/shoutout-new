@@ -25,6 +25,7 @@
 		8F3C85311BEFCE38005E658E /* mapBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85301BEFCE38005E658E /* mapBackground@2x.png */; };
 		8F3C85331BEFDFB0005E658E /* shoutoutLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */; };
 		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; };
+		8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F83E5211C73ECF00033423D /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F83E5201C73ECF00033423D /* Icon-83.5@2x.png */; };
@@ -42,6 +43,9 @@
 		8F9A48D21BA66F0D002C68EE /* ShoutClusterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9A48D11BA66F0D002C68EE /* ShoutClusterMarker.m */; };
 		8F9AB1391C87F8CF004A88C2 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9AB1371C87F8CF004A88C2 /* lock@2x.png */; };
 		8F9AB13A1C87F8CF004A88C2 /* lock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9AB1381C87F8CF004A88C2 /* lock@3x.png */; };
+		8FA364671C894A3E004810B0 /* nux1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA364641C894A3E004810B0 /* nux1.png */; };
+		8FA364681C894A3E004810B0 /* nux2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA364651C894A3E004810B0 /* nux2.png */; };
+		8FA364691C894A3E004810B0 /* nux3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA364661C894A3E004810B0 /* nux3.png */; };
 		8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA76FC51BD6D02D00979C3A /* KPAnnotation.m */; };
 		8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA76FC81BD6D02D00979C3A /* KPAnnotationTree.m */; };
 		8FA76FD41BD6D02D00979C3A /* KPClusteringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA76FCB1BD6D02D00979C3A /* KPClusteringController.m */; };
@@ -171,6 +175,7 @@
 		8F3C85301BEFCE38005E658E /* mapBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapBackground@2x.png"; sourceTree = "<group>"; };
 		8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoutoutLogo.png; sourceTree = "<group>"; };
 		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
+		8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -199,6 +204,9 @@
 		8F9A48D11BA66F0D002C68EE /* ShoutClusterMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutClusterMarker.m; sourceTree = "<group>"; };
 		8F9AB1371C87F8CF004A88C2 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
 		8F9AB1381C87F8CF004A88C2 /* lock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@3x.png"; sourceTree = "<group>"; };
+		8FA364641C894A3E004810B0 /* nux1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux1.png; sourceTree = "<group>"; };
+		8FA364651C894A3E004810B0 /* nux2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux2.png; sourceTree = "<group>"; };
+		8FA364661C894A3E004810B0 /* nux3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux3.png; sourceTree = "<group>"; };
 		8FA76FC21BD6D02200979C3A /* kingpin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kingpin.h; path = kingpin/kingpin.h; sourceTree = "<group>"; };
 		8FA76FC31BD6D02D00979C3A /* kp_2dtree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kp_2dtree.h; path = kingpin/kp_2dtree.h; sourceTree = "<group>"; };
 		8FA76FC41BD6D02D00979C3A /* KPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KPAnnotation.h; path = kingpin/KPAnnotation.h; sourceTree = "<group>"; };
@@ -418,6 +426,7 @@
 				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
 				352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
+				8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */,
@@ -608,6 +617,9 @@
 		8FA770211BD70C5C00979C3A /* OnboardingViews */ = {
 			isa = PBXGroup;
 			children = (
+				8FA364641C894A3E004810B0 /* nux1.png */,
+				8FA364651C894A3E004810B0 /* nux2.png */,
+				8FA364661C894A3E004810B0 /* nux3.png */,
 				8F0430B51BE46DA10024DF4E /* checked_checkbox@2x.png */,
 				8F0430B61BE46DA10024DF4E /* unchecked_checkbox@2x.png */,
 				8FA770221BD70C5C00979C3A /* onboardingPage1@2x.png */,
@@ -751,6 +763,7 @@
 				8FA770361BD70C5C00979C3A /* gradientGreenLong.png in Resources */,
 				8FA76FF51BD6D19A00979C3A /* Titillium-ThinItalic.otf in Resources */,
 				8FA770481BD70C5C00979C3A /* bigIcon.png in Resources */,
+				8FA364671C894A3E004810B0 /* nux1.png in Resources */,
 				8FA770AB1BD7328E00979C3A /* Icon-Small@2x.png in Resources */,
 				8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */,
 				8FA770511BD70C5C00979C3A /* smallIcon.png in Resources */,
@@ -760,6 +773,7 @@
 				8FA770601BD70C5C00979C3A /* shoutBubble.png in Resources */,
 				8FA76FF11BD6D19A00979C3A /* Titillium-Semibold.otf in Resources */,
 				8FA770571BD70C5C00979C3A /* onboardingPage2@2x.png in Resources */,
+				8FA364691C894A3E004810B0 /* nux3.png in Resources */,
 				8FA770341BD70C5C00979C3A /* gradient.png in Resources */,
 				8FA770A51BD7328E00979C3A /* Icon-40@3x.png in Resources */,
 				8FA770A91BD7328E00979C3A /* Icon-76@2x.png in Resources */,
@@ -829,6 +843,7 @@
 				8F8D477E1B976DB900D902B9 /* Images.xcassets in Resources */,
 				8FA76FEA1BD6D19A00979C3A /* Titillium-BoldUpright.otf in Resources */,
 				8F1680E91C532FC100435596 /* shoutoutLogoCropped.png in Resources */,
+				8FA364681C894A3E004810B0 /* nux2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +947,7 @@
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,
+				8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */,
 				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,

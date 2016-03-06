@@ -14,6 +14,7 @@ class SONUXTutorialCardViewController: UIViewController {
     @IBOutlet var contentView: UIView!
     @IBOutlet var slideTitle: UILabel!
     @IBOutlet var nextButton: UIButton!
+    @IBOutlet var noButton: UIButton!
     
     var currentSlide = 0
     var contentViewControllers: [UIViewController!]
@@ -23,6 +24,16 @@ class SONUXTutorialCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createViewControllers()
+    }
+    
+    @IBAction func noButtonPressed(sender: AnyObject) {
+        if (contentView.subviews.count > 0) {
+            contentView.subviews[0].removeFromSuperview()
+        }
+        if (currentSlide == 3) {
+            currentSlide = (currentSlide + 1) % contentViewControllers.count
+            displayViewController(currentSlide)
+        }
     }
     
     @IBAction func nextButtonPressed(sender: UIButton) {
@@ -61,31 +72,39 @@ class SONUXTutorialCardViewController: UIViewController {
             popover.pip?.hidden = true
             nextButton.setTitle("OK! Let's get on with it", forState: .Normal)
             slideTitle.text = "Welcome to Shoutout"
+            noButton.hidden = true
         case 1:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(105.0, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
+            noButton.hidden = true
             slideTitle.text = "List View"
         case 2:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(242.0, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
+            noButton.hidden = true
             slideTitle.text = "Inbox View"
         case 3:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(170.0, duration: 0.3)
             nextButton.setTitle("Got it!", forState: .Normal)
+            noButton.setTitle("No, I hate everyone", forState: .Normal)
+            noButton.hidden = false
             slideTitle.text = "Shout! Let it all out!"
         case 4:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(35.0, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
+            noButton.hidden = true
             slideTitle.text = "Settings"
         case 5:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(292.0, duration: 0.3)
             nextButton.setTitle("Enable Location Permissions", forState: .Normal)
             slideTitle.text = "Last but not least"
+            noButton.hidden = false
+            noButton.setTitle("No! The government is after me!", forState: .Normal)
         default:
             return
         }
@@ -105,21 +124,21 @@ class SONUXTutorialCardViewController: UIViewController {
         let listSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
         listSlide?.view
         listSlide?.textView.text = "Too many people on the map?\n\nTry using List View to help sort through the masses."
+        listSlide?.imageView.image = UIImage(named: "nux1.png")
         contentViewControllers.append(listSlide)
-        // MAYANK-TODO: set to image of list
         
         let inboxSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
         inboxSlide?.view
         inboxSlide?.textView.text = "If someone shouts back at you, it will show up here. From here, you can also block the haters and find your homies."
+        inboxSlide?.imageView.image = UIImage(named: "nux2.png")
         contentViewControllers.append(inboxSlide)
-        // MAYANK-TODO: set to image of inbox
         
         let notificationsSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextPermission") as? SONUXTutorialTextPermissionViewController
         notificationsSlide?.view
         notificationsSlide?.textView.text = "This is how you let anyone on the map know what you're up to or thinking about."
         notificationsSlide?.textBelowImageView.text = "We need your permission to let you know when others message you."
+        notificationsSlide?.imageView.image = UIImage(named: "nux3.png")
         contentViewControllers.append(notificationsSlide)
-        // MAYANK-TODO: set to image of shoutout pin
         
         let settingsSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextPermission") as? SONUXTutorialTextPermissionViewController
         settingsSlide?.view

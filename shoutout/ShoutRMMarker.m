@@ -70,8 +70,8 @@
     self.businessSubVC = [[SOPinBusinessViewController alloc] init];
     self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
     self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
-    self.businessSubVC.view.frame = CGRectMake(13, -self.businessSubVC.view.frame.size.height, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
-    [self.subview.bubbleContainerView insertSubview:self.businessSubVC.view atIndex:0];
+    self.businessSubVC.view.frame = CGRectMake(2, -self.businessSubVC.view.frame.size.height+17, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
+    [self.subview.bubbleContainerView insertSubview:self.businessSubVC.view atIndex:99];
 }
 
 - (void)setPinColor:(UIColor *)color{

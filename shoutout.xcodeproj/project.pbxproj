@@ -26,6 +26,7 @@
 		8F3C85331BEFDFB0005E658E /* shoutoutLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */; };
 		8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */; };
 		8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */; };
+		8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F83E5211C73ECF00033423D /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F83E5201C73ECF00033423D /* Icon-83.5@2x.png */; };
@@ -176,6 +177,7 @@
 		8F3C85321BEFDFB0005E658E /* shoutoutLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoutoutLogo.png; sourceTree = "<group>"; };
 		8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSettingsViewController.swift; sourceTree = "<group>"; };
 		8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
+		8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInviteFriendsViewController.swift; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
 				8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */,
+				8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				35FEEBDA1C57301000FBF2EF /* SONUXTutorialTextViewController.swift */,
@@ -944,6 +947,7 @@
 				8F3DA50C1BB30E5600338279 /* SOSettingsViewController.swift in Sources */,
 				8FA956C01BC050E2003C7357 /* SOMarkerSubView.m in Sources */,
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
+				8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */,
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,

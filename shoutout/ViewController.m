@@ -293,15 +293,17 @@
 }
 
 - (void)applicationWillEnterForeground:(NSNotification*)notification{
-    [self registerFirebaseListeners];
-    [self updateMapWithLocation:self.previousLocation.coordinate];
-    [self checkNumberOfNewMessages];
-    [self checkLocationPermission];
-    [self promptForCheckinPermission];
-    [self checkToBlockMap];
+    if([PFUser currentUser]){ //THIS IS A HACK. MAKE SURE VC IS DEALLOCATING PROPERLY
+        [self registerFirebaseListeners];
+        [self updateMapWithLocation:self.previousLocation.coordinate];
+        [self checkNumberOfNewMessages];
+        [self checkLocationPermission];
+        [self promptForCheckinPermission];
+        [self checkToBlockMap];
+    }
 }
 
-- (void)didReceiveMemoryWarning {  
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

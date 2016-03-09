@@ -13,7 +13,7 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var tableView: UITableView!
     var messages: [PFObject]?
-    var delegate: ViewController?
+    weak var delegate: ViewController?
     var profileImageCache : NSCache!
     
     override func viewDidLoad(){

@@ -431,7 +431,6 @@
 				8FF09DB61BE035ED001402E7 /* SOListViewController.swift */,
 				352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */,
 				8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */,
-				8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */,
 				8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
@@ -460,6 +459,7 @@
 		8F8D47701B976DB900D902B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */,
 				8FFF9A821C55BD880058BE67 /* UIImage+ColorMask.h */,
 				8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */,
 				8F9A48CD1BA3BDB8002C68EE /* MKMapView+ZoomLevel.h */,

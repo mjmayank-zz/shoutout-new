@@ -11,27 +11,28 @@ import Contacts
 import MessageUI
 
 @available(iOS 9.0, *)
-class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate{
+class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate, UISearchBarDelegate{
+    
     var contactStore = CNContactStore()
-    var contacts = [CNContact]()
+    var contacts = [String:[CNContact]]()
     var letters = (97...122).map({String(UnicodeScalar($0))})
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad(){
         super.viewDidLoad();
+        for letter in self.letters{
+            contacts[letter] = [CNContact]()
+        }
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.allowsMultipleSelection = true;
+        self.searchBar.delegate = self;
         self.requestForAccess()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if(section == 0){
-            return contacts.count;
-        }
-        else{
-            return 0;
-        }
+        return contacts[letters[section]]!.count
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
@@ -49,7 +50,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("inviteFriendsCell") as! SOInviteFriendsTableViewCell
-        let contact = self.contacts[indexPath.row]
+        let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
         cell.nameLabel.text = contact.givenName + " " + contact.familyName;
         if(contact.phoneNumbers.count > 0){
             cell.typeLabel.text = CNLabeledValue.localizedStringForLabel(contact.phoneNumbers[0].label)
@@ -72,7 +73,6 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
                      didSelectRowAtIndexPath indexPath: NSIndexPath){
         let cell = tableView.cellForRowAtIndexPath(indexPath)!;
         cell.accessoryType = .Checkmark;
-        print(tableView.indexPathsForSelectedRows)
     }
     
     func tableView(tableView: UITableView,
@@ -120,17 +120,25 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
         let containerId = CNContactStore().defaultContainerIdentifier()
         let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerId)
-        self.contacts = try! CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-        self.contacts = self.contacts.filter({ (contact:CNContact) -> Bool in
+        var contactsArr = try! CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
+        contactsArr = contactsArr.filter({ (contact:CNContact) -> Bool in
             return contact.phoneNumbers.count > 0
         })
-        self.contacts.sortInPlace { (contact1:CNContact, contact2:CNContact) -> Bool in
+        contactsArr.sortInPlace { (contact1:CNContact, contact2:CNContact) -> Bool in
             if(contact1.givenName == contact2.givenName){
                 return contact1.familyName < contact2.familyName
             }
             return contact1.givenName < contact2.givenName
         }
-        
+        for contact in contactsArr{
+            print(contact)
+            let name = contact.givenName
+            if(!name.isEmpty){
+                let range = name.startIndex..<name.startIndex.advancedBy(1)
+                let key = name[range].lowercaseString
+                self.contacts[key]!.append(contact)
+            }
+        }
         self.tableView.reloadData()
     }
     
@@ -142,7 +150,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
         let messageVC = MFMessageComposeViewController()
         var recipients = [String]()
         for indexPath in self.tableView.indexPathsForSelectedRows!{
-            let contact = self.contacts[indexPath.row]
+            let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
             let number = contact.phoneNumbers[0].value as! CNPhoneNumber
             recipients.append(number.stringValue)
         }

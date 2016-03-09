@@ -15,7 +15,10 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     
     var contactStore = CNContactStore()
     var contacts = [String:[CNContact]]()
+    var contactsArray = [CNContact]()
+    var searchResults = [CNContact]()
     var letters = (97...122).map({String(UnicodeScalar($0))})
+    var searchActive = false
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
@@ -32,10 +35,16 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        if(self.searchActive == true){
+            return self.searchResults.count
+        }
         return contacts[letters[section]]!.count
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+        if(self.searchActive == true){
+            return 1;
+        }
         return letters.count
     }
     
@@ -45,12 +54,21 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     
     func tableView(tableView: UITableView,
                      titleForHeaderInSection section: Int) -> String?{
+        if(self.searchActive == true){
+            return "Results"
+        }
         return letters[section].uppercaseString;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("inviteFriendsCell") as! SOInviteFriendsTableViewCell
-        let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
+        let contact : CNContact
+        if(self.searchActive == true){
+            contact = self.searchResults[indexPath.row]
+        }
+        else{
+            contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
+        }
         cell.nameLabel.text = contact.givenName + " " + contact.familyName;
         if(contact.phoneNumbers.count > 0){
             cell.typeLabel.text = CNLabeledValue.localizedStringForLabel(contact.phoneNumbers[0].label)
@@ -79,6 +97,10 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
                      didDeselectRowAtIndexPath indexPath: NSIndexPath){
         let cell = tableView.cellForRowAtIndexPath(indexPath)!;
         cell.accessoryType = .None;
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.searchBar.resignFirstResponder()
     }
     
     func requestForAccess() {
@@ -130,8 +152,8 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             }
             return contact1.givenName < contact2.givenName
         }
+        self.contactsArray = contactsArr
         for contact in contactsArr{
-            print(contact)
             let name = contact.givenName
             if(!name.isEmpty){
                 let range = name.startIndex..<name.startIndex.advancedBy(1)
@@ -178,6 +200,26 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
         default:
             break;
         }
+    }
+    
+    func searchBar(searchBar: UISearchBar,
+                     textDidChange searchText: String){
+        if(searchText.isEmpty){
+            self.searchActive = false
+        }
+        else{
+            self.searchActive = true
+            self.searchResults = self.contactsArray.filter({ (contact:CNContact) -> Bool in
+                if(contact.givenName.containsString(searchText)){
+                    return true
+                }
+                if(contact.familyName.containsString(searchText)){
+                    return true
+                }
+                return false
+            })
+        }
+        self.tableView.reloadData()
     }
 }
 

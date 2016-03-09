@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04AFD1AF1C8FA1F60073E66C /* BackendUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFD1AE1C8FA1F60073E66C /* BackendUtils.swift */; };
 		352546381C07B3EA00457CE9 /* SOPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */; };
 		35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */; };
 		359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359511F71C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift */; };
@@ -152,6 +153,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04AFD1AE1C8FA1F60073E66C /* BackendUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendUtils.swift; sourceTree = "<group>"; };
 		08A71E57CEBF1AF770B6F58A /* Pods-shoutout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shoutout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-shoutout/Pods-shoutout.debug.xcconfig"; sourceTree = "<group>"; };
 		352546371C07B3EA00457CE9 /* SOPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOPopoverViewController.swift; sourceTree = "<group>"; };
 		35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SONUXViewController.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
+				04AFD1AE1C8FA1F60073E66C /* BackendUtils.swift */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
 				8F8D47781B976DB900D902B9 /* ViewController.m */,
 				8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */,
@@ -947,6 +950,7 @@
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,
+				04AFD1AF1C8FA1F60073E66C /* BackendUtils.swift in Sources */,
 				8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */,
 				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,

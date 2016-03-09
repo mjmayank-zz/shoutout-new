@@ -111,6 +111,7 @@
         [[shoutoutOnline childByAppendingPath:[[PFUser currentUser] objectId]] setValue:@"YES"];
         [[PFUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"online"];
         [[PFUser currentUser] saveInBackground];
+        [BackendUtils incrementScore:1];
     }
 }
 

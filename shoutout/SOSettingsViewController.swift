@@ -115,7 +115,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         };
     }
     
-    @IBAction func didPressDoneButton(sender: AnyObject) {
+    @IBAction func doneButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil);
     }
     
@@ -323,8 +323,9 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     
     func displayPrompt(){
         let alertview = JSSAlertView().show(self, title: "These are locked!", text: "Invite some friends to use Shoutout to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
-        alertview.addAction { 
-            print("test")
+        alertview.addAction {
+            let controller = self.storyboard?.instantiateViewControllerWithIdentifier("inviteFriendsVC")
+            self.presentViewController(controller!, animated: true, completion: nil)
         }
         alertview.setTitleFont("Titillium-Bold")
         alertview.setTextFont("Titillium")

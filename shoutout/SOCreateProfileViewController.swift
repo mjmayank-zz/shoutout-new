@@ -28,10 +28,10 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         
         self.loadRandomDefaultImage();
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SOCreateProfileViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SOCreateProfileViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil);
         
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SOCreateProfileViewController.dismissKeyboard));
         self.view .addGestureRecognizer(tap);
         
         self.setNeedsStatusBarAppearanceUpdate()

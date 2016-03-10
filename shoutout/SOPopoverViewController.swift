@@ -45,6 +45,14 @@ class SOPopoverViewController:UIViewController {
         view.setNeedsDisplay()
     }
     
+    func updatePipConstraint(view: UIView){
+        pipLocation = 10
+        pipConstraint = NSLayoutConstraint(item: self.pip!, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: pipLocation!)
+        pipConstraint?.active = true;
+        view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+    }
+    
     func updatePipLocationAndAnimate(location: CGFloat, duration: NSTimeInterval) {
         self.view.layoutIfNeeded()
         pipLocation = location - 10

@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>5</string>
 	<key>FacebookAppID</key>
 	<string>213646248845245</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -41,9 +41,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To display your location to your friends on the map</string>
+	<string>We use this to let you know what's going on around you. You can turn this off within the app at any time.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To display your location to your friends on the map</string>
+	<string>We use this to let you know what's going on around you. You can turn this off within the app at any time.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Titillium-Black.otf</string>

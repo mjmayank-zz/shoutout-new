@@ -21,5 +21,6 @@ class SOBackendUtils : NSObject {
         PFUser.currentUser()?.saveInBackground();
         let shoutoutRootScore = Firebase(url: "https://shoutout.firebaseio.com/score");
         shoutoutRootScore.childByAppendingPath(PFUser.currentUser()?.objectId).setValue(score);
+        NSNotificationCenter.defaultCenter().postNotificationName("scoreUpdated", object: self)
     }
 }

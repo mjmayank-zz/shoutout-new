@@ -118,9 +118,10 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
                     if authorizationStatus == CNAuthorizationStatus.Denied {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let message = "\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings."
-                            let alertController = UIAlertController(title: "Birthdays", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                            let alertController = UIAlertController(title: "We need your permission", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                             
                             let dismissAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
+                                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
                             }
                             
                             alertController.addAction(dismissAction)
@@ -161,7 +162,9 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
                 self.contacts[key]!.append(contact)
             }
         }
-        self.tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {

@@ -82,6 +82,7 @@ class SONUXTutorialCardViewController: UIViewController {
         case 2:
             popover.pip?.hidden = false
             popover.updatePipLocationAndAnimate(self.delegate.inboxButton.frame.origin.x, duration: 0.3)
+            print(self.delegate.inboxButton.frame.origin.x)
             nextButton.setTitle("Next", forState: .Normal)
             noButton.hidden = true
             slideTitle.text = "Inbox View"
@@ -104,7 +105,7 @@ class SONUXTutorialCardViewController: UIViewController {
             nextButton.setTitle("Enable Location Permissions", forState: .Normal)
             slideTitle.text = "Last but not least"
             noButton.hidden = false
-            noButton.setTitle("No! The government is after me!", forState: .Normal)
+            noButton.setTitle("No! The po-po are after me!", forState: .Normal)
         default:
             return
         }
@@ -118,23 +119,13 @@ class SONUXTutorialCardViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let introSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialText") as? SONUXTutorialTextViewController
         introSlide?.view
-        
-//        let nuxString = "Shoutout is all about getting on the map.\n\nIn order for this to work, we need to get your permissions and show you how everything works."
-//        let start = 71
-//        let boldString = "we need to get your permissions"
-//        let range = NSMakeRange(start, boldString.characters.count)
-//        let fontText = UIFont(name: "Titillium", size: (introSlide?.textView.font?.pointSize)!)
-//        let dictBoldText = [NSFontAttributeName:fontText!]
-//        let mutAttrTextViewString = NSMutableAttributedString(string: nuxString)
-//        mutAttrTextViewString.setAttributes(dictBoldText, range: range)
-//        introSlide?.textView.attributedText = mutAttrTextViewString
-        print(UIFont.fontNamesForFamilyName("Titillium"))
+
         introSlide?.textView.text = "Shoutout is all about getting on the map.\n\nIn order for this to work, we need to get your permissions and show you how everything works."
         contentViewControllers.append(introSlide)
         
         let listSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
         listSlide?.view
-        listSlide?.textView.text = "Too many people on the map?\n\nTry using List View to help sort through the masses."
+        listSlide?.textView.text = "Too many people on the map?\n\nTry using List View to help sort through the filthy masses."
         listSlide?.imageView.image = UIImage(named: "nux1.png")
         contentViewControllers.append(listSlide)
         
@@ -157,13 +148,22 @@ class SONUXTutorialCardViewController: UIViewController {
         settingsSlide?.textBelowImageView.text = "You can also switch to anonymous mode if you want to be a shade-ball."
         settingsSlide?.imageView.image = UIImage(named: "nux4.png")
         contentViewControllers.append(settingsSlide)
-        // MAYANK-TODO: set to image of settings
         
         let locationSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialText") as? SONUXTutorialTextViewController
         locationSlide?.view
-        locationSlide?.textView.text = "Shoutout relies on all users sharing their location. In order to use the app, please enable location permissions."
+        locationSlide?.textView.text = "Shoutout relies on all users sharing their location. In order to use the app, please enable location permissions.\n\n(You can turn this off at any time)"
         contentViewControllers.append(locationSlide)
-        // MAYANK-TODO: set to image of settings
+        
+        if(UIDevice.currentDevice().userInterfaceIdiom == .Phone && UIScreen.mainScreen().bounds.size.height < 667.0){
+            let iPhone5Font = UIFont(name: "Titillium", size: (introSlide?.textView.font?.pointSize)!-4)
+            let iPhone5FontSmall = UIFont(name: "Titillium", size: (introSlide?.textView.font?.pointSize)!-6)
+            listSlide?.textView.font = iPhone5Font;
+            inboxSlide?.textView.font = iPhone5Font;
+            notificationsSlide?.textView.font = iPhone5FontSmall;
+            notificationsSlide?.textBelowImageView.font = iPhone5FontSmall;
+            settingsSlide?.textView.font = iPhone5FontSmall;
+            settingsSlide?.textBelowImageView.font = iPhone5FontSmall;
+        }
         
         for contentViewController in contentViewControllers {
             addChildViewController(contentViewController)

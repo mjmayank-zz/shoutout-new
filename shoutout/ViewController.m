@@ -24,6 +24,7 @@
 
 @interface ViewController ()
 
+@property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 // List
 @property (strong, nonatomic) SOListViewController *listViewVC;
 @property (strong, nonatomic) NSLayoutConstraint* listViewBottomConstraint;
@@ -92,6 +93,10 @@
     
     [self registerFirebaseListeners];
     
+    self.scoreLabel.layer.cornerRadius = 5.0;
+    self.scoreLabel.clipsToBounds = YES;
+    [self updateScore];
+    
     //set up mailbox
     [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
     self.unreadIndicator.layer.masksToBounds = YES;
@@ -154,6 +159,13 @@
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     }
+    
+    // Re-enable buttons after they complete NUX
+    self.inboxButton.enabled = YES;
+    self.listButton.enabled = YES;
+    self.composeButton.enabled = YES;
+    self.settingsButton.enabled = YES;
+    self.locateButton.enabled = YES;
 }
 
 - (void)setupPopovers {
@@ -179,7 +191,8 @@
     // TODO: better handling of the pip location
     [listPopover updatePipLocation:self.listButton.frame.origin.x];
     NSLog(@"%f", self.listButton.frame.origin.x);
-    [inboxPopover updatePipLocation:self.inboxButton.frame.origin.x];
+    [inboxPopover updatePipConstraint:self.inboxButton];
+//    [inboxPopover updatePipLocation:self.inboxButton.frame.origin.x];
     NSLog(@"%f", self.inboxButton.frame.origin.x);
     
     // Add constraints to the popovers. Resizes them to have margins
@@ -218,6 +231,13 @@
 }
 
 - (void)showNUX {
+    // Disable buttons until they complete NUX
+    self.inboxButton.enabled = NO;
+    self.listButton.enabled = NO;
+    self.composeButton.enabled = NO;
+    self.settingsButton.enabled = NO;
+    self.locateButton.enabled = NO;
+    
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
     SOPopoverViewController* tutPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
@@ -268,6 +288,13 @@
     
     // Show the initial tutorial
     [tutController showInitialController];
+}
+
+
+- (void)updateScore{
+    if([[PFUser currentUser] objectForKey:@"score"] != NULL){
+        self.scoreLabel.text = [NSString stringWithFormat:@"%@", [[PFUser currentUser] objectForKey:@"score"]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -321,6 +348,8 @@
      UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyNotificationReceived:) name:
      @"replyToShout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScore) name:
+     @"scoreUpdated" object:nil];
 }
 
 - (void)unregisterNotifications{
@@ -330,6 +359,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"replyToShout" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"scoreUpdated" object:nil];
 }
 
 - (void)checkNumberOfNewMessages{

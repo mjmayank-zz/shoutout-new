@@ -27,6 +27,12 @@
 @property (strong, nonatomic) UIView *listViewContainer;
 @property (strong, nonatomic) UIView *inboxContainer;
 
+@property (strong, nonatomic) IBOutlet UIButton *inboxButton;
+@property (strong, nonatomic) IBOutlet UIButton *listButton;
+@property (strong, nonatomic) IBOutlet UIButton *composeButton;
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIButton *locateButton;
+
 @property (strong, nonatomic) IBOutlet UILabel *unreadIndicator;
 
 @property (strong, nonatomic) NSMutableDictionary * markerDictionary;

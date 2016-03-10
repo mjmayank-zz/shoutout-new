@@ -164,8 +164,10 @@
 - (void)hideShout{
     [self.subview.bubbleContainerView setHidden:YES];
     [self.subview.messageOverlayView setHidden:YES];
-    self.transform = CGAffineTransformMakeScale(self.scale, self.scale);
-    [self resetCenterOffset];
+    [UIView animateWithDuration:0.1 animations:^{
+        self.transform = CGAffineTransformMakeScale(self.scale, self.scale);
+        [self resetCenterOffset];
+    }];
 }
 
 -(void)setOnline:(BOOL)online{

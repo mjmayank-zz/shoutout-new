@@ -177,7 +177,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             recipients.append(number.stringValue)
         }
         
-        messageVC.body = "Hey! Check out this app that lets you know what's going on around campus. http://www.getshoutout.co";
+        messageVC.body = "Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download";
         messageVC.recipients = recipients
         messageVC.messageComposeDelegate = self;
         

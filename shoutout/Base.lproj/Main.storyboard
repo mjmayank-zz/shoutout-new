@@ -407,10 +407,13 @@
                     </view>
                     <connections>
                         <outlet property="centerMarkYConstraint" destination="vbY-iE-WBv" id="h80-Qa-CRr"/>
+                        <outlet property="composeButton" destination="1G6-ul-qtz" id="GRw-4m-k8L"/>
                         <outlet property="inboxButton" destination="dPr-nf-eoM" id="ADd-Oo-X4h"/>
                         <outlet property="listButton" destination="kvs-OA-sKY" id="F2q-gY-dkz"/>
                         <outlet property="loadButton" destination="66p-6O-4en" id="0DZ-jb-FnT"/>
+                        <outlet property="locateButton" destination="qwY-Tl-fsF" id="fna-yJ-d8Z"/>
                         <outlet property="map" destination="1KP-dS-pyF" id="Rfy-86-xcj"/>
+                        <outlet property="settingsButton" destination="dW5-ci-VVn" id="HCZ-ce-6zP"/>
                         <outlet property="slidingView" destination="RLL-j4-eUp" id="C3H-Q9-a0C"/>
                         <outlet property="slidingViewConstraint" destination="KLG-Mm-fcn" id="1Rw-6q-Hhb"/>
                         <outlet property="unreadIndicator" destination="uKI-Y9-bTG" id="YN2-u4-tYn"/>
@@ -2494,20 +2497,20 @@ or</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t7V-Ic-4xC">
-                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="339" width="600" height="241"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="By2-Ly-I3m"/>
+                                    <constraint firstAttribute="height" constant="241" id="By2-Ly-I3m"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="L2T-mF-gmC" firstAttribute="width" secondItem="MkI-oT-Gwf" secondAttribute="width" id="2Pl-Q0-s4i"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="t7V-Ic-4xC" secondAttribute="bottom" id="56A-Lc-adT"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="t7V-Ic-4xC" secondAttribute="bottom" constant="20" id="56A-Lc-adT"/>
                             <constraint firstItem="t7V-Ic-4xC" firstAttribute="width" secondItem="MkI-oT-Gwf" secondAttribute="width" id="9aA-BT-C4y"/>
                             <constraint firstItem="L2T-mF-gmC" firstAttribute="centerY" secondItem="MkI-oT-Gwf" secondAttribute="centerY" id="BfC-6Z-nnn"/>
                             <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="top" id="JLn-A9-icN"/>
                             <constraint firstItem="t7V-Ic-4xC" firstAttribute="centerX" secondItem="MkI-oT-Gwf" secondAttribute="centerX" id="LZl-2l-kgq"/>
-                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="bottom" constant="20" id="Rh4-LM-8cy"/>
+                            <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="bottom" constant="-41" id="Rh4-LM-8cy"/>
                             <constraint firstItem="L2T-mF-gmC" firstAttribute="height" secondItem="MkI-oT-Gwf" secondAttribute="height" id="XGe-lf-W1N"/>
                             <constraint firstItem="t7V-Ic-4xC" firstAttribute="top" secondItem="L2T-mF-gmC" secondAttribute="bottom" constant="-364" id="lmd-U1-eAc"/>
                             <constraint firstAttribute="topMargin" secondItem="L2T-mF-gmC" secondAttribute="top" id="s6H-h0-ZGS"/>
@@ -2553,13 +2556,13 @@ or</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0z-5I-sFh">
-                                <rect key="frame" x="0.0" y="380" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="329" width="600" height="127"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Q5C-lf-b3J"/>
+                                    <constraint firstAttribute="height" constant="127" id="Q5C-lf-b3J"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1iU-cg-FFW">
-                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="466" width="600" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="JwA-Ot-GTF"/>
                                     <constraint firstAttribute="height" constant="100" id="pwB-5i-yLR"/>
@@ -2578,11 +2581,11 @@ or</string>
                         <constraints>
                             <constraint firstItem="1iU-cg-FFW" firstAttribute="width" secondItem="cQE-1f-aOH" secondAttribute="width" id="4Ju-N1-LeN"/>
                             <constraint firstItem="kXZ-p9-8Vg" firstAttribute="width" secondItem="cQE-1f-aOH" secondAttribute="width" id="8Cq-zn-F6S"/>
-                            <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="bottom" constant="20" id="8ud-GY-pZC"/>
+                            <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="bottom" constant="-31" id="8ud-GY-pZC"/>
                             <constraint firstAttribute="topMargin" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="DjV-f8-xpI"/>
                             <constraint firstItem="1iU-cg-FFW" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="Eho-RD-nLb"/>
                             <constraint firstItem="kXZ-p9-8Vg" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="Li9-Kf-gYh"/>
-                            <constraint firstItem="1iU-cg-FFW" firstAttribute="top" secondItem="i0z-5I-sFh" secondAttribute="bottom" constant="20" id="W2x-W8-IZw"/>
+                            <constraint firstItem="1iU-cg-FFW" firstAttribute="top" secondItem="i0z-5I-sFh" secondAttribute="bottom" constant="10" id="W2x-W8-IZw"/>
                             <constraint firstItem="i0z-5I-sFh" firstAttribute="top" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="WiO-G7-2TA"/>
                             <constraint firstItem="kXZ-p9-8Vg" firstAttribute="centerY" secondItem="cQE-1f-aOH" secondAttribute="centerY" id="X2g-Wy-rkt"/>
                             <constraint firstItem="kXZ-p9-8Vg" firstAttribute="height" secondItem="cQE-1f-aOH" secondAttribute="height" id="YTC-id-o7E"/>
@@ -2591,7 +2594,7 @@ or</string>
                             <constraint firstAttribute="topMargin" secondItem="kXZ-p9-8Vg" secondAttribute="top" id="j5V-Dt-UkN"/>
                             <constraint firstItem="i0z-5I-sFh" firstAttribute="centerX" secondItem="cQE-1f-aOH" secondAttribute="centerX" id="kiu-Y2-w4m"/>
                             <constraint firstAttribute="bottomMargin" secondItem="i0z-5I-sFh" secondAttribute="bottom" id="rhZ-Xk-yV9"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="1iU-cg-FFW" secondAttribute="bottom" id="sXM-9y-2ox"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="1iU-cg-FFW" secondAttribute="bottom" constant="34" id="sXM-9y-2ox"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

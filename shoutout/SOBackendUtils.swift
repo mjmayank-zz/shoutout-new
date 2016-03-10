@@ -6,10 +6,17 @@
 //  Copyright © 2016 Mayank Jain. All rights reserved.
 //
 
-class BackendUtils : NSObject {
+class SOBackendUtils : NSObject {
     
     class func incrementScore(value: Int) {
-        let score = PFUser.currentUser()?["score"] as! Int + value;
+        var score : Int
+        if let currScore = PFUser.currentUser()?["score"] as? Int{
+            score = currScore + value;
+            
+        }
+        else{
+            score = value
+        }
         PFUser.currentUser()?.setValue(score, forKey: "score");
         PFUser.currentUser()?.saveInBackground();
         let shoutoutRootScore = Firebase(url: "https://shoutout.firebaseio.com/score");

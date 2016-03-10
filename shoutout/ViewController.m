@@ -26,12 +26,10 @@
 
 // List
 @property (strong, nonatomic) SOListViewController *listViewVC;
-@property (strong, nonatomic) IBOutlet UIButton *listButton;
 @property (strong, nonatomic) NSLayoutConstraint* listViewBottomConstraint;
 
 // Inbox
 @property (strong, nonatomic) SOInboxViewController *inboxVC;
-@property (strong, nonatomic) IBOutlet UIButton *inboxButton;
 @property (strong, nonatomic) NSLayoutConstraint* inboxBottomConstraint;
 
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
@@ -114,7 +112,8 @@
     
     // Check if the NUX has been shown yet
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+//    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+    BOOL shownNUX = NO;
     if (!shownNUX) {
         [self showNUX];
     } else {

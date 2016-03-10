@@ -75,32 +75,32 @@ class SONUXTutorialCardViewController: UIViewController {
             noButton.hidden = true
         case 1:
             popover.pip?.hidden = false
-            popover.updatePipLocationAndAnimate(105.0, duration: 0.3)
+            popover.updatePipLocationAndAnimate(self.delegate.listButton.frame.origin.x, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
             noButton.hidden = true
             slideTitle.text = "List View"
         case 2:
             popover.pip?.hidden = false
-            popover.updatePipLocationAndAnimate(242.0, duration: 0.3)
+            popover.updatePipLocationAndAnimate(self.delegate.inboxButton.frame.origin.x, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
             noButton.hidden = true
             slideTitle.text = "Inbox View"
         case 3:
             popover.pip?.hidden = false
-            popover.updatePipLocationAndAnimate(170.0, duration: 0.3)
+            popover.updatePipLocationAndAnimate(self.delegate.composeButton.frame.origin.x, duration: 0.3)
             nextButton.setTitle("Got it!", forState: .Normal)
             noButton.setTitle("No, I hate everyone", forState: .Normal)
             noButton.hidden = false
             slideTitle.text = "Shout! Let it all out!"
         case 4:
             popover.pip?.hidden = false
-            popover.updatePipLocationAndAnimate(35.0, duration: 0.3)
+            popover.updatePipLocationAndAnimate(self.delegate.settingsButton.frame.origin.x, duration: 0.3)
             nextButton.setTitle("Next", forState: .Normal)
             noButton.hidden = true
             slideTitle.text = "Settings"
         case 5:
             popover.pip?.hidden = false
-            popover.updatePipLocationAndAnimate(292.0, duration: 0.3)
+            popover.updatePipLocationAndAnimate(self.delegate.locateButton.frame.origin.x, duration: 0.3)
             nextButton.setTitle("Enable Location Permissions", forState: .Normal)
             slideTitle.text = "Last but not least"
             noButton.hidden = false
@@ -118,7 +118,18 @@ class SONUXTutorialCardViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let introSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialText") as? SONUXTutorialTextViewController
         introSlide?.view
-        introSlide?.textView.text = "Before you can get started, we need to show you a couple of things about the app.\n\nShoutout is all about getting on the map. In order for this to work, we need to get your permissions and show you how everything works."
+        
+//        let nuxString = "Shoutout is all about getting on the map.\n\nIn order for this to work, we need to get your permissions and show you how everything works."
+//        let start = 71
+//        let boldString = "we need to get your permissions"
+//        let range = NSMakeRange(start, boldString.characters.count)
+//        let fontText = UIFont(name: "Titillium", size: (introSlide?.textView.font?.pointSize)!)
+//        let dictBoldText = [NSFontAttributeName:fontText!]
+//        let mutAttrTextViewString = NSMutableAttributedString(string: nuxString)
+//        mutAttrTextViewString.setAttributes(dictBoldText, range: range)
+//        introSlide?.textView.attributedText = mutAttrTextViewString
+        print(UIFont.fontNamesForFamilyName("Titillium"))
+        introSlide?.textView.text = "Shoutout is all about getting on the map.\n\nIn order for this to work, we need to get your permissions and show you how everything works."
         contentViewControllers.append(introSlide)
         
         let listSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextImage") as? SONUXTutorialTextImageViewController
@@ -144,6 +155,7 @@ class SONUXTutorialCardViewController: UIViewController {
         settingsSlide?.view
         settingsSlide?.textView.text = "This is where you can change your settings and tweak your profile."
         settingsSlide?.textBelowImageView.text = "You can also switch to anonymous mode if you want to be a shade-ball."
+        settingsSlide?.imageView.image = UIImage(named: "nux4.png")
         contentViewControllers.append(settingsSlide)
         // MAYANK-TODO: set to image of settings
         

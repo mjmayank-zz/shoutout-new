@@ -103,7 +103,7 @@
     //        [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.statusTextView.text];
     [[PFUser currentUser] saveInBackground];
     [PFAnalytics trackEvent:@"updatedStatus" dimensions:nil];
-    [BackendUtils incrementScore:5];
+    [SOBackendUtils incrementScore:5];
 }
 
 - (NSString*)replaceEmptyMessage:(NSString*)message{
@@ -148,7 +148,7 @@
                     [push setQuery:pushQuery]; // Set our Installation query
                     [push setData:data];
                     [push sendPushInBackground];
-                    [BackendUtils incrementScore:5];
+                    [SOBackendUtils incrementScore:5];
                 }
             }];
         }

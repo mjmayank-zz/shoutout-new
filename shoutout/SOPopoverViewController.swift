@@ -40,14 +40,14 @@ class SOPopoverViewController:UIViewController {
     }
     
     func updatePipLocation(location: CGFloat) {
-        pipLocation = location
+        pipLocation = location - 10
         pipConstraint!.constant = pipLocation!
         view.setNeedsDisplay()
     }
     
     func updatePipLocationAndAnimate(location: CGFloat, duration: NSTimeInterval) {
         self.view.layoutIfNeeded()
-        pipLocation = location
+        pipLocation = location - 10
         pipConstraint!.constant = pipLocation!
         UIView.animateWithDuration(duration, animations: { () -> Void in
             self.view.layoutIfNeeded()

@@ -17,7 +17,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     var contacts = [String:[CNContact]]()
     var contactsArray = [CNContact]()
     var searchResults = [CNContact]()
-    var selected:Set = Set<CNContact>()
+    var selected = Set<CNContact>()
     var letters = (97...122).map({String(UnicodeScalar($0))})
     var searchActive = false
     @IBOutlet var tableView: UITableView!

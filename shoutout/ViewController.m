@@ -117,8 +117,7 @@
     
     // Check if the NUX has been shown yet
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-//    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
-    BOOL shownNUX = NO;
+    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
     if (!shownNUX) {
         [self showNUX];
     } else {

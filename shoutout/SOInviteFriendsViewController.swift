@@ -17,6 +17,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     var contacts = [String:[CNContact]]()
     var contactsArray = [CNContact]()
     var searchResults = [CNContact]()
+    var selected:Set = Set<CNContact>()
     var letters = (97...122).map({String(UnicodeScalar($0))})
     var searchActive = false
     @IBOutlet var tableView: UITableView!
@@ -63,7 +64,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("inviteFriendsCell") as! SOInviteFriendsTableViewCell
         let contact : CNContact
-        if(self.searchActive == true){
+        if(self.searchActive){
             contact = self.searchResults[indexPath.row]
         }
         else{
@@ -79,7 +80,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             cell.typeLabel.text = ""
             cell.phoneNumberLabel.text = ""
         }
-        if (cell.highlighted) {
+        if (self.selected.contains(contact)) {
             cell.accessoryType = .Checkmark;
         } else {
             cell.accessoryType = .None;
@@ -89,14 +90,29 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     
     func tableView(tableView: UITableView,
                      didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!;
-        cell.accessoryType = .Checkmark;
+        let contact : CNContact
+        if(self.searchActive){
+            contact = self.searchResults[indexPath.row]
+        }
+        else{
+            contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
+        }
+        if self.selected.contains(contact){
+            self.selected.remove(contact)
+            let cell = tableView.cellForRowAtIndexPath(indexPath)!;
+            cell.accessoryType = .None;
+        }
+        else{
+            self.selected.insert(contact)
+            let cell = tableView.cellForRowAtIndexPath(indexPath)!;
+            cell.accessoryType = .Checkmark;
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView,
                      didDeselectRowAtIndexPath indexPath: NSIndexPath){
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!;
-        cell.accessoryType = .None;
+        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -174,19 +190,21 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     @IBAction func doneButtonPressed(sender: AnyObject) {
         let messageVC = MFMessageComposeViewController()
         var recipients = [String]()
-        for indexPath in self.tableView.indexPathsForSelectedRows!{
-            let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
-            let number = contact.phoneNumbers[0].value as! CNPhoneNumber
-            recipients.append(number.stringValue)
-        }
-        
-        messageVC.body = "Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download";
-        messageVC.recipients = recipients
-        messageVC.messageComposeDelegate = self;
-        
-        if(MFMessageComposeViewController.canSendText()){
-            self.presentViewController(messageVC, animated: true, completion: nil)
-        }
+//        if let selected = self.tableView.indexPathsForSelectedRows{
+            for contact in self.selected{
+//                let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
+                let number = contact.phoneNumbers[0].value as! CNPhoneNumber
+                recipients.append(number.stringValue)
+            }
+            
+            messageVC.body = "Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download";
+            messageVC.recipients = recipients
+            messageVC.messageComposeDelegate = self;
+            
+            if(MFMessageComposeViewController.canSendText()){
+                self.presentViewController(messageVC, animated: true, completion: nil)
+            }
+//        }
     }
     
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
@@ -199,6 +217,10 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             self.dismissViewControllerAnimated(true, completion: nil)
         case MessageComposeResultSent.rawValue:
             print("Message was sent")
+            if(self.selected.count > 0){
+                let pointsEarned = 50 * self.selected.count
+                SOBackendUtils.incrementScore(pointsEarned)
+            }
             self.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;

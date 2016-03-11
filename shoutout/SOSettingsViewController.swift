@@ -178,15 +178,8 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func inviteFriendButtonPressed(sender: AnyObject){
-        let messageVC = MFMessageComposeViewController()
-        
-        messageVC.body = "Hey! Check out this app that lets you know what's going on around campus. http://www.getshoutout.co";
-        messageVC.recipients = [""]
-        messageVC.messageComposeDelegate = self;
-    
-        if(MFMessageComposeViewController.canSendText()){
-            self.presentViewController(messageVC, animated: false, completion: nil)
-        }
+        let controller = self.storyboard?.instantiateViewControllerWithIdentifier("inviteFriendsVC")
+        self.presentViewController(controller!, animated: true, completion: nil)
     }
     
     @IBAction func statusValueChanged(sender: AnyObject) {
@@ -370,17 +363,6 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
     func collectionView(collectionView: UICollectionView,
                           shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
         if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 && indexPath.row > 0){
-//            let alertController = UIAlertController(title: "Are you sure?", message: "This will prevent either of you from seeing each other on the map", preferredStyle: UIAlertControllerStyle.Alert)
-//            
-//            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-//            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
-//
-//            })
-//            
-//            alertController.addAction(cancelAction)
-//            alertController.addAction(okayAction);
-//            
-//            self.presentViewController(alertController, animated: true, completion: nil);
             return true;
         }
         else{

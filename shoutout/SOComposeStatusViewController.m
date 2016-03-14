@@ -47,11 +47,14 @@
     }
     
     [self.saveButton.layer setCornerRadius:4.0f];
+    [self.clusterSendButton.layer setCornerRadius:4.0f];
     
-//    UITapGestureRecognizer *singleFingerTap =
-//    [[UITapGestureRecognizer alloc] initWithTarget:self
-//                                            action:@selector(closeUpdateStatusView)];
-//    [self.backgroundView addGestureRecognizer:singleFingerTap];
+    self.clusterTextView.delegate = self;
+    
+    if([PFUser currentUser][@"static"]){
+        self.composeSwitcher.selectedSegmentIndex = 0;
+        self.composeSwitcher.hidden = NO;
+    }
 }
 
 - (void)setStatusText:(NSString *)status{
@@ -72,8 +75,7 @@
         }
     }
 
-    [self.delegate closeUpdateStatusView];
-    [self.statusTextView resignFirstResponder];
+    [self closeUpdateStatusView];
 }
 
 -(void)updateStatus:(NSString*)status{
@@ -156,19 +158,27 @@
 }
 
 - (void)sendClusterMessage:(CLLocationCoordinate2D)location withMessage:(NSString *)message{
-    [PFCloud callFunctionInBackground:@"clusterMessage"
-                       withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
-                                        @"long": [NSNumber numberWithDouble:location.longitude],
-                                        @"user": [PFUser currentUser].objectId,
-                                        @"message":message}
-                                block:^(NSArray *objects, NSError *error) {
-                                    if (!error) {
-                                        
-                                    } else {
-                                        // Log details of the failure
-                                        NSLog(@"Parse error: %@ %@", error, [error userInfo]);
-                                    }
-                                }];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Send message?" message:@"This will send a message to everyone within your establishment" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [PFCloud callFunctionInBackground:@"clusterMessage"
+                           withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
+                                            @"long": [NSNumber numberWithDouble:location.longitude],
+                                            @"user": [PFUser currentUser].objectId,
+                                            @"message":message}
+                                    block:^(NSArray *objects, NSError *error) {
+                                        if (!error) {
+                                            
+                                        } else {
+                                            // Log details of the failure
+                                            NSLog(@"Parse error: %@ %@", error, [error userInfo]);
+                                        }
+                                    }];
+    }];
+    [alertController addAction:yesAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)openUpdateStatusView{
@@ -178,6 +188,7 @@
 - (void)closeUpdateStatusView{
     [self.delegate closeUpdateStatusView];
     [self.statusTextView resignFirstResponder];
+    [self.clusterTextView resignFirstResponder];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -186,6 +197,22 @@
 
 - (IBAction)saveButtonPressed:(id)sender {
     [self updateStatus];
+}
+- (IBAction)clusterSendButtonPressed:(id)sender {
+    [self sendClusterMessage:self.delegate.previousLocation.coordinate withMessage:self.clusterTextView.text];
+}
+- (IBAction)composerTypeSwitched:(id)sender {
+    UISegmentedControl *switcher = (UISegmentedControl *)sender;
+    if(switcher.selectedSegmentIndex == 0){
+        self.clusterContainerView.hidden = YES;
+        self.statusContainerView.hidden = NO;
+        [self.statusTextView becomeFirstResponder];
+    }
+    else{
+        self.clusterContainerView.hidden = NO;
+        self.statusContainerView.hidden = YES;
+        [self.clusterTextView becomeFirstResponder];
+    }
 }
 
 #pragma mark -UITextViewDelegate
@@ -197,7 +224,12 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if([text isEqualToString:@"\n"]) {
-        [self updateStatus];
+        if(self.composeSwitcher.selectedSegmentIndex == 0){
+            [self updateStatus];
+        }
+        else{
+            
+        }
         return NO;
     }
     else if([textView.text length] >= 120){

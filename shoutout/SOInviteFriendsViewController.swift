@@ -192,7 +192,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             let number = contact.phoneNumbers[0].value as! CNPhoneNumber
             let request = NSMutableURLRequest(URL: NSURL(string: "https://AC348ec26b0d56199b76e04ffa5c335501:015b120113c4dd48bb87436b1a6e736d@api.twilio.com/2010-04-01/Accounts/AC348ec26b0d56199b76e04ffa5c335501/Messages.json")!)
             request.HTTPMethod = "POST"
-            let postString = "To=" + number.stringValue + "&From=+12172122206" + "&Body=Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download"
+            let postString = "To=" + number.stringValue + "&From=+12172122206" + "&Body=Hey! A friend has invited you to join Shoutout, the new local app that lets you know what's going on around campus. http://www.getshoutout.co/download"
             request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in guard error == nil && data != nil else {
                 print("error=\(error)")
@@ -208,9 +208,10 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
         SOBackendUtils.incrementScore(pointsEarned)
         
         let alert = UIAlertController(title: "Success", message: "Sent \(self.selected.count) invitations", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action:UIAlertAction) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
         self.presentViewController(alert, animated: true, completion: nil)
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func searchBar(searchBar: UISearchBar,

@@ -361,7 +361,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
         if(indexPath.row == 0){
             cell.lockImageView.hidden = true;
         }
-        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100){
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 150){
             cell.lockImageView.hidden = true;
         }
         return cell
@@ -369,7 +369,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView,
                           shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
-        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 || indexPath.row == 0){
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 150 || indexPath.row == 0){
             return true;
         }
         else{
@@ -405,6 +405,14 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
                 let array = object.objectForKey("images") as! [AnyObject];
                 self.avatars = array
                 self.delegate.avatarPickerCollectionView.reloadData()
+                
+                for i in 0...self.avatars.count-1{
+                    if let image = PFUser.currentUser()?.objectForKey("profileImage") as? PFObject{
+                        if(image.objectId == self.avatars[i].objectId){
+                            self.delegate.avatarPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
+                        }
+                    }
+                }
             }
         };
     }
@@ -448,11 +456,7 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
         cell.overlayView.hidden = false;
         cell.overlayView.layer.cornerRadius = cell.overlayView.frame.height/2.0
         cell.overlayView.clipsToBounds = true
-        if(indexPath.row == 0){
-            cell.overlayView.hidden = true;
-            cell.lockImageView.hidden = true;
-        }
-        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100){
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 150){
             cell.overlayView.hidden = true;
             cell.lockImageView.hidden = true;
         }
@@ -461,7 +465,7 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
     
     func collectionView(collectionView: UICollectionView,
                         shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
-        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 || indexPath.row == 0){
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 150){
             return true;
         }
         else{

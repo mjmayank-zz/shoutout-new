@@ -13,10 +13,19 @@
 
 @interface SOComposeStatusViewController : UIViewController <UITextViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UIView *statusContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePictureBorder;
 @property (strong, nonatomic) IBOutlet UITextView *statusTextView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
+
+@property (strong, nonatomic) IBOutlet UIView *clusterContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *infoLabel;
+@property (strong, nonatomic) IBOutlet UITextView *clusterTextView;
+@property (strong, nonatomic) IBOutlet UIButton *clusterSendButton;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *composeSwitcher;
+
 @property (strong, nonatomic) IBOutlet UILabel *statusCharacterCount;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 

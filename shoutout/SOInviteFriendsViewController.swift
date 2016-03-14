@@ -11,7 +11,7 @@ import Contacts
 import MessageUI
 
 @available(iOS 9.0, *)
-class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate, UISearchBarDelegate{
+class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     var contactStore = CNContactStore()
     var contacts = [String:[CNContact]]()
@@ -188,45 +188,31 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        let messageVC = MFMessageComposeViewController()
-        var recipients = [String]()
-//        if let selected = self.tableView.indexPathsForSelectedRows{
-            for contact in self.selected{
-//                let contact = self.contacts[self.letters[indexPath.section]]![indexPath.row]
-                let number = contact.phoneNumbers[0].value as! CNPhoneNumber
-                recipients.append(number.stringValue)
+        for contact in self.selected{
+            let number = contact.phoneNumbers[0].value as! CNPhoneNumber
+            let request = NSMutableURLRequest(URL: NSURL(string: "https://AC348ec26b0d56199b76e04ffa5c335501:015b120113c4dd48bb87436b1a6e736d@api.twilio.com/2010-04-01/Accounts/AC348ec26b0d56199b76e04ffa5c335501/Messages.json")!)
+            request.HTTPMethod = "POST"
+            let postString = "To=" + number.stringValue + "&From=+12172122206" + "&Body=Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download"
+            request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in guard error == nil && data != nil else {
+                print("error=\(error)")
+                return
+                }
+                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                print("response=\(responseString)")
             }
-            
-            messageVC.body = "Hey! Check out this cool new app that lets you know what's going on around campus. http://www.getshoutout.co/download";
-            messageVC.recipients = recipients
-            messageVC.messageComposeDelegate = self;
-            
-            if(MFMessageComposeViewController.canSendText()){
-                self.presentViewController(messageVC, animated: true, completion: nil)
-            }
-//        }
-    }
-    
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        switch (result.rawValue) {
-        case MessageComposeResultCancelled.rawValue:
-            print("Message was cancelled")
-            self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultFailed.rawValue:
-            print("Message failed")
-            self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultSent.rawValue:
-            print("Message was sent")
-            if(self.selected.count > 0){
-                let pointsEarned = 50 * self.selected.count
-                SOBackendUtils.incrementScore(pointsEarned)
-            }
-            self.dismissViewControllerAnimated(true, completion: nil)
-        default:
-            break;
+            task.resume()
         }
+        
+        let pointsEarned = 50 * self.selected.count
+        SOBackendUtils.incrementScore(pointsEarned)
+        
+        let alert = UIAlertController(title: "Success", message: "Sent \(self.selected.count) invitations", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     func searchBar(searchBar: UISearchBar,
                      textDidChange searchText: String){
         if(searchText.isEmpty){

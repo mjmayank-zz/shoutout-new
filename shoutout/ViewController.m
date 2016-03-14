@@ -118,11 +118,16 @@
     // Check if the NUX has been shown yet
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+//    BOOL shownNUX = false;
     if (!shownNUX) {
         [self showNUX];
     } else {
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+            CLLocationManager* locationManager = [ViewController sharedLocationManager];
+            [locationManager requestAlwaysAuthorization];
+        }
         [self checkLocationPermission];
-        [self promptForCheckinPermission];
+//        [self promptForCheckinPermission];
     }
 }
 
@@ -323,7 +328,7 @@
         [self updateMapWithLocation:self.previousLocation.coordinate];
         [self checkNumberOfNewMessages];
         [self checkLocationPermission];
-        [self promptForCheckinPermission];
+//        [self promptForCheckinPermission];
         [self checkToBlockMap];
     }
 }
@@ -422,25 +427,25 @@
 }
 
 - (void)promptForCheckinPermission{
-//    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Do you want to continue to leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
-//    
-//        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
-//        
-//        UIAlertAction *yesAlwaysAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yup, don't ask me again", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCheckinPermissions"];
-//        }];
-//        
-//        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"No, take me to settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            [self performSegueWithIdentifier:@"openSettingsSegue" sender:self];
-//        }];
-//        
-//        [alertController addAction:yesAction];
-//        [alertController addAction:yesAlwaysAction];
-//        [alertController addAction:noAction];
-//        
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Do you want to continue to leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
+    
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
+        
+        UIAlertAction *yesAlwaysAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yup, don't ask me again", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasCheckinPermissions"];
+        }];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"No, take me to settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self performSegueWithIdentifier:@"openSettingsSegue" sender:self];
+        }];
+        
+        [alertController addAction:yesAction];
+        [alertController addAction:yesAlwaysAction];
+        [alertController addAction:noAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)checkLocationPermission{
@@ -523,6 +528,9 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj.updatedAt) //used for date on bubble
         dict[@"updatedAt"] = obj.updatedAt;
+    if(obj[@"pinColor"]){
+        annotation.pinColor = obj[@"pinColor"];
+    }
     annotation.objectId = obj.objectId;
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];

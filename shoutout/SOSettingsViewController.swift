@@ -23,9 +23,11 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var statusControl: UISegmentedControl!
     @IBOutlet var statusExplanationLabel: UILabel!
     @IBOutlet var colorPickerCollectionView: UICollectionView!
+    @IBOutlet var avatarPickerCollectionView: UICollectionView!
     
     var oldVC: UIViewController!
     let colorPickerDelegate = SOSettingsColorPickerDelegate()
+    let avatarPickerDelegate = SOSettingsAvatarPickerDelegate()
     
     override func viewDidLoad(){
         super.viewDidLoad();
@@ -35,6 +37,10 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.colorPickerCollectionView.dataSource = self.colorPickerDelegate
         self.colorPickerCollectionView.delegate = self.colorPickerDelegate
         self.colorPickerDelegate.delegate = self;
+        
+        self.avatarPickerCollectionView.dataSource = self.avatarPickerDelegate
+        self.avatarPickerCollectionView.delegate = self.avatarPickerDelegate
+        self.avatarPickerDelegate.delegate = self;
         
         for i in 0...self.colorPickerDelegate.colors.count-1{
             if let color = PFUser.currentUser()?.objectForKey("pinColor") as? String{
@@ -315,7 +321,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     func displayPrompt(){
-        let alertview = JSSAlertView().show(self, title: "These are locked!", text: "Invite some friends to use Shoutout to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
+        let alertview = JSSAlertView().show(self, title: "These are locked!", text: "Invite 3 or more friends to use Shoutout to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
         alertview.addAction {
             let controller = self.storyboard?.instantiateViewControllerWithIdentifier("inviteFriendsVC")
             self.presentViewController(controller!, animated: true, completion: nil)
@@ -351,6 +357,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
         if(cell.selected){
             cell.selectedOutlineImageView.hidden = false;
         }
+        cell.lockImageView.hidden = false;
         if(indexPath.row == 0){
             cell.lockImageView.hidden = true;
         }
@@ -362,7 +369,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView,
                           shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
-        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 && indexPath.row > 0){
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 || indexPath.row == 0){
             return true;
         }
         else{
@@ -385,8 +392,102 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
     }
 }
 
+class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    weak var delegate: SOSettingsViewController!
+    var avatars = []
+    let imageCache = NSCache()
+    
+    override init() {
+        super.init()
+        PFQuery(className: "DefaultImage").getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
+            if let object = object{
+                let array = object.objectForKey("images") as! [AnyObject];
+                self.avatars = array
+                self.delegate.avatarPickerCollectionView.reloadData()
+            }
+        };
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return avatars.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("avatarPickerCell",forIndexPath:indexPath) as! SOSettingsColorCell
+        
+        let object = self.avatars[indexPath.row]
+        if let cachedImage = self.imageCache.objectForKey(object.objectId){
+            let image = cachedImage as! UIImage
+            cell.imageView.image = image
+        }
+        else{
+            object.fetchIfNeededInBackgroundWithBlock({ (pic:PFObject?, error:NSError?) -> Void in
+                if let pic = pic{
+                    let userImageFile = pic["image"] as! PFFile;
+                    userImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error:NSError?) -> Void in
+                        if !(error != nil) {
+                            if let imageData = imageData{
+                                let image = UIImage(data:imageData)!
+                                cell.imageView.image = image
+                            }
+                        }
+                    })
+                }
+            })
+        }
+
+        cell.selectedOutlineImageView.hidden = true; 
+        cell.selectedOutlineImageView.backgroundColor = UIColor.whiteColor()
+        cell.selectedOutlineImageView.layer.cornerRadius = cell.selectedOutlineImageView.frame.height/2.0
+        cell.selectedOutlineImageView.clipsToBounds = true
+        if(cell.selected){
+            cell.selectedOutlineImageView.hidden = false;
+        }
+        cell.lockImageView.hidden = false;
+        cell.overlayView.hidden = false;
+        cell.overlayView.layer.cornerRadius = cell.overlayView.frame.height/2.0
+        cell.overlayView.clipsToBounds = true
+        if(indexPath.row == 0){
+            cell.overlayView.hidden = true;
+            cell.lockImageView.hidden = true;
+        }
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100){
+            cell.overlayView.hidden = true;
+            cell.lockImageView.hidden = true;
+        }
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView,
+                        shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool{
+        if(PFUser.currentUser()?.objectForKey("score")?.integerValue > 100 || indexPath.row == 0){
+            return true;
+        }
+        else{
+            self.delegate.displayPrompt()
+            return false;
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let pic = self.avatars[indexPath.row]
+        PFUser.currentUser()?.setObject(pic, forKey: "profileImage")
+        PFUser.currentUser()?.saveInBackground()
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
+        cell.selectedOutlineImageView.hidden = false;
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
+        cell.selectedOutlineImageView.hidden = true;
+    }
+}
+
 class SOSettingsColorCell: UICollectionViewCell{
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var selectedOutlineImageView: UIImageView!
     @IBOutlet var lockImageView: UIImageView!
+    @IBOutlet var overlayView: UIView!
 }

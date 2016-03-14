@@ -33,6 +33,18 @@ class SONUXTutorialCardViewController: UIViewController {
         if (currentSlide == 3) {
             currentSlide = (currentSlide + 1) % contentViewControllers.count
             displayViewController(currentSlide)
+        } else if (currentSlide == 5) {
+            let alertview = JSSAlertView().show(self, title: "Sorry, this is a location-based app", text: "We can’t let you explore it if you don't share your location.\n\nWe hope you change your mind, otherwise, it’s been really nice chilling with you.", buttonText: "Okay, fine", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Still no")
+            alertview.addAction {
+                self.delegate.completeNUX()
+            }
+            alertview.addCancelAction({ 
+                self.delegate.completeNUX()
+            })
+            alertview.setTitleFont("Titillium-Bold")
+            alertview.setTextFont("Titillium")
+            alertview.setButtonFont("Titillium-Light")
+            alertview.setTextTheme(.Light)
         }
     }
     
@@ -138,7 +150,7 @@ class SONUXTutorialCardViewController: UIViewController {
         let notificationsSlide = storyboard.instantiateViewControllerWithIdentifier("soTutorialTextPermission") as? SONUXTutorialTextPermissionViewController
         notificationsSlide?.view
         notificationsSlide?.textView.text = "This is how you let anyone on the map know what you're up to or thinking about."
-        notificationsSlide?.textBelowImageView.text = "We need your permission to let you know when others message you."
+        notificationsSlide?.textBelowImageView.text = "We need your permission to let you know when others direct message you."
         notificationsSlide?.imageView.image = UIImage(named: "nux3.png")
         contentViewControllers.append(notificationsSlide)
         

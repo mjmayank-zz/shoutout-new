@@ -89,7 +89,7 @@
                     <rect key="frame" x="118" y="125" width="75" height="75"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-ta-ADP">
-                    <rect key="frame" x="116" y="197" width="8" height="8"/>
+                    <rect key="frame" x="117" y="196" width="8" height="8"/>
                     <color key="backgroundColor" red="0.80000001192092896" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>

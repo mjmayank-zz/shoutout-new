@@ -149,31 +149,35 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
             annotationView.canShowCallout = NO;
             return annotationView;
         } else {
-            SOAnnotation *shoutoutAnnotation = [kingpinAnnotation.annotations anyObject];
+            SOAnnotation *soannotation = [kingpinAnnotation.annotations anyObject];
 
-            UIImage *image = shoutoutAnnotation.profileImage;
+            UIImage *image = soannotation.profileImage;
             ShoutRMMarker *annotationView;
-            if(shoutoutAnnotation.isStatic){
+            NSString *identifier = @"pin";
+            if(soannotation.pinColor){
+                identifier = [identifier stringByAppendingString:soannotation.pinColor];
+            }
+            if(soannotation.isStatic){
                 annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"businessPin"];
             }
             else{
-                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
+                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
             }
             if ( ! annotationView)
             {
-                if(shoutoutAnnotation.isStatic){
-                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"businessPin" image:image];
+                if(soannotation.isStatic){
+                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:@"businessPin" image:image];
                     annotationView.layer.zPosition = 1;
                 }
                 else{
-                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:shoutoutAnnotation reuseIdentifier:@"pin" image:image];
+                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:identifier image:image];
                 }
-                annotationView.shout = shoutoutAnnotation.subtitle;
+                annotationView.shout = soannotation.subtitle;
                 annotationView.canShowCallout = NO;
             }
             [annotationView scaleForZoomLevel:mapView.zoomLevel];
             annotationView.profileImage = image;
-            [annotationView setOnline:shoutoutAnnotation.online];
+            [annotationView setOnline:soannotation.online];
             return annotationView;
         }
         

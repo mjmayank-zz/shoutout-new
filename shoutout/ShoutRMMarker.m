@@ -38,6 +38,9 @@
             [self setupBusinessView:soannotation];
             [self setPinColor:[UIColor colorWithCSS:@"00A79D"]];
         }
+        else if (soannotation.pinColor){
+            [self setPinColor:[UIColor colorWithCSS:soannotation.pinColor]];
+        }
         else{
             [self setPinColor:[UIColor colorWithCSS:@"2ECEFF"]];
         }
@@ -108,8 +111,8 @@
     double factor = 1;
     if (!self.subview.bubbleContainerView.hidden) {
         factor = 1.2;
-        if(scale * factor < .6){
-            factor = .6/scale;
+        if(scale * factor < .7){
+            factor = .7/scale;
         }
     }
     self.transform = CGAffineTransformMakeScale(scale * factor, scale * factor);
@@ -127,6 +130,9 @@
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
     }
     self.subview.shoutLabel.text = annotation.subtitle;
+    if ([annotation.subtitle isEqualToString:@""]) {
+        self.subview.messageOverlayView.hidden = NO;
+    }
     self.subview.usernameLabel.text = [NSString stringWithFormat:@"-%@", annotation.title];
     if(annotation.userInfo[@"updatedAt"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -141,14 +147,14 @@
     }
     
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.transform = CGAffineTransformMakeScale(fmax(self.scale * 1.2, 0.6), fmax(self.scale * 1.2, 0.6));
+        self.transform = CGAffineTransformMakeScale(fmax(self.scale * 1.2, 0.7), fmax(self.scale * 1.2, 0.7));
         [self resetCenterOffset];
     } completion:^(BOOL finished){
     }];
     
+    [self.subview.bubbleContainerView setHidden:NO];
     self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
     self.subview.bubbleContainerView.layer.opacity = 0;
-    [self.subview.bubbleContainerView setHidden:NO];
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.subview.bubbleContainerView.layer.opacity = 1;
         self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(1.1, 1.1);

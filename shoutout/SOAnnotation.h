@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSDictionary *userInfo;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *profileImage;
+@property (strong, nonatomic) NSString *pinColor;
 @property (assign, nonatomic) BOOL online;
 @property (assign, nonatomic) BOOL isStatic;
 

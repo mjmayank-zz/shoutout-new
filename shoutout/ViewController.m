@@ -528,6 +528,9 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj.updatedAt) //used for date on bubble
         dict[@"updatedAt"] = obj.updatedAt;
+    if(obj[@"pinType"]){
+        dict[@"pinType"] = obj[@"pinType"];
+    }
     if(obj[@"pinColor"]){
         annotation.pinColor = obj[@"pinColor"];
     }

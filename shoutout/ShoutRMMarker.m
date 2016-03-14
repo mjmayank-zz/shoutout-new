@@ -35,7 +35,9 @@
 
         SOAnnotation *soannotation = ((SOAnnotation *)self.annotation);
         if(soannotation.isStatic){
-            [self setupBusinessView:soannotation];
+            if(soannotation.userInfo[@"pinType"] && [soannotation.userInfo[@"pinType"] isEqual: @"bar"]){
+                [self setupBusinessView:soannotation];
+            }
             [self setPinColor:[UIColor colorWithCSS:@"00A79D"]];
         }
         else if (soannotation.pinColor){
@@ -140,7 +142,7 @@
         NSString *dateString = [dateFormatter stringFromDate:annotation.userInfo[@"updatedAt"]];
         self.subview.timeLabel.text = dateString;
     }
-    if(annotation.isStatic){
+    if(annotation.userInfo[@"pinType"] && [annotation.userInfo[@"pinType"] isEqual: @"bar"]){
         self.businessSubVC.latitude =  [NSNumber numberWithDouble:annotation.coordinate.latitude];
         self.businessSubVC.longitude = [NSNumber numberWithDouble:annotation.coordinate.longitude];
         [self.businessSubVC refreshData];

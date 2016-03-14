@@ -153,12 +153,17 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
 
             UIImage *image = soannotation.profileImage;
             ShoutRMMarker *annotationView;
-            NSString *identifier = @"pin";
+            NSString *identifier = @"";
             if(soannotation.pinColor){
+                identifier = @"pin";
                 identifier = [identifier stringByAppendingString:soannotation.pinColor];
             }
             if(soannotation.isStatic){
-                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"businessPin"];
+                identifier = @"businessPin";
+                if(soannotation.userInfo[@"pinType"]){
+                    identifier = [identifier stringByAppendingString:soannotation.userInfo[@"pinType"]];
+                }
+                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
             }
             else{
                 annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
@@ -166,7 +171,7 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
             if ( ! annotationView)
             {
                 if(soannotation.isStatic){
-                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:@"businessPin" image:image];
+                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:identifier image:image];
                     annotationView.layer.zPosition = 1;
                 }
                 else{

@@ -207,7 +207,11 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
         let pointsEarned = 50 * self.selected.count
         SOBackendUtils.incrementScore(pointsEarned)
         
-        let alert = UIAlertController(title: "Success", message: "Sent \(self.selected.count) invitations", preferredStyle: UIAlertControllerStyle.Alert)
+        var text = "Sent \(self.selected.count) invitation"
+        if (self.selected.count > 1) {
+            text += "s"
+        }
+        let alert = UIAlertController(title: "Success", message: text, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action:UIAlertAction) in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))

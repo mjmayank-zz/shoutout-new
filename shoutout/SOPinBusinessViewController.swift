@@ -24,8 +24,6 @@ class SOPinBusinessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.view.layer.borderColor = UIColor(red: 147/255.0, green: 149 / 255.0, blue: 152 / 255.0, alpha: 1.0).CGColor;
-//        self.view.layer.borderWidth = 4.0;
         self.headerBackgroundView.layer.cornerRadius = 20.0;
         self.headerBackgroundView.clipsToBounds = true;
         

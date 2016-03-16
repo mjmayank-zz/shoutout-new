@@ -95,7 +95,7 @@
     
     self.scoreLabel.layer.cornerRadius = 5.0;
     self.scoreLabel.clipsToBounds = YES;
-    [self updateScore];
+    [self updateScoreLabel];
     
     //set up mailbox
     [self.unreadIndicator.layer setCornerRadius:self.unreadIndicator.frame.size.height/2];
@@ -295,14 +295,22 @@
 }
 
 
-- (void)updateScore{
+- (void)updateScore:(NSNotification *)notification{
+    [self updateScoreLabel];
+}
+
+- (void)updateScoreLabel{
     if([[PFUser currentUser] objectForKey:@"score"] != NULL){
         self.scoreLabel.text = [NSString stringWithFormat:@"%@", [[PFUser currentUser] objectForKey:@"score"]];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+- (void)centerMapOnUser:(NSNotification *)notification{
+    SOAnnotation *annotation = self.markerDictionary[notification.userInfo[@"objectId"]];
+    if(annotation){
+        [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
+        [self.mapView selectAnnotation:annotation animated:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -339,31 +347,27 @@
 }
 
 - (void)registerNotifications{
-    CLLocation * locationInfo;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:
-     UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:
-     UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:
-     Notification_LocationUpdate object:locationInfo];
+     Notification_LocationUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterBackground:) name:
      UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:
      UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyNotificationReceived:) name:
      @"replyToShout" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScore) name:
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScore:) name:
      @"scoreUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(centerMapOnUser:) name:
+     @"centerMapOnUser" object:nil];
 }
 
 - (void)unregisterNotifications{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_LocationUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"replyToShout" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"scoreUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"centerMapOnUser" object:nil];
 }
 
 - (void)checkNumberOfNewMessages{
@@ -846,17 +850,6 @@
 }
 
 #pragma -mark Notification Events
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-
-}
-
 - (void)replyNotificationReceived:(NSNotification *)notification{
     NSDictionary * userInfo = notification.userInfo;
     NSString * username = userInfo[@"username"];

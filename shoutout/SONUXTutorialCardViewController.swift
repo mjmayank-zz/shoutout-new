@@ -117,7 +117,7 @@ class SONUXTutorialCardViewController: UIViewController {
             nextButton.setTitle("Enable Location Permissions", forState: .Normal)
             slideTitle.text = "Last but not least"
             noButton.hidden = false
-            noButton.setTitle("No! The po-po are after me!", forState: .Normal)
+            noButton.setTitle("No! The NSA is after me!", forState: .Normal)
         default:
             return
         }

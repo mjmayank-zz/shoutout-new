@@ -144,7 +144,8 @@
                     // Send push notification to query
                     NSDictionary *data = @{
                                            @"alert":fullMessage,
-                                           @"badge":@"Increment"
+                                           @"badge":@"Increment",
+                                           @"openToUserId":[PFUser currentUser].objectId
                                            };
                     PFPush *push = [[PFPush alloc] init];
                     [push setQuery:pushQuery]; // Set our Installation query
@@ -168,10 +169,17 @@
                                             @"message":message}
                                     block:^(NSArray *objects, NSError *error) {
                                         if (!error) {
-                                            
+                                            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Success!" message:@"Your message was sent successfully" preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                            [alertController addAction:yesAction];
+                                            [self presentViewController:alertController animated:YES completion:nil];
                                         } else {
                                             // Log details of the failure
                                             NSLog(@"Parse error: %@ %@", error, [error userInfo]);
+                                            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Something went wrong. Try again later or send us an email at team@getshoutout.co" preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                            [alertController addAction:yesAction];
+                                            [self presentViewController:alertController animated:YES completion:nil];
                                         }
                                     }];
     }];

@@ -168,7 +168,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func changeUsernameButtonPressed(sender: AnyObject) {
-        let validUsername = self.validateUsername(usernameTextField.text!)
+        let validUsername = SOBackendUtils.validateUsername(usernameTextField.text!)
         if(!validUsername){
             let alert = UIAlertController(title: "Invalid username", message: "Your username can only consist of letters, numbers and underscores", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
@@ -307,19 +307,6 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    func validateUsername(username:String) -> Bool{
-        let set = NSMutableCharacterSet(charactersInString: "_");
-        set.formUnionWithCharacterSet(NSCharacterSet.alphanumericCharacterSet());
-        let finalSet = set.invertedSet;
-        
-        let range = username.rangeOfCharacterFromSet(finalSet)
-        if (range != nil) {
-            print("invalid character found")
-            return false
-        }
-        return true;
-    }
-    
     func displayPrompt(){
         let alertview = JSSAlertView().show(self, title: "These are locked!", text: "Invite 3 or more friends to use Shoutout to unlock these features.", buttonText: "Let's do it", color:UIColor(CSS: "2ECEFF"), cancelButtonText: "Nahhh")
         alertview.addAction {
@@ -395,14 +382,14 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
 class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
     
     weak var delegate: SOSettingsViewController!
-    var avatars = []
+    var avatars = [PFObject]()
     let imageCache = NSCache()
     
     override init() {
         super.init()
         PFQuery(className: "DefaultImage").getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
             if let object = object{
-                let array = object.objectForKey("images") as! [AnyObject];
+                let array = object.objectForKey("images") as! [PFObject];
                 self.avatars = array
                 self.delegate.avatarPickerCollectionView.reloadData()
                 
@@ -425,7 +412,7 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("avatarPickerCell",forIndexPath:indexPath) as! SOSettingsColorCell
         
         let object = self.avatars[indexPath.row]
-        if let cachedImage = self.imageCache.objectForKey(object.objectId){
+        if let cachedImage = self.imageCache.objectForKey(object.objectId!){
             let image = cachedImage as! UIImage
             cell.imageView.image = image
         }

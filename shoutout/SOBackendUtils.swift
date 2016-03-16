@@ -23,4 +23,17 @@ class SOBackendUtils : NSObject {
         shoutoutRootScore.childByAppendingPath(PFUser.currentUser()?.objectId).setValue(score);
         NSNotificationCenter.defaultCenter().postNotificationName("scoreUpdated", object: self)
     }
+    
+    class func validateUsername(username:String) -> Bool{
+        let set = NSMutableCharacterSet(charactersInString: "_");
+        set.formUnionWithCharacterSet(NSCharacterSet.alphanumericCharacterSet());
+        let finalSet = set.invertedSet;
+        
+        let range = username.rangeOfCharacterFromSet(finalSet)
+        if (range != nil) {
+            print("invalid character found")
+            return false
+        }
+        return true;
+    }
 }

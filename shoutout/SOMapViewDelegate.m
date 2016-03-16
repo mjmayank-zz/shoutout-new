@@ -145,7 +145,6 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
                 annotationView = [[ShoutClusterMarker alloc] initWithAnnotation:kingpinAnnotation reuseIdentifier:@"cluster"];
             }
             ((ShoutClusterMarker *)annotationView).title = kingpinAnnotation.title;
-            //            annotationView.pinColor = MKPinAnnotationColorPurple;
             annotationView.canShowCallout = NO;
             return annotationView;
         } else {
@@ -163,19 +162,15 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
                 if(soannotation.userInfo[@"pinType"]){
                     identifier = [identifier stringByAppendingString:soannotation.userInfo[@"pinType"]];
                 }
-                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
             }
-            else{
-                annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-            }
-            if ( ! annotationView)
+            
+            annotationView = (ShoutRMMarker *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+            
+            if (!annotationView)
             {
+                annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:identifier image:image];
                 if(soannotation.isStatic){
-                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:identifier image:image];
                     annotationView.layer.zPosition = 1;
-                }
-                else{
-                    annotationView = [[ShoutRMMarker alloc] initWithAnnotation:soannotation reuseIdentifier:identifier image:image];
                 }
                 annotationView.shout = soannotation.subtitle;
                 annotationView.canShowCallout = NO;

@@ -157,9 +157,31 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
     
     func loadContacts(){
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-        let containerId = CNContactStore().defaultContainerIdentifier()
-        let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerId)
-        var contactsArr = try! CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
+        
+        var allContainers: [CNContainer] = []
+        do {
+            allContainers = try contactStore.containersMatchingPredicate(nil)
+        } catch {
+            print("Error fetching containers")
+        }
+        
+        var contactsArr: [CNContact] = []
+        
+        // Iterate all containers and append their contacts to our results array
+        for container in allContainers {
+            let fetchPredicate = CNContact.predicateForContactsInContainerWithIdentifier(container.identifier)
+            
+            do {
+                let containerResults = try contactStore.unifiedContactsMatchingPredicate(fetchPredicate, keysToFetch: keysToFetch)
+                contactsArr.appendContentsOf(containerResults)
+            } catch {
+                print("Error fetching results for container")
+            }
+        }
+        
+//        let containerId = CNContactStore().defaultContainerIdentifier()
+//        let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerId)
+//        var contactsArr = try! CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
         contactsArr = contactsArr.filter({ (contact:CNContact) -> Bool in
             return contact.phoneNumbers.count > 0
         })
@@ -175,7 +197,7 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             if(!name.isEmpty){
                 let range = name.startIndex..<name.startIndex.advancedBy(1)
                 let key = name[range].lowercaseString
-                self.contacts[key]!.append(contact)
+                self.contacts[key]?.append(contact)
             }
         }
         dispatch_async(dispatch_get_main_queue(), {

@@ -1817,10 +1817,10 @@ or</string>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zyu-2H-J8c">
-                                        <rect key="frame" x="0.0" y="136" width="570" height="170"/>
+                                        <rect key="frame" x="0.0" y="111" width="570" height="195"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This message will be sent directly to the inbox of 6 people" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qL-n3-Fxm">
-                                                <rect key="frame" x="17" y="116.5" width="376" height="43"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This message will be sent directly to the customers' inbox" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qL-n3-Fxm">
+                                                <rect key="frame" x="17" y="141.5" width="376" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="43" id="4Rz-qi-F60"/>
                                                     <constraint firstAttribute="width" constant="220" id="j45-2C-IlJ"/>
@@ -1835,7 +1835,7 @@ or</string>
                                                 </variation>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="30O-20-8Gk">
-                                                <rect key="frame" x="17" y="0.0" width="537" height="115"/>
+                                                <rect key="frame" x="17" y="13" width="528" height="115"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="115" id="n6b-lG-B7t"/>
@@ -1844,7 +1844,7 @@ or</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmo-D6-bt1">
-                                                <rect key="frame" x="464" y="119" width="81" height="38"/>
+                                                <rect key="frame" x="464" y="144" width="81" height="38"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="81" id="PMc-3c-4jy"/>
@@ -1862,15 +1862,15 @@ or</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Dmo-D6-bt1" firstAttribute="leading" secondItem="2qL-n3-Fxm" secondAttribute="trailing" constant="71" id="BL2-0k-zCJ"/>
-                                            <constraint firstAttribute="height" constant="170" id="FQN-XB-dV1"/>
+                                            <constraint firstAttribute="height" constant="195" id="FQN-XB-dV1"/>
                                             <constraint firstItem="2qL-n3-Fxm" firstAttribute="leading" secondItem="Zyu-2H-J8c" secondAttribute="leading" constant="17" id="H9l-4k-M0o"/>
                                             <constraint firstItem="Dmo-D6-bt1" firstAttribute="centerY" secondItem="2qL-n3-Fxm" secondAttribute="centerY" id="J8R-Ye-rnZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="30O-20-8Gk" secondAttribute="trailing" constant="16" id="LlG-Ae-agk"/>
+                                            <constraint firstAttribute="trailing" secondItem="30O-20-8Gk" secondAttribute="trailing" constant="25" id="LlG-Ae-agk"/>
                                             <constraint firstItem="30O-20-8Gk" firstAttribute="leading" secondItem="Zyu-2H-J8c" secondAttribute="leading" constant="17" id="SAS-SI-lLI"/>
                                             <constraint firstItem="2qL-n3-Fxm" firstAttribute="top" secondItem="Zyu-2H-J8c" secondAttribute="top" constant="119" id="aRH-69-7dT"/>
-                                            <constraint firstItem="30O-20-8Gk" firstAttribute="top" secondItem="Zyu-2H-J8c" secondAttribute="top" id="h1D-If-ryi"/>
+                                            <constraint firstItem="30O-20-8Gk" firstAttribute="top" secondItem="Zyu-2H-J8c" secondAttribute="top" constant="13" id="h1D-If-ryi"/>
                                             <constraint firstAttribute="trailing" secondItem="Dmo-D6-bt1" secondAttribute="trailing" constant="25" id="vBP-j8-4YE"/>
-                                            <constraint firstItem="Dmo-D6-bt1" firstAttribute="top" secondItem="Zyu-2H-J8c" secondAttribute="top" constant="119" id="w6s-Ki-z6G"/>
+                                            <constraint firstItem="Dmo-D6-bt1" firstAttribute="top" secondItem="Zyu-2H-J8c" secondAttribute="top" constant="144" id="w6s-Ki-z6G"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -1916,7 +1916,7 @@ or</string>
                                     <constraint firstAttribute="trailing" secondItem="Zyu-2H-J8c" secondAttribute="trailing" id="cZN-eA-dpK"/>
                                     <constraint firstItem="pu3-tv-nBa" firstAttribute="leading" secondItem="Ifq-wu-bzK" secondAttribute="leading" id="imw-tf-8bv"/>
                                     <constraint firstItem="e78-6A-QWs" firstAttribute="top" secondItem="Ifq-wu-bzK" secondAttribute="top" constant="47" id="uqA-1Y-bfX"/>
-                                    <constraint firstItem="Zyu-2H-J8c" firstAttribute="top" secondItem="jxP-ec-ElA" secondAttribute="bottom" constant="45" id="vkS-zG-G4Q"/>
+                                    <constraint firstItem="Zyu-2H-J8c" firstAttribute="top" secondItem="jxP-ec-ElA" secondAttribute="bottom" constant="20" id="vkS-zG-G4Q"/>
                                     <constraint firstItem="e78-6A-QWs" firstAttribute="leading" secondItem="Ifq-wu-bzK" secondAttribute="leading" constant="1" id="x1h-Md-agm"/>
                                     <constraint firstItem="mLT-6W-jag" firstAttribute="top" secondItem="Ifq-wu-bzK" secondAttribute="top" constant="268" id="xdp-P1-JOY"/>
                                 </constraints>

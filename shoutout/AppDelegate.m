@@ -35,6 +35,10 @@
         [manager enterBackgroundMode];
     }
     else{
+        if([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]){
+            NSLog(@"opened from psuh");
+        }
+        
         [LocationManager initLocationManager];
         [self startLocationManager];
     }
@@ -168,6 +172,9 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    if (userInfo[@"openToUserId"]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"centerMapOnUser" object:self userInfo:@{@"objectId":userInfo[@"openToUserId"]}];
+    }
     [PFPush handlePush:userInfo];
 }
 

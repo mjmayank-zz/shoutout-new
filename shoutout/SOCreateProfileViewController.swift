@@ -65,7 +65,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
-        let validUsername = self.validateUsername(usernameTextField.text!)
+        let validUsername = SOBackendUtils.validateUsername(usernameTextField.text!)
         if(!validUsername){
             let alert = UIAlertController(title: "Invalid username", message: "Your username can only consist of letters, numbers and underscores", preferredStyle: .Alert)
             let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
@@ -230,18 +230,6 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-    
-    func validateUsername(username:String) -> Bool{
-        let set = NSMutableCharacterSet(charactersInString: "_");
-        set.formUnionWithCharacterSet(NSCharacterSet.alphanumericCharacterSet());
-        let finalSet = set.invertedSet;
-        
-        let range = username.rangeOfCharacterFromSet(finalSet)
-        if (range != nil) {
-            print("invalid character found")
-            return false
-        }
-        return true;
-    }
+
     
 }

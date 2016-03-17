@@ -91,7 +91,9 @@
     
     [self registerNotifications];
     
-    [self registerFirebaseListeners];
+    self.firebaseDelegate = [[SOFirebaseDelegate alloc] init];
+    self.firebaseDelegate.delegate = self;
+    [self.firebaseDelegate registerFirebaseListeners];
     
     self.scoreLabel.layer.cornerRadius = 5.0;
     self.scoreLabel.clipsToBounds = YES;
@@ -323,16 +325,16 @@
     [self unregisterNotifications];
     self.mapView.delegate = nil;
     [self.mapView removeFromSuperview];
-    [self deregisterFirebaseListeners];
+    [self.firebaseDelegate deregisterFirebaseListeners];
 }
 
 - (void)applicationWillEnterBackground:(NSNotification*)notification{
-    [self deregisterFirebaseListeners];
+    [self.firebaseDelegate deregisterFirebaseListeners];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification*)notification{
     if([PFUser currentUser]){ //THIS IS A HACK. MAKE SURE VC IS DEALLOCATING PROPERLY
-        [self registerFirebaseListeners];
+        [self.firebaseDelegate registerFirebaseListeners];
         [self updateMapWithLocation:self.previousLocation.coordinate];
         [self checkNumberOfNewMessages];
         [self checkLocationPermission];
@@ -515,8 +517,10 @@
 - (void) addUserToAnnotationDictionary:(PFObject *)obj{
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(((PFGeoPoint *)obj[@"geo"]).latitude, ((PFGeoPoint *)obj[@"geo"]).longitude);
     NSString *title = @"";
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj[@"username"]){
         title = obj[@"username"];
+        dict[@"username"] = obj[@"username"];
     }
     if(obj[@"displayName"]){
         title = obj[@"displayName"];
@@ -529,7 +533,6 @@
         subtitle = obj[@"statusObj"][@"status"];
     }
     SOAnnotation *annotation = [[SOAnnotation alloc] initWithTitle:title Subtitle:subtitle Location:coordinate];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{}];
     if(obj.updatedAt) //used for date on bubble
         dict[@"updatedAt"] = obj.updatedAt;
     if(obj[@"pinType"]){
@@ -587,106 +590,6 @@
             [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
         }];
     }
-}
-
-#pragma mark -FirebaseEvents
-
-- (void) animateUser:(NSString *)userID toNewPosition:(NSDictionary *)newMetadata {
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([newMetadata[@"lat"] doubleValue], [newMetadata[@"long"] doubleValue] );
-    SOAnnotation * annotation = ((SOAnnotation *)self.markerDictionary[userID]);
-    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
-    if(annotation){
-        [UIView animateWithDuration:0.6f
-                         animations:^{
-                             annotation.coordinate = coordinate;
-                         }];
-    }
-    if(clusterAnnotation){
-        if(![clusterAnnotation isCluster]){
-            [UIView animateWithDuration:0.6f
-                             animations:^{
-                                 clusterAnnotation.coordinate = coordinate;
-                             }];
-        }
-    }
-    
-    [self.mapViewDelegate.clusteringController refresh:YES];
-}
-
-- (void) changeUserStatus:(NSString *)userID toNewStatus:(NSDictionary *)newMetadata {
-    SOAnnotation *annotation = self.markerDictionary[userID];
-    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
-    
-    if(annotation){
-        annotation.subtitle = newMetadata[@"status"];
-    }
-    
-    if(clusterAnnotation){
-        if(![clusterAnnotation isCluster]){
-            [self.mapView deselectAnnotation:clusterAnnotation animated:NO];
-            self.mapView.selectedAnnotations = @[clusterAnnotation];
-//            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        }
-    }
-}
-
-- (void) changeUserPrivacy:(NSString *)userID toNewPrivacy:(NSDictionary *)newMetadata {
-    SOAnnotation *annotation = self.markerDictionary[userID];
-    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
-
-    if ([NSStringFromClass([clusterAnnotation class]) isEqualToString:@"KPAnnotation"]) {
-        if(annotation && ![clusterAnnotation isCluster]){
-            if([((NSString *)newMetadata[@"privacy"]) isEqualToString:@"NO"]){
-                [self.mapView removeAnnotation:clusterAnnotation];
-            }
-        }
-        else{
-            
-        }
-    }
-}
-
-- (void) changeUserOnline:(NSString *)userID toNewOnline:(NSString *)newMetadata {
-    SOAnnotation *annotation = self.markerDictionary[userID];
-//    KPAnnotation * clusterAnnotation = [self.mapViewDelegate.clusteringController getClusterForAnnotation:annotation];
-    
-    if(annotation){
-        if([newMetadata isEqualToString:@"YES"]){
-            annotation.online = YES;
-        }
-        else{
-            annotation.online = NO;
-        }
-    }
-}
-
--(void)registerFirebaseListeners{
-    self.shoutoutRoot = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/loc"];
-    self.shoutoutRootStatus = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/status"];
-    self.shoutoutRootPrivacy = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/privacy"];
-    self.shoutoutRootOnline = [[Firebase alloc] initWithUrl:@"https://shoutout.firebaseio.com/online"];
-    [self.shoutoutRoot observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self animateUser:snapshot.key toNewPosition:snapshot.value];
-    }];
-    
-    [self.shoutoutRootStatus observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserStatus:snapshot.key toNewStatus:snapshot.value];
-    }];
-    
-    [self.shoutoutRootPrivacy observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserPrivacy:snapshot.key toNewPrivacy:snapshot.value];
-    }];
-    
-    [self.shoutoutRootOnline observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-        [self changeUserOnline:snapshot.key toNewOnline:snapshot.value];
-    }];
-}
-
-- (void)deregisterFirebaseListeners{
-    [self.shoutoutRoot removeAllObservers];
-    [self.shoutoutRootStatus removeAllObservers];
-    [self.shoutoutRootPrivacy removeAllObservers];
-    [self.shoutoutRootOnline removeAllObservers];
 }
 
 #pragma mark -Button Presses

@@ -72,7 +72,7 @@
 }
 
 - (void)setupBusinessView:(SOAnnotation *)soannotation{
-    self.businessSubVC = [[SOPinBusinessViewController alloc] init];
+    self.businessSubVC = [[SOPinBusinessViewController alloc] initWithNibName:@"SOPinBusinessViewController" bundle:[NSBundle mainBundle]];
     self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
     self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
     self.businessSubVC.view.frame = CGRectMake(2, -self.businessSubVC.view.frame.size.height+17, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
@@ -186,7 +186,7 @@
     SOAnnotation *annotation = ((SOAnnotation *)self.annotation);
     if([self.annotation isKindOfClass:[KPAnnotation class]]){
         annotation = [[((KPAnnotation *)self.annotation) annotations] anyObject];
-        NSString * username = annotation.title;
+        NSString * username = annotation.userInfo[@"username"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"replyToShout" object:self userInfo:@{@"username":username}];
     }
 }

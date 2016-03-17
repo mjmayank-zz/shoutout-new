@@ -17,6 +17,7 @@
 #import "SOMapViewDelegate.h"
 #import "SOComposeStatusViewController.h"
 #import "LocationManager.h"
+#import "SOFirebaseDelegate.h"
 @import MapKit;
 
 @interface ViewController : UIViewController<UITextViewDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>
@@ -39,20 +40,13 @@
 
 @property (strong, nonatomic) CLLocation * previousLocation;
 
-@property (strong, nonatomic) Firebase* shoutoutRoot;
-@property (strong, nonatomic) Firebase* shoutoutRootStatus;
-@property (strong, nonatomic) Firebase* shoutoutRootPrivacy;
-@property (strong, nonatomic) Firebase* shoutoutRootOnline;
+@property (strong, nonatomic) SOFirebaseDelegate* firebaseDelegate;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerMarkYConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 
 - (void)openUpdateStatusViewWithStatus:(NSString *)status;
-- (void)animateUser:(NSString *)userID toNewPosition:(NSDictionary *)newMetadata;
-- (void)changeUserStatus:(NSString *)userID toNewStatus:(NSDictionary *)newMetadata;
-- (void)changeUserPrivacy:(NSString *)userID toNewPrivacy:(NSDictionary *)newMetadata;
-- (void)changeUserOnline:(NSString *)userID toNewOnline:(NSString *)newMetadata;
 - (void)closeUpdateStatusView;
 - (void)openUpdateStatusView;
 - (void)closeInboxView;

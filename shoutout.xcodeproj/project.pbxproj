@@ -29,6 +29,8 @@
 		8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */; };
 		8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */; };
 		8F4B03851C913C200015628B /* nux4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4B03841C913C200015628B /* nux4.png */; };
+		8F68AF7A1C9A18FF0043017F /* listBlockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF781C9A18FF0043017F /* listBlockButton.png */; };
+		8F68AF7B1C9A18FF0043017F /* listLocateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF791C9A18FF0043017F /* listLocateButton.png */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F83E5211C73ECF00033423D /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F83E5201C73ECF00033423D /* Icon-83.5@2x.png */; };
@@ -182,6 +184,8 @@
 		8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInviteFriendsViewController.swift; sourceTree = "<group>"; };
 		8F4B03841C913C200015628B /* nux4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux4.png; sourceTree = "<group>"; };
+		8F68AF781C9A18FF0043017F /* listBlockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listBlockButton.png; sourceTree = "<group>"; };
+		8F68AF791C9A18FF0043017F /* listLocateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listLocateButton.png; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -571,6 +575,8 @@
 		8FA770011BD70C5C00979C3A /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				8F68AF781C9A18FF0043017F /* listBlockButton.png */,
+				8F68AF791C9A18FF0043017F /* listLocateButton.png */,
 				8FA770961BD7117D00979C3A /* cameraButton@2x.png */,
 				8FA770701BD70E8300979C3A /* addShout@2x.png */,
 				8FA770711BD70E8300979C3A /* addShoutPressed@2x.png */,
@@ -774,6 +780,7 @@
 				8FA770481BD70C5C00979C3A /* bigIcon.png in Resources */,
 				8F4B03851C913C200015628B /* nux4.png in Resources */,
 				8FA364671C894A3E004810B0 /* nux1.png in Resources */,
+				8F68AF7A1C9A18FF0043017F /* listBlockButton.png in Resources */,
 				8FA770AB1BD7328E00979C3A /* Icon-Small@2x.png in Resources */,
 				8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */,
 				8FA770511BD70C5C00979C3A /* smallIcon.png in Resources */,
@@ -805,6 +812,7 @@
 				8F9AB13A1C87F8CF004A88C2 /* lock@3x.png in Resources */,
 				8FA770901BD70E8300979C3A /* myLocationPressed@2x.png in Resources */,
 				8FA770A31BD7328E00979C3A /* Icon-40.png in Resources */,
+				8F68AF7B1C9A18FF0043017F /* listLocateButton.png in Resources */,
 				8FA770951BD7107800979C3A /* circularBackground@3x.png in Resources */,
 				8FB2FE2B1C7D4F660005F776 /* shoutBubbleUp@2x.png in Resources */,
 				8FA7705B1BD70C5C00979C3A /* pinWithShadow@2x.png in Resources */,

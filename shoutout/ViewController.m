@@ -51,7 +51,13 @@
     self.markerDictionary = [[NSMutableDictionary alloc] init];
     self.profileImageCache = [[NSCache alloc] init];
     
-    [[PFUser currentUser] fetchInBackground];
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        // TODO: can be removed after a while
+        if([[PFUser currentUser] objectForKey:@"displayName"] == nil){
+            [[PFUser currentUser] setObject:[PFUser currentUser].username forKey:@"displayName"];
+            [[PFUser currentUser] saveInBackground];
+        }
+    }];
 
     // Create the list view
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -524,6 +530,7 @@
     }
     if(obj[@"displayName"]){
         title = obj[@"displayName"];
+        dict[@"username"] = obj[@"username"];
     }
     if([obj[@"anonymous"] boolValue]){
         title = @"";
@@ -545,6 +552,7 @@
     annotation.userInfo = dict;
     annotation.online = [obj[@"online"] boolValue];
     annotation.isStatic = [obj[@"static"] boolValue];
+    annotation.object = obj;
     
     [self.mapViewDelegate.tree insertObject:annotation];
     

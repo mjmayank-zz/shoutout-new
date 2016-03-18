@@ -9,32 +9,102 @@
 import Foundation
 import UIKit
 
-class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
     
+    @IBOutlet var filterCollectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
-    var data:[SOAnnotation]!
+    weak var delegate: ViewController?
+    var data = [SOAnnotation]()
+    var results = [SOAnnotation]()
     var open = false;
     var countLabel: UILabel!
+    var labelTitles = ["All", "Friends", "Places"]
+    var friends = [String]()
     
     override func viewDidLoad(){
         super.viewDidLoad();
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.reloadData()
-        data = [SOAnnotation]();
+        
+        self.filterCollectionView.delegate = self;
+        self.filterCollectionView.dataSource = self;
+        
+        queryFriends()
+//        self.filterCollectionView.selectItemAtIndexPath(NSIndexPath(index: 0), animated: false, scrollPosition: .None)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let data = data{
-            return data.count
+    func queryFriends(){
+        PFCloud.callFunctionInBackground("findFriends", withParameters: ["user":(PFUser.currentUser()?.objectId)!]) { (response:AnyObject?, error:NSError?) -> Void in
+            if(error == nil){
+                self.friends = response as! [String]
+            }
+            else{
+                print(error);
+            }
         }
-        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return labelTitles.count;
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filterCell",forIndexPath:indexPath) as! FilterCell
+        cell.layer.cornerRadius = cell.frame.height/2.0
+        cell.clipsToBounds = true
+        cell.label.text = labelTitles[indexPath.row]
+//        if(!(collectionView.indexPathsForSelectedItems()?.isEmpty)!){
+//            let selectedPath = collectionView.indexPathsForSelectedItems()?[0]
+//            if(selectedPath == indexPath){
+//                cell.backgroundColor = UIColor.whiteColor()
+//            }
+//        }
+//        else{
+//            cell.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.8)
+//        }
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        cell?.backgroundColor = UIColor.whiteColor()
+        if(indexPath.row == 0){
+            results = data
+        }
+        else if(indexPath.row == 1){
+            results = data.filter({ (annotation:SOAnnotation) -> Bool in
+                if(self.friends.contains(annotation.objectId)){
+                    return true
+                }
+                return false
+            })
+        }
+        else if(indexPath.row == 2){
+            results = data.filter({ (annotation:SOAnnotation) -> Bool in
+                if(annotation.isStatic){
+                    return true
+                }
+                return false
+            })
+        }
+        self.tableView.reloadData()
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        cell?.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.8)
+    }
+    
+    // MARK: -TableViewDataSource
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return results.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("listViewCell", forIndexPath: indexPath) as! ListViewCell
     
-        let annotation = self.data[indexPath.row];
+        let annotation = self.results[indexPath.row];
         
         cell.bodyLabel.text = annotation.subtitle;
         cell.usernameLabel.text = annotation.title;
@@ -47,59 +117,84 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-//    func tableView(tableView: UITableView,
-//        editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?{
-//            
-//            var blockString:String!;
-//            if(true){
-//                blockString = "Block";
-//            }
-//            else{
-//                blockString = "Unblock";
-//            }
-//            
-//            let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: blockString) { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-//                
-//                let alertController = UIAlertController(title: "Are you sure?", message: "This will prevent either of you from seeing each other on the map", preferredStyle: UIAlertControllerStyle.Alert)
-//                
-//                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-//                let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
-//                    let from = self.data![indexPath.row].objectForKey("from") as! PFObject;
-//                    
-//                    let block = PFObject(className: "Block")
-//                    block.setObject(from, forKey: "blockedUser");
-//                    block.setObject(PFUser.currentUser()!, forKey: "fromUser")
-//                    block.saveInBackground();
-//                    
-//                    tableView.setEditing(false, animated: true)
-//                })
-//                
-//                alertController.addAction(cancelAction)
-//                alertController.addAction(okayAction);
-//                
-//                self.presentViewController(alertController, animated: true, completion: nil);
-//            }
-//            blockAction.backgroundColor = UIColor.redColor()
-//            
-//            let locateAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Locate") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-//                
-//                let from = self.data![indexPath.row].objectForKey("from") as! PFObject;
-//                
-//                if let visible = from.objectForKey("visible") as? Bool{
-//                    if(visible){
-//                        let loc = from.objectForKey("geo") as! PFGeoPoint;
-//                        self.delegate?.mapView.setCenterCoordinate(CLLocationCoordinate2DMake(loc.latitude, loc.longitude), animated: true);
-//                    }
-//                    else{
-//                        
-//                    }
-//                }
-//                
-//                tableView.setEditing(false, animated: true)
-//            }
-//            
-//            return [blockAction, locateAction]
-//    }
+    func tableView(tableView: UITableView,
+        editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?{
+
+        var blockString:String!;
+        if(true){
+            blockString = "Block";
+        }
+        else{
+            blockString = "Unblock";
+        }
+        
+        let blockAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: blockString) { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            let alertController = UIAlertController(title: "Are you sure?", message: "This will prevent either of you from seeing each other on the map", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
+                let from = self.results[indexPath.row].object;
+                
+                let block = PFObject(className: "Block")
+                block.setObject(from, forKey: "blockedUser");
+                block.setObject(PFUser.currentUser()!, forKey: "fromUser")
+                block.saveInBackground();
+                
+                tableView.setEditing(false, animated: true)
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(okayAction);
+            
+            self.presentViewController(alertController, animated: true, completion: nil);
+        }
+        blockAction.backgroundColor = UIColor.redColor()
+        
+        let locateAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Locate") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            let from = self.results[indexPath.row].object;
+            
+            if let visible = from.objectForKey("visible") as? Bool{
+                if(visible){
+                    let loc = from.objectForKey("geo") as! PFGeoPoint;
+                    self.delegate?.mapView.setCenterCoordinate(CLLocationCoordinate2DMake(loc.latitude, loc.longitude), animated: true);
+                }
+                else{
+                    
+                }
+            }
+            
+            tableView.setEditing(false, animated: true)
+        }
+        
+        let reportAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Report") { (action:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            let alertController = UIAlertController(title: "Are you sure?", message: "This will report the status to our moderators", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
+                let from = self.results[indexPath.row].object;
+                
+                let block = PFObject(className: "Report")
+                block.setObject(from, forKey: "reportedUser");
+                if let status = from.objectForKey("status"){
+                    block.setObject(status, forKey: "status")
+                }
+                block.saveInBackground();
+                
+                tableView.setEditing(false, animated: true)
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(okayAction);
+            
+            self.presentViewController(alertController, animated: true, completion: nil);
+        }
+        reportAction.backgroundColor = UIColor.orangeColor()
+        
+        return [locateAction, blockAction, reportAction]
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -118,6 +213,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         data = pins;
+        results = data;
         countLabel.text = String(format: "%d people on screen", data.count)
         tableView.reloadData();
     }
@@ -131,4 +227,9 @@ class ListViewCell: UITableViewCell{
     @IBOutlet var dateLabel: UILabel!
     
     var object : PFObject!
+}
+
+class FilterCell: UICollectionViewCell{
+    @IBOutlet var label: UILabel!
+    
 }

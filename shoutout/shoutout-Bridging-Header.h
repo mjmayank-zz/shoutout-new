@@ -8,4 +8,3 @@
 #import "ViewController.h"
 #import "LocationManager.h"
 #import "PNChart.h"
-#import "BGTableViewRowActionWithImage.h"

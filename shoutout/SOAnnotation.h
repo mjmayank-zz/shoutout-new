@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "QTree.h"
+#import <Parse/Parse.h>
 @import MapKit;
 
 @interface SOAnnotation : NSObject<MKAnnotation, QTreeInsertable>
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) NSString *pinColor;
 @property (assign, nonatomic) BOOL online;
 @property (assign, nonatomic) BOOL isStatic;
+@property (strong, nonatomic) PFObject *object;
 
 -(id)initWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Location:(CLLocationCoordinate2D)coordinate;
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate;

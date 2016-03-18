@@ -82,7 +82,11 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 
                 let message = messages![indexPath.row].objectForKey("message") as? String;
                 from.fetchInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
-                    cell.usernameLabel.text = from.objectForKey("username") as? String;
+                    var displayName = from.objectForKey("username") as? String;
+                    if let username = from.objectForKey("displayName") as? String{
+                        displayName = username
+                    }
+                    cell.usernameLabel.text = displayName
                     var image = self.profileImageCache.objectForKey(from.objectId!) as? UIImage;
                     if(image == nil){
                         from.objectForKey("profileImage")?.fetchIfNeededInBackgroundWithBlock({ (obj:PFObject?, error:NSError?) -> Void in

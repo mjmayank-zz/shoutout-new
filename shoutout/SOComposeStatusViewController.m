@@ -235,16 +235,15 @@
         if(self.composeSwitcher.selectedSegmentIndex == 0){
             [self updateStatus];
         }
-        else{
-            
-        }
         return NO;
     }
-    else if([textView.text length] >= 120){
+    if(range.length + range.location > textView.text.length)
+    {
         return NO;
     }
     
-    return YES;
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return newLength <= 120;
 }
 
 @end

@@ -466,13 +466,13 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
         PFUser.currentUser()?.setObject(pic, forKey: "profileImage")
         PFUser.currentUser()?.saveInBackground()
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
-        cell.selectedOutlineImageView.hidden = false;
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SOSettingsColorCell
+        cell?.selectedOutlineImageView.hidden = false;
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
-        cell.selectedOutlineImageView.hidden = true;
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SOSettingsColorCell
+        cell?.selectedOutlineImageView.hidden = true;
     }
 }
 

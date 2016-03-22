@@ -18,7 +18,8 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var results = [SOAnnotation]()
     var open = false;
     var countLabel: UILabel!
-    var labelTitles = ["All", "Friends", "Places"]
+    var filters = [SOMapFilter]()
+    var selectedFilter : SOMapFilter!
     var friends = [String]()
     
     override func viewDidLoad(){
@@ -30,6 +31,23 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.filterCollectionView.delegate = self;
         self.filterCollectionView.dataSource = self;
         
+        let allFilter = SOMapFilter(filter: { (annotation:SOAnnotation) -> Bool in
+            return true
+            }, title: "All")
+        let friendFilter = SOMapFilter(filter: { (annotation:SOAnnotation) -> Bool in
+            if(self.friends.contains(annotation.objectId)){
+                return true
+            }
+            return false
+            }, title: "Friends")
+        let placeFilter = SOMapFilter(filter: { (annotation:SOAnnotation) -> Bool in
+            if(annotation.isStatic){
+                return true
+            }
+            return false
+            }, title: "Places")
+        self.filters = [allFilter, friendFilter, placeFilter]
+        self.selectedFilter = allFilter
         queryFriends()
 //        self.filterCollectionView.selectItemAtIndexPath(NSIndexPath(index: 0), animated: false, scrollPosition: .None)
     }
@@ -46,14 +64,14 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return labelTitles.count;
+        return filters.count;
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("filterCell",forIndexPath:indexPath) as! FilterCell
         cell.layer.cornerRadius = cell.frame.height/2.0
         cell.clipsToBounds = true
-        cell.label.text = labelTitles[indexPath.row]
+        cell.label.text = self.filters[indexPath.row].title
 //        if(!(collectionView.indexPathsForSelectedItems()?.isEmpty)!){
 //            let selectedPath = collectionView.indexPathsForSelectedItems()?[0]
 //            if(selectedPath == indexPath){
@@ -69,25 +87,10 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell?.backgroundColor = UIColor.whiteColor()
-        if(indexPath.row == 0){
-            results = data
-        }
-        else if(indexPath.row == 1){
-            results = data.filter({ (annotation:SOAnnotation) -> Bool in
-                if(self.friends.contains(annotation.objectId)){
-                    return true
-                }
-                return false
-            })
-        }
-        else if(indexPath.row == 2){
-            results = data.filter({ (annotation:SOAnnotation) -> Bool in
-                if(annotation.isStatic){
-                    return true
-                }
-                return false
-            })
-        }
+        self.selectedFilter = self.filters[indexPath.row]
+        results = data.filter(selectedFilter.filterFunc)
+        self.delegate?.filter = self.selectedFilter
+        self.delegate?.filterAnnotations()
         self.tableView.reloadData()
     }
     
@@ -213,7 +216,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         data = pins;
-        results = data;
+        results = data.filter(self.selectedFilter.filterFunc);
         countLabel.text = String(format: "%d people on screen", data.count)
         tableView.reloadData();
     }

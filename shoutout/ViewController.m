@@ -62,6 +62,7 @@
     // Create the list view
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.listViewVC = [storyboard instantiateViewControllerWithIdentifier:@"soListView"];
+    self.listViewVC.delegate = self;
     // Create the inbox view
     self.inboxVC = [storyboard instantiateViewControllerWithIdentifier:@"soInboxView"];
     self.inboxVC.profileImageCache = self.profileImageCache;
@@ -126,7 +127,6 @@
     // Check if the NUX has been shown yet
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
-//    BOOL shownNUX = false;
     if (!shownNUX) {
         [self showNUX];
     } else {
@@ -135,7 +135,7 @@
             [locationManager requestAlwaysAuthorization];
         }
         [self checkLocationPermission];
-//        [self promptForCheckinPermission];
+        [self promptForCheckinPermission];
     }
 }
 
@@ -435,12 +435,11 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
-
 }
 
 - (void)promptForCheckinPermission{
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Do you want to continue to leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
     
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
         
@@ -787,6 +786,16 @@
     else if([segue.identifier isEqualToString:@"composeStatusView"]){
         self.composeStatusVC = segue.destinationViewController;
         self.composeStatusVC.delegate = self;
+    }
+}
+
+-(void)filterAnnotations{
+    if(self.filter == nil){
+        [self.mapViewDelegate.clusteringController setAnnotations:[self.markerDictionary allValues]];
+    }
+    else{
+        NSArray *array = [self.filter filterArray:[self.markerDictionary allValues]];
+        [self.mapViewDelegate.clusteringController setAnnotations:array];
     }
 }
 

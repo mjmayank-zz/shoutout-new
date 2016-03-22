@@ -19,6 +19,7 @@
 #import "LocationManager.h"
 #import "SOFirebaseDelegate.h"
 @import MapKit;
+@class SOMapFilter;
 
 @interface ViewController : UIViewController<UITextViewDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>
 
@@ -27,6 +28,8 @@
 @property (strong, nonatomic) IBOutlet UIView *slidingView;
 @property (strong, nonatomic) UIView *listViewContainer;
 @property (strong, nonatomic) UIView *inboxContainer;
+
+@property (strong, nonatomic) SOMapFilter *filter;
 
 @property (strong, nonatomic) IBOutlet UIButton *inboxButton;
 @property (strong, nonatomic) IBOutlet UIButton *listButton;
@@ -51,6 +54,7 @@
 - (void)openUpdateStatusView;
 - (void)closeInboxView;
 - (void)allowMapLoad;
+-(void)filterAnnotations;
 
 - (void)completeNUX;
 

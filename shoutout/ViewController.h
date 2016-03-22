@@ -25,7 +25,6 @@
 
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) IBOutlet UIView *slidingView;
 @property (strong, nonatomic) UIView *listViewContainer;
 @property (strong, nonatomic) UIView *inboxContainer;
 
@@ -50,8 +49,6 @@
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
 
 - (void)openUpdateStatusViewWithStatus:(NSString *)status;
-- (void)closeUpdateStatusView;
-- (void)openUpdateStatusView;
 - (void)closeInboxView;
 - (void)allowMapLoad;
 -(void)filterAnnotations;

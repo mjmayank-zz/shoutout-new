@@ -189,7 +189,7 @@
     [listPopover didMoveToParentViewController:self];
     self.listViewContainer = listPopover.view;
     [listPopover updateChildController:self.listViewVC];
-    [self.view insertSubview:self.listViewContainer belowSubview:self.slidingView];
+    [self.view addSubview:self.listViewContainer];
     self.listViewVC.countLabel = listPopover.popoverTitle;
     
     SOPopoverViewController* inboxPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
@@ -197,7 +197,7 @@
     [inboxPopover didMoveToParentViewController:self];
     self.inboxContainer = inboxPopover.view;
     [inboxPopover updateChildController:self.inboxVC];
-    [self.view insertSubview:self.inboxContainer belowSubview:self.slidingView];
+    [self.view addSubview:self.inboxContainer];
     inboxPopover.popoverTitle.text = @"Inbox";
     
     // TODO: better handling of the pip location
@@ -602,8 +602,20 @@
 #pragma mark -Button Presses
 
 - (IBAction)shoutOutButtonPressed:(id)sender {
-    [self animateSlidingView];
+    [self openUpdateStatusViewWithStatus:@""];
 }
+
+- (void)openUpdateStatusViewWithStatus:(NSString *)status{
+    SOComposeStatusViewController *composeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"composeStatusVC"];
+    
+    if(![status isEqualToString:@""]){
+        composeVC.status = status;
+    }
+    
+    composeVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:composeVC animated:YES completion:nil];
+}
+
 
 - (void)centerMapToUserLocation{
     if(self.previousLocation){
@@ -713,50 +725,6 @@
 - (IBAction)loadMapPressed:(id)sender {
     [self updateMapWithLocation:self.mapView.centerCoordinate];
     [self.loadButton setHidden:YES];
-}
-
-#pragma -mark Update Status View
-
-- (void)closeUpdateStatusView{
-    [self.view layoutIfNeeded];
-    self.slidingViewConstraint.constant = -500;
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [self.view layoutIfNeeded];
-                     }
-                     completion:nil];
-}
-
-- (void)openUpdateStatusView{
-    [self.view layoutIfNeeded];
-    self.slidingViewConstraint.constant = -20;
-    [UIView animateWithDuration:0.3f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         [self.view layoutIfNeeded];
-                     }
-                     completion:^(BOOL finished) {
-                         [self.composeStatusVC openUpdateStatusView];
-                     }];
-    [PFAnalytics trackEvent:@"openedComposeView" dimensions:nil];
-}
-
-- (void)openUpdateStatusViewWithStatus:(NSString *)status{
-    [self.composeStatusVC setStatusText:status];
-    [self openUpdateStatusView];
-    [PFAnalytics trackEvent:@"openedComposeView" dimensions:@{@"status":status}];
-}
-
-- (void)animateSlidingView{
-    if(self.slidingViewConstraint.constant != -20){
-        [self openUpdateStatusView];
-    }
-    else{
-        [self closeUpdateStatusView];
-    }
 }
 
 #pragma -mark Notification Events

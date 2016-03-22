@@ -39,12 +39,12 @@
     self.profilePic.layer.masksToBounds = YES;
     self.profilePictureBorder.layer.cornerRadius = self.profilePictureBorder.frame.size.height/2.0;
     
-    NSString * status = [PFUser currentUser][@"status"];
-    self.statusTextView.text = status;
-    self.statusTextView.delegate = self;
-    if(!status || [status isEqualToString:@""]){
-        [self.delegate openUpdateStatusView];
+    if(!self.status){
+        self.status = [PFUser currentUser][@"status"];
     }
+    self.statusTextView.text = self.status;
+    self.statusTextView.delegate = self;
+    [self.statusTextView becomeFirstResponder];
     
     [self.saveButton.layer setCornerRadius:4.0f];
     [self.clusterSendButton.layer setCornerRadius:4.0f];
@@ -55,6 +55,7 @@
         self.composeSwitcher.selectedSegmentIndex = 0;
         self.composeSwitcher.hidden = NO;
     }
+    self.statusCharacterCount.text = [NSString stringWithFormat:@"%lu/120", (unsigned long)[self.statusTextView.text length]];
 }
 
 - (void)setStatusText:(NSString *)status{
@@ -194,9 +195,9 @@
 }
 
 - (void)closeUpdateStatusView{
-    [self.delegate closeUpdateStatusView];
     [self.statusTextView resignFirstResponder];
     [self.clusterTextView resignFirstResponder];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -230,7 +231,6 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
     if([text isEqualToString:@"\n"]) {
         if(self.composeSwitcher.selectedSegmentIndex == 0){
             [self updateStatus];

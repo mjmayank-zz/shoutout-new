@@ -13,6 +13,8 @@
 
 @interface SOComposeStatusViewController : UIViewController <UITextViewDelegate>
 
+@property (strong, nonatomic) NSString * status;
+
 @property (strong, nonatomic) IBOutlet UIView *statusContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePictureBorder;

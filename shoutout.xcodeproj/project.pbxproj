@@ -33,6 +33,12 @@
 		8F4B03851C913C200015628B /* nux4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4B03841C913C200015628B /* nux4.png */; };
 		8F68AF7A1C9A18FF0043017F /* listBlockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF781C9A18FF0043017F /* listBlockButton.png */; };
 		8F68AF7B1C9A18FF0043017F /* listLocateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF791C9A18FF0043017F /* listLocateButton.png */; };
+		8F6D5F801CAC3D050080E546 /* MBXMapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F751CAC3D050080E546 /* MBXMapKit.m */; };
+		8F6D5F811CAC3D050080E546 /* MBXOfflineMapDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F771CAC3D050080E546 /* MBXOfflineMapDatabase.m */; };
+		8F6D5F821CAC3D050080E546 /* MBXOfflineMapDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F791CAC3D050080E546 /* MBXOfflineMapDownloader.m */; };
+		8F6D5F831CAC3D050080E546 /* MBXPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F7B1CAC3D050080E546 /* MBXPointAnnotation.m */; };
+		8F6D5F841CAC3D050080E546 /* MBXRasterTileOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F7D1CAC3D050080E546 /* MBXRasterTileOverlay.m */; };
+		8F6D5F851CAC3D050080E546 /* MBXRasterTileRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F7F1CAC3D050080E546 /* MBXRasterTileRenderer.m */; };
 		8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */; };
 		8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */; };
 		8F83E5211C73ECF00033423D /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F83E5201C73ECF00033423D /* Icon-83.5@2x.png */; };
@@ -191,6 +197,19 @@
 		8F4B03841C913C200015628B /* nux4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux4.png; sourceTree = "<group>"; };
 		8F68AF781C9A18FF0043017F /* listBlockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listBlockButton.png; sourceTree = "<group>"; };
 		8F68AF791C9A18FF0043017F /* listLocateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listLocateButton.png; sourceTree = "<group>"; };
+		8F6D5F731CAC3D050080E546 /* MBXConstantsAndTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXConstantsAndTypes.h; sourceTree = "<group>"; };
+		8F6D5F741CAC3D050080E546 /* MBXMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXMapKit.h; sourceTree = "<group>"; };
+		8F6D5F751CAC3D050080E546 /* MBXMapKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXMapKit.m; sourceTree = "<group>"; };
+		8F6D5F761CAC3D050080E546 /* MBXOfflineMapDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXOfflineMapDatabase.h; sourceTree = "<group>"; };
+		8F6D5F771CAC3D050080E546 /* MBXOfflineMapDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXOfflineMapDatabase.m; sourceTree = "<group>"; };
+		8F6D5F781CAC3D050080E546 /* MBXOfflineMapDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXOfflineMapDownloader.h; sourceTree = "<group>"; };
+		8F6D5F791CAC3D050080E546 /* MBXOfflineMapDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXOfflineMapDownloader.m; sourceTree = "<group>"; };
+		8F6D5F7A1CAC3D050080E546 /* MBXPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXPointAnnotation.h; sourceTree = "<group>"; };
+		8F6D5F7B1CAC3D050080E546 /* MBXPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXPointAnnotation.m; sourceTree = "<group>"; };
+		8F6D5F7C1CAC3D050080E546 /* MBXRasterTileOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXRasterTileOverlay.h; sourceTree = "<group>"; };
+		8F6D5F7D1CAC3D050080E546 /* MBXRasterTileOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXRasterTileOverlay.m; sourceTree = "<group>"; };
+		8F6D5F7E1CAC3D050080E546 /* MBXRasterTileRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXRasterTileRenderer.h; sourceTree = "<group>"; };
+		8F6D5F7F1CAC3D050080E546 /* MBXRasterTileRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBXRasterTileRenderer.m; sourceTree = "<group>"; };
 		8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInboxViewController.swift; sourceTree = "<group>"; };
 		8F7CA1E41BA07B4500B3C28A /* ShoutRMMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoutRMMarker.h; sourceTree = "<group>"; };
 		8F7CA1E51BA07B4500B3C28A /* ShoutRMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoutRMMarker.m; sourceTree = "<group>"; };
@@ -405,6 +424,26 @@
 			name = Pins;
 			sourceTree = "<group>";
 		};
+		8F6D5F721CAC3D050080E546 /* MBXMapKit */ = {
+			isa = PBXGroup;
+			children = (
+				8F6D5F731CAC3D050080E546 /* MBXConstantsAndTypes.h */,
+				8F6D5F741CAC3D050080E546 /* MBXMapKit.h */,
+				8F6D5F751CAC3D050080E546 /* MBXMapKit.m */,
+				8F6D5F761CAC3D050080E546 /* MBXOfflineMapDatabase.h */,
+				8F6D5F771CAC3D050080E546 /* MBXOfflineMapDatabase.m */,
+				8F6D5F781CAC3D050080E546 /* MBXOfflineMapDownloader.h */,
+				8F6D5F791CAC3D050080E546 /* MBXOfflineMapDownloader.m */,
+				8F6D5F7A1CAC3D050080E546 /* MBXPointAnnotation.h */,
+				8F6D5F7B1CAC3D050080E546 /* MBXPointAnnotation.m */,
+				8F6D5F7C1CAC3D050080E546 /* MBXRasterTileOverlay.h */,
+				8F6D5F7D1CAC3D050080E546 /* MBXRasterTileOverlay.m */,
+				8F6D5F7E1CAC3D050080E546 /* MBXRasterTileRenderer.h */,
+				8F6D5F7F1CAC3D050080E546 /* MBXRasterTileRenderer.m */,
+			);
+			path = MBXMapKit;
+			sourceTree = "<group>";
+		};
 		8F8D47641B976DB900D902B9 = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +495,7 @@
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
 				8F8D47AE1B98B6CD00D902B9 /* SOAnnotation.m */,
+				8F6D5F721CAC3D050080E546 /* MBXMapKit */,
 				8F5AEDBD1BBCC99B00DF1BB1 /* Pins */,
 				35872A8A1BC5D462004E99C6 /* NUX */,
 				8FFF0BFF1B9F7A210009E619 /* UVA.gpx */,
@@ -974,6 +1014,7 @@
 				8F7CA1E61BA07B4500B3C28A /* ShoutRMMarker.m in Sources */,
 				8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */,
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
+				8F6D5F841CAC3D050080E546 /* MBXRasterTileOverlay.m in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,
 				04AFD1AF1C8FA1F60073E66C /* SOBackendUtils.swift in Sources */,
@@ -987,11 +1028,16 @@
 				35FEEBDD1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift in Sources */,
 				8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */,
 				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,
+				8F6D5F801CAC3D050080E546 /* MBXMapKit.m in Sources */,
+				8F6D5F821CAC3D050080E546 /* MBXOfflineMapDownloader.m in Sources */,
 				8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */,
 				359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */,
 				8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */,
 				8F8D47731B976DB900D902B9 /* main.m in Sources */,
+				8F6D5F831CAC3D050080E546 /* MBXPointAnnotation.m in Sources */,
 				8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */,
+				8F6D5F811CAC3D050080E546 /* MBXOfflineMapDatabase.m in Sources */,
+				8F6D5F851CAC3D050080E546 /* MBXRasterTileRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

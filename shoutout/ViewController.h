@@ -22,7 +22,7 @@
 @class SOMapFilter;
 @class SOFilterIndicatorView;
 
-@interface ViewController : UIViewController<UITextViewDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>
+@interface ViewController : UIViewController<UITextViewDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate, MBXRasterTileOverlayDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView * map;
 @property (strong, nonatomic) MKMapView *mapView;

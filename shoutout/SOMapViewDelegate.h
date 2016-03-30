@@ -12,6 +12,7 @@
 #import "ShoutRMMarker.h"
 #import "ShoutClusterMarker.h"
 #import "QTree.h"
+#import "MBXMapKit.h"
 @class SOListViewController;
 @class ViewController;
 @import MapKit;

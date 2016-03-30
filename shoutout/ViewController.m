@@ -21,6 +21,7 @@
 #import "LocationManager.h"
 #import <AudioToolbox/AudioServices.h>
 #import "Shoutout-Swift.h"
+#import "MBXMapKit.h"
 
 @interface ViewController ()
 
@@ -38,6 +39,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
 
+@property (strong, nonatomic) MBXRasterTileOverlay *overlay;
+
 // NUX
 @property (strong, nonatomic) SOPopoverViewController* nuxPopover;
 @end
@@ -48,6 +51,8 @@
     [super viewDidLoad];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPermissions"];
+    
+    [MBXMapKit setAccessToken:@"pk.eyJ1IjoibWptYXlhbmsiLCJhIjoiN2E0NjM2MDMzZDE1NzFkMWJlYzBlNWI5YTUxOWEzNmEifQ.JCFf-8t0IOyhUie9KgR-eQ"];
     
     self.markerDictionary = [[NSMutableDictionary alloc] init];
     self.profileImageCache = [[NSCache alloc] init];
@@ -89,6 +94,12 @@
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(40.1105, -88.2284)
                              animated:NO];
     [self.view insertSubview:self.mapView aboveSubview:self.map];
+    
+    //MapBox overlay
+    self.overlay = [[MBXRasterTileOverlay alloc] initWithMapID:@"mjmayank.nba9ef28"];
+    self.overlay.delegate = self;
+    [self.mapView addOverlay:self.overlay];
+    
     self.mapViewDelegate = [[SOMapViewDelegate alloc] initWithMapView:self.mapView];
     self.mapViewDelegate.listViewVC = self.listViewVC;
     self.mapViewDelegate.delegate = self;
@@ -835,6 +846,40 @@
             }
         }
     }
+}
+
+- (void)tileOverlay:(MBXRasterTileOverlay *)overlay didLoadMetadata:(NSDictionary *)metadata withError:(NSError *)error
+{
+    // This delegate callback is for centering the map once the map metadata has been loaded
+    //
+    if (error)
+    {
+        NSLog(@"Failed to load metadata for map ID %@ - (%@)", overlay.mapID, error?error:@"");
+    }
+    else
+    {
+        [_mapView mbx_setCenterCoordinate:self.mapView.centerCoordinate zoomLevel:overlay.centerZoom animated:NO];
+    }
+}
+
+
+- (void)tileOverlay:(MBXRasterTileOverlay *)overlay didLoadMarkers:(NSArray *)markers withError:(NSError *)error
+{
+    // This delegate callback is for adding map markers to an MKMapView once all the markers for the tile overlay have loaded
+    //
+    if (error)
+    {
+        NSLog(@"Failed to load markers for map ID %@ - (%@)", overlay.mapID, error?error:@"");
+    }
+    else
+    {
+        [_mapView addAnnotations:markers];
+    }
+}
+
+- (void)tileOverlayDidFinishLoadingMetadataAndMarkers:(MBXRasterTileOverlay *)overlay
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 @end

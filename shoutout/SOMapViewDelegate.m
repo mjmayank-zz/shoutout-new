@@ -186,6 +186,18 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
     return nil;
 }
 
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    // This is boilerplate code to connect tile overlay layers with suitable renderers
+    //
+    if ([overlay isKindOfClass:[MBXRasterTileOverlay class]])
+    {
+        MBXRasterTileRenderer *renderer = [[MBXRasterTileRenderer alloc] initWithTileOverlay:overlay];
+        return renderer;
+    }
+    return nil;
+}
+
 #pragma mark -ClusterDelegate
 
 - (void)clusteringController:(KPClusteringController *)clusteringController configureAnnotationForDisplay:(KPAnnotation *)annotation {

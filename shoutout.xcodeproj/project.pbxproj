@@ -140,6 +140,7 @@
 		8FD1D8CD1C02B01F0006445B /* eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD1D8CA1C02B01F0006445B /* eye@3x.png */; };
 		8FD1D8CF1C04CA8C0006445B /* SOBlockMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D8CE1C04CA8C0006445B /* SOBlockMapViewController.swift */; };
 		8FD3BAC71BC1B3A2007C8D24 /* SOSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */; };
+		8FDC524B1CA319B400E41F53 /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC524A1CA319B400E41F53 /* UIView+CornerRadius.swift */; };
 		8FE009101BAC787F00C30BF2 /* SOMapViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */; };
 		8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF09DB61BE035ED001402E7 /* SOListViewController.swift */; };
 		8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */; };
@@ -320,6 +321,7 @@
 		8FD1D8CA1C02B01F0006445B /* eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@3x.png"; sourceTree = "<group>"; };
 		8FD1D8CE1C04CA8C0006445B /* SOBlockMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOBlockMapViewController.swift; sourceTree = "<group>"; };
 		8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSignInViewController.swift; sourceTree = "<group>"; };
+		8FDC524A1CA319B400E41F53 /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
 		8FE0090E1BAC787F00C30BF2 /* SOMapViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewDelegate.h; sourceTree = "<group>"; };
 		8FE0090F1BAC787F00C30BF2 /* SOMapViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewDelegate.m; sourceTree = "<group>"; };
 		8FF09DB61BE035ED001402E7 /* SOListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOListViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 		8F8D47701B976DB900D902B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FDC524A1CA319B400E41F53 /* UIView+CornerRadius.swift */,
 				8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */,
 				8FFF9A821C55BD880058BE67 /* UIImage+ColorMask.h */,
 				8FFF9A831C55BD880058BE67 /* UIImage+ColorMask.m */,
@@ -980,6 +983,7 @@
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,
 				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,
+				8FDC524B1CA319B400E41F53 /* UIView+CornerRadius.swift in Sources */,
 				35FEEBDD1C5734F300FBF2EF /* SONUXTutorialCardViewController.swift in Sources */,
 				8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */,
 				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,

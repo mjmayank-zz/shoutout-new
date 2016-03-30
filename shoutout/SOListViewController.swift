@@ -202,7 +202,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let annotation = self.data[indexPath.row]
-        let username = annotation.title
+        let username = annotation.userInfo["username"] as! String;
         
         NSNotificationCenter.defaultCenter().postNotificationName("replyToShout", object: self, userInfo: ["username": username])
         tableView.deselectRowAtIndexPath(indexPath, animated: true);

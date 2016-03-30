@@ -195,8 +195,13 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
                 if(obj.objectId != PFUser.currentUser()?.objectId){
                     obj.fetchIfNeededInBackgroundWithBlock({ (object:PFObject?, error:NSError?) -> Void in
                         count -= 1
-                        if let username = object!.objectForKey("username") as? String{
-                            usernames += "@" + username + " ";
+                        if(error == nil){
+                            if let username = object!.objectForKey("username") as? String{
+                                usernames += "@" + username + " ";
+                            }
+                        }
+                        else{
+                            
                         }
                     })
                 }

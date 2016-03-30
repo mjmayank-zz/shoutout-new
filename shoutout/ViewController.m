@@ -36,6 +36,7 @@
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
+@property (strong, nonatomic) IBOutlet UIButton *filterButton;
 
 // NUX
 @property (strong, nonatomic) SOPopoverViewController* nuxPopover;
@@ -58,6 +59,16 @@
             [[PFUser currentUser] saveInBackground];
         }
     }];
+    
+    self.filterButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    //next 3 lines flip the image and the text
+    self.filterButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    self.filterButton.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    self.filterButton.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    //
+    self.filterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
+    [self.filterButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.view layoutIfNeeded];
 
     // Create the list view
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -135,8 +146,45 @@
             [locationManager requestAlwaysAuthorization];
         }
         [self checkLocationPermission];
-        [self promptForCheckinPermission];
+//        [self promptForCheckinPermission];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self checkNumberOfNewMessages];
+    [self checkToBlockMap];
+}
+
+- (void)dealloc {
+    [self unregisterNotifications];
+    self.mapView.delegate = nil;
+    [self.mapView removeFromSuperview];
+    [self.firebaseDelegate deregisterFirebaseListeners];
+}
+
+- (void)applicationWillEnterBackground:(NSNotification*)notification{
+    [self.firebaseDelegate deregisterFirebaseListeners];
+}
+
+- (void)applicationWillEnterForeground:(NSNotification*)notification{
+    if([PFUser currentUser]){ //THIS IS A HACK. MAKE SURE VC IS DEALLOCATING PROPERLY
+        [self.firebaseDelegate registerFirebaseListeners];
+        [self updateMapWithLocation:self.previousLocation.coordinate];
+        [self checkNumberOfNewMessages];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+        if (shownNUX) {
+            [self checkLocationPermission];
+            [self checkToBlockMap];
+            //        [self promptForCheckinPermission];
+        }
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 + (CLLocationManager *)sharedLocationManager {
@@ -321,39 +369,6 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self checkNumberOfNewMessages];
-    [self checkToBlockMap];
-}
-
-- (void)dealloc {
-    [self unregisterNotifications];
-    self.mapView.delegate = nil;
-    [self.mapView removeFromSuperview];
-    [self.firebaseDelegate deregisterFirebaseListeners];
-}
-
-- (void)applicationWillEnterBackground:(NSNotification*)notification{
-    [self.firebaseDelegate deregisterFirebaseListeners];
-}
-
-- (void)applicationWillEnterForeground:(NSNotification*)notification{
-    if([PFUser currentUser]){ //THIS IS A HACK. MAKE SURE VC IS DEALLOCATING PROPERLY
-        [self.firebaseDelegate registerFirebaseListeners];
-        [self updateMapWithLocation:self.previousLocation.coordinate];
-        [self checkNumberOfNewMessages];
-        [self checkLocationPermission];
-//        [self promptForCheckinPermission];
-        [self checkToBlockMap];
-    }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)registerNotifications{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:
      Notification_LocationUpdate object:nil];
@@ -394,7 +409,7 @@
 }
 
 - (void)checkToBlockMap{
-    if(![[PFUser currentUser][@"visible"] boolValue]){
+    if(![[PFUser currentUser][@"visible"] boolValue] || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)){
         [self performSegueWithIdentifier:@"blockMapSegue" sender:self];
     }
 }
@@ -439,7 +454,7 @@
 
 - (void)promptForCheckinPermission{
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout is taking your location and sharing it on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout shares your location on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
     
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
         
@@ -691,8 +706,9 @@
           initialSpringVelocity:0
                         options:0
                      animations:^{
-                         CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
-                         self.mapView.frame = rect;
+                         //move map back down
+//                         CGRect rect = CGRectMake(0, 0,  self.view.bounds.size.width, self.view.bounds.size.height);
+//                         self.mapView.frame = rect;
                          self.listViewContainer.layer.opacity = 0;
                          [self.view layoutIfNeeded];
                      }
@@ -711,8 +727,9 @@
                         options:0
                      animations:^{
                          self.listViewContainer.layer.opacity = 1;
-                         CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
-                         self.mapView.frame = rect;
+                         //move map up
+//                         CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
+//                         self.mapView.frame = rect;
                          [self.view layoutIfNeeded];
                      }
                      completion:nil];
@@ -764,7 +781,22 @@
     else{
         NSArray *array = [self.filter filterArray:[self.markerDictionary allValues]];
         [self.mapViewDelegate.clusteringController setAnnotations:array];
+        self.filterTitle.text = self.filter.title;
+        self.filterIndicatorView.hidden = NO;
     }
+}
+
+- (IBAction)filterCancelledButtonTouched:(id)sender {
+//    self.filterIndicatorView.alpha = 0.8;
+}
+- (IBAction)filterCancelledButtonReleased:(id)sender {
+//    self.filterIndicatorView.alpha = 1.0;
+}
+- (IBAction)filterCancelledButtonPressed:(id)sender {
+//    self.filterIndicatorView.alpha = 1.0;
+    self.filterIndicatorView.hidden = YES;
+    self.filter = nil;
+    [self filterAnnotations];
 }
 
 #pragma mark -LocationManager Notifications

@@ -20,6 +20,7 @@
 #import "SOFirebaseDelegate.h"
 @import MapKit;
 @class SOMapFilter;
+@class SOFilterIndicatorView;
 
 @interface ViewController : UIViewController<UITextViewDelegate, MKMapViewDelegate, KPClusteringControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, UIPopoverPresentationControllerDelegate>
 
@@ -29,6 +30,8 @@
 @property (strong, nonatomic) UIView *inboxContainer;
 
 @property (strong, nonatomic) SOMapFilter *filter;
+@property (strong, nonatomic) IBOutlet UIView *filterIndicatorView;
+@property (strong, nonatomic) IBOutlet UILabel *filterTitle;
 
 @property (strong, nonatomic) IBOutlet UIButton *inboxButton;
 @property (strong, nonatomic) IBOutlet UIButton *listButton;
@@ -43,7 +46,6 @@
 @property (strong, nonatomic) CLLocation * previousLocation;
 
 @property (strong, nonatomic) SOFirebaseDelegate* firebaseDelegate;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *slidingViewConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerMarkYConstraint;
 
 @property (strong, nonatomic) SOMapViewDelegate* mapViewDelegate;
@@ -51,7 +53,7 @@
 - (void)openUpdateStatusViewWithStatus:(NSString *)status;
 - (void)closeInboxView;
 - (void)allowMapLoad;
--(void)filterAnnotations;
+- (void)filterAnnotations;
 
 - (void)completeNUX;
 

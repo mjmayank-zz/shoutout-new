@@ -179,6 +179,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             return
         }
         PFUser.currentUser()?.username = self.usernameTextField.text?.lowercaseString;
+        PFUser.currentUser()?.setObject(self.usernameTextField.text!, forKey: "displayName")
         PFUser.currentUser()?.saveInBackground();
         self.usernameTextField.resignFirstResponder();
     }
@@ -369,13 +370,13 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
         PFUser.currentUser()?.setObject(colors[indexPath.row], forKey: "pinColor")
         PFUser.currentUser()?.saveInBackground()
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
-        cell.selectedOutlineImageView.hidden = false;
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SOSettingsColorCell
+        cell?.selectedOutlineImageView.hidden = false;
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SOSettingsColorCell
-        cell.selectedOutlineImageView.hidden = true;
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SOSettingsColorCell
+        cell?.selectedOutlineImageView.hidden = true;
     }
 }
 

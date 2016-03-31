@@ -25,6 +25,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var colorPickerCollectionView: UICollectionView!
     @IBOutlet var avatarPickerCollectionView: UICollectionView!
     
+    var open = false;
     var oldVC: UIViewController!
     let colorPickerDelegate = SOSettingsColorPickerDelegate()
     let avatarPickerDelegate = SOSettingsAvatarPickerDelegate()

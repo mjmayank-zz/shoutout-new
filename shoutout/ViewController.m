@@ -34,6 +34,10 @@
 @property (strong, nonatomic) SOInboxViewController *inboxVC;
 @property (strong, nonatomic) NSLayoutConstraint* inboxBottomConstraint;
 
+// Settings
+@property (strong, nonatomic) SOSettingsViewController *settingsVC;
+@property (strong, nonatomic) NSLayoutConstraint* settingsBottomConstraint;
+
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
@@ -83,6 +87,8 @@
     self.inboxVC = [storyboard instantiateViewControllerWithIdentifier:@"soInboxView"];
     self.inboxVC.profileImageCache = self.profileImageCache;
     self.inboxVC.delegate = self;
+    // Create the settings view
+    self.settingsVC = [storyboard instantiateViewControllerWithIdentifier:@"soSettingsView"];
     
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -244,6 +250,7 @@
 
     // Create the popovers
     SOPopoverViewController* listPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    listPopover.delegate = self;
     [self addChildViewController:listPopover];
     [listPopover didMoveToParentViewController:self];
     self.listViewContainer = listPopover.view;
@@ -252,6 +259,7 @@
     self.listViewVC.countLabel = listPopover.popoverTitle;
     
     SOPopoverViewController* inboxPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    inboxPopover.delegate = self;
     [self addChildViewController:inboxPopover];
     [inboxPopover didMoveToParentViewController:self];
     self.inboxContainer = inboxPopover.view;
@@ -259,18 +267,26 @@
     [self.view addSubview:self.inboxContainer];
     inboxPopover.popoverTitle.text = @"Inbox";
     
-    // TODO: better handling of the pip location
-    [listPopover updatePipLocation:self.listButton.frame.origin.x];
-    NSLog(@"%f", self.listButton.frame.origin.x);
+    SOPopoverViewController* settingsPopover = [storyboard instantiateViewControllerWithIdentifier:@"soPopover"];
+    settingsPopover.delegate = self;
+    [self addChildViewController:settingsPopover];
+    [settingsPopover didMoveToParentViewController:self];
+    self.settingsContainer = settingsPopover.view;
+    [settingsPopover updateChildController:self.settingsVC];
+    [self.view addSubview:self.settingsContainer];
+    settingsPopover.popoverTitle.text = @"Settings";
+    
+    //constrain pip to center of buttons they are hovering over
+    [listPopover updatePipConstraint:self.listButton];
     [inboxPopover updatePipConstraint:self.inboxButton];
-//    [inboxPopover updatePipLocation:self.inboxButton.frame.origin.x];
-    NSLog(@"%f", self.inboxButton.frame.origin.x);
+    [settingsPopover updatePipConstraint:self.settingsButton];
     
     // Add constraints to the popovers. Resizes them to have margins
     NSMutableArray* constraints = [NSMutableArray array];
     NSDictionary* views = @{
                             @"listPopover": self.listViewContainer,
                             @"inboxPopover": self.inboxContainer,
+                            @"settingsPopover": self.settingsContainer,
                             };
     NSDictionary* metrics = @{
                               @"padding": @SO_POPOVER_HORIZ_PADDING
@@ -278,20 +294,25 @@
     
     [self.listViewContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.inboxContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.settingsContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // Horizontal padding
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[listPopover]-padding-|" options:0 metrics:metrics views:views]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[inboxPopover]-padding-|" options:0 metrics:metrics views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[settingsPopover]-padding-|" options:0 metrics:metrics views:views]];
     
     // Height
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.inboxContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.settingsContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0.8 constant:0]];
     
     // Bottom margin
     self.listViewBottomConstraint = [NSLayoutConstraint constraintWithItem:self.listViewContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.listButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];
     self.inboxBottomConstraint = [NSLayoutConstraint constraintWithItem:self.inboxContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.inboxButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];
+    self.settingsBottomConstraint = [NSLayoutConstraint constraintWithItem:self.settingsContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.settingsButton attribute:NSLayoutAttributeTop multiplier:1 constant:SO_POPOVER_VERTICAL_SHIFT];
     [constraints addObject:self.listViewBottomConstraint];
     [constraints addObject:self.inboxBottomConstraint];
+    [constraints addObject:self.settingsBottomConstraint];
     
     [NSLayoutConstraint activateConstraints:constraints];
     
@@ -299,6 +320,7 @@
     // Hide the views initially
     self.listViewContainer.layer.opacity = 0;
     self.inboxContainer.layer.opacity = 0;
+    self.settingsContainer.layer.opacity = 0;
 }
 
 - (void)showNUX {
@@ -652,6 +674,7 @@
 - (IBAction)inboxButtonPressed:(id)sender {
     [self checkNumberOfNewMessages];
     [self closeListView];
+    [self closeSettingsView];
     if(self.inboxBottomConstraint.constant == SO_POPOVER_VERTICAL_SHIFT){
         [self openInboxView];
     }
@@ -693,6 +716,7 @@
 
 - (IBAction)listViewButtonPressed:(id)sender {
     [self closeInboxView];
+    [self closeSettingsView];
     NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
     NSArray *annotationArray = [annotationSet allObjects];
     
@@ -739,11 +763,62 @@
                      animations:^{
                          self.listViewContainer.layer.opacity = 1;
                          //move map up
-//                         CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
-//                         self.mapView.frame = rect;
+                         //                         CGRect rect = CGRectMake(0, -1 * self.mapView.frame.size.height/2.0,  self.view.bounds.size.width, self.mapView.frame.size.height * 1.5);
+                         //                         self.mapView.frame = rect;
                          [self.view layoutIfNeeded];
                      }
                      completion:nil];
+}
+
+- (void)closeSettingsView{
+    [self.view layoutIfNeeded];
+    self.settingsVC.open = NO;
+    self.settingsBottomConstraint.constant = SO_POPOVER_VERTICAL_SHIFT;
+    self.centerMarkYConstraint.constant = 0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         self.settingsContainer.layer.opacity = 0;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (void)openSettingsView{
+    [self.view layoutIfNeeded];
+    self.settingsVC.open = YES;
+    self.settingsBottomConstraint.constant = 0;
+    self.centerMarkYConstraint.constant = self.view.bounds.size.height / 4.0;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+         usingSpringWithDamping:1.0f
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         self.settingsContainer.layer.opacity = 1;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+
+- (IBAction)settingsButtonPressed:(id)sender {
+    [self closeInboxView];
+    [self closeListView];
+    if(self.settingsVC.open){
+        [self closeSettingsView];
+    }
+    else{
+        [self openSettingsView];
+    }
+}
+
+- (void)closeAllPopovers{
+    [self closeListView];
+    [self closeSettingsView];
+    [self closeInboxView];
 }
 
 - (IBAction)centerButtonPressed:(id)sender {
@@ -858,7 +933,7 @@
     }
     else
     {
-        [_mapView mbx_setCenterCoordinate:self.mapView.centerCoordinate zoomLevel:overlay.centerZoom animated:NO];
+        [_mapView mbx_setCenterCoordinate:self.mapView.centerCoordinate zoomLevel:self.mapView.zoomLevel animated:NO];
     }
 }
 

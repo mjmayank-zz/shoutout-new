@@ -213,19 +213,20 @@ didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views{
         self.mapIsClustered = true;
     }
     else{
-        NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
-        NSArray *annotationArray = [annotationSet allObjects];
-        int count = 0;
-        for(int i = 0; i<[annotationArray count]; i++){
-            KPAnnotation * annotation = annotationArray[i];
-            if([annotation isCluster]){
-                count += [[annotation annotations] count];
-            }
-            else{
-                count++;
-            }
-        }
-        self.mapIsClustered = count > 30;
+//        NSSet *annotationSet = [self.mapView annotationsInMapRect:[self.mapView visibleMapRect]];
+//        NSArray *annotationArray = [annotationSet allObjects];
+//        int count = 0;
+//        for(int i = 0; i<[annotationArray count]; i++){
+//            KPAnnotation * annotation = annotationArray[i];
+//            if([annotation isCluster]){
+//                count += [[annotation annotations] count];
+//            }
+//            else{
+//                count++;
+//            }
+//        }
+//        self.mapIsClustered = count > 30;
+        self.mapIsClustered = true;
     }
     return self.mapIsClustered;
 }

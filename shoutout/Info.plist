@@ -26,6 +26,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb213646248845245</string>
+				<string>shoutout</string>
 			</array>
 		</dict>
 	</array>
@@ -43,9 +44,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We use this to let you know what's going on around you. You can turn this off within the app at any time.</string>
+	<string>We use this to let you know what&apos;s going on around you. You can turn this off within the app at any time.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use this to let you know what's going on around you. You can turn this off within the app at any time.</string>
+	<string>We use this to let you know what&apos;s going on around you. You can turn this off within the app at any time.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Titillium-Black.otf</string>

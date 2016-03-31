@@ -18,6 +18,7 @@ class SOPopoverViewController:UIViewController {
     @IBOutlet weak var pip: UIImageView?
     weak var childController: UIViewController?
     var pipLocation: CGFloat?
+    var delegate: ViewController?
     
     @IBOutlet private weak var pipConstraint: NSLayoutConstraint?
     @IBOutlet private weak var containerTopConstraint: NSLayoutConstraint?
@@ -83,4 +84,7 @@ class SOPopoverViewController:UIViewController {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
+    @IBAction func closeButtonPressed(sender: AnyObject) {
+        self.delegate?.closeAllPopovers()
+    }
 }

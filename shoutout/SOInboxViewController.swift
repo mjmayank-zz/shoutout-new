@@ -120,7 +120,9 @@ class SOInboxViewController : UIViewController, UITableViewDataSource, UITableVi
             }
             else{
                 let cell = UITableViewCell()
-                cell.textLabel?.text = "No messages to show"
+                cell.backgroundColor = UIColor.clearColor()
+                cell.textLabel?.text = "Loading messages..."
+                cell.textLabel?.textColor = UIColor.whiteColor()
                 return cell;
             }
     }

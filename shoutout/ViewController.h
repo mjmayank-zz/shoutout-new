@@ -28,6 +28,7 @@
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UIView *listViewContainer;
 @property (strong, nonatomic) UIView *inboxContainer;
+@property (strong, nonatomic) UIView *settingsContainer;
 
 @property (strong, nonatomic) SOMapFilter *filter;
 @property (strong, nonatomic) IBOutlet UIView *filterIndicatorView;
@@ -54,6 +55,7 @@
 - (void)closeInboxView;
 - (void)allowMapLoad;
 - (void)filterAnnotations;
+- (void)closeAllPopovers;
 
 - (void)completeNUX;
 

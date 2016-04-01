@@ -22,7 +22,7 @@
 		8F1680E91C532FC100435596 /* shoutoutLogoCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1680E81C532FC100435596 /* shoutoutLogoCropped.png */; };
 		8F168CE71BADDF94000D18D0 /* SOPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F168CE61BADDF94000D18D0 /* SOPinView.xib */; };
 		8F2011361BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */; };
-		8F283BF21C9D026D0046DFA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F283BF11C9D026D0046DFA6 /* LoginViewController.swift */; };
+		8F283BF21C9D026D0046DFA6 /* SOTextLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F283BF11C9D026D0046DFA6 /* SOTextLoginViewController.swift */; };
 		8F283BF41C9DA9850046DFA6 /* SOMapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F283BF31C9DA9850046DFA6 /* SOMapFilter.swift */; };
 		8F3C852F1BEFC37F005E658E /* SOComposeStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */; };
 		8F3C85311BEFCE38005E658E /* mapBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3C85301BEFCE38005E658E /* mapBackground@2x.png */; };
@@ -185,7 +185,7 @@
 		8F168CE51BAC9D70000D18D0 /* UIUC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UIUC.gpx; sourceTree = "<group>"; };
 		8F168CE61BADDF94000D18D0 /* SOPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPinView.xib; sourceTree = "<group>"; };
 		8F2011351BC2C1FB00EEF1E9 /* SOFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFeedbackViewController.swift; sourceTree = "<group>"; };
-		8F283BF11C9D026D0046DFA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8F283BF11C9D026D0046DFA6 /* SOTextLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOTextLoginViewController.swift; sourceTree = "<group>"; };
 		8F283BF31C9DA9850046DFA6 /* SOMapFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOMapFilter.swift; sourceTree = "<group>"; };
 		8F3C852D1BEFC37F005E658E /* SOComposeStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOComposeStatusViewController.h; sourceTree = "<group>"; };
 		8F3C852E1BEFC37F005E658E /* SOComposeStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOComposeStatusViewController.m; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 				8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */,
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
-				8F283BF11C9D026D0046DFA6 /* LoginViewController.swift */,
+				8F283BF11C9D026D0046DFA6 /* SOTextLoginViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
@@ -1020,7 +1020,7 @@
 				04AFD1AF1C8FA1F60073E66C /* SOBackendUtils.swift in Sources */,
 				8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */,
 				8F0AA26F1BD3E2FA0068AE38 /* SOFirebaseDelegate.m in Sources */,
-				8F283BF21C9D026D0046DFA6 /* LoginViewController.swift in Sources */,
+				8F283BF21C9D026D0046DFA6 /* SOTextLoginViewController.swift in Sources */,
 				8F728E571BB0B32700ACC973 /* SOInboxViewController.swift in Sources */,
 				8FA76FD31BD6D02D00979C3A /* KPAnnotationTree.m in Sources */,
 				35872A8D1BC5D49C004E99C6 /* SONUXViewController.swift in Sources */,

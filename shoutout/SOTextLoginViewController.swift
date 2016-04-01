@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class SOTextLoginViewController: UIViewController {
 
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var sendCodeButton: UIButton!
@@ -128,7 +128,7 @@ class LoginViewController: UIViewController {
   }
 }
 
-extension LoginViewController : UITextFieldDelegate {
+extension SOTextLoginViewController : UITextFieldDelegate {
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     self.didTapSendCodeButton()
     

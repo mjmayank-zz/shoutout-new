@@ -28,9 +28,9 @@ class SOTextLoginViewController: UIViewController {
 
   func step1() {
     phoneNumber = ""
-    textField.placeholder = NSLocalizedString("numberDefault", comment: "555-333-6726")
-    questionLabel.text = NSLocalizedString("enterPhone", comment: "Please enter your phone number to log in.")
-    subtitleLabel.text = NSLocalizedString("enterPhoneExtra", comment: "This example is limited to 10-digit US number.")
+    textField.placeholder = NSLocalizedString("555-333-6726", comment:"numberDefault")
+    questionLabel.text = NSLocalizedString("Please enter your phone number to log in.", comment:"enterPhone")
+    subtitleLabel.text = NSLocalizedString("This example is limited to 10-digit US number.", comment:"enterPhoneExtra")
     sendCodeButton.enabled = true
   }
 
@@ -38,8 +38,8 @@ class SOTextLoginViewController: UIViewController {
     phoneNumber = textField.text!
     textField.text = ""
     textField.placeholder = "1234"
-    questionLabel.text = NSLocalizedString("enterCode", comment: "Enter the 4-digit confirmation code:")
-    subtitleLabel.text = NSLocalizedString("enterCodeExtra", comment: "It was sent in an SMS message to +1" + phoneNumber) + phoneNumber
+    questionLabel.text = NSLocalizedString("Enter the 4-digit confirmation code:", comment:"enterCode")
+    subtitleLabel.text = NSLocalizedString("It was sent in an SMS message to +1", comment: "enterCodeExtra") + phoneNumber
     sendCodeButton.enabled = true
   }
 

@@ -89,6 +89,7 @@
     self.inboxVC.delegate = self;
     // Create the settings view
     self.settingsVC = [storyboard instantiateViewControllerWithIdentifier:@"soSettingsView"];
+    self.settingsVC.oldVC = self;
     
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];

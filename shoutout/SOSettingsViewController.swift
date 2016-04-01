@@ -10,13 +10,12 @@ import Foundation
 import UIKit
 import MessageUI
 
-class SOSettingsViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate{
+class SOSettingsViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate, UIWebViewDelegate{
 
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var privacyToggle: UISwitch!
     @IBOutlet var updateButton: UIButton!
-    @IBOutlet var sendFeedbackButton: UIButton!
     @IBOutlet var logoutButton: UIButton!
     @IBOutlet var anonymousToggle: UISwitch!
     @IBOutlet var genderControl: UISegmentedControl!
@@ -24,6 +23,9 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var statusExplanationLabel: UILabel!
     @IBOutlet var colorPickerCollectionView: UICollectionView!
     @IBOutlet var avatarPickerCollectionView: UICollectionView!
+    
+    @IBOutlet var requestBusinessPinButton: UIButton!
+    @IBOutlet var sendFeedbackButton: UIButton!
     
     var open = false;
     var oldVC: UIViewController!
@@ -190,6 +192,23 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         self.presentViewController(controller!, animated: true, completion: nil)
     }
     
+    /*
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        print("Webview fail with error \(error)");
+    }
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        return true;
+    }
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        print("Webview started Loading")
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        print("Webview did finish load")
+    }
+    */
     @IBAction func statusValueChanged(sender: AnyObject) {
         let statusControl = sender as! UISegmentedControl
         if(statusControl.selectedSegmentIndex == 0){
@@ -306,6 +325,9 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
         if(segue.identifier == "settingsToFeedback"){
             let webVC = segue.destinationViewController as! SOWebViewController
             webVC.URLString = "http://www.getshoutout.co/feedback.html"
+        } else if (segue.identifier == "settingsToBusinessPinForm") {
+            let webVC = segue.destinationViewController as! SOWebViewController
+            webVC.URLString = "http://www.getshoutout.co/business_pin_request.html"
         }
     }
     

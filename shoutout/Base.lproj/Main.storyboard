@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1477,6 +1477,15 @@
                                     </mask>
                                 </variation>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4m-9y-9fH" userLabel="Request Business Pin">
+                                <rect key="frame" x="227" y="461" width="147" height="30"/>
+                                <state key="normal" title="Request Business Pin">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="hjZ-xc-9vQ" kind="presentation" identifier="settingsToBusinessPinForm" id="fH5-8r-Eut"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1542,7 +1551,8 @@
                         <outlet property="genderControl" destination="2Kc-5G-Ym1" id="eDh-eO-aKu"/>
                         <outlet property="logoutButton" destination="Yie-Jf-C6A" id="bYq-Bx-xXt"/>
                         <outlet property="profileImageView" destination="dJ8-sg-OQ1" id="CtS-RN-vpM"/>
-                        <outlet property="sendFeedbackButton" destination="dwh-0R-sl3" id="PwA-mg-nec"/>
+                        <outlet property="requestBusinessPinButton" destination="W4m-9y-9fH" id="4aD-bH-VC8"/>
+                        <outlet property="sendFeedbackButton" destination="dwh-0R-sl3" id="m1u-7G-N1V"/>
                         <outlet property="statusControl" destination="LZO-Mm-zRY" id="bRq-In-M08"/>
                         <outlet property="statusExplanationLabel" destination="JWF-lA-C9u" id="PJ7-zk-Uzg"/>
                         <outlet property="updateButton" destination="2Q2-o9-Sx6" id="eo9-qf-YaC"/>
@@ -3088,6 +3098,6 @@ or</string>
         <image name="unchecked_checkbox.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cV0-b7-xl9"/>
+        <segue reference="fH5-8r-Eut"/>
     </inferredMetricsTieBreakers>
 </document>

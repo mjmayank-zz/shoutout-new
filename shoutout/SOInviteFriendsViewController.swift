@@ -214,16 +214,24 @@ class SOInviteFriendsViewController : UIViewController, UITableViewDelegate, UIT
             let number = contact.phoneNumbers[0].value as! CNPhoneNumber
             let request = NSMutableURLRequest(URL: NSURL(string: "https://AC348ec26b0d56199b76e04ffa5c335501:015b120113c4dd48bb87436b1a6e736d@api.twilio.com/2010-04-01/Accounts/AC348ec26b0d56199b76e04ffa5c335501/Messages.json")!)
             request.HTTPMethod = "POST"
-            let postString = "To=" + number.stringValue + "&From=+12172122206" + "&Body=Hey! A friend has invited you to join Shoutout, the new local app that lets you know what's going on around campus. http://www.getshoutout.co/download"
-            request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in guard error == nil && data != nil else {
-                print("error=\(error)")
-                return
+            PFCloud.callFunctionInBackground("getInviteText", withParameters: ["user":(PFUser.currentUser()?.username)!]) { (response:AnyObject?, error:NSError?) -> Void in
+                if(error == nil){
+                    let message = (response as! NSDictionary).objectForKey("text") as! String
+                    let postString = "To=" + number.stringValue + "&From=+12172122206" + "&Body=" + message
+                    request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+                    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in guard error == nil && data != nil else {
+                        print("error=\(error)")
+                        return
+                        }
+                        let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                        print("response=\(responseString)")
+                    }
+                    task.resume()
                 }
-                let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print("response=\(responseString)")
+                else{
+                    print(error);
+                }
             }
-            task.resume()
         }
         
         let pointsEarned = 50 * self.selected.count

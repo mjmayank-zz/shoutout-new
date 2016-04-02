@@ -31,6 +31,8 @@
 		8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */; };
 		8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */; };
 		8F4B03851C913C200015628B /* nux4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4B03841C913C200015628B /* nux4.png */; };
+		8F571E031CB04DBC00DA8432 /* NUX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F571E021CB04DBC00DA8432 /* NUX.storyboard */; };
+		8F571E051CB0618000DA8432 /* SOFinishProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */; };
 		8F68AF7A1C9A18FF0043017F /* listBlockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF781C9A18FF0043017F /* listBlockButton.png */; };
 		8F68AF7B1C9A18FF0043017F /* listLocateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF791C9A18FF0043017F /* listLocateButton.png */; };
 		8F6D5F801CAC3D050080E546 /* MBXMapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F751CAC3D050080E546 /* MBXMapKit.m */; };
@@ -195,6 +197,8 @@
 		8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInviteFriendsViewController.swift; sourceTree = "<group>"; };
 		8F4B03841C913C200015628B /* nux4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux4.png; sourceTree = "<group>"; };
+		8F571E021CB04DBC00DA8432 /* NUX.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NUX.storyboard; sourceTree = "<group>"; };
+		8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFinishProfileViewController.swift; sourceTree = "<group>"; };
 		8F68AF781C9A18FF0043017F /* listBlockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listBlockButton.png; sourceTree = "<group>"; };
 		8F68AF791C9A18FF0043017F /* listLocateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listLocateButton.png; sourceTree = "<group>"; };
 		8F6D5F731CAC3D050080E546 /* MBXConstantsAndTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXConstantsAndTypes.h; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 				8F0BBC6C1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift */,
 				8FD3BAC61BC1B3A2007C8D24 /* SOSignInViewController.swift */,
 				8FA956C11BC05F16003C7357 /* SOCreateProfileViewController.swift */,
+				8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */,
 				35872A8B1BC5D49C004E99C6 /* SONUXViewController.swift */,
 			);
 			name = NUX;
@@ -470,6 +475,7 @@
 				8FA76FC11BD6D01900979C3A /* kingpin */,
 				8FA76FF91BD70C5C00979C3A /* images */,
 				8F8D477A1B976DB900D902B9 /* Main.storyboard */,
+				8F571E021CB04DBC00DA8432 /* NUX.storyboard */,
 				8F8D47741B976DB900D902B9 /* AppDelegate.h */,
 				8F8D47751B976DB900D902B9 /* AppDelegate.m */,
 				8F8D47771B976DB900D902B9 /* ViewController.h */,
@@ -816,6 +822,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F571E031CB04DBC00DA8432 /* NUX.storyboard in Resources */,
 				8FA770541BD70C5C00979C3A /* shoutoutGrayLogo.png in Resources */,
 				8FA76FE91BD6D19A00979C3A /* Titillium-BoldItalic.otf in Resources */,
 				8FA76FF61BD6D19A00979C3A /* Titillium-ThinUpright.otf in Resources */,
@@ -1029,6 +1036,7 @@
 				8FC5E5691BE2B7E00068AC0C /* SOForgotPasswordViewController.swift in Sources */,
 				8FF09DB71BE035ED001402E7 /* SOListViewController.swift in Sources */,
 				8F6D5F801CAC3D050080E546 /* MBXMapKit.m in Sources */,
+				8F571E051CB0618000DA8432 /* SOFinishProfileViewController.swift in Sources */,
 				8F6D5F821CAC3D050080E546 /* MBXOfflineMapDownloader.m in Sources */,
 				8FA76FD21BD6D02D00979C3A /* KPAnnotation.m in Sources */,
 				359511F81C616D33005E93F3 /* SONUXTutorialTextImageViewController.swift in Sources */,

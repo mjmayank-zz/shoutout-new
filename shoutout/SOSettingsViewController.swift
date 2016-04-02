@@ -266,7 +266,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
-        let randomAction = UIAlertAction(title: "New Random", style: .Default) { (action:UIAlertAction) -> Void in
+        let randomAction = UIAlertAction(title: "New random", style: .Default) { (action:UIAlertAction) -> Void in
             self.loadRandomDefaultImage()
         }
         

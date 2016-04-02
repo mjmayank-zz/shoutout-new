@@ -1,19 +1,17 @@
 //
-//  SOCreateProfileViewController.swift
+//  SOFinishProfileViewController.swift
 //  shoutout
 //
-//  Created by Mayank Jain on 10/3/15.
-//  Copyright © 2015 Mayank Jain. All rights reserved.
+//  Created by Mayank Jain on 4/2/16.
+//  Copyright © 2016 Mayank Jain. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class SOFinishProfileViewController : UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     @IBOutlet var usernameTextField: UITextField!
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var profileImageView: UIImageView!
     var chosenImageObj : PFObject?
     var termsChecked = false;
@@ -22,9 +20,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         super.viewDidLoad();
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
         self.profileImageView.clipsToBounds = true
-        self.passwordTextField.delegate = self;
         self.usernameTextField.delegate = self;
-        self.emailTextField.delegate = self;
         
         self.loadRandomDefaultImage();
         
@@ -60,10 +56,6 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
         };
     }
     
-    @IBAction func backButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
     @IBAction func nextButtonPressed(sender: AnyObject) {
         let validUsername = SOBackendUtils.validateUsername(usernameTextField.text!)
         if(!validUsername){
@@ -86,17 +78,14 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
             return
         }
         
-        let user = PFUser();
-        user.username = usernameTextField.text?.lowercaseString;
-        user.email = emailTextField.text?.lowercaseString;
-        user.password = passwordTextField.text;
-        user["displayName"] = usernameTextField.text!
-        user["profileImage"] = self.chosenImageObj;
-        user["status"] = "";
-        user["visible"] = NSNumber(bool: true);
-        user["platform"] = "iOS"
-        user.signUpInBackgroundWithBlock {
-            (succeeded: Bool, error: NSError?) -> Void in
+        let user = PFUser.currentUser();
+        user?.username = usernameTextField.text?.lowercaseString;
+        user?["displayName"] = usernameTextField.text!
+        user?["profileImage"] = self.chosenImageObj;
+        user?["status"] = "";
+        user?["visible"] = NSNumber(bool: true);
+        user?["platform"] = "iOS"
+        user?.saveInBackgroundWithBlock({ (succeeded:Bool, error:NSError?) in
             if let error = error {
                 let errorString = error.userInfo["error"] as? String
                 print(errorString);
@@ -111,27 +100,27 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                 // Show the errorString somewhere and let the user try again.
             } else {
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
-
+                
                 // Hooray! Let them use the app now.
                 self.navigationController?.setViewControllers([newVC!], animated: true)
             }
-        }
+        })
     }
     
     @IBAction func addPictureButtonPressed(sender: AnyObject) {
         let alertController = UIAlertController(title: "Set your profile picture", message: "Choose a method", preferredStyle: .ActionSheet)
         
         let uploadAction = UIAlertAction(title: "Upload a picture", style: .Default) { (action:UIAlertAction) -> Void in
-                    let imagePicker = UIImagePickerController();
-                    imagePicker.delegate = self;
-                    imagePicker.allowsEditing = true;
-                    self.presentViewController(imagePicker, animated: true, completion: nil)
+            let imagePicker = UIImagePickerController();
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
         let randomAction = UIAlertAction(title: "New random", style: .Default) { (action:UIAlertAction) -> Void in
             self.loadRandomDefaultImage()
         }
-
+        
         let threeAction = UIAlertAction(title: "Take a picture", style: .Default) { (action:UIAlertAction) -> Void in
             let imagePicker = UIImagePickerController();
             imagePicker.sourceType = .Camera;
@@ -188,9 +177,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     }
     
     func dismissKeyboard(){
-        passwordTextField.resignFirstResponder();
         usernameTextField.resignFirstResponder();
-        emailTextField.resignFirstResponder();
     }
     
     func keyboardWillShow(notification: NSNotification){
@@ -211,6 +198,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
             termsChecked = true;
         }
     }
+    
     func keyboardWillHide(notification: NSNotification){
         if(self.view.frame.origin.y != 0.0){
             self.view.frame.offsetInPlace(dx: 0, dy: 100)
@@ -230,6 +218,6 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-
+    
     
 }

@@ -46,6 +46,10 @@ class SOTextLoginViewController: UIViewController {
         textField.becomeFirstResponder()
     }
     
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     @IBAction func didTapSendCodeButton() {
         let preferredLanguage = NSBundle.mainBundle().preferredLocalizations[0]
         
@@ -54,18 +58,19 @@ class SOTextLoginViewController: UIViewController {
         if phoneNumber == "" {
             if (preferredLanguage == "en" && textFieldText.characters.count != 10)
                 || (preferredLanguage == "ja" && textFieldText.characters.count != 11) {
-                showAlert("Phone Login", message: NSLocalizedString("warningPhone", comment: "You must enter a 10-digit US phone number including area code."))
+                showAlert("Phone Login", message: NSLocalizedString("You must enter a 10-digit US phone number including area code.", comment: "warningPhone"))
                 return step1()
             }
             
             self.editing = false
+            
             let params = ["phoneNumber" : textFieldText, "language" : preferredLanguage]
             PFCloud.callFunctionInBackground("sendCode", withParameters: params) { response, error in
                 self.editing = true
                 if let error = error {
                     var description = error.description
                     if description.characters.count == 0 {
-                        description = NSLocalizedString("warningGeneral", comment: "Something went wrong. Please try again.") // "There was a problem with the service.\nTry again later."
+                        description = NSLocalizedString("Something went wrong. Please try again.", comment: "warningGeneral") // "There was a problem with the service.\nTry again later."
                     } else if let message = error.userInfo["error"] as? String {
                         description = message
                     }
@@ -79,7 +84,7 @@ class SOTextLoginViewController: UIViewController {
                 return doLogin(phoneNumber, code: code)
             }
             
-            showAlert("Code Entry", message: NSLocalizedString("warningCodeLength", comment: "You must enter the 4 digit code texted to your phone number."))
+            showAlert("Code Entry", message: NSLocalizedString("You must enter the 4 digit code texted to your phone number.", comment:"warningCodeLength"))
         }
     }
     
@@ -94,17 +99,23 @@ class SOTextLoginViewController: UIViewController {
             if let token = response as? String {
                 PFUser.becomeInBackground(token) { user, error in
                     if let _ = error {
-                        self.showAlert("Login Error", message: NSLocalizedString("warningGeneral", comment: "Something happened while trying to log in.\nPlease try again."))
+                        self.showAlert("Login Error", message: NSLocalizedString("Something happened while trying to log in.\nPlease try again.", comment: "warningGeneral"))
                         self.editing = true
                         return self.step1()
                     }
-                    let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
-                    LocationManager.sharedLocationManager().enterForegroundMode();
-                    self.navigationController?.setViewControllers([newVC!], animated: true)
+                    if(PFUser.currentUser()?.objectForKey("visible") == nil){
+                        let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("finishCreateProfile")
+                        self.navigationController?.setViewControllers([newVC!], animated: true)
+                    }
+                    else{
+                        let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("mapVC")
+                        LocationManager.sharedLocationManager().enterForegroundMode();
+                        self.navigationController?.setViewControllers([newVC!], animated: true)
+                    }
                 }
             } else {
                 self.editing = true
-                self.showAlert("Login Error", message: NSLocalizedString("warningGeneral", comment: "Something went wrong.  Please try again."))
+                self.showAlert("Login Error", message: NSLocalizedString("Something went wrong.  Please try again.", comment: "warningGeneral"))
                 return self.step1()
             }
         }
@@ -119,7 +130,7 @@ class SOTextLoginViewController: UIViewController {
     }
     
     func showAlert(title: String, message: String) {
-        return UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: NSLocalizedString("alertOK", comment: "OK")).show()
+        return UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment:"alertOK")).show()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

@@ -43,10 +43,17 @@
         [self startLocationManager];
     }
     
-    BOOL hasPermissions =
-    ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
+    NSString *storyboardId;
+    if([PFUser currentUser] && [[PFUser currentUser] objectForKey:@"visible"] == nil){
+        storyboardId = @"finishCreateProfile";
+    }
+    else if([PFUser currentUser]){
+        storyboardId = @"mapVC";
+    }
+    else{
+        storyboardId = @"SONUXVC";
+    }
     
-    NSString *storyboardId = hasPermissions ? @"mapVC" : @"SONUXVC";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initViewController = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
     
@@ -54,6 +61,8 @@
     
     BOOL willShowNUX = ![[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultShownNUXKey];
     
+    BOOL hasPermissions =
+    ([[NSUserDefaults standardUserDefaults] boolForKey:@"hasPermissions"] && [PFUser currentUser]);
     if(!willShowNUX && (enabled || hasPermissions)){
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |

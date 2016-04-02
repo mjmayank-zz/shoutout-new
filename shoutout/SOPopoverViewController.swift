@@ -13,12 +13,13 @@ let POPOVER_CORNER_RADIUS:CGFloat = 20
 
 class SOPopoverViewController:UIViewController {
 
+    @IBOutlet var closeButton: UIButton!
     @IBOutlet weak var popoverTitle: UILabel?
     @IBOutlet weak var popoverContent: UIView?
     @IBOutlet weak var pip: UIImageView?
     weak var childController: UIViewController?
     var pipLocation: CGFloat?
-    var delegate: ViewController?
+    weak var delegate: ViewController?
     
     @IBOutlet private weak var pipConstraint: NSLayoutConstraint?
     @IBOutlet private weak var containerTopConstraint: NSLayoutConstraint?

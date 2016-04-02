@@ -339,6 +339,7 @@
     [self addChildViewController:tutPopover];
     [tutPopover didMoveToParentViewController:self];
     [self.view addSubview:tutPopover.view];
+    tutPopover.closeButton.hidden = YES;
     
     SONUXTutorialCardViewController* tutController = [storyboard instantiateViewControllerWithIdentifier:@"soTutorialCard"];
     [tutPopover updateChildController:tutController];

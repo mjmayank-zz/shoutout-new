@@ -54,7 +54,6 @@
 
 - (void)openUpdateStatusViewWithStatus:(NSString *)status;
 - (void)closeInboxView;
-- (void)allowMapLoad;
 - (void)filterAnnotations;
 - (void)closeAllPopovers;
 

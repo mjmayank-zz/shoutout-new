@@ -51,7 +51,7 @@
     
     self.clusterTextView.delegate = self;
     
-    if([PFUser currentUser][@"static"]){
+    if([[PFUser currentUser][@"static"] boolValue]){
         self.composeSwitcher.selectedSegmentIndex = 0;
         self.composeSwitcher.hidden = NO;
     }

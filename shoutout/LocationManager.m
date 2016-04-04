@@ -56,7 +56,7 @@ static LocationManager *sharedLocationManager = nil;
 
 -(void)enterBackgroundMode{
     if([CLLocationManager locationServicesEnabled]){
-        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![PFUser currentUser][@"static"] && [PFUser currentUser][@"visible"]){
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[PFUser currentUser][@"static"] boolValue] && [[PFUser currentUser][@"visible"] boolValue]){
             [manager stopUpdatingLocation];
             [manager startMonitoringVisits];
             [manager startMonitoringSignificantLocationChanges];
@@ -68,7 +68,7 @@ static LocationManager *sharedLocationManager = nil;
 }
 
 -(void)enterForegroundMode{
-    if(![PFUser currentUser][@"static"]){
+    if(![[PFUser currentUser][@"static"] boolValue]){
         [manager startUpdatingLocation];
         manager.distanceFilter = 10.0;
         [manager startMonitoringVisits];

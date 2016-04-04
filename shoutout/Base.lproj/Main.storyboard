@@ -3329,13 +3329,13 @@ or</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fs5-Qp-dFE">
                                 <rect key="frame" x="0.0" y="141" width="600" height="54"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-333-6726 (Phone Number)" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="RnI-9n-fln">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-333-6726 (Phone Number)" adjustsFontSizeToFit="NO" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="RnI-9n-fln">
                                         <rect key="frame" x="25" y="12" width="555" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="295" id="WDv-nV-Ldq"/>
                                         </constraints>
                                         <color key="textColor" red="0.13725490200000001" green="0.71372549019999998" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -3359,13 +3359,13 @@ or</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m2D-sW-MoW">
                                 <rect key="frame" x="0.0" y="200" width="600" height="54"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-333-6726 (Confirm Phone Number)" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="xEy-UF-bMf">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="555-333-6726 (Confirm Phone Number)" adjustsFontSizeToFit="NO" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="xEy-UF-bMf">
                                         <rect key="frame" x="25" y="12" width="555" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="375" id="aLQ-z7-MDp"/>
                                         </constraints>
                                         <color key="textColor" red="0.13725490200000001" green="0.71372549019999998" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <variation key="default">
                                             <mask key="constraints">

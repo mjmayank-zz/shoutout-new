@@ -13,6 +13,11 @@ class SOConfirmPhoneNumberViewController: UIViewController {
     @IBOutlet var textField: UITextField!
     @IBOutlet var confirmTextField: UITextField!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.textField.becomeFirstResponder()
+    }
+    
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }

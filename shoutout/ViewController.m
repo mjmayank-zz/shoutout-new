@@ -176,6 +176,7 @@
     [super viewDidAppear:animated];
     [self checkNumberOfNewMessages];
     [self checkToBlockMap];
+    // Check if the NUX has been shown yet
 }
 
 - (void)dealloc {
@@ -493,7 +494,7 @@
 }
 
 - (void)promptForCheckinPermission{
-    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [PFUser currentUser][@"visible"]){
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[NSUserDefaults standardUserDefaults] boolForKey:@"hasCheckinPermissions"] && [[PFUser currentUser][@"visible"] boolValue]){
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Leave this service enabled until the next time you open the app?", @"" ) message:NSLocalizedString(@"Shoutout shares your location on the map for other users to see." , @"" ) preferredStyle:UIAlertControllerStyleAlert];
     
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Yes", @"" ) style:UIAlertActionStyleDefault handler:nil];
@@ -529,14 +530,6 @@
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
-}
-
-- (void)allowMapLoad{
-    [self.loadButton setHidden:NO];
-}
-
-- (void)disallowMapLoad{
-    [self.loadButton setHidden:YES];
 }
 
 - (void)updateMapWithLocation:(CLLocationCoordinate2D)location{
@@ -610,7 +603,7 @@
     
     [self.mapViewDelegate.tree insertObject:annotation];
     
-    if(obj[@"visible"]){
+    if([obj[@"visible"] boolValue]){
         if ([self.profileImageCache objectForKey:[obj objectId]]) {
             UIImage *image = [self.profileImageCache objectForKey:[obj objectId]];
             annotation.profileImage = image;
@@ -832,11 +825,6 @@
     [self centerMapToUserLocation];
 }
 
-- (IBAction)loadMapPressed:(id)sender {
-    [self updateMapWithLocation:self.mapView.centerCoordinate];
-    [self.loadButton setHidden:YES];
-}
-
 #pragma -mark Notification Events
 - (void)replyNotificationReceived:(NSNotification *)notification{
     NSDictionary * userInfo = notification.userInfo;
@@ -911,7 +899,7 @@
         }
         if(oldLocation == nil || [oldLocation distanceFromLocation:loc] > 10){
             if([PFUser currentUser]){
-                if(![PFUser currentUser][@"static"]){
+                if(![[PFUser currentUser][@"static"] boolValue]){
                     if(![self.markerDictionary objectForKey:[[PFUser currentUser] objectId]]){
                         [[PFUser currentUser][@"statusObj"] fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
                             [self addUserToAnnotationDictionary:object];

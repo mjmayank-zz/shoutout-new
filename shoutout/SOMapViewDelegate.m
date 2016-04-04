@@ -33,6 +33,7 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
 //    [self.delegate allowMapLoad];
     [self.clusteringController refresh:YES];
+    NSLog(@"zoom level: %f", self.mapView.zoomLevel);
 }
 
 - (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated{

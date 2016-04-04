@@ -158,7 +158,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let from = self.results[indexPath.row].object;
             
-            if let visible = from.objectForKey("visible") as? Bool{
+            if let visible = from.objectForKey("visible")?.boolValue{
                 if(visible){
                     let loc = from.objectForKey("geo") as! PFGeoPoint;
                     self.delegate?.mapView.setCenterCoordinate(CLLocationCoordinate2DMake(loc.latitude, loc.longitude), animated: true);

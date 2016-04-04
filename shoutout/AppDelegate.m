@@ -96,7 +96,7 @@
     [[LocationManager sharedLocationManager] enterBackgroundMode];
     
     if([PFUser currentUser]) {
-        if(![PFUser currentUser][@"visible"] || [PFUser currentUser][@"static"]){
+        if(![[PFUser currentUser][@"visible"] boolValue] || [[PFUser currentUser][@"static"] boolValue]){
             [[LocationManager sharedLocationManager] stopLocationUpdates];
         }
     }
@@ -114,7 +114,7 @@
     [[LocationManager sharedLocationManager] enterForegroundMode];
     
     if ([PFUser currentUser]) {
-        if(![PFUser currentUser][@"visible"] || [PFUser currentUser][@"static"]){
+        if(![[PFUser currentUser][@"visible"] boolValue] || [[PFUser currentUser][@"static"] boolValue]){
             [[LocationManager sharedLocationManager] stopLocationUpdates];
         }
     }

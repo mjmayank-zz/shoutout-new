@@ -33,6 +33,7 @@
 		8F4B03851C913C200015628B /* nux4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4B03841C913C200015628B /* nux4.png */; };
 		8F571E031CB04DBC00DA8432 /* NUX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F571E021CB04DBC00DA8432 /* NUX.storyboard */; };
 		8F571E051CB0618000DA8432 /* SOFinishProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */; };
+		8F571E071CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F571E061CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift */; };
 		8F68AF7A1C9A18FF0043017F /* listBlockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF781C9A18FF0043017F /* listBlockButton.png */; };
 		8F68AF7B1C9A18FF0043017F /* listLocateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F68AF791C9A18FF0043017F /* listLocateButton.png */; };
 		8F6D5F801CAC3D050080E546 /* MBXMapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D5F751CAC3D050080E546 /* MBXMapKit.m */; };
@@ -199,6 +200,7 @@
 		8F4B03841C913C200015628B /* nux4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux4.png; sourceTree = "<group>"; };
 		8F571E021CB04DBC00DA8432 /* NUX.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NUX.storyboard; sourceTree = "<group>"; };
 		8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFinishProfileViewController.swift; sourceTree = "<group>"; };
+		8F571E061CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOConfirmPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		8F68AF781C9A18FF0043017F /* listBlockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listBlockButton.png; sourceTree = "<group>"; };
 		8F68AF791C9A18FF0043017F /* listLocateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listLocateButton.png; sourceTree = "<group>"; };
 		8F6D5F731CAC3D050080E546 /* MBXConstantsAndTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBXConstantsAndTypes.h; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				8F728E561BB0B32700ACC973 /* SOInboxViewController.swift */,
 				8F3DA50B1BB30E5600338279 /* SOSettingsViewController.swift */,
 				8F283BF11C9D026D0046DFA6 /* SOTextLoginViewController.swift */,
+				8F571E061CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift */,
 				8F8D47991B97809A00D902B9 /* LocationManager.h */,
 				8F8D479A1B97809A00D902B9 /* LocationManager.m */,
 				8F8D47AD1B98B6CD00D902B9 /* SOAnnotation.h */,
@@ -1022,6 +1025,7 @@
 				8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */,
 				8FA76FD61BD6D02D00979C3A /* NSArray+KP.m in Sources */,
 				8F6D5F841CAC3D050080E546 /* MBXRasterTileOverlay.m in Sources */,
+				8F571E071CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift in Sources */,
 				8F0BBC6D1BA1E56C00F9851B /* SOTutorialPermissionsViewController.swift in Sources */,
 				8FFF9A841C55BD880058BE67 /* UIImage+ColorMask.m in Sources */,
 				04AFD1AF1C8FA1F60073E66C /* SOBackendUtils.swift in Sources */,

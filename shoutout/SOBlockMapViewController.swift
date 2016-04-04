@@ -25,4 +25,9 @@ class SOBlockMapViewController: UIViewController{
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    @IBAction func enableVisibilityButtonPressed(sender: AnyObject) {
+        PFUser.currentUser()?.setObject(NSNumber(bool: true), forKey: "visible")
+        PFUser.currentUser()?.saveInBackground()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

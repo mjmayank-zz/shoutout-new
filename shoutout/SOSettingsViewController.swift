@@ -28,7 +28,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var sendFeedbackButton: UIButton!
     
     var open = false;
-    var oldVC: UIViewController!
+    weak var delegate: ViewController!
     let colorPickerDelegate = SOSettingsColorPickerDelegate()
     let avatarPickerDelegate = SOSettingsAvatarPickerDelegate()
     
@@ -164,7 +164,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             PFUser.currentUser()?.saveInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
                 PFUser.logOut();
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
-                self.oldVC.navigationController?.setViewControllers([newVC!], animated: false)
+                self.delegate.navigationController?.setViewControllers([newVC!], animated: false)
                 self.dismissViewControllerAnimated(true, completion: nil)
             })
         }
@@ -405,7 +405,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
 
 class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    weak var delegate: SOSettingsViewController!
+    weak var delegate: SOSettingsViewController?
     var avatars = [PFObject]()
     let imageCache = NSCache()
     
@@ -415,12 +415,12 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
             if let object = object{
                 let array = object.objectForKey("images") as! [PFObject];
                 self.avatars = array
-                self.delegate.avatarPickerCollectionView.reloadData()
+                self.delegate?.avatarPickerCollectionView.reloadData()
                 
                 for i in 0...self.avatars.count-1{
                     if let image = PFUser.currentUser()?.objectForKey("profileImage") as? PFObject{
                         if(image.objectId == self.avatars[i].objectId){
-                            self.delegate.avatarPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
+                            self.delegate?.avatarPickerCollectionView.selectItemAtIndexPath(NSIndexPath(forRow: i, inSection: 0), animated: false, scrollPosition: .None)
                         }
                     }
                 }
@@ -480,7 +480,7 @@ class SOSettingsAvatarPickerDelegate: NSObject, UICollectionViewDelegate, UIColl
             return true;
         }
         else{
-            self.delegate.displayPrompt()
+            self.delegate?.displayPrompt()
             return false;
         }
     }

@@ -40,7 +40,6 @@
 
 @property (strong, nonatomic) SOComposeStatusViewController *composeStatusVC;
 @property (strong, nonatomic) NSCache *profileImageCache;
-@property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
 
 @property (strong, nonatomic) MBXRasterTileOverlay *overlay;
@@ -89,7 +88,7 @@
     self.inboxVC.delegate = self;
     // Create the settings view
     self.settingsVC = [storyboard instantiateViewControllerWithIdentifier:@"soSettingsView"];
-    self.settingsVC.oldVC = self;
+    self.settingsVC.delegate = self;
     
     // initialize the map view
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -165,6 +164,11 @@
         }
         [self checkLocationPermission];
 //        [self promptForCheckinPermission];
+        if([[PFUser currentUser] objectForKey:@"phoneNumber"] == nil || [[[PFUser currentUser] objectForKey:@"phoneNumber"] length] == 0){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"confirmPhoneVC"];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
     }
 }
 
@@ -274,6 +278,7 @@
     [settingsPopover didMoveToParentViewController:self];
     self.settingsContainer = settingsPopover.view;
     [settingsPopover updateChildController:self.settingsVC];
+    self.settingsVC.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.settingsContainer];
     settingsPopover.popoverTitle.text = @"Settings";
     
@@ -853,10 +858,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"openSettingsSegue"]) {
-        ((SOSettingsViewController*)segue.destinationViewController).oldVC = self;
-    }
-    else if([segue.identifier isEqualToString:@"composeStatusView"]){
+    if([segue.identifier isEqualToString:@"composeStatusView"]){
         self.composeStatusVC = segue.destinationViewController;
         self.composeStatusVC.delegate = self;
     }

@@ -174,7 +174,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self checkNumberOfNewMessages];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+    if(shownNUX){
+        [self checkNumberOfNewMessages];
+    }
     [self checkToBlockMap];
     // Check if the NUX has been shown yet
 }
@@ -249,6 +253,8 @@
     self.composeButton.enabled = YES;
     self.settingsButton.enabled = YES;
     self.locateButton.enabled = YES;
+    
+    [self checkNumberOfNewMessages];
 }
 
 - (void)setupPopovers {
@@ -450,8 +456,12 @@
 }
 
 - (void)checkToBlockMap{
-    if(![[PFUser currentUser][@"visible"] boolValue] || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)){
-        [self performSegueWithIdentifier:@"blockMapSegue" sender:self];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    BOOL shownNUX = [defaults boolForKey:kUserDefaultShownNUXKey];
+    if(shownNUX){
+        if(![[PFUser currentUser][@"visible"] boolValue] || ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedAlways)){
+            [self performSegueWithIdentifier:@"blockMapSegue" sender:self];
+        }
     }
 }
 

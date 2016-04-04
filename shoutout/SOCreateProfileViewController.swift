@@ -128,7 +128,7 @@ class SOCreateProfileViewController : UIViewController, UITextFieldDelegate, UII
                     self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
-        let randomAction = UIAlertAction(title: "New random", style: .Default) { (action:UIAlertAction) -> Void in
+        let randomAction = UIAlertAction(title: "New random avatar", style: .Default) { (action:UIAlertAction) -> Void in
             self.loadRandomDefaultImage()
         }
 

@@ -24,11 +24,13 @@ class SOFinishProfileViewController : UIViewController, UITextFieldDelegate, UII
         
         self.loadRandomDefaultImage();
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
+        self.usernameTextField.becomeFirstResponder();
         
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
-        self.view .addGestureRecognizer(tap);
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil);
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil);
+        
+//        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard");
+//        self.view .addGestureRecognizer(tap);
         
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -117,7 +119,7 @@ class SOFinishProfileViewController : UIViewController, UITextFieldDelegate, UII
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
-        let randomAction = UIAlertAction(title: "New random", style: .Default) { (action:UIAlertAction) -> Void in
+        let randomAction = UIAlertAction(title: "New random avatar", style: .Default) { (action:UIAlertAction) -> Void in
             self.loadRandomDefaultImage()
         }
         

@@ -28,7 +28,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
     @IBOutlet var sendFeedbackButton: UIButton!
     
     var open = false;
-    weak var delegate: ViewController!
+    weak var delegate: ViewController?
     let colorPickerDelegate = SOSettingsColorPickerDelegate()
     let avatarPickerDelegate = SOSettingsAvatarPickerDelegate()
     
@@ -164,7 +164,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             PFUser.currentUser()?.saveInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
                 PFUser.logOut();
                 let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SONUXVC")
-                self.delegate.navigationController?.setViewControllers([newVC!], animated: false)
+                self.delegate?.navigationController?.setViewControllers([newVC!], animated: false)
                 self.dismissViewControllerAnimated(true, completion: nil)
             })
         }
@@ -266,7 +266,7 @@ class SOSettingsViewController : UIViewController, UIImagePickerControllerDelega
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
         
-        let randomAction = UIAlertAction(title: "New random", style: .Default) { (action:UIAlertAction) -> Void in
+        let randomAction = UIAlertAction(title: "New random avatar", style: .Default) { (action:UIAlertAction) -> Void in
             self.loadRandomDefaultImage()
         }
         
@@ -384,7 +384,7 @@ class SOSettingsColorPickerDelegate: NSObject, UICollectionViewDelegate, UIColle
             return true;
         }
         else{
-            self.delegate.displayPrompt()
+            self.delegate?.displayPrompt()
             return false;
         }
     }

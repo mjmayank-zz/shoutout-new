@@ -45,6 +45,7 @@
 @property (strong, nonatomic) NSMutableDictionary * markerDictionary;
 
 @property (strong, nonatomic) CLLocation * previousLocation;
+@property (strong, nonatomic) CLLocation * lastLoadedLocation;
 
 @property (strong, nonatomic) SOFirebaseDelegate* firebaseDelegate;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *centerMarkYConstraint;
@@ -58,6 +59,7 @@
 - (void)closeAllPopovers;
 
 - (void)completeNUX;
+- (void)updateMapWithLocation:(CLLocationCoordinate2D)location;
 
 @end
 

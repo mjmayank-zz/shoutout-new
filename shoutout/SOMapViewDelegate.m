@@ -10,6 +10,10 @@
 #import "ViewController.h"
 #import "Shoutout-Swift.h"
 
+@interface SOMapViewDelegate ()
+@property (strong, nonatomic) CLLocation * screenCenter;
+@end
+
 @implementation SOMapViewDelegate
 
 -(instancetype)initWithMapView:(MKMapView *)mapView{
@@ -33,6 +37,18 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
 //    [self.delegate allowMapLoad];
     [self.clusteringController refresh:YES];
+    if (mapView.zoomLevel > 5 && self.screenCenter != nil && self.delegate.lastLoadedLocation != nil && [self shouldLoadNewPins]) {
+        [self.delegate updateMapWithLocation:self.screenCenter.coordinate];
+    }
+}
+
+- (BOOL)shouldLoadNewPins {
+    CLLocationDistance distance = [self.screenCenter distanceFromLocation:self.delegate.lastLoadedLocation];
+    return distance / 1000. > 50;
+}
+
+- (CLLocation*)coordinateToLocObject:(CLLocationCoordinate2D)coords {
+    return [[CLLocation alloc] initWithLatitude:coords.latitude longitude:coords.longitude];
 }
 
 - (void)mapView:(MKMapView *)mapView regionIsChanging:(BOOL)animated{
@@ -48,19 +64,20 @@
         [self.listViewVC updateAnnotationArray:annotationArray];
     }
     
+    CLLocationCoordinate2D coordinate = mapView.centerCoordinate;
+    self.screenCenter = [self coordinateToLocObject:coordinate];
+    
     if([annotationArray count] > 0){
-        CLLocationCoordinate2D coordinate = mapView.centerCoordinate;
         
         if(self.listViewVC.open){
             CGPoint point = CGPointMake(self.mapView.bounds.size.width/2.0, self.mapView.bounds.size.height/2.0);
             coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+            self.screenCenter = [self coordinateToLocObject:coordinate];
         }
-        
-        CLLocation * screenCenter = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
         
         if (self.mapIsClustered) {
             /* Looping through array of annotations currently on screen */
-            KPAnnotation *toShow = [self findClosestAnnotationToPoint:screenCenter inArray:annotationArray];
+            KPAnnotation *toShow = [self findClosestAnnotationToPoint:annotationArray];
             
             if (toShow) {
                 [mapView selectAnnotation:toShow animated:YES];
@@ -68,7 +85,7 @@
         }
         else{
             /* Using Quadtree */
-            SOAnnotation *test = [self.tree neighboursForLocation:screenCenter.coordinate limitCount:1][0];
+            SOAnnotation *test = [self.tree neighboursForLocation:coordinate limitCount:1][0];
             KPAnnotation *toShow = [self.clusteringController getClusterForAnnotation:test];
             if(![toShow isCluster]){
                 [mapView selectAnnotation:toShow animated:YES];
@@ -77,7 +94,7 @@
     }
 }
 
-- (KPAnnotation *)findClosestAnnotationToPoint:(CLLocation *)screenCenter inArray:(NSArray *)annotationArray{
+- (KPAnnotation *)findClosestAnnotationToPoint: (NSArray *)annotationArray{
     KPAnnotation * toShow;
     
     CLLocationDistance minDistance = DBL_MAX;
@@ -86,8 +103,8 @@
         KPAnnotation * annotation = annotationArray[i];
         if(![annotation isCluster]){
             CLLocation * loc = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
-            
-            CLLocationDistance distance = [screenCenter distanceFromLocation:loc];
+
+            CLLocationDistance distance = [self.screenCenter distanceFromLocation:loc];
             
             if(distance <= minDistance){
                 minDistance = distance;

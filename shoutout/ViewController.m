@@ -531,16 +531,9 @@
     }
 }
 
-- (void)allowMapLoad{
-    [self.loadButton setHidden:NO];
-}
-
-- (void)disallowMapLoad{
-    [self.loadButton setHidden:YES];
-}
-
 - (void)updateMapWithLocation:(CLLocationCoordinate2D)location{
-    // Construct quer
+    // Construct query
+    _lastLoadedLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
     [PFCloud callFunctionInBackground:@"queryUsers"
                        withParameters:@{@"lat": [NSNumber numberWithDouble:location.latitude],
                                         @"long": [NSNumber numberWithDouble:location.longitude],
@@ -834,7 +827,6 @@
 
 - (IBAction)loadMapPressed:(id)sender {
     [self updateMapWithLocation:self.mapView.centerCoordinate];
-    [self.loadButton setHidden:YES];
 }
 
 #pragma -mark Notification Events

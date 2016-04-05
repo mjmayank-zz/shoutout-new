@@ -12,6 +12,7 @@
 @interface ShoutRMMarker ()
 
 @property (nonatomic, strong) SOMarkerSubView *subview;
+//@property (nonatomic, strong) Business
 @property (nonatomic, assign) double scale;
 
 @end
@@ -32,10 +33,12 @@
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
         self.subview = [[[NSBundle mainBundle] loadNibNamed:@"SOPinView" owner:self options:nil] firstObject];
-
+        self.frame = self.subview.frame;
+        [self addSubview:self.subview];
+        
         SOAnnotation *soannotation = ((SOAnnotation *)self.annotation);
         if(soannotation.isStatic){
-            if(soannotation.userInfo[@"pinType"] && [soannotation.userInfo[@"pinType"] isEqual: @"bar"]){
+            if(soannotation.userInfo[@"pinType"]){
                 [self setupBusinessView:soannotation];
             }
             [self setPinColor:[UIColor colorWithCSS:@"00A79D"]];
@@ -54,7 +57,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapDidScale:) name:
          @"mapDidScale" object:nil];
         
-        self.frame = self.subview.frame;
         [self resetCenterOffset];
     }
     return self;
@@ -73,18 +75,20 @@
 
 - (void)setupBusinessView:(SOAnnotation *)soannotation{
     self.businessSubVC = [[SOPinBusinessViewController alloc] initWithNibName:@"SOPinBusinessViewController" bundle:[NSBundle mainBundle]];
+    self.businessSubVC.annotation = self.annotation;
     self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
     self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
-    self.businessSubVC.view.frame = CGRectMake(2, -self.businessSubVC.view.frame.size.height+17, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
-    [self.subview.bubbleContainerView insertSubview:self.businessSubVC.view atIndex:99];
+    self.businessSubVC.view.frame = CGRectMake(2, 0, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.businessSubVC.view.frame.size.height-17 + self.frame.size.height);
+    self.subview.frame = CGRectMake(0, self.businessSubVC.view.frame.size.height-17, self.subview.frame.size.width, self.subview.frame.size.height);
+    [self insertSubview:self.businessSubVC.view atIndex:99];
+//    [self.subview setNeedsDisplay];
+//    [self setNeedsDisplay];
 }
 
 - (void)setPinColor:(UIColor *)color{
     UIImage *image = [UIImage imageNamed:@"pinWithShadowGrayscale.png" withColor:color];
-    UIImageView *iview = [[UIImageView alloc] initWithImage:image];
-    iview.frame = self.subview.pinView.frame;
-    [self.subview insertSubview:iview aboveSubview:self.subview.pinView];
-    [self addSubview:self.subview];
+    self.subview.pinView.image = image;
 }
 
 - (void)toggleShout{
@@ -154,15 +158,27 @@
     } completion:^(BOOL finished){
     }];
     
+    if(self.businessSubVC){
+        [self.businessSubVC.view setHidden:NO];
+        self.businessSubVC.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
+        self.businessSubVC.view.layer.opacity = 0;
+    }
     [self.subview.bubbleContainerView setHidden:NO];
     self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
     self.subview.bubbleContainerView.layer.opacity = 0;
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.subview.bubbleContainerView.layer.opacity = 1;
         self.subview.bubbleContainerView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        if(self.businessSubVC){
+            self.businessSubVC.view.layer.opacity = 1;
+            self.businessSubVC.view.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        }
     } completion:^(BOOL finished){
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.subview.bubbleContainerView.transform = CGAffineTransformIdentity;
+            if(self.businessSubVC){
+                self.businessSubVC.view.transform = CGAffineTransformIdentity;
+            }
         } completion:^(BOOL finished){
             // if you want to do something once the animation finishes, put it here
         }];
@@ -170,6 +186,9 @@
 }
 
 - (void)hideShout{
+    if(self.businessSubVC){
+        [self.businessSubVC.view setHidden:YES];
+    }
     [self.subview.bubbleContainerView setHidden:YES];
     [self.subview.messageOverlayView setHidden:YES];
     [UIView animateWithDuration:0.1 animations:^{

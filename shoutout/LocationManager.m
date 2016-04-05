@@ -47,6 +47,11 @@ static LocationManager *sharedLocationManager = nil;
         if([manager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]){
             [manager setAllowsBackgroundLocationUpdates:YES];
         }
+        if([PFUser currentUser] && [PFUser currentUser][@"geo"]){
+            PFGeoPoint *point = [PFUser currentUser][@"geo"];
+            CLLocation *loc = [[CLLocation alloc] initWithLatitude:point.latitude longitude:point.longitude];
+            _lastLocation = loc;
+        }
     }
     return self;
 }

@@ -42,7 +42,7 @@
         [LocationManager initLocationManager];
         [self startLocationManager];
     }
-    [PFUser logOut];
+
     NSString *storyboardId;
     if([PFUser currentUser] && [[PFUser currentUser] objectForKey:@"visible"] == nil){
         storyboardId = @"finishCreateProfile";

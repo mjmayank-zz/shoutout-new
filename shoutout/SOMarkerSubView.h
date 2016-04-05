@@ -22,6 +22,5 @@
 @property (strong, nonatomic) IBOutlet UIImageView *pinView;
 @property (strong, nonatomic) IBOutlet UIView *messageOverlayView;
 @property (strong, nonatomic) IBOutlet UILabel *viewCountLabel;
-@property (strong, nonatomic) IBOutlet UIView *centerOffsetMarker;
 
 @end

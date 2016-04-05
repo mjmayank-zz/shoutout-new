@@ -14,7 +14,10 @@ class SOPinBusinessViewController: UIViewController {
     @IBOutlet var capacityBackgroundView: UIView!
     @IBOutlet var graphView: UIView!
     @IBOutlet var headerBackgroundView: UIView!
+    @IBOutlet var rightModuleLabel: UILabel!
+    @IBOutlet var safariButton: UIButton!
     
+    var annotation : SOAnnotation!
     var latitude : NSNumber!
     var longitude : NSNumber!
     var pieChart : PNFilledPieChart!
@@ -34,19 +37,33 @@ class SOPinBusinessViewController: UIViewController {
         self.capacityBackgroundView.layer.cornerRadius = self.graphView.frame.size.height/2;
         self.capacityBackgroundView.clipsToBounds = true;
         
-        //For Pie Chart
-        let items = [PNPieChartDataItem(value: 10, color:blueColor), PNPieChartDataItem(value: 20, color:pinkColor)]
-        
-        pieChart = PNFilledPieChart(frame: CGRectMake(self.graphView.frame.origin.x, self.graphView.frame.origin.y, self.graphView.frame.size.width, self.graphView.frame.size.height), items: items);
-        
-        pieChart.descriptionTextColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
-        pieChart.descriptionTextFont  = UIFont(name: "Avenir-Medium", size: 10.0);
-        pieChart.strokeChart();
-        
-        self.view.addSubview(pieChart);
+        if let type = annotation.object["pinType"] as? String{
+            if type == "bar"{
+                //For Pie Chart
+                let items = [PNPieChartDataItem(value: 10, color:blueColor), PNPieChartDataItem(value: 20, color:pinkColor)]
+                
+                pieChart = PNFilledPieChart(frame: CGRectMake(self.graphView.frame.origin.x, self.graphView.frame.origin.y, self.graphView.frame.size.width, self.graphView.frame.size.height), items: items);
+                
+                pieChart.descriptionTextColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
+                pieChart.descriptionTextFont  = UIFont(name: "Avenir-Medium", size: 10.0);
+                pieChart.strokeChart();
+                
+                self.view.addSubview(pieChart);
+            }
+            else if type == "restaurant"{
+                self.rightModuleLabel.text = "Website"
+                self.safariButton.hidden = false
+            }
+        }
         
         self.refreshData()
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func safariButtonPressed(sender: AnyObject) {
+        if let URL = annotation.object["staticPinURL"] as? String{
+            UIApplication.sharedApplication().openURL(NSURL(string: URL)!)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +73,11 @@ class SOPinBusinessViewController: UIViewController {
     
     func refreshData(){
         self.setCrowdLevel();
-        self.setRatio();
+        if let type = annotation.object["pinType"] as? String{
+            if type == "bar"{
+                self.setRatio();
+            }
+        }
     }
     
     func setCrowdLevel(){
@@ -100,6 +121,16 @@ class SOPinBusinessViewController: UIViewController {
         }
     }
     
+    @IBAction func checkInButtonPressed(sender: AnyObject) {
+        let locationManager = LocationManager.sharedLocationManager()
+        let pinLocation = CLLocation(latitude: self.latitude.doubleValue, longitude: self.longitude.doubleValue)
+        if(locationManager.lastLocation.distanceFromLocation(pinLocation) < 20.0){
+            
+        }
+        else{
+            return UIAlertView(title: "Can't check in", message: "You must be closer to this location to check in here", delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment:"alertOK")).show()
+        }
+    }
 
     /*
     // MARK: - Navigation

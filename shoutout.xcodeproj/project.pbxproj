@@ -31,6 +31,7 @@
 		8F4B037F1C8C83DC0015628B /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */; };
 		8F4B03811C8EA2FF0015628B /* SOInviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */; };
 		8F4B03851C913C200015628B /* nux4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4B03841C913C200015628B /* nux4.png */; };
+		8F569F121CB43B230079F7BB /* safariButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F569F111CB43B230079F7BB /* safariButton.png */; };
 		8F571E031CB04DBC00DA8432 /* NUX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F571E021CB04DBC00DA8432 /* NUX.storyboard */; };
 		8F571E051CB0618000DA8432 /* SOFinishProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */; };
 		8F571E071CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F571E061CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift */; };
@@ -198,6 +199,7 @@
 		8F4B037E1C8C83DC0015628B /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		8F4B03801C8EA2FF0015628B /* SOInviteFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOInviteFriendsViewController.swift; sourceTree = "<group>"; };
 		8F4B03841C913C200015628B /* nux4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nux4.png; sourceTree = "<group>"; };
+		8F569F111CB43B230079F7BB /* safariButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safariButton.png; sourceTree = "<group>"; };
 		8F571E021CB04DBC00DA8432 /* NUX.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NUX.storyboard; sourceTree = "<group>"; };
 		8F571E041CB0618000DA8432 /* SOFinishProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOFinishProfileViewController.swift; sourceTree = "<group>"; };
 		8F571E061CB1D86600DA8432 /* SOConfirmPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOConfirmPhoneNumberViewController.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 		8FA770011BD70C5C00979C3A /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				8F569F111CB43B230079F7BB /* safariButton.png */,
 				8F68AF781C9A18FF0043017F /* listBlockButton.png */,
 				8F68AF791C9A18FF0043017F /* listLocateButton.png */,
 				8FA770961BD7117D00979C3A /* cameraButton@2x.png */,
@@ -828,6 +831,7 @@
 				8F571E031CB04DBC00DA8432 /* NUX.storyboard in Resources */,
 				8FA770541BD70C5C00979C3A /* shoutoutGrayLogo.png in Resources */,
 				8FA76FE91BD6D19A00979C3A /* Titillium-BoldItalic.otf in Resources */,
+				8F569F121CB43B230079F7BB /* safariButton.png in Resources */,
 				8FA76FF61BD6D19A00979C3A /* Titillium-ThinUpright.otf in Resources */,
 				8FFF9A8A1C56D2410058BE67 /* pinWithShadowBlack@2x.png in Resources */,
 				8FA7705E1BD70C5C00979C3A /* shout@3x-09.png in Resources */,

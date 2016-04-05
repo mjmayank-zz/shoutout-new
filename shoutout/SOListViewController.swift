@@ -46,7 +46,13 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             return false
             }, title: "Places")
-        self.filters = [allFilter, friendFilter, placeFilter]
+        let peopleFilter = SOMapFilter(filter: { (annotation:SOAnnotation) -> Bool in
+            if(!annotation.isStatic){
+                return true
+            }
+            return false
+            }, title: "People")
+        self.filters = [allFilter, friendFilter, placeFilter, peopleFilter]
         self.selectedFilter = allFilter
         queryFriends()
 //        self.filterCollectionView.selectItemAtIndexPath(NSIndexPath(index: 0), animated: false, scrollPosition: .None)
@@ -89,6 +95,7 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell?.backgroundColor = UIColor.whiteColor()
         self.selectedFilter = self.filters[indexPath.row]
         results = data.filter(selectedFilter.filterFunc)
+        countLabel.text = String(format: "%d people on screen", results.count)
         self.delegate?.filter = self.selectedFilter
         self.delegate?.filterAnnotations()
         self.tableView.reloadData()
@@ -111,6 +118,13 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.bodyLabel.text = annotation.subtitle;
         cell.usernameLabel.text = annotation.title;
+        
+        if let date = annotation.userInfo["updatedAt"] as? NSDate{
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMM dd hh:mm a"
+            let dateString = dateFormatter.stringFromDate(date)
+            cell.dateLabel.text = dateString;
+        }
         
         cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.height/2.0;
         cell.profileImage.layer.masksToBounds = true;
@@ -217,7 +231,15 @@ class SOListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         data = pins;
         results = data.filter(self.selectedFilter.filterFunc);
-        countLabel.text = String(format: "%d people on screen", data.count)
+        results.sortInPlace { (first:SOAnnotation, second:SOAnnotation) -> Bool in
+            if let firstDate = first.userInfo["updatedAt"] as? NSDate{
+                if let secondDate = second.userInfo["updatedAt"] as? NSDate{
+                    return firstDate.compare(secondDate) == .OrderedDescending
+                }
+            }
+            return true;
+        }
+        countLabel.text = String(format: "%d people on screen", results.count)
         tableView.reloadData();
     }
 }

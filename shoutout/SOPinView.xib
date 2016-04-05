@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Titillium-Bold.otf">
@@ -20,11 +20,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SOMarkerSubView">
-            <rect key="frame" x="0.0" y="0.0" width="310" height="218"/>
+            <rect key="frame" x="0.0" y="0.0" width="271" height="218"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-nt-4Xr">
-                    <rect key="frame" x="19" y="0.0" width="271" height="164"/>
+                <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-nt-4Xr">
+                    <rect key="frame" x="0.0" y="0.0" width="271" height="164"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shoutBubbleUp.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbN-jG-fi9">
                             <rect key="frame" x="1" y="1" width="241" height="171"/>
@@ -83,13 +83,13 @@
                     </subviews>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pinWithShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hk5-qL-H5q">
-                    <rect key="frame" x="115" y="121" width="82" height="97"/>
+                    <rect key="frame" x="96" y="121" width="82" height="97"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DPO-dF-onS" userLabel="Profile Image">
-                    <rect key="frame" x="118" y="125" width="75" height="75"/>
+                    <rect key="frame" x="99" y="125" width="75" height="75"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-ta-ADP">
-                    <rect key="frame" x="117" y="196" width="8" height="8"/>
+                    <rect key="frame" x="98" y="196" width="8" height="8"/>
                     <color key="backgroundColor" red="0.80000001192092896" green="1" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
@@ -107,7 +107,7 @@
                 <outlet property="usernameLabel" destination="9Uk-jX-qOm" id="XcC-Yg-bSS"/>
                 <outlet property="viewCountLabel" destination="mso-Fe-2C5" id="OOU-Ll-EMl"/>
             </connections>
-            <point key="canvasLocation" x="205" y="39"/>
+            <point key="canvasLocation" x="204.5" y="39"/>
         </view>
     </objects>
     <resources>

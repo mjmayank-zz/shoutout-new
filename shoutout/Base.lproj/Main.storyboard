@@ -137,6 +137,15 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar 03 12:12 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUb-zQ-5B9">
+                                                    <rect key="frame" x="490" y="48" width="90" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="UOO-aB-p0a"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -144,6 +153,7 @@
                                                 <constraint firstItem="sFH-y6-kL3" firstAttribute="bottom" secondItem="tsX-Cr-FSd" secondAttribute="bottom" constant="-4" id="Evo-vM-xsv"/>
                                                 <constraint firstItem="tsX-Cr-FSd" firstAttribute="leading" secondItem="3kF-je-h2c" secondAttribute="leadingMargin" constant="47" id="Ezr-xV-7EU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="QdP-0L-KjD" secondAttribute="trailing" constant="36" id="GE0-L7-jbP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JUb-zQ-5B9" secondAttribute="trailing" constant="12" id="K4s-Nw-vYP"/>
                                                 <constraint firstItem="lvC-3w-IVU" firstAttribute="centerY" secondItem="3kF-je-h2c" secondAttribute="centerY" constant="2" id="OmE-Tc-5yk"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="tsX-Cr-FSd" secondAttribute="trailing" id="SE8-S4-DOp"/>
                                                 <constraint firstItem="sFH-y6-kL3" firstAttribute="leading" secondItem="lvC-3w-IVU" secondAttribute="trailing" constant="20" id="aRi-nW-GOV"/>
@@ -155,6 +165,7 @@
                                                 <constraint firstItem="lvC-3w-IVU" firstAttribute="top" secondItem="3kF-je-h2c" secondAttribute="topMargin" constant="3" id="ogA-No-and"/>
                                                 <constraint firstItem="tsX-Cr-FSd" firstAttribute="centerY" secondItem="3kF-je-h2c" secondAttribute="centerY" constant="-0.5" id="pJS-fh-T0H"/>
                                                 <constraint firstItem="QdP-0L-KjD" firstAttribute="trailing" secondItem="tsX-Cr-FSd" secondAttribute="trailing" constant="-12" id="sUM-jm-dd7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JUb-zQ-5B9" secondAttribute="bottom" constant="1" id="vk1-AX-kXv"/>
                                                 <constraint firstItem="QdP-0L-KjD" firstAttribute="top" secondItem="tsX-Cr-FSd" secondAttribute="top" constant="4" id="xHa-q5-l16"/>
                                             </constraints>
                                             <variation key="default">
@@ -171,6 +182,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="bodyLabel" destination="QdP-0L-KjD" id="lTj-br-KOx"/>
+                                            <outlet property="dateLabel" destination="JUb-zQ-5B9" id="WUn-cq-EJ1"/>
                                             <outlet property="profileImage" destination="lvC-3w-IVU" id="leL-0j-Lcz"/>
                                             <outlet property="usernameLabel" destination="sFH-y6-kL3" id="YO1-Xf-vkE"/>
                                         </connections>
@@ -241,35 +253,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cju-FG-xk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="393" y="-1315"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="C2C-Xd-JVe">
-            <objects>
-                <viewController id="23N-qx-qsM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AU2-wT-THy"/>
-                        <viewControllerLayoutGuide type="bottom" id="rkF-Le-Www"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fWc-hG-k7T">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vus-iA-PRG">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Vus-iA-PRG" firstAttribute="top" secondItem="fWc-hG-k7T" secondAttribute="top" id="9wc-W6-LGC"/>
-                            <constraint firstItem="Vus-iA-PRG" firstAttribute="leading" secondItem="fWc-hG-k7T" secondAttribute="leading" id="c4W-VN-X8c"/>
-                            <constraint firstItem="rkF-Le-Www" firstAttribute="top" secondItem="Vus-iA-PRG" secondAttribute="bottom" id="fd7-lR-PrH"/>
-                            <constraint firstAttribute="trailing" secondItem="Vus-iA-PRG" secondAttribute="trailing" id="jex-QM-VE0"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A4v-Mp-f3O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-391" y="-578"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -2648,7 +2631,7 @@ or</string>
         <!--Web View Controller-->
         <scene sceneID="jwR-7T-X5B">
             <objects>
-                <viewController id="hjZ-xc-9vQ" customClass="SOWebViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webVC" id="hjZ-xc-9vQ" customClass="SOWebViewController" customModule="shoutout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5lq-FW-nuN"/>
                         <viewControllerLayoutGuide type="bottom" id="hMS-se-ypQ"/>

@@ -184,6 +184,17 @@
     if (userInfo[@"openToUserId"]){
         [[NSNotificationCenter defaultCenter] postNotificationName:@"centerMapOnUser" object:self userInfo:@{@"objectId":userInfo[@"openToUserId"]}];
     }
+    LocationManager *manager = [LocationManager sharedLocationManager];
+    if (userInfo[@"refreshLocation"] == YES && manager.locationStatus != SOLocationStatusOff){
+        if(manager.locationStatus == SOLocationStatusForeground){
+            [manager stopLocationUpdates];
+            [manager enterForegroundMode];
+        }
+        else{
+            [manager stopLocationUpdates];
+            [manager enterBackgroundMode];
+        }
+    }
     [PFPush handlePush:userInfo];
 }
 

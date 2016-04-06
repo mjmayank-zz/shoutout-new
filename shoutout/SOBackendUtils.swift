@@ -36,4 +36,59 @@ class SOBackendUtils : NSObject {
         }
         return true;
     }
+    
+    class func checkInUser(locationTitle:String){
+        PFCloud.callFunctionInBackground("findFriends", withParameters: ["user":(PFUser.currentUser()?.objectId)!]) { (response:AnyObject?, error:NSError?) -> Void in
+            if(error == nil){
+                var objects = [PFObject]()
+                let friends = response as! [String]
+                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    for friend in friends{
+                        let query = PFUser.query()
+                        do{
+                            let result = try query?.getObjectWithId(friend)
+                            objects.append(result!)
+                        } catch{
+                            print("error with objectID %s", friend)
+                        }
+                    }
+                    
+                    var friendsForPush = [PFObject]()
+                    let coordinate = LocationManager.sharedLocationManager().lastLocation
+                    
+                    for object in objects{
+                        if let geo = object["geo"] as? PFGeoPoint{
+                            if(CLLocation(latitude: geo.latitude, longitude: geo.longitude).distanceFromLocation(coordinate) < 50000){
+                                friendsForPush.append(object)
+                                let pushQuery = PFInstallation.query()
+                                pushQuery?.whereKey("user", equalTo: object)
+                                
+                                let username = PFUser.currentUser()!["displayName"] as! String
+                                
+                                let fullMessage = "Your friend, @" + username + ", just checked in to " + locationTitle
+                                
+                                let data = [
+                                    "alert":fullMessage,
+                                    "objectId":PFUser.currentUser()!.objectId!
+                                ] as [NSObject:AnyObject]
+                                
+                                let push = PFPush()
+                                push.setQuery(pushQuery)
+                                push.setData(data)
+                                push.sendPushInBackground()
+                            }
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // update some UI
+                    }
+                }
+            }
+            else{
+                print(error);
+            }
+        }
+    }
 }

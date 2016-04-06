@@ -60,6 +60,7 @@ static LocationManager *sharedLocationManager = nil;
 #pragma mark Location Methods
 
 -(void)enterBackgroundMode{
+    self.locationStatus = SOLocationStatusBackground;
     if([CLLocationManager locationServicesEnabled]){
         if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways && ![[PFUser currentUser][@"static"] boolValue] && [[PFUser currentUser][@"visible"] boolValue]){
             [manager stopUpdatingLocation];
@@ -73,6 +74,7 @@ static LocationManager *sharedLocationManager = nil;
 }
 
 -(void)enterForegroundMode{
+    self.locationStatus = SOLocationStatusForeground;
     if(![[PFUser currentUser][@"static"] boolValue]){
         [manager startUpdatingLocation];
         manager.distanceFilter = 10.0;
@@ -82,6 +84,7 @@ static LocationManager *sharedLocationManager = nil;
 }
 
 -(void)stopLocationUpdates {
+    self.locationStatus = SOLocationStatusOff;
     [manager stopUpdatingLocation];
     [manager stopMonitoringVisits];
     [manager stopMonitoringSignificantLocationChanges];

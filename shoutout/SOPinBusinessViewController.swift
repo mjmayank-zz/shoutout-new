@@ -124,11 +124,22 @@ class SOPinBusinessViewController: UIViewController {
     @IBAction func checkInButtonPressed(sender: AnyObject) {
         let locationManager = LocationManager.sharedLocationManager()
         let pinLocation = CLLocation(latitude: self.latitude.doubleValue, longitude: self.longitude.doubleValue)
-        if(locationManager.lastLocation.distanceFromLocation(pinLocation) < 20.0){
+        if(locationManager.lastLocation.distanceFromLocation(pinLocation) < 50.0){
             
+            let alertController = UIAlertController(title: "Checking in?", message: "We'll let your friends know that you're here!", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            let okayAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
+                SOBackendUtils.checkInUser(self.annotation.title);
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(okayAction);
+            
+            self.presentViewController(alertController, animated: true, completion: nil);
         }
         else{
-            return UIAlertView(title: "Can't check in", message: "You must be closer to this location to check in here", delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment:"alertOK")).show()
+            return UIAlertView(title: "Are you nearby?", message: "You might need to be closer to this location to check in here. Try turning on your wifi for better location accuracy", delegate: nil, cancelButtonTitle: NSLocalizedString("OK", comment:"alertOK")).show()
         }
     }
 

@@ -48,7 +48,7 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jWi-2q-onX">
                     <rect key="frame" x="142" y="75" width="57" height="57"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XnI-pm-NnG">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XnI-pm-NnG">
                             <rect key="frame" x="0.0" y="0.0" width="57" height="57"/>
                             <state key="normal" title="Button" image="safariButton.png"/>
                             <connections>

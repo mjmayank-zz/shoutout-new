@@ -75,7 +75,7 @@
 
 - (void)setupBusinessView:(SOAnnotation *)soannotation{
     self.businessSubVC = [[SOPinBusinessViewController alloc] initWithNibName:@"SOPinBusinessViewController" bundle:[NSBundle mainBundle]];
-    self.businessSubVC.annotation = self.annotation;
+    self.businessSubVC.annotation = (SOAnnotation *)self.annotation;
     self.businessSubVC.latitude =  [NSNumber numberWithDouble:soannotation.coordinate.latitude];
     self.businessSubVC.longitude = [NSNumber numberWithDouble:soannotation.coordinate.longitude];
     self.businessSubVC.view.frame = CGRectMake(2, 0, self.businessSubVC.view.frame.size.width, self.businessSubVC.view.frame.size.height);
@@ -159,6 +159,7 @@
     }];
     
     if(self.businessSubVC){
+        self.businessSubVC.annotation = (SOAnnotation *)annotation;
         [self.businessSubVC.view setHidden:NO];
         self.businessSubVC.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
         self.businessSubVC.view.layer.opacity = 0;

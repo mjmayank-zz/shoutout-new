@@ -13,8 +13,11 @@
 
 #define Notification_LocationUpdate @"LocationUpdate"
 
+typedef enum {SOLocationStatusBackground, SOLocationStatusOff, SOLocationStatusForeground} SOLocationStatus;
+
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 @property(nonatomic, strong, readonly) CLLocation *lastLocation;
+@property(nonatomic, assign) SOLocationStatus locationStatus;
 
 +(id)initLocationManager;
 
